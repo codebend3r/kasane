@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 101922,
+  "anilistMangaId": 87216,
+  "title": "Demon Slayer: Kimetsu no Yaiba",
+  "sourceNotes": "Initial seed — arc-level. Refine via PR.",
+  "mappings": [
+    { "episodes": [1, 5], "chapters": [1, 10], "arc": "Final Selection" },
+    { "episodes": [6, 10], "chapters": [11, 21], "arc": "Asakusa / Drum House" },
+    { "episodes": [11, 21], "chapters": [22, 53], "arc": "Mt. Natagumo" },
+    { "episodes": [22, 26], "chapters": [54, 70], "arc": "Functional Recovery" },
+    { "episodes": [27, 33], "chapters": [54, 69], "arc": "Mugen Train" },
+    { "episodes": [34, 44], "chapters": [70, 97], "arc": "Entertainment District" }
+  ]
+}
