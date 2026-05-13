@@ -10,13 +10,15 @@ import {
 } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
-import { getMedia } from '../../src/api/anilist';
+import { getMedia } from '../../../src/api/anilist';
 import {
+  buildSyntheticMapping,
   chapterToEpisodes,
   episodeToChapters,
   findMappingByMediaId,
-} from '../../src/data';
-import { EpisodeChapterRail } from '../../src/components/EpisodeChapterRail';
+} from '../../../src/data';
+import { EpisodeChapterRail } from '../../../src/components/EpisodeChapterRail';
+import { FONT } from '../../../src/theme';
 
 export default function SeriesDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -28,7 +30,13 @@ export default function SeriesDetail() {
     enabled: !Number.isNaN(mediaId),
   });
 
-  const mapping = useMemo(() => findMappingByMediaId(mediaId), [mediaId]);
+  const curatedMapping = useMemo(() => findMappingByMediaId(mediaId), [mediaId]);
+  const syntheticMapping = useMemo(
+    () => (media && !curatedMapping ? buildSyntheticMapping(media) : null),
+    [media, curatedMapping]
+  );
+  const mapping = curatedMapping ?? syntheticMapping;
+  const isAutoEstimated = !curatedMapping && !!syntheticMapping;
 
   if (isLoading) {
     return (
@@ -72,15 +80,28 @@ export default function SeriesDetail() {
       {mapping ? (
         <>
           <Text style={styles.sectionTitle}>Episode ↔ Chapter map</Text>
-          <EpisodeChapterRail mapping={mapping} />
+          {isAutoEstimated && (
+            <View style={styles.autoBanner}>
+              <View style={styles.autoBadge}>
+                <Text style={styles.autoBadgeText}>AUTO-ESTIMATED</Text>
+              </View>
+              <Text style={styles.autoBannerBody}>
+                Linear pacing — anime episode count distributed evenly across the
+                manga chapter count. Real arcs rarely adapt at a uniform rate, so
+                treat numbers as a rough guide. Curated JSON in{' '}
+                <Text style={styles.code}>src/data/mappings/</Text> overrides this.
+              </Text>
+            </View>
+          )}
+          <EpisodeChapterRail mapping={mapping} seriesId={String(mediaId)} />
           <QuickLookup mapping={mapping} />
         </>
       ) : (
         <View style={styles.noMapping}>
           <Text style={styles.noMappingTitle}>No mapping available yet</Text>
           <Text style={styles.noMappingBody}>
-            We haven&apos;t curated a chapter/episode mapping for this series. Contributions
-            are welcome — add a JSON file to{' '}
+            We couldn&apos;t find an anime↔manga adaptation pair on AniList for this
+            entry, and no curated mapping exists. Add a JSON file to{' '}
             <Text style={styles.code}>src/data/mappings/</Text> in the repo.
           </Text>
         </View>
@@ -140,32 +161,79 @@ const styles = StyleSheet.create({
   content: { padding: 16, gap: 20 },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   header: { flexDirection: 'row', gap: 16 },
-  cover: { width: 110, height: 154, borderRadius: 8, backgroundColor: '#222' },
+  cover: { width: 110, height: 154, backgroundColor: '#222' },
   headerMeta: { flex: 1, gap: 6 },
-  title: { color: '#f5f5f5', fontSize: 20, fontWeight: '700' },
-  sub: { color: '#9aa0a6', fontSize: 13 },
-  description: { color: '#cfd2d6', fontSize: 13, lineHeight: 19, marginTop: 6 },
-  sectionTitle: { color: '#f5f5f5', fontSize: 16, fontWeight: '600', marginTop: 10 },
-  empty: { color: '#9aa0a6' },
+  title: {
+    color: '#f5f5f5',
+    fontSize: 28,
+    letterSpacing: -0.8,
+    fontFamily: FONT.bold,
+  },
+  sub: {
+    color: '#9aa0a6',
+    fontSize: 12,
+    letterSpacing: 1.2,
+    textTransform: 'uppercase',
+    fontFamily: FONT.semibold,
+  },
+  description: {
+    color: '#cfd2d6',
+    fontSize: 14,
+    lineHeight: 20,
+    marginTop: 6,
+    fontFamily: FONT.regular,
+  },
+  sectionTitle: {
+    color: '#f5f5f5',
+    fontSize: 18,
+    marginTop: 10,
+    letterSpacing: -0.3,
+    fontFamily: FONT.bold,
+  },
+  empty: { color: '#9aa0a6', fontFamily: FONT.regular },
+  autoBanner: {
+    padding: 14,
+    backgroundColor: '#1f1a2e',
+    borderLeftWidth: 4,
+    borderLeftColor: '#ffd65c',
+    gap: 8,
+  },
+  autoBadge: {
+    alignSelf: 'flex-start',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    backgroundColor: '#ffd65c',
+  },
+  autoBadgeText: {
+    color: '#0c0c0e',
+    fontSize: 11,
+    letterSpacing: 1.5,
+    fontFamily: FONT.bold,
+  },
+  autoBannerBody: {
+    color: '#cfd2d6',
+    fontSize: 13,
+    lineHeight: 19,
+    fontFamily: FONT.regular,
+  },
   noMapping: {
     padding: 16,
     backgroundColor: '#17181b',
-    borderRadius: 10,
     gap: 6,
   },
-  noMappingTitle: { color: '#ffd65c', fontWeight: '600' },
-  noMappingBody: { color: '#cfd2d6', fontSize: 13, lineHeight: 18 },
+  noMappingTitle: { color: '#ffd65c', fontFamily: FONT.bold },
+  noMappingBody: { color: '#cfd2d6', fontSize: 13, lineHeight: 18, fontFamily: FONT.regular },
   code: { fontFamily: 'Menlo', color: '#7c5cff' },
   lookup: { gap: 12, marginTop: 8 },
   lookupRow: { flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap' },
-  lookupLabel: { color: '#cfd2d6', fontSize: 13 },
+  lookupLabel: { color: '#cfd2d6', fontSize: 13, fontFamily: FONT.medium },
   lookupInput: {
     backgroundColor: '#17181b',
     color: '#f5f5f5',
     paddingHorizontal: 10,
     paddingVertical: 8,
-    borderRadius: 8,
     minWidth: 80,
+    fontFamily: FONT.regular,
   },
-  lookupResult: { color: '#7c5cff', fontSize: 13, fontWeight: '600' },
+  lookupResult: { color: '#7c5cff', fontSize: 13, fontFamily: FONT.bold },
 });

@@ -18,6 +18,20 @@ export interface AniListMedia {
   volumes: number | null;
   status: string | null;
   startDate: { year: number | null };
+  relations?: { edges: RelationEdge[] };
+}
+
+export interface RelationEdge {
+  relationType: string;
+  node: {
+    id: number;
+    type: MediaType;
+    format?: string | null;
+    episodes?: number | null;
+    chapters?: number | null;
+    title?: { romaji: string; english: string | null };
+    startDate?: { year: number | null };
+  };
 }
 
 export interface MappingEntry {

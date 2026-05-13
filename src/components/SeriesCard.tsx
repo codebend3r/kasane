@@ -1,6 +1,7 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Link } from 'expo-router';
 import type { AniListMedia } from '../types';
+import { FONT } from '../theme';
 
 export function SeriesCard({ media }: { media: AniListMedia }) {
   const title = media.title.english ?? media.title.romaji;
@@ -40,8 +41,20 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#2a2a2a',
   },
-  cover: { width: 60, height: 84, borderRadius: 6 },
+  cover: { width: 60, height: 84 },
   meta: { flex: 1, justifyContent: 'center' },
-  title: { color: '#f5f5f5', fontSize: 16, fontWeight: '600' },
-  sub: { color: '#9aa0a6', fontSize: 13, marginTop: 4 },
+  title: {
+    color: '#f5f5f5',
+    fontSize: 17,
+    letterSpacing: -0.3,
+    fontFamily: FONT.bold,
+  },
+  sub: {
+    color: '#9aa0a6',
+    fontSize: 12,
+    marginTop: 4,
+    letterSpacing: 0.8,
+    textTransform: 'uppercase',
+    fontFamily: FONT.semibold,
+  },
 });

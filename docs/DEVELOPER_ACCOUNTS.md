@@ -19,8 +19,8 @@ Steps:
    - Choose **Individual** (simpler) or **Organization** (requires a D-U-N-S number, ~2 weeks).
 3. After approval, sign in to App Store Connect: <https://appstoreconnect.apple.com>
 4. Create the app entry:
-   - **Bundle ID:** e.g. `com.codebend3r.animemangaguide`
-   - **SKU:** anything unique (e.g. `amg-001`)
+   - **Bundle ID:** e.g. `com.codebend3r.kasane`
+   - **SKU:** anything unique (e.g. `kasane-001`)
    - **Primary language:** English
 
 Once enrolled, EAS Build can sign and submit:
