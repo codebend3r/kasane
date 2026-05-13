@@ -1,4 +1,6 @@
-# anime-manga-guide
+# Kasane
+
+> **kasane** (重ね) — *Japanese: to layer, to overlap.* Anime episode and manga chapter, side by side.
 
 Find which **anime episodes** cover which **manga chapters**, and vice versa — one app, every platform.
 
@@ -45,8 +47,8 @@ Desktop is shipped via Tauri 2 wrapping the Expo web export. One-time setup:
    ```bash
    npm run build:web                       # produces dist/
    npx tauri init \
-     --app-name anime-manga-guide \
-     --window-title "anime-manga-guide" \
+     --app-name kasane \
+     --window-title "Kasane" \
      --frontend-dist ../dist \
      --before-build-command "npm run build:web" \
      --dev-url ""
