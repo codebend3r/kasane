@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "anime-manga-guide",
-    "slug": "anime-manga-guide",
+    "name": "Kasane",
+    "slug": "kasane",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -28,9 +28,10 @@
       "bundler": "metro",
       "output": "single"
     },
-    "scheme": "animemangaguide",
+    "scheme": "kasane",
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true
