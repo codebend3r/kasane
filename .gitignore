@@ -48,3 +48,6 @@ src-tauri/Cargo.lock
 .vscode/
 .idea/
 
+# Claude Code local state
+.claude/
+

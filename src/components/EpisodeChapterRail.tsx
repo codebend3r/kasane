@@ -13,15 +13,21 @@ const BAR_HEIGHT = 44;
 export function EpisodeChapterRail({
   mapping,
   seriesId,
+  routePrefix,
 }: {
   mapping: SeriesMapping;
   seriesId: string;
+  routePrefix: 'anime' | 'manga';
 }) {
   const router = useRouter();
 
   const goToArc = (arcIdx: number) => {
+    const pathname =
+      routePrefix === 'anime'
+        ? '/anime/[id]/arc/[arcIdx]'
+        : '/manga/[id]/arc/[arcIdx]';
     router.push({
-      pathname: '/series/[id]/arc/[arcIdx]',
+      pathname,
       params: { id: seriesId, arcIdx: String(arcIdx) },
     });
   };

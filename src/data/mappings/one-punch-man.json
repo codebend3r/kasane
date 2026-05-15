@@ -1,0 +1,18 @@
+{
+  "anilistAnimeId": 21087,
+  "anilistMangaId": 74347,
+  "title": "One-Punch Man",
+  "sourceNotes": "Anime S1 (12 ep, 2015) covers manga ch 1–37 — through Asteroid arc finale. S2 (12 ep, 2019) covers ch 38–84 — Garou intro through Monster Association elevator. Verify before relying on per-episode precision. S3 (2025) and beyond not yet mapped.",
+  "mappings": [
+    { "season": 1, "episodes": [1, 1],  "chapters": [1, 4],   "arc": "S1 · Saitama Intro" },
+    { "season": 1, "episodes": [2, 2],  "chapters": [5, 7],   "arc": "S1 · Subterraneans" },
+    { "season": 1, "episodes": [3, 3],  "chapters": [8, 9],   "arc": "S1 · House of Evolution Begins" },
+    { "season": 1, "episodes": [4, 5],  "chapters": [10, 14], "arc": "S1 · House of Evolution" },
+    { "season": 1, "episodes": [6, 9],  "chapters": [15, 21], "arc": "S1 · Paradise Group / Sea Monster" },
+    { "season": 1, "episodes": [10, 12],"chapters": [22, 37], "arc": "S1 · Alien Conquerors (Boros)" },
+    { "season": 2, "episodes": [13, 14],"chapters": [38, 41], "arc": "S2 · Garou Intro" },
+    { "season": 2, "episodes": [15, 17],"chapters": [42, 53], "arc": "S2 · Hero Hunt" },
+    { "season": 2, "episodes": [18, 20],"chapters": [54, 67], "arc": "S2 · Martial Arts Tournament" },
+    { "season": 2, "episodes": [21, 24],"chapters": [68, 84], "arc": "S2 · Monster Association Raid" }
+  ]
+}

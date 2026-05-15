@@ -1,19 +1,18 @@
-import { useMemo } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Stack, useLocalSearchParams } from 'expo-router';
-import { findMappingByMediaId } from '../../../../src/data';
-import type { MappingEntry } from '../../../../src/types';
-import { FONT } from '../../../../src/theme';
+import { Stack } from 'expo-router';
+import type { MappingEntry, SeriesMapping } from '../types';
+import { FONT } from '../theme';
 
-export default function ArcDetail() {
-  const { id, arcIdx } = useLocalSearchParams<{ id: string; arcIdx: string }>();
-  const mediaId = Number(id);
-  const arcIndex = Number(arcIdx);
+export function ArcDetailView({
+  mapping,
+  arcIndex,
+}: {
+  mapping: SeriesMapping;
+  arcIndex: number;
+}) {
+  const arc = mapping.mappings[arcIndex];
 
-  const mapping = useMemo(() => findMappingByMediaId(mediaId), [mediaId]);
-  const arc = mapping?.mappings[arcIndex];
-
-  if (!mapping || !arc) {
+  if (!arc) {
     return (
       <View style={styles.center}>
         <Text style={styles.empty}>Arc not found.</Text>
@@ -33,6 +32,7 @@ export default function ArcDetail() {
           <Text style={styles.title}>{arc.arc ?? `Arc ${arcIndex + 1}`}</Text>
           <Text style={styles.meta}>
             Episodes {arc.episodes[0]}–{arc.episodes[1]} · Chapters {arc.chapters[0]}–{arc.chapters[1]}
+            {arc.season ? ` · Season ${arc.season}` : ''}
           </Text>
           {arc.note ? <Text style={styles.note}>{arc.note}</Text> : null}
         </View>
