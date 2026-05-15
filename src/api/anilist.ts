@@ -12,7 +12,12 @@ const MEDIA_FIELDS = `
   chapters
   volumes
   status
-  startDate { year }
+  format
+  countryOfOrigin
+  synonyms
+  genres
+  startDate { year month day }
+  endDate { year month day }
   relations {
     edges {
       relationType(version: 2)
@@ -78,7 +83,12 @@ const DETAIL_QUERY = gql`
       chapters
       volumes
       status
-      startDate { year }
+      format
+      countryOfOrigin
+      synonyms
+      genres
+      startDate { year month day }
+      endDate { year month day }
       relations {
         edges {
           relationType(version: 2)

@@ -87,8 +87,11 @@ export default function RootLayout() {
             }}
           >
             <Stack.Screen name="index" />
+            <Stack.Screen name="anime/[id]/index" />
+            <Stack.Screen name="anime/[id]/arc/[arcIdx]" />
+            <Stack.Screen name="manga/[id]/index" />
+            <Stack.Screen name="manga/[id]/arc/[arcIdx]" />
             <Stack.Screen name="series/[id]/index" />
-            <Stack.Screen name="series/[id]/arc/[arcIdx]" />
           </Stack>
         </View>
       </SafeAreaProvider>

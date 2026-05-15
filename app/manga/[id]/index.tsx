@@ -1,0 +1,502 @@
+import { useMemo, useState } from 'react';
+import {
+  ActivityIndicator,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+import { useLocalSearchParams } from 'expo-router';
+import { useQuery } from '@tanstack/react-query';
+import { getMedia } from '../../../src/api/anilist';
+import { getMangaDexInfoByAniListId } from '../../../src/api/mangadex';
+import {
+  buildSyntheticMapping,
+  chapterToEpisodes,
+  episodeToChapters,
+  findMappingByMediaId,
+} from '../../../src/data';
+import { EpisodeChapterRail } from '../../../src/components/EpisodeChapterRail';
+import { formatAniListDate, formatAniListDateJa, localeLabel } from '../../../src/data/format';
+import type { MangaDexInfo, SeriesMapping } from '../../../src/types';
+import { FONT } from '../../../src/theme';
+
+export default function MangaDetail() {
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const mediaId = Number(id);
+
+  const { data: media, isLoading } = useQuery({
+    queryKey: ['media', mediaId],
+    queryFn: () => getMedia(mediaId),
+    enabled: !Number.isNaN(mediaId),
+  });
+
+  const preferredTitle =
+    media?.title.english ?? media?.title.romaji ?? '';
+
+  const { data: mangadex, isFetching: mangadexLoading } = useQuery({
+    queryKey: ['mangadex', mediaId, preferredTitle],
+    queryFn: () => getMangaDexInfoByAniListId(mediaId, preferredTitle),
+    enabled: !!media && media.type === 'MANGA' && !!preferredTitle,
+    staleTime: 60 * 60 * 1000,
+  });
+
+  const curatedMapping = useMemo(() => findMappingByMediaId(mediaId), [mediaId]);
+  const syntheticMapping = useMemo(
+    () => (media && !curatedMapping ? buildSyntheticMapping(media) : null),
+    [media, curatedMapping]
+  );
+  const mapping = curatedMapping ?? syntheticMapping;
+  const isAutoEstimated = !curatedMapping && !!syntheticMapping;
+
+  if (isLoading) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator color="#7c5cff" />
+      </View>
+    );
+  }
+
+  if (!media) {
+    return (
+      <View style={styles.center}>
+        <Text style={styles.empty}>Could not load manga.</Text>
+      </View>
+    );
+  }
+
+  const totalVolumes = mangadex?.volumes ?? media.volumes ?? null;
+  const totalChapters = mangadex?.chapters ?? media.chapters ?? null;
+  const status = media.status?.toLowerCase() ?? null;
+
+  return (
+    <ScrollView style={styles.root} contentContainerStyle={styles.content}>
+      <View style={styles.header}>
+        <Image source={{ uri: media.coverImage.large }} style={styles.cover} />
+        <View style={styles.headerMeta}>
+          <Text style={styles.title}>
+            {media.title.english ?? media.title.romaji}
+          </Text>
+          {media.title.native ? (
+            <Text style={styles.titleNative}>{media.title.native}</Text>
+          ) : null}
+          <Text style={styles.sub}>
+            MANGA · {totalChapters ?? '?'} ch · {totalVolumes ?? '?'} vol
+            {media.format ? ` · ${media.format}` : ''}
+            {status ? ` · ${status}` : ''}
+          </Text>
+          {media.startDate.year ? (
+            <Text style={styles.dates}>
+              Started {formatAniListDate(media.startDate)}
+              {media.countryOfOrigin === 'JP'
+                ? `  ·  ${formatAniListDateJa(media.startDate)}`
+                : ''}
+            </Text>
+          ) : null}
+          {media.endDate?.year ? (
+            <Text style={styles.dates}>
+              Ended {formatAniListDate(media.endDate)}
+            </Text>
+          ) : null}
+          {media.genres.length > 0 ? (
+            <View style={styles.tagRow}>
+              {media.genres.map((g) => (
+                <View key={g} style={styles.tag}>
+                  <Text style={styles.tagText}>{g}</Text>
+                </View>
+              ))}
+            </View>
+          ) : null}
+          {media.description && (
+            <Text style={styles.description} numberOfLines={8}>
+              {media.description.replace(/<[^>]+>/g, '')}
+            </Text>
+          )}
+        </View>
+      </View>
+
+      {mapping ? (
+        <View style={styles.mappingBlock}>
+          <Text style={styles.sectionTitle}>Anime episode coverage</Text>
+          <Text style={styles.sectionLead}>
+            This manga is adapted across the following anime arcs. Tap a band for
+            episode-by-episode chapter alignment.
+          </Text>
+          {isAutoEstimated && (
+            <View style={styles.autoBanner}>
+              <View style={styles.autoBadge}>
+                <Text style={styles.autoBadgeText}>AUTO-ESTIMATED</Text>
+              </View>
+              <Text style={styles.autoBannerBody}>
+                Linear pacing — anime episode count distributed evenly across
+                the manga chapter count. Real pacing varies; curated JSON in{' '}
+                <Text style={styles.code}>src/data/mappings/</Text> overrides this.
+              </Text>
+            </View>
+          )}
+          <EpisodeChapterRail
+            mapping={mapping}
+            seriesId={String(mediaId)}
+            routePrefix="manga"
+          />
+          {curatedMapping ? <SeasonCoverage mapping={curatedMapping} /> : null}
+          <QuickLookup mapping={mapping} />
+        </View>
+      ) : (
+        <View style={styles.noMapping}>
+          <Text style={styles.noMappingTitle}>No anime adaptation mapped yet</Text>
+          <Text style={styles.noMappingBody}>
+            No curated or auto-estimated mapping is available for this manga.
+            Add a JSON file to <Text style={styles.code}>src/data/mappings/</Text>.
+          </Text>
+        </View>
+      )}
+
+      <View style={styles.volumesBlock}>
+        <Text style={styles.sectionTitle}>Volumes</Text>
+        {mangadexLoading && !mangadex ? (
+          <ActivityIndicator color="#7c5cff" style={{ marginTop: 12 }} />
+        ) : mangadex && mangadex.covers.length > 0 ? (
+          <View style={styles.volumeGrid}>
+            {mangadex.covers.map((cover) => (
+              <View
+                key={`${cover.volume}-${cover.locale}`}
+                style={styles.volumeCard}
+              >
+                <Image
+                  source={{ uri: cover.thumbUrl }}
+                  style={styles.volumeCover}
+                />
+                <Text style={styles.volumeNumber}>Vol. {cover.volume}</Text>
+                <Text style={styles.volumeLocale}>{localeLabel(cover.locale)}</Text>
+              </View>
+            ))}
+          </View>
+        ) : (
+          <Text style={styles.empty}>
+            No volume art on MangaDex for this title.
+          </Text>
+        )}
+      </View>
+
+      {mangadex && mangadex.titles.length > 1 ? (
+        <View style={styles.titlesBlock}>
+          <Text style={styles.sectionTitle}>Titles & translations</Text>
+          <View style={styles.titlesList}>
+            {mangadex.titles.map((t, idx) => (
+              <View key={`${t.locale}-${idx}`} style={styles.titleRow}>
+                <Text style={styles.titleLocale}>{localeLabel(t.locale)}</Text>
+                <Text style={styles.titleValue}>{t.value}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+      ) : null}
+
+      <View style={styles.sources}>
+        <Text style={styles.sourcesText}>
+          Data: AniList (metadata) · MangaDex (volume covers, multilingual titles)
+        </Text>
+      </View>
+    </ScrollView>
+  );
+}
+
+function SeasonCoverage({ mapping }: { mapping: SeriesMapping }) {
+  const seasonBuckets = useMemo(() => {
+    const m = new Map<string, typeof mapping.mappings>();
+    for (const entry of mapping.mappings) {
+      const key = entry.season ? `Season ${entry.season}` : 'Other';
+      if (!m.has(key)) m.set(key, []);
+      m.get(key)!.push(entry);
+    }
+    return Array.from(m.entries());
+  }, [mapping]);
+
+  if (seasonBuckets.length === 0) return null;
+  if (seasonBuckets.length === 1 && seasonBuckets[0][0] === 'Other') return null;
+
+  return (
+    <View style={styles.seasonBlock}>
+      <Text style={styles.seasonLabel}>Per-season chapter coverage</Text>
+      {seasonBuckets.map(([label, entries]) => {
+        const minCh = Math.min(...entries.map((e) => e.chapters[0]));
+        const maxCh = Math.max(...entries.map((e) => e.chapters[1]));
+        const minEp = Math.min(...entries.map((e) => e.episodes[0]));
+        const maxEp = Math.max(...entries.map((e) => e.episodes[1]));
+        return (
+          <View key={label} style={styles.seasonRow}>
+            <Text style={styles.seasonName}>{label}</Text>
+            <Text style={styles.seasonMeta}>
+              Eps {minEp}–{maxEp} · Ch {minCh}–{maxCh}
+            </Text>
+          </View>
+        );
+      })}
+    </View>
+  );
+}
+
+function QuickLookup({ mapping }: { mapping: SeriesMapping }) {
+  const [chInput, setChInput] = useState('');
+  const [epInput, setEpInput] = useState('');
+
+  const chNum = Number(chInput);
+  const epNum = Number(epInput);
+  const fromCh = !Number.isNaN(chNum) && chNum > 0 ? chapterToEpisodes(mapping, chNum) : null;
+  const fromEp = !Number.isNaN(epNum) && epNum > 0 ? episodeToChapters(mapping, epNum) : null;
+  const seasonForCh = useMemo(() => {
+    if (!chNum) return null;
+    const hit = mapping.mappings.find(
+      (m) => chNum >= m.chapters[0] && chNum <= m.chapters[1]
+    );
+    return hit?.season ?? null;
+  }, [chNum, mapping]);
+
+  return (
+    <View style={styles.lookup}>
+      <Text style={styles.sectionTitle}>Quick lookup</Text>
+      <View style={styles.lookupRow}>
+        <Text style={styles.lookupLabel}>I finished chapter</Text>
+        <TextInput
+          value={chInput}
+          onChangeText={setChInput}
+          keyboardType="number-pad"
+          style={styles.lookupInput}
+          placeholder="e.g. 38"
+          placeholderTextColor="#6b7177"
+        />
+        <Text style={styles.lookupResult}>
+          → {fromCh ? `episodes ${fromCh[0]}–${fromCh[1]}` : '—'}
+          {seasonForCh ? ` (S${seasonForCh})` : ''}
+        </Text>
+      </View>
+      <View style={styles.lookupRow}>
+        <Text style={styles.lookupLabel}>I finished episode</Text>
+        <TextInput
+          value={epInput}
+          onChangeText={setEpInput}
+          keyboardType="number-pad"
+          style={styles.lookupInput}
+          placeholder="e.g. 12"
+          placeholderTextColor="#6b7177"
+        />
+        <Text style={styles.lookupResult}>
+          → {fromEp ? `chapters ${fromEp[0]}–${fromEp[1]}` : '—'}
+        </Text>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  root: { flex: 1 },
+  content: { padding: 16, gap: 24, paddingBottom: 48 },
+  center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  header: { flexDirection: 'row', gap: 16 },
+  cover: { width: 140, height: 200, backgroundColor: '#222' },
+  headerMeta: { flex: 1, gap: 6, minWidth: 240 },
+  title: {
+    color: '#f5f5f5',
+    fontSize: 32,
+    letterSpacing: -1,
+    fontFamily: FONT.bold,
+    lineHeight: 36,
+  },
+  titleNative: {
+    color: '#cfd2d6',
+    fontSize: 18,
+    fontFamily: FONT.medium,
+    marginTop: -2,
+  },
+  sub: {
+    color: '#9aa0a6',
+    fontSize: 11,
+    letterSpacing: 1.4,
+    textTransform: 'uppercase',
+    fontFamily: FONT.semibold,
+    marginTop: 2,
+  },
+  dates: {
+    color: '#cfd2d6',
+    fontSize: 13,
+    fontFamily: FONT.medium,
+  },
+  tagRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginTop: 4 },
+  tag: {
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    backgroundColor: '#17181b',
+    borderLeftWidth: 2,
+    borderLeftColor: '#7c5cff',
+  },
+  tagText: {
+    color: '#cfd2d6',
+    fontSize: 11,
+    letterSpacing: 0.8,
+    fontFamily: FONT.semibold,
+    textTransform: 'uppercase',
+  },
+  description: {
+    color: '#cfd2d6',
+    fontSize: 14,
+    lineHeight: 20,
+    marginTop: 8,
+    fontFamily: FONT.regular,
+  },
+  sectionTitle: {
+    color: '#f5f5f5',
+    fontSize: 20,
+    letterSpacing: -0.4,
+    fontFamily: FONT.bold,
+  },
+  sectionLead: {
+    color: '#9aa0a6',
+    fontSize: 13,
+    lineHeight: 18,
+    fontFamily: FONT.regular,
+    marginTop: -4,
+  },
+  empty: { color: '#9aa0a6', fontFamily: FONT.regular, marginTop: 8 },
+  mappingBlock: { gap: 10 },
+  autoBanner: {
+    padding: 14,
+    backgroundColor: '#1f1a2e',
+    borderLeftWidth: 4,
+    borderLeftColor: '#ffd65c',
+    gap: 8,
+  },
+  autoBadge: {
+    alignSelf: 'flex-start',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    backgroundColor: '#ffd65c',
+  },
+  autoBadgeText: {
+    color: '#0c0c0e',
+    fontSize: 11,
+    letterSpacing: 1.5,
+    fontFamily: FONT.bold,
+  },
+  autoBannerBody: {
+    color: '#cfd2d6',
+    fontSize: 13,
+    lineHeight: 19,
+    fontFamily: FONT.regular,
+  },
+  noMapping: {
+    padding: 16,
+    backgroundColor: '#17181b',
+    gap: 6,
+  },
+  noMappingTitle: { color: '#ffd65c', fontFamily: FONT.bold },
+  noMappingBody: { color: '#cfd2d6', fontSize: 13, lineHeight: 18, fontFamily: FONT.regular },
+  code: { fontFamily: 'Menlo', color: '#7c5cff' },
+  seasonBlock: {
+    padding: 12,
+    backgroundColor: '#17181b',
+    gap: 6,
+    marginTop: 4,
+  },
+  seasonLabel: {
+    color: '#9aa0a6',
+    fontSize: 11,
+    letterSpacing: 1.4,
+    textTransform: 'uppercase',
+    fontFamily: FONT.bold,
+    marginBottom: 4,
+  },
+  seasonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
+    gap: 12,
+  },
+  seasonName: {
+    color: '#f5f5f5',
+    fontSize: 14,
+    fontFamily: FONT.semibold,
+  },
+  seasonMeta: {
+    color: '#cfd2d6',
+    fontSize: 12,
+    fontFamily: FONT.regular,
+  },
+  volumesBlock: { gap: 12 },
+  volumeGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12,
+  },
+  volumeCard: {
+    width: 120,
+    gap: 4,
+  },
+  volumeCover: {
+    width: 120,
+    height: 180,
+    backgroundColor: '#222',
+  },
+  volumeNumber: {
+    color: '#f5f5f5',
+    fontSize: 13,
+    fontFamily: FONT.bold,
+  },
+  volumeLocale: {
+    color: '#9aa0a6',
+    fontSize: 11,
+    letterSpacing: 0.8,
+    textTransform: 'uppercase',
+    fontFamily: FONT.semibold,
+  },
+  titlesBlock: { gap: 8 },
+  titlesList: { gap: 6 },
+  titleRow: {
+    flexDirection: 'row',
+    gap: 12,
+    alignItems: 'baseline',
+    paddingVertical: 4,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#2a2a2a',
+  },
+  titleLocale: {
+    color: '#7c5cff',
+    fontSize: 11,
+    letterSpacing: 1.2,
+    textTransform: 'uppercase',
+    fontFamily: FONT.bold,
+    minWidth: 130,
+  },
+  titleValue: {
+    color: '#f5f5f5',
+    fontSize: 14,
+    flex: 1,
+    fontFamily: FONT.regular,
+  },
+  sources: {
+    marginTop: 8,
+    paddingTop: 12,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: '#2a2a2a',
+  },
+  sourcesText: {
+    color: '#6b7177',
+    fontSize: 11,
+    letterSpacing: 0.8,
+    fontFamily: FONT.regular,
+  },
+  lookup: { gap: 12, marginTop: 8 },
+  lookupRow: { flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap' },
+  lookupLabel: { color: '#cfd2d6', fontSize: 13, fontFamily: FONT.medium },
+  lookupInput: {
+    backgroundColor: '#17181b',
+    color: '#f5f5f5',
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    minWidth: 80,
+    fontFamily: FONT.regular,
+  },
+  lookupResult: { color: '#7c5cff', fontSize: 13, fontFamily: FONT.bold },
+});

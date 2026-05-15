@@ -15,7 +15,13 @@ export function SeriesCard({ media }: { media: AniListMedia }) {
         : 'Ongoing';
 
   return (
-    <Link href={{ pathname: '/series/[id]', params: { id: media.id } }} asChild>
+    <Link
+      href={{
+        pathname: media.type === 'MANGA' ? '/manga/[id]' : '/anime/[id]',
+        params: { id: media.id },
+      }}
+      asChild
+    >
       <Pressable style={styles.card}>
         <Image
           source={{ uri: media.coverImage.large }}

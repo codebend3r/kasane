@@ -2,11 +2,13 @@ import type { AniListMedia, SeriesMapping } from '../types';
 import onePiece from './mappings/one-piece.json';
 import attackOnTitan from './mappings/attack-on-titan.json';
 import demonSlayer from './mappings/demon-slayer.json';
+import onePunchMan from './mappings/one-punch-man.json';
 
 const ALL_MAPPINGS: SeriesMapping[] = [
   onePiece as SeriesMapping,
   attackOnTitan as SeriesMapping,
   demonSlayer as SeriesMapping,
+  onePunchMan as SeriesMapping,
 ];
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {

@@ -139,7 +139,10 @@ function LatestReleases({
           {data.map((media) => (
             <Link
               key={media.id}
-              href={{ pathname: '/series/[id]', params: { id: media.id } }}
+              href={{
+                pathname: media.type === 'MANGA' ? '/manga/[id]' : '/anime/[id]',
+                params: { id: media.id },
+              }}
               asChild
             >
               <Pressable
