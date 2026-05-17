@@ -2,15 +2,16 @@ import { useMemo, useState } from "react";
 import {
   ActivityIndicator,
   Image,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
-import { getMedia } from "@/api/anilist";
+import { getAnimeFranchise, getMedia, hasAnimeSequels } from "@/api/anilist";
 import { getMangaDexInfoByAniListId } from "@/api/mangadex";
 import {
   buildSyntheticMapping,
@@ -22,6 +23,7 @@ import { EpisodeChapterRail } from "@/components/EpisodeChapterRail";
 import { Footer } from "@/components/Footer";
 import { Paragraph } from "@/components/Paragraph";
 import { formatAniListDate } from "@/data/format";
+import type { AnimeFranchise } from "@/types";
 import { FONT } from "@/theme";
 
 export default function AnimeDetail() {
@@ -32,6 +34,15 @@ export default function AnimeDetail() {
     queryKey: ["media", mediaId],
     queryFn: () => getMedia(mediaId),
     enabled: !Number.isNaN(mediaId),
+  });
+
+  const sequels = !!media && hasAnimeSequels(media);
+
+  const { data: franchise } = useQuery({
+    queryKey: ["franchise", mediaId],
+    queryFn: () => getAnimeFranchise(mediaId),
+    enabled: sequels,
+    staleTime: 24 * 60 * 60 * 1000,
   });
 
   const curatedMapping = useMemo(
@@ -114,6 +125,12 @@ export default function AnimeDetail() {
               ? ` · ${formatAniListDate(media.startDate)}`
               : ""}
           </Text>
+          {franchise && franchise.tvSeasonCount > 1 ? (
+            <Text style={styles.franchiseTotal}>
+              Franchise total: {franchise.totalTvEpisodes} TV eps across{" "}
+              {franchise.tvSeasonCount} seasons
+            </Text>
+          ) : null}
           {media.description && (
             <Paragraph style={styles.description} numberOfLines={6}>
               {media.description.replace(/<[^>]+>/g, "")}
@@ -121,6 +138,10 @@ export default function AnimeDetail() {
           )}
         </View>
       </View>
+
+      {franchise && franchise.seasons.length > 1 ? (
+        <SeasonsList franchise={franchise} currentId={mediaId} />
+      ) : null}
 
       {mapping ? (
         <>
@@ -158,6 +179,52 @@ export default function AnimeDetail() {
       )}
       <Footer />
     </ScrollView>
+  );
+}
+
+function SeasonsList({
+  franchise,
+  currentId,
+}: {
+  franchise: AnimeFranchise;
+  currentId: number;
+}) {
+  return (
+    <View style={styles.seasons}>
+      <Text style={styles.sectionTitle}>Seasons & entries</Text>
+      <View style={styles.seasonGrid}>
+        {franchise.seasons.map((s) => {
+          const isCurrent = s.id === currentId;
+          return (
+            <Link
+              key={s.id}
+              href={{ pathname: "/anime/[id]", params: { id: s.id } }}
+              asChild
+            >
+              <Pressable
+                style={({ hovered, pressed }: any) => [
+                  styles.seasonCard,
+                  isCurrent && styles.seasonCardActive,
+                  { opacity: pressed ? 0.6 : hovered ? 0.9 : 1 },
+                ]}
+              >
+                <Text style={styles.seasonCardTitle} numberOfLines={2}>
+                  {s.title}
+                </Text>
+                <Text style={styles.seasonCardMeta}>
+                  {s.format ?? "—"}
+                  {s.episodes ? ` · ${s.episodes} eps` : ""}
+                  {s.year ? ` · ${s.year}` : ""}
+                </Text>
+                {isCurrent ? (
+                  <Text style={styles.seasonCardCurrent}>VIEWING</Text>
+                ) : null}
+              </Pressable>
+            </Link>
+          );
+        })}
+      </View>
+    </View>
   );
 }
 
@@ -307,4 +374,45 @@ const styles = StyleSheet.create({
     fontFamily: FONT.regular,
   },
   lookupResult: { color: "#7c5cff", fontSize: 13, fontFamily: FONT.bold },
+  franchiseTotal: {
+    color: "#7c5cff",
+    fontSize: 13,
+    letterSpacing: -0.2,
+    fontFamily: FONT.semibold,
+    paddingTop: 2,
+  },
+  seasons: { gap: 10, paddingTop: 4 },
+  seasonGrid: { flexDirection: "row", flexWrap: "wrap", gap: 10 },
+  seasonCard: {
+    width: 220,
+    padding: 12,
+    backgroundColor: "#17181b",
+    borderLeftWidth: 3,
+    borderLeftColor: "#7c5cff",
+    gap: 6,
+  },
+  seasonCardActive: {
+    backgroundColor: "#1f1a2e",
+    borderLeftColor: "#ffd65c",
+  },
+  seasonCardTitle: {
+    color: "#f5f5f5",
+    fontSize: 14,
+    lineHeight: 18,
+    fontFamily: FONT.semibold,
+    letterSpacing: -0.2,
+  },
+  seasonCardMeta: {
+    color: "#9aa0a6",
+    fontSize: 11,
+    letterSpacing: 0.8,
+    textTransform: "uppercase",
+    fontFamily: FONT.semibold,
+  },
+  seasonCardCurrent: {
+    color: "#ffd65c",
+    fontSize: 10,
+    letterSpacing: 1.4,
+    fontFamily: FONT.bold,
+  },
 });

@@ -1,6 +1,11 @@
 import { GraphQLClient, gql } from "graphql-request";
 import { applySearchAlias } from "@/data/searchAliases";
-import type { AniListMedia, MediaType } from "@/types";
+import type {
+  AniListMedia,
+  AnimeFranchise,
+  FranchiseSeason,
+  MediaType,
+} from "@/types";
 
 const client = new GraphQLClient("https://graphql.anilist.co");
 
@@ -22,7 +27,7 @@ const MEDIA_FIELDS = `
   relations {
     edges {
       relationType(version: 2)
-      node { id type format }
+      node { id type format episodes }
     }
   }
 `;
@@ -223,4 +228,116 @@ export async function getMediaByIds(ids: number[]): Promise<AniListMedia[]> {
     { ids },
   );
   return data.Page.media;
+}
+
+const FRANCHISE_NODE_QUERY = gql`
+  query FranchiseNode($ids: [Int]) {
+    Page(perPage: 50) {
+      media(id_in: $ids, type: ANIME) {
+        id
+        title {
+          romaji
+          english
+        }
+        format
+        episodes
+        startDate {
+          year
+        }
+        relations {
+          edges {
+            relationType(version: 2)
+            node {
+              id
+              type
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+type FranchiseRawNode = {
+  id: number;
+  title: { romaji: string; english: string | null };
+  format: string | null;
+  episodes: number | null;
+  startDate: { year: number | null };
+  relations: {
+    edges: { relationType: string; node: { id: number; type: MediaType } }[];
+  };
+};
+
+const FRANCHISE_RELATIONS = new Set([
+  "SEQUEL",
+  "PREQUEL",
+  "PARENT",
+  "SIDE_STORY",
+]);
+
+async function collectFranchiseNodes(
+  frontier: number[],
+  visited: Map<number, FranchiseRawNode>,
+): Promise<FranchiseRawNode[]> {
+  const ids = frontier.filter((id) => !visited.has(id));
+  if (ids.length === 0) return Array.from(visited.values());
+
+  const data = await client.request<{ Page: { media: FranchiseRawNode[] } }>(
+    FRANCHISE_NODE_QUERY,
+    { ids },
+  );
+  const nextVisited = data.Page.media.reduce(
+    (acc, node) => acc.set(node.id, node),
+    new Map(visited),
+  );
+  const next = data.Page.media.flatMap((node) =>
+    node.relations.edges
+      .filter(
+        (edge) =>
+          FRANCHISE_RELATIONS.has(edge.relationType) &&
+          edge.node.type === "ANIME" &&
+          !nextVisited.has(edge.node.id),
+      )
+      .map((edge) => edge.node.id),
+  );
+  return collectFranchiseNodes([...new Set(next)], nextVisited);
+}
+
+export async function getAnimeFranchise(
+  rootId: number,
+): Promise<AnimeFranchise> {
+  const nodes = await collectFranchiseNodes([rootId], new Map());
+
+  const seasons: FranchiseSeason[] = nodes
+    .map((n) => ({
+      id: n.id,
+      title: n.title.english ?? n.title.romaji,
+      romajiTitle: n.title.romaji,
+      format: n.format,
+      episodes: n.episodes,
+      year: n.startDate.year,
+    }))
+    .sort((a, b) => (a.year ?? 9999) - (b.year ?? 9999));
+
+  const tvSeasons = seasons.filter((s) => s.format === "TV");
+  const totalTvEpisodes = tvSeasons.reduce(
+    (sum, s) => sum + (s.episodes ?? 0),
+    0,
+  );
+
+  return {
+    rootId,
+    seasons,
+    totalTvEpisodes,
+    tvSeasonCount: tvSeasons.length,
+  };
+}
+
+export function hasAnimeSequels(media: AniListMedia): boolean {
+  if (media.type !== "ANIME") return false;
+  const edges = media.relations?.edges ?? [];
+  return edges.some(
+    (e) => e.relationType === "SEQUEL" && e.node.type === "ANIME",
+  );
 }
