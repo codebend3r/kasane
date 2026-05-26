@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   FlatList,
   Image,
+  type LayoutChangeEvent,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -12,10 +13,10 @@ import {
 } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
-import { getLatestAnime, searchMedia } from '../src/api/anilist';
-import { SeriesCard } from '../src/components/SeriesCard';
-import type { AniListMedia, MediaType } from '../src/types';
-import { FONT } from '../src/theme';
+import { getLatestAnime, searchMedia } from '@/api/anilist';
+import { SeriesCard } from '@/components/SeriesCard';
+import type { AniListMedia, MediaType } from '@/types';
+import { FONT } from '@/theme';
 
 const FILTERS: { label: string; value: MediaType | undefined }[] = [
   { label: 'All', value: undefined },
@@ -119,6 +120,9 @@ function trimSeasonSuffix(title: string): string {
   return cleaned || title;
 }
 
+const GRID_ITEM_WIDTH = 160;
+const GRID_GAP = 16;
+
 function LatestReleases({
   data,
   loading,
@@ -126,6 +130,19 @@ function LatestReleases({
   data: AniListMedia[];
   loading: boolean;
 }) {
+  const [gridWidth, setGridWidth] = useState(0);
+
+  const onGridLayout = (e: LayoutChangeEvent) => {
+    setGridWidth(e.nativeEvent.layout.width);
+  };
+
+  const columns =
+    gridWidth > 0
+      ? Math.max(1, Math.floor((gridWidth + GRID_GAP) / (GRID_ITEM_WIDTH + GRID_GAP)))
+      : 0;
+  const visible =
+    columns > 0 ? data.slice(0, Math.floor(data.length / columns) * columns) : [];
+
   return (
     <ScrollView contentContainerStyle={styles.latestScroll}>
       <View style={styles.latestHeader}>
@@ -135,8 +152,8 @@ function LatestReleases({
       {loading && data.length === 0 ? (
         <ActivityIndicator color="#7c5cff" style={{ marginTop: 24 }} />
       ) : (
-        <View style={styles.grid}>
-          {data.map((media) => (
+        <View style={styles.grid} onLayout={onGridLayout}>
+          {visible.map((media) => (
             <Link
               key={media.id}
               href={{

@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
-import { getMedia } from '../../../src/api/anilist';
-import { FONT } from '../../../src/theme';
+import { getMedia } from '@/api/anilist';
+import { FONT } from '@/theme';
 
 // Legacy /series/[id] entry — fetches the media type once and redirects to
 // /manga/[id] or /anime/[id]. Keeps old bookmarks working.

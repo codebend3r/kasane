@@ -1,14 +1,42 @@
-import type { AniListMedia, SeriesMapping } from '../types';
-import onePiece from './mappings/one-piece.json';
-import attackOnTitan from './mappings/attack-on-titan.json';
-import demonSlayer from './mappings/demon-slayer.json';
-import onePunchMan from './mappings/one-punch-man.json';
+import type { AniListMedia, SeriesMapping } from '@/types';
+import onePiece from '@/data/mappings/one-piece.json';
+import attackOnTitan from '@/data/mappings/attack-on-titan.json';
+import demonSlayer from '@/data/mappings/demon-slayer.json';
+import onePunchMan from '@/data/mappings/one-punch-man.json';
+import vinlandSaga from '@/data/mappings/vinland-saga.json';
+import fullmetalAlchemistBrotherhood from '@/data/mappings/fullmetal-alchemist-brotherhood.json';
+import hunterXHunter2011 from '@/data/mappings/hunter-x-hunter-2011.json';
+import monster from '@/data/mappings/monster.json';
+import jujutsuKaisen from '@/data/mappings/jujutsu-kaisen.json';
+import bleachTybw from '@/data/mappings/bleach-tybw.json';
+import mobPsycho100 from '@/data/mappings/mob-psycho-100.json';
+import frieren from '@/data/mappings/frieren.json';
+import apothecaryDiaries from '@/data/mappings/apothecary-diaries.json';
+import nana from '@/data/mappings/nana.json';
+import haikyuu from '@/data/mappings/haikyuu.json';
+import fruitsBasket2019 from '@/data/mappings/fruits-basket-2019.json';
+import berserk from '@/data/mappings/berserk.json';
+import dragonBall from '@/data/mappings/dragon-ball.json';
 
 const ALL_MAPPINGS: SeriesMapping[] = [
   onePiece as SeriesMapping,
   attackOnTitan as SeriesMapping,
   demonSlayer as SeriesMapping,
   onePunchMan as SeriesMapping,
+  vinlandSaga as SeriesMapping,
+  fullmetalAlchemistBrotherhood as SeriesMapping,
+  hunterXHunter2011 as SeriesMapping,
+  monster as SeriesMapping,
+  jujutsuKaisen as SeriesMapping,
+  bleachTybw as SeriesMapping,
+  mobPsycho100 as SeriesMapping,
+  frieren as SeriesMapping,
+  apothecaryDiaries as SeriesMapping,
+  nana as SeriesMapping,
+  haikyuu as SeriesMapping,
+  fruitsBasket2019 as SeriesMapping,
+  berserk as SeriesMapping,
+  dragonBall as SeriesMapping,
 ];
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {

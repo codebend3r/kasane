@@ -1,5 +1,5 @@
 import { GraphQLClient, gql } from 'graphql-request';
-import type { AniListMedia, MediaType } from '../types';
+import type { AniListMedia, MediaType } from '@/types';
 
 const client = new GraphQLClient('https://graphql.anilist.co');
 
@@ -26,7 +26,7 @@ const MEDIA_FIELDS = `
   }
 `;
 
-const PARENT_RELATIONS = new Set(['PREQUEL', 'PARENT', 'SPIN_OFF', 'SIDE_STORY']);
+const PARENT_RELATIONS = new Set(['PREQUEL', 'PARENT']);
 
 function isFranchiseRoot(media: AniListMedia): boolean {
   const edges = media.relations?.edges ?? [];

@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import {
   ActivityIndicator,
   Image,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -10,18 +11,18 @@ import {
 } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
-import { getMedia } from '../../../src/api/anilist';
-import { getMangaDexInfoByAniListId } from '../../../src/api/mangadex';
+import { getMedia } from '@/api/anilist';
+import { getMangaDexInfoByAniListId } from '@/api/mangadex';
 import {
   buildSyntheticMapping,
   chapterToEpisodes,
   episodeToChapters,
   findMappingByMediaId,
-} from '../../../src/data';
-import { EpisodeChapterRail } from '../../../src/components/EpisodeChapterRail';
-import { formatAniListDate, formatAniListDateJa, localeLabel } from '../../../src/data/format';
-import type { MangaDexInfo, SeriesMapping } from '../../../src/types';
-import { FONT } from '../../../src/theme';
+} from '@/data';
+import { EpisodeChapterRail } from '@/components/EpisodeChapterRail';
+import { formatAniListDate, formatAniListDateJa, localeLabel } from '@/data/format';
+import type { MangaDexInfo, MangaDexVolumeCover, SeriesMapping } from '@/types';
+import { FONT } from '@/theme';
 
 export default function MangaDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -159,21 +160,7 @@ export default function MangaDetail() {
         {mangadexLoading && !mangadex ? (
           <ActivityIndicator color="#7c5cff" style={{ marginTop: 12 }} />
         ) : mangadex && mangadex.covers.length > 0 ? (
-          <View style={styles.volumeGrid}>
-            {mangadex.covers.map((cover) => (
-              <View
-                key={`${cover.volume}-${cover.locale}`}
-                style={styles.volumeCard}
-              >
-                <Image
-                  source={{ uri: cover.thumbUrl }}
-                  style={styles.volumeCover}
-                />
-                <Text style={styles.volumeNumber}>Vol. {cover.volume}</Text>
-                <Text style={styles.volumeLocale}>{localeLabel(cover.locale)}</Text>
-              </View>
-            ))}
-          </View>
+          <VolumesGrid covers={mangadex.covers} />
         ) : (
           <Text style={styles.empty}>
             No volume art on MangaDex for this title.
@@ -201,6 +188,112 @@ export default function MangaDetail() {
         </Text>
       </View>
     </ScrollView>
+  );
+}
+
+type VolumeGroup = {
+  volume: number;
+  primary: MangaDexVolumeCover;
+  variants: MangaDexVolumeCover[];
+};
+
+const LOCALE_RANK: Record<string, number> = { ja: 0, en: 1 };
+
+function groupCovers(covers: MangaDexVolumeCover[]): VolumeGroup[] {
+  const groups = new Map<number, MangaDexVolumeCover[]>();
+  for (const c of covers) {
+    const n = Number(c.volume);
+    if (!Number.isFinite(n)) continue;
+    const base = Math.floor(n);
+    if (!groups.has(base)) groups.set(base, []);
+    groups.get(base)!.push(c);
+  }
+  return Array.from(groups.entries())
+    .sort(([a], [b]) => a - b)
+    .map(([volume, list]) => {
+      const sorted = [...list].sort((a, b) => {
+        const aIsInt = !a.volume.includes('.');
+        const bIsInt = !b.volume.includes('.');
+        if (aIsInt !== bIsInt) return aIsInt ? -1 : 1;
+        const ra = LOCALE_RANK[a.locale] ?? 99;
+        const rb = LOCALE_RANK[b.locale] ?? 99;
+        if (ra !== rb) return ra - rb;
+        return a.volume.localeCompare(b.volume);
+      });
+      return { volume, primary: sorted[0], variants: sorted.slice(1) };
+    });
+}
+
+function VolumesGrid({ covers }: { covers: MangaDexVolumeCover[] }) {
+  const groups = useMemo(() => groupCovers(covers), [covers]);
+  return (
+    <View style={styles.volumeGrid}>
+      {groups.map((group) => (
+        <VolumeCard key={`vol-${group.volume}`} group={group} />
+      ))}
+    </View>
+  );
+}
+
+function coverKey(c: MangaDexVolumeCover): string {
+  return `${c.volume}-${c.locale}`;
+}
+
+function VolumeCard({ group }: { group: VolumeGroup }) {
+  const allCovers = useMemo(
+    () => [group.primary, ...group.variants],
+    [group]
+  );
+  const [selectedKey, setSelectedKey] = useState<string>(coverKey(group.primary));
+  const [isOpen, setIsOpen] = useState(false);
+
+  const primary =
+    allCovers.find((c) => coverKey(c) === selectedKey) ?? group.primary;
+  const variants = allCovers.filter((c) => c !== primary);
+  const hasVariants = variants.length > 0;
+
+  return (
+    <View style={styles.volumeCard}>
+      <Pressable
+        onPress={() => hasVariants && setIsOpen((v) => !v)}
+        disabled={!hasVariants}
+        style={({ hovered, pressed }: any) => [
+          styles.volumeCoverWrap,
+          { opacity: pressed ? 0.7 : hovered && hasVariants ? 0.92 : 1 },
+        ]}
+      >
+        <Image source={{ uri: primary.thumbUrl }} style={styles.volumeCover} />
+        {hasVariants && (
+          <View style={styles.variantBadge}>
+            <Text style={styles.variantBadgeText}>+{variants.length}</Text>
+          </View>
+        )}
+      </Pressable>
+      <Text style={styles.volumeNumber}>Vol. {group.volume}</Text>
+      <Text style={styles.volumeLocale}>{localeLabel(primary.locale)}</Text>
+      {isOpen && (
+        <View style={styles.variantRow}>
+          {variants.map((v) => (
+            <Pressable
+              key={coverKey(v)}
+              onPress={() => setSelectedKey(coverKey(v))}
+              style={({ hovered, pressed }: any) => [
+                styles.variantCell,
+                { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
+              ]}
+            >
+              <Image source={{ uri: v.thumbUrl }} style={styles.variantThumb} />
+              <Text style={styles.variantLabel}>
+                {v.volume}
+                {v.locale && v.locale !== primary.locale
+                  ? ` · ${v.locale.toUpperCase()}`
+                  : ''}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
+      )}
+    </View>
   );
 }
 
@@ -434,10 +527,51 @@ const styles = StyleSheet.create({
     width: 120,
     gap: 4,
   },
+  volumeCoverWrap: {
+    width: 120,
+    height: 180,
+    position: 'relative',
+  },
   volumeCover: {
     width: 120,
     height: 180,
     backgroundColor: '#222',
+  },
+  variantBadge: {
+    position: 'absolute',
+    top: 6,
+    right: 6,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    backgroundColor: 'rgba(124, 92, 255, 0.92)',
+  },
+  variantBadgeText: {
+    color: '#fff',
+    fontSize: 10,
+    letterSpacing: 0.6,
+    fontFamily: FONT.bold,
+  },
+  variantRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 6,
+    marginTop: 4,
+    width: 120,
+  },
+  variantCell: {
+    width: 36,
+    gap: 2,
+  },
+  variantThumb: {
+    width: 36,
+    height: 54,
+    backgroundColor: '#222',
+  },
+  variantLabel: {
+    color: '#9aa0a6',
+    fontSize: 9,
+    fontFamily: FONT.semibold,
+    letterSpacing: 0.4,
   },
   volumeNumber: {
     color: '#f5f5f5',

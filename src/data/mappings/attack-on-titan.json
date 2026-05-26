@@ -2,13 +2,16 @@
   "anilistAnimeId": 16498,
   "anilistMangaId": 53390,
   "title": "Attack on Titan",
-  "sourceNotes": "Initial seed — arc-level. Refine via PR.",
+  "sourceNotes": "Cumulative episodes across S1 (25) + S2 (12) + S3 (12+10) + Final Season parts (16+12+special). Arc-level approximation.",
   "mappings": [
-    { "episodes": [1, 3], "chapters": [1, 4], "arc": "Fall of Shiganshina" },
-    { "episodes": [4, 13], "chapters": [5, 18], "arc": "Battle of Trost" },
-    { "episodes": [14, 25], "chapters": [19, 34], "arc": "Female Titan" },
-    { "episodes": [26, 37], "chapters": [35, 50], "arc": "Clash of Titans" },
-    { "episodes": [38, 49], "chapters": [51, 70], "arc": "Uprising" },
-    { "episodes": [50, 59], "chapters": [71, 90], "arc": "Return to Shiganshina" }
+    { "episodes": [1, 3],    "chapters": [1, 4],     "arc": "Fall of Shiganshina" },
+    { "episodes": [4, 13],   "chapters": [5, 18],    "arc": "Battle of Trost" },
+    { "episodes": [14, 25],  "chapters": [19, 34],   "arc": "Female Titan" },
+    { "episodes": [26, 37],  "chapters": [35, 50],   "arc": "Clash of Titans" },
+    { "episodes": [38, 49],  "chapters": [51, 70],   "arc": "Uprising" },
+    { "episodes": [50, 59],  "chapters": [71, 90],   "arc": "Return to Shiganshina" },
+    { "episodes": [60, 75],  "chapters": [91, 116],  "arc": "Marley" },
+    { "episodes": [76, 87],  "chapters": [117, 130], "arc": "War for Paradis" },
+    { "episodes": [88, 98],  "chapters": [131, 139], "arc": "Final Chapters" }
   ]
 }

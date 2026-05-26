@@ -1,4 +1,4 @@
-import type { AniListDate } from '../types';
+import type { AniListDate } from '@/types';
 
 const MONTHS_EN = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',

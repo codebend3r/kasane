@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
-import type { SeriesMapping } from '../types';
-import { FONT } from '../theme';
+import type { SeriesMapping } from '@/types';
+import { FONT } from '@/theme';
 
 const COLORS = [
   '#7c5cff', '#ff7c5c', '#5cff9d', '#ffd65c',
