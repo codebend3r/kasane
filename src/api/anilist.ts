@@ -57,7 +57,7 @@ const SEARCH_ANY_QUERY = gql`
 
 const LATEST_ANIME_QUERY = gql`
   query LatestAnime {
-    Page(perPage: 24) {
+    Page(perPage: 50) {
       media(
         type: ANIME
         format: TV
@@ -128,7 +128,7 @@ export async function getLatestAnime(): Promise<AniListMedia[]> {
   const data = await client.request<{ Page: { media: AniListMedia[] } }>(
     LATEST_ANIME_QUERY
   );
-  return data.Page.media;
+  return data.Page.media.filter(isFranchiseRoot);
 }
 
 export async function getMedia(id: number): Promise<AniListMedia> {
