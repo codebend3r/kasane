@@ -1,0 +1,19 @@
+{
+  "anilistAnimeId": 223,
+  "anilistMangaId": 30042,
+  "title": "Dragon Ball / Dragon Ball Z",
+  "sourceNotes": "Cumulative episode numbering: eps 1–153 = original Dragon Ball (1986), eps 154–444 = Dragon Ball Z (DBZ ep 1 = cumulative 154). DBZ has substantial anime filler (Garlic Jr., Other World Tournament, etc.) not in the manga; chapter ranges here count only manga-adapted episodes. Refine via PR.",
+  "mappings": [
+    { "episodes": [1, 13],    "chapters": [1, 22],    "arc": "Emperor Pilaf" },
+    { "episodes": [14, 28],   "chapters": [23, 53],   "arc": "21st World Tournament" },
+    { "episodes": [29, 68],   "chapters": [54, 103],  "arc": "Red Ribbon Army" },
+    { "episodes": [69, 83],   "chapters": [104, 112], "arc": "Fortuneteller Baba" },
+    { "episodes": [84, 101],  "chapters": [113, 135], "arc": "22nd World Tournament" },
+    { "episodes": [102, 122], "chapters": [136, 165], "arc": "King Piccolo" },
+    { "episodes": [123, 153], "chapters": [166, 194], "arc": "Piccolo Jr. / 23rd World Tournament" },
+    { "episodes": [154, 192], "chapters": [195, 241], "arc": "Saiyan Saga" },
+    { "episodes": [193, 270], "chapters": [242, 329], "arc": "Frieza Saga" },
+    { "episodes": [271, 347], "chapters": [330, 420], "arc": "Android & Cell Saga" },
+    { "episodes": [348, 444], "chapters": [421, 519], "arc": "Majin Buu Saga" }
+  ]
+}
