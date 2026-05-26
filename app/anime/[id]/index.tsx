@@ -10,16 +10,16 @@ import {
 } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
-import { getMedia } from '../../../src/api/anilist';
+import { getMedia } from '@/api/anilist';
 import {
   buildSyntheticMapping,
   chapterToEpisodes,
   episodeToChapters,
   findMappingByMediaId,
-} from '../../../src/data';
-import { EpisodeChapterRail } from '../../../src/components/EpisodeChapterRail';
-import { formatAniListDate } from '../../../src/data/format';
-import { FONT } from '../../../src/theme';
+} from '@/data';
+import { EpisodeChapterRail } from '@/components/EpisodeChapterRail';
+import { formatAniListDate } from '@/data/format';
+import { FONT } from '@/theme';
 
 export default function AnimeDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();

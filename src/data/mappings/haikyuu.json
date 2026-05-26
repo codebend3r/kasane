@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 20464,
+  "anilistMangaId": 65243,
+  "title": "Haikyu!!",
+  "sourceNotes": "Cumulative episodes across S1 (25) + S2 (25) + S3 (10) + S4 To the Top (25). Arc names by tournament; chapter ranges approximate.",
+  "mappings": [
+    { "episodes": [1, 13],  "chapters": [1, 24],    "arc": "Karasuno Reborn" },
+    { "episodes": [14, 25], "chapters": [25, 70],   "arc": "Interhigh Preliminaries" },
+    { "episodes": [26, 38], "chapters": [71, 110],  "arc": "Tokyo Training Camp" },
+    { "episodes": [39, 50], "chapters": [111, 148], "arc": "Spring High Preliminaries" },
+    { "episodes": [51, 60], "chapters": [149, 189], "arc": "Spring High vs Shiratorizawa" },
+    { "episodes": [61, 85], "chapters": [190, 292], "arc": "Spring High Nationals" }
+  ]
+}

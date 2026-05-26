@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Stack } from 'expo-router';
-import type { MappingEntry, SeriesMapping } from '../types';
-import { FONT } from '../theme';
+import type { MappingEntry, SeriesMapping } from '@/types';
+import { FONT } from '@/theme';
 
 export function ArcDetailView({
   mapping,

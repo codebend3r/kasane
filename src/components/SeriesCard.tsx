@@ -1,7 +1,7 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Link } from 'expo-router';
-import type { AniListMedia } from '../types';
-import { FONT } from '../theme';
+import type { AniListMedia } from '@/types';
+import { FONT } from '@/theme';
 
 export function SeriesCard({ media }: { media: AniListMedia }) {
   const title = media.title.english ?? media.title.romaji;

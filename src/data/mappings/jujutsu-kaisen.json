@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 113415,
+  "anilistMangaId": 101517,
+  "title": "Jujutsu Kaisen",
+  "sourceNotes": "Cumulative episode numbering across S1 (24) + S2 (23). Arc boundaries from well-known manga arcs.",
+  "mappings": [
+    { "episodes": [1, 5],   "chapters": [1, 9],     "arc": "Cursed Womb: The Beginning" },
+    { "episodes": [6, 13],  "chapters": [10, 31],   "arc": "Vs. Mahito / Cursed Womb: Death Painting" },
+    { "episodes": [14, 21], "chapters": [32, 53],   "arc": "Kyoto Goodwill Event" },
+    { "episodes": [22, 24], "chapters": [54, 64],   "arc": "Death Painting / Origin of Obedience" },
+    { "episodes": [25, 29], "chapters": [65, 79],   "arc": "Hidden Inventory / Premature Death" },
+    { "episodes": [30, 47], "chapters": [80, 136],  "arc": "Shibuya Incident" }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "anilistAnimeId": 116674,
+  "anilistMangaId": 30012,
+  "title": "Bleach: Thousand-Year Blood War",
+  "sourceNotes": "TYBW arc only (manga ch ~480–686). Cumulative episode numbering across S1 (13) + S2 (13) + S3 (14). Chapter ranges approximate.",
+  "mappings": [
+    { "episodes": [1, 13],  "chapters": [480, 541], "arc": "TYBW Part 1 — The Blood Warfare" },
+    { "episodes": [14, 26], "chapters": [542, 605], "arc": "TYBW Part 2 — The Separation" },
+    { "episodes": [27, 40], "chapters": [606, 686], "arc": "TYBW Part 3 — The Conflict" }
+  ]
+}

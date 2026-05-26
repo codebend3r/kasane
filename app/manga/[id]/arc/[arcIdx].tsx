@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
-import { findMappingByMediaId } from '../../../../src/data';
-import { ArcDetailView } from '../../../../src/components/ArcDetailView';
-import { FONT } from '../../../../src/theme';
+import { findMappingByMediaId } from '@/data';
+import { ArcDetailView } from '@/components/ArcDetailView';
+import { FONT } from '@/theme';
 
 export default function MangaArcDetail() {
   const { id, arcIdx } = useLocalSearchParams<{ id: string; arcIdx: string }>();

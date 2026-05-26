@@ -13,7 +13,7 @@ import {
   SpaceGrotesk_700Bold,
 } from '@expo-google-fonts/space-grotesk';
 import { ZenTokyoZoo_400Regular } from '@expo-google-fonts/zen-tokyo-zoo';
-import { FONT } from '../src/theme';
+import { FONT } from '@/theme';
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
 

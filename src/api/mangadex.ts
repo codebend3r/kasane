@@ -1,4 +1,4 @@
-import type { MangaDexInfo, MangaDexVolumeCover, MangaDexTitle } from '../types';
+import type { MangaDexInfo, MangaDexVolumeCover, MangaDexTitle } from '@/types';
 
 const BASE = 'https://api.mangadex.org';
 const UPLOADS = 'https://uploads.mangadex.org';
