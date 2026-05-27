@@ -21,17 +21,21 @@ const MEDIA_FIELDS = `
   relations {
     edges {
       relationType(version: 2)
-      node { id type }
+      node { id type format }
     }
   }
 `;
 
 const PARENT_RELATIONS = new Set(['PREQUEL', 'PARENT']);
+const NON_ROOT_BLOCKING_FORMATS = new Set(['MANGA', 'ONE_SHOT', 'TV', 'TV_SHORT', 'MOVIE', 'OVA', 'ONA', 'SPECIAL']);
 
 function isFranchiseRoot(media: AniListMedia): boolean {
   const edges = media.relations?.edges ?? [];
   return !edges.some(
-    (e) => PARENT_RELATIONS.has(e.relationType) && e.node.type === media.type
+    (e) =>
+      PARENT_RELATIONS.has(e.relationType) &&
+      e.node.type === media.type &&
+      (e.node.format == null || NON_ROOT_BLOCKING_FORMATS.has(e.node.format))
   );
 }
 
