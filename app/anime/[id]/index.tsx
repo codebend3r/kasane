@@ -127,7 +127,6 @@ export default function AnimeDetail() {
           <EpisodeChapterRail
             mapping={mapping}
             seriesId={String(mediaId)}
-            routePrefix="anime"
             totalChapters={partnerMangaChapters}
           />
           <QuickLookup mapping={mapping} />

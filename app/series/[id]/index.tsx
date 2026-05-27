@@ -1,41 +1,434 @@
-import { useEffect } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useMemo } from 'react';
+import {
+  ActivityIndicator,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { getMedia } from '@/api/anilist';
+import { getMangaDexInfoByAniListId } from '@/api/mangadex';
+import {
+  buildSyntheticMapping,
+  findMappingByMediaId,
+} from '@/data';
+import { EpisodeChapterRail } from '@/components/EpisodeChapterRail';
+import { QuickLookup } from '@/components/QuickLookup';
+import { SeasonCoverage } from '@/components/SeasonCoverage';
+import { VolumesGrid } from '@/components/VolumesGrid';
+import {
+  formatAniListDate,
+  formatAniListDateJa,
+  localeLabel,
+} from '@/data/format';
+import type { SeriesBadge } from '@/types';
 import { FONT } from '@/theme';
 
-// Legacy /series/[id] entry — fetches the media type once and redirects to
-// /manga/[id] or /anime/[id]. Keeps old bookmarks working.
-export default function SeriesRedirect() {
+const BADGE_LABEL: Record<SeriesBadge, string> = {
+  both: 'ANIME + MANGA',
+  'manga-only': 'MANGA ONLY',
+  'anime-only': 'ANIME ONLY',
+};
+
+export default function SeriesDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const mediaId = Number(id);
-  const router = useRouter();
 
-  const { data: media, error } = useQuery({
+  const { data: media, isLoading } = useQuery({
     queryKey: ['media', mediaId],
     queryFn: () => getMedia(mediaId),
     enabled: !Number.isNaN(mediaId),
   });
 
-  useEffect(() => {
-    if (!media) return;
-    const pathname = media.type === 'MANGA' ? '/manga/[id]' : '/anime/[id]';
-    router.replace({ pathname, params: { id: String(media.id) } });
-  }, [media, router]);
+  const curatedMapping = useMemo(() => findMappingByMediaId(mediaId), [mediaId]);
+
+  const partnerId = useMemo(() => {
+    if (!media) return null;
+    if (curatedMapping) {
+      return media.id === curatedMapping.anilistAnimeId
+        ? curatedMapping.anilistMangaId
+        : curatedMapping.anilistAnimeId;
+    }
+    const targetType = media.type === 'MANGA' ? 'ANIME' : 'MANGA';
+    const targetRelation = media.type === 'MANGA' ? 'ADAPTATION' : 'SOURCE';
+    const edge = media.relations?.edges.find(
+      (e) => e.relationType === targetRelation && e.node.type === targetType
+    );
+    return edge?.node.id ?? null;
+  }, [media, curatedMapping]);
+
+  const { data: partner } = useQuery({
+    queryKey: ['media', partnerId],
+    queryFn: () => getMedia(partnerId!),
+    enabled: !!partnerId,
+  });
+
+  const manga =
+    media?.type === 'MANGA'
+      ? media
+      : partner?.type === 'MANGA'
+        ? partner
+        : null;
+  const anime =
+    media?.type === 'ANIME'
+      ? media
+      : partner?.type === 'ANIME'
+        ? partner
+        : null;
+  const primary = manga ?? anime ?? null;
+
+  const mangaPreferredTitle =
+    manga?.title.english ?? manga?.title.romaji ?? '';
+  const { data: mangadex, isFetching: mangadexLoading } = useQuery({
+    queryKey: ['mangadex', manga?.id, mangaPreferredTitle],
+    queryFn: () => getMangaDexInfoByAniListId(manga!.id, mangaPreferredTitle),
+    enabled: !!manga && !!mangaPreferredTitle,
+    staleTime: 60 * 60 * 1000,
+  });
+
+  const syntheticMapping = useMemo(
+    () => (media && !curatedMapping ? buildSyntheticMapping(media) : null),
+    [media, curatedMapping]
+  );
+  const mapping = curatedMapping ?? syntheticMapping;
+  const isAutoEstimated = !curatedMapping && !!syntheticMapping;
+
+  const routeId = manga?.id ?? anime?.id ?? mediaId;
+
+  const badge: SeriesBadge = useMemo(() => {
+    if (!media) return 'manga-only';
+    if (media.type === 'MANGA') {
+      const hasAdapter = media.relations?.edges.some(
+        (e) => e.relationType === 'ADAPTATION' && e.node.type === 'ANIME'
+      );
+      return hasAdapter ? 'both' : 'manga-only';
+    }
+    const hasSource = media.relations?.edges.some(
+      (e) => e.relationType === 'SOURCE' && e.node.type === 'MANGA'
+    );
+    return hasSource ? 'both' : 'anime-only';
+  }, [media]);
+
+  if (isLoading) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator color="#7c5cff" />
+      </View>
+    );
+  }
+
+  if (!media || !primary) {
+    return (
+      <View style={styles.center}>
+        <Text style={styles.empty}>Could not load series.</Text>
+      </View>
+    );
+  }
+
+  const totalVolumes = mangadex?.volumes ?? manga?.volumes ?? null;
+  const totalChapters = mangadex?.chapters ?? manga?.chapters ?? null;
+  const totalEpisodes = mapping
+    ? Math.max(...mapping.mappings.map((m) => m.episodes[1]))
+    : anime?.episodes ?? null;
+  const status = primary.status?.toLowerCase() ?? null;
+  const showAnimeStats = badge !== 'manga-only';
+  const showMangaStats = badge !== 'anime-only';
+
+  const subParts: string[] = [];
+  if (showMangaStats) {
+    subParts.push(`${totalChapters ?? '?'} ch`);
+    subParts.push(`${totalVolumes ?? '?'} vol`);
+  }
+  if (showAnimeStats) {
+    subParts.push(`${totalEpisodes ?? '?'} eps`);
+  }
+  if (primary.format) subParts.push(primary.format);
+  if (primary.startDate.year) {
+    subParts.push(formatAniListDate(primary.startDate));
+  } else if (status) {
+    subParts.push(status);
+  }
 
   return (
-    <View style={styles.center}>
-      {error ? (
-        <Text style={styles.empty}>Could not load series.</Text>
+    <ScrollView style={styles.root} contentContainerStyle={styles.content}>
+      <View style={styles.header}>
+        <Image
+          source={{ uri: primary.coverImage.large }}
+          style={styles.cover}
+        />
+        <View style={styles.headerMeta}>
+          <View style={styles.badgeRow}>
+            <View style={styles.badge}>
+              <Text style={styles.badgeText}>{BADGE_LABEL[badge]}</Text>
+            </View>
+            {curatedMapping && (
+              <View style={[styles.badge, styles.mappedBadge]}>
+                <Text style={styles.badgeText}>MAPPED</Text>
+              </View>
+            )}
+          </View>
+          <Text style={styles.title}>
+            {primary.title.english ?? primary.title.romaji}
+          </Text>
+          {primary.title.native ? (
+            <Text style={styles.titleNative}>{primary.title.native}</Text>
+          ) : null}
+          <Text style={styles.sub}>{subParts.join('  ·  ')}</Text>
+          {primary.startDate.year ? (
+            <Text style={styles.dates}>
+              Started {formatAniListDate(primary.startDate)}
+              {primary.countryOfOrigin === 'JP'
+                ? `  ·  ${formatAniListDateJa(primary.startDate)}`
+                : ''}
+            </Text>
+          ) : null}
+          {primary.endDate?.year ? (
+            <Text style={styles.dates}>
+              Ended {formatAniListDate(primary.endDate)}
+            </Text>
+          ) : null}
+          {primary.genres.length > 0 ? (
+            <View style={styles.tagRow}>
+              {primary.genres.map((g) => (
+                <View key={g} style={styles.tag}>
+                  <Text style={styles.tagText}>{g}</Text>
+                </View>
+              ))}
+            </View>
+          ) : null}
+          {primary.description && (
+            <Text style={styles.description} numberOfLines={8}>
+              {primary.description.replace(/<[^>]+>/g, '')}
+            </Text>
+          )}
+        </View>
+      </View>
+
+      {mapping ? (
+        <View style={styles.mappingBlock}>
+          <Text style={styles.sectionTitle}>Episode ↔ Chapter map</Text>
+          {isAutoEstimated && (
+            <View style={styles.autoBanner}>
+              <View style={styles.autoBadge}>
+                <Text style={styles.autoBadgeText}>AUTO-ESTIMATED</Text>
+              </View>
+              <Text style={styles.autoBannerBody}>
+                Linear pacing — anime episode count distributed evenly across
+                the manga chapter count. Real pacing varies; curated JSON in{' '}
+                <Text style={styles.code}>src/data/mappings/</Text> overrides this.
+              </Text>
+            </View>
+          )}
+          <EpisodeChapterRail
+            mapping={mapping}
+            seriesId={String(routeId)}
+            totalChapters={totalChapters}
+          />
+          {curatedMapping ? <SeasonCoverage mapping={curatedMapping} /> : null}
+          <QuickLookup mapping={mapping} />
+        </View>
       ) : (
-        <ActivityIndicator color="#7c5cff" />
+        <View style={styles.noMapping}>
+          <Text style={styles.noMappingTitle}>No mapping available yet</Text>
+          <Text style={styles.noMappingBody}>
+            We couldn&apos;t find an anime↔manga adaptation pair on AniList for
+            this entry, and no curated mapping exists. Add a JSON file to{' '}
+            <Text style={styles.code}>src/data/mappings/</Text> in the repo.
+          </Text>
+        </View>
       )}
-    </View>
+
+      {manga && (
+        <View style={styles.volumesBlock}>
+          <Text style={styles.sectionTitle}>Volumes</Text>
+          {mangadexLoading && !mangadex ? (
+            <ActivityIndicator color="#7c5cff" style={{ marginTop: 12 }} />
+          ) : mangadex && mangadex.covers.length > 0 ? (
+            <VolumesGrid covers={mangadex.covers} />
+          ) : (
+            <Text style={styles.empty}>
+              No volume art on MangaDex for this title.
+            </Text>
+          )}
+        </View>
+      )}
+
+      {mangadex && mangadex.titles.length > 1 ? (
+        <View style={styles.titlesBlock}>
+          <Text style={styles.sectionTitle}>Titles & translations</Text>
+          <View style={styles.titlesList}>
+            {mangadex.titles.map((t, idx) => (
+              <View key={`${t.locale}-${idx}`} style={styles.titleRow}>
+                <Text style={styles.titleLocale}>{localeLabel(t.locale)}</Text>
+                <Text style={styles.titleValue}>{t.value}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+      ) : null}
+
+      <View style={styles.sources}>
+        <Text style={styles.sourcesText}>
+          Data: AniList (metadata) · MangaDex (volume covers, multilingual titles)
+        </Text>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  root: { flex: 1 },
+  content: { padding: 16, gap: 24, paddingBottom: 48 },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  empty: { color: '#9aa0a6', fontFamily: FONT.regular },
+  header: { flexDirection: 'row', gap: 16 },
+  cover: { width: 140, height: 200, backgroundColor: '#222' },
+  headerMeta: { flex: 1, gap: 6, minWidth: 240 },
+  badgeRow: { flexDirection: 'row', gap: 6, marginBottom: 2 },
+  badge: {
+    alignSelf: 'flex-start',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    backgroundColor: '#7c5cff',
+  },
+  mappedBadge: { backgroundColor: '#5cdfff' },
+  badgeText: {
+    color: '#0c0c0e',
+    fontSize: 11,
+    letterSpacing: 1.4,
+    fontFamily: FONT.bold,
+  },
+  title: {
+    color: '#f5f5f5',
+    fontSize: 32,
+    letterSpacing: -1,
+    fontFamily: FONT.bold,
+    lineHeight: 36,
+  },
+  titleNative: {
+    color: '#cfd2d6',
+    fontSize: 18,
+    fontFamily: FONT.medium,
+    marginTop: -2,
+  },
+  sub: {
+    color: '#9aa0a6',
+    fontSize: 11,
+    letterSpacing: 1.4,
+    textTransform: 'uppercase',
+    fontFamily: FONT.semibold,
+    marginTop: 2,
+  },
+  dates: {
+    color: '#cfd2d6',
+    fontSize: 13,
+    fontFamily: FONT.medium,
+  },
+  tagRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginTop: 4 },
+  tag: {
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    backgroundColor: '#17181b',
+    borderLeftWidth: 2,
+    borderLeftColor: '#7c5cff',
+  },
+  tagText: {
+    color: '#cfd2d6',
+    fontSize: 11,
+    letterSpacing: 0.8,
+    fontFamily: FONT.semibold,
+    textTransform: 'uppercase',
+  },
+  description: {
+    color: '#cfd2d6',
+    fontSize: 14,
+    lineHeight: 20,
+    marginTop: 8,
+    fontFamily: FONT.regular,
+  },
+  sectionTitle: {
+    color: '#f5f5f5',
+    fontSize: 20,
+    letterSpacing: -0.4,
+    fontFamily: FONT.bold,
+  },
+  empty: { color: '#9aa0a6', fontFamily: FONT.regular, marginTop: 8 },
+  mappingBlock: { gap: 10 },
+  autoBanner: {
+    padding: 14,
+    backgroundColor: '#1f1a2e',
+    borderLeftWidth: 4,
+    borderLeftColor: '#ffd65c',
+    gap: 8,
+  },
+  autoBadge: {
+    alignSelf: 'flex-start',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    backgroundColor: '#ffd65c',
+  },
+  autoBadgeText: {
+    color: '#0c0c0e',
+    fontSize: 11,
+    letterSpacing: 1.5,
+    fontFamily: FONT.bold,
+  },
+  autoBannerBody: {
+    color: '#cfd2d6',
+    fontSize: 13,
+    lineHeight: 19,
+    fontFamily: FONT.regular,
+  },
+  noMapping: {
+    padding: 16,
+    backgroundColor: '#17181b',
+    gap: 6,
+  },
+  noMappingTitle: { color: '#ffd65c', fontFamily: FONT.bold },
+  noMappingBody: {
+    color: '#cfd2d6',
+    fontSize: 13,
+    lineHeight: 18,
+    fontFamily: FONT.regular,
+  },
+  code: { fontFamily: 'Menlo', color: '#7c5cff' },
+  volumesBlock: { gap: 12 },
+  titlesBlock: { gap: 8 },
+  titlesList: { gap: 6 },
+  titleRow: {
+    flexDirection: 'row',
+    gap: 12,
+    alignItems: 'baseline',
+    paddingVertical: 4,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#2a2a2a',
+  },
+  titleLocale: {
+    color: '#7c5cff',
+    fontSize: 11,
+    letterSpacing: 1.2,
+    textTransform: 'uppercase',
+    fontFamily: FONT.bold,
+    minWidth: 130,
+  },
+  titleValue: {
+    color: '#f5f5f5',
+    fontSize: 14,
+    flex: 1,
+    fontFamily: FONT.regular,
+  },
+  sources: {
+    marginTop: 8,
+    paddingTop: 12,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: '#2a2a2a',
+  },
+  sourcesText: {
+    color: '#6b7177',
+    fontSize: 11,
+    letterSpacing: 0.8,
+    fontFamily: FONT.regular,
+  },
 });

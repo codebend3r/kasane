@@ -1,52 +1,68 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Link } from 'expo-router';
-import type { AniListMedia } from '@/types';
+import type { SeriesBadge, SeriesEntry } from '@/types';
 import { FONT } from '@/theme';
 import { findMappingByMediaId } from '@/data';
 
-export function SeriesCard({ media }: { media: AniListMedia }) {
-  const title = media.title.english ?? media.title.romaji;
-  const mapping = findMappingByMediaId(media.id);
+const BADGE_LABEL: Record<SeriesBadge, string> = {
+  both: 'ANIME + MANGA',
+  'manga-only': 'MANGA ONLY',
+  'anime-only': 'ANIME ONLY',
+};
+
+const BADGE_COLOR: Record<SeriesBadge, string> = {
+  both: '#7c5cff',
+  'manga-only': '#ff7c5c',
+  'anime-only': '#5cdfff',
+};
+
+export function SeriesCard({ entry }: { entry: SeriesEntry }) {
+  const { primary, anime, manga, badge, routeId } = entry;
+  const title = primary.title.english ?? primary.title.romaji;
+
+  const mapping = findMappingByMediaId(routeId);
   const mappedEpisodeCount = mapping
     ? Math.max(...mapping.mappings.map((m) => m.episodes[1]))
     : null;
-  const episodeCount =
-    media.type === 'ANIME' ? mappedEpisodeCount ?? media.episodes : null;
-  const lengthLabel =
-    media.type === 'ANIME'
-      ? episodeCount
-        ? `${episodeCount} eps`
-        : 'Ongoing'
-      : media.chapters
-        ? `${media.chapters} ch`
-        : 'Ongoing';
   const hasMapping = mapping != null;
+
+  const parts: string[] = [];
+  if (anime || badge === 'anime-only') {
+    const eps = mappedEpisodeCount ?? anime?.episodes ?? null;
+    parts.push(eps ? `${eps} eps` : 'Anime ongoing');
+  }
+  if (manga || badge === 'manga-only') {
+    parts.push(manga?.chapters ? `${manga.chapters} ch` : 'Manga ongoing');
+  }
+  if (primary.startDate.year) parts.push(String(primary.startDate.year));
 
   return (
     <Link
-      href={{
-        pathname: media.type === 'MANGA' ? '/manga/[id]' : '/anime/[id]',
-        params: { id: media.id },
-      }}
+      href={{ pathname: '/series/[id]', params: { id: routeId } }}
       asChild
     >
       <Pressable style={styles.card}>
         <Image
-          source={{ uri: media.coverImage.large }}
-          style={[styles.cover, { backgroundColor: media.coverImage.color ?? '#222' }]}
+          source={{ uri: primary.coverImage.large }}
+          style={[
+            styles.cover,
+            { backgroundColor: primary.coverImage.color ?? '#222' },
+          ]}
         />
         <View style={styles.meta}>
           <Text style={styles.title} numberOfLines={2}>{title}</Text>
-          <Text style={styles.sub}>
-            {media.type} · {lengthLabel}
-            {media.startDate.year ? ` · ${media.startDate.year}` : ''}
-          </Text>
+          <Text style={styles.sub}>{parts.join(' · ')}</Text>
         </View>
-        {hasMapping && (
-          <View style={styles.mappedBadge}>
-            <Text style={styles.mappedBadgeText}>MAPPED</Text>
+        <View style={styles.badges}>
+          <View style={[styles.badge, { backgroundColor: BADGE_COLOR[badge] }]}>
+            <Text style={styles.badgeText}>{BADGE_LABEL[badge]}</Text>
           </View>
-        )}
+          {hasMapping && (
+            <View style={[styles.badge, styles.mappedBadge]}>
+              <Text style={styles.badgeText}>MAPPED</Text>
+            </View>
+          )}
+        </View>
       </Pressable>
     </Link>
   );
@@ -62,16 +78,17 @@ const styles = StyleSheet.create({
   },
   cover: { width: 60, height: 84 },
   meta: { flex: 1, justifyContent: 'center' },
-  mappedBadge: {
-    alignSelf: 'center',
+  badges: { alignSelf: 'center', gap: 4 },
+  badge: {
     paddingHorizontal: 8,
     paddingVertical: 3,
-    backgroundColor: '#7c5cff',
+    alignSelf: 'flex-end',
   },
-  mappedBadgeText: {
-    color: '#fff',
+  mappedBadge: { backgroundColor: '#5cff9d' },
+  badgeText: {
+    color: '#0c0c0e',
     fontSize: 10,
-    letterSpacing: 1.5,
+    letterSpacing: 1.4,
     fontFamily: FONT.bold,
   },
   title: {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -14,9 +14,22 @@ import {
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { getLatestAnime, searchMedia } from '@/api/anilist';
+import { pairResults } from '@/data';
 import { SeriesCard } from '@/components/SeriesCard';
-import type { AniListMedia, MediaType } from '@/types';
+import type { AniListMedia, MediaType, SeriesEntry } from '@/types';
 import { FONT } from '@/theme';
+
+const BADGE_COLOR: Record<SeriesEntry['badge'], string> = {
+  both: '#7c5cff',
+  'manga-only': '#ff7c5c',
+  'anime-only': '#5cdfff',
+};
+
+const BADGE_LABEL: Record<SeriesEntry['badge'], string> = {
+  both: 'ANIME + MANGA',
+  'manga-only': 'MANGA',
+  'anime-only': 'ANIME',
+};
 
 const FILTERS: { label: string; value: MediaType | undefined }[] = [
   { label: 'All', value: undefined },
@@ -48,6 +61,11 @@ export default function HomeScreen() {
     enabled: !isSearching,
     staleTime: 60 * 60 * 1000,
   });
+
+  const pairedResults = useMemo(
+    () => pairResults(searchResults ?? []),
+    [searchResults]
+  );
 
   return (
     <View style={styles.root}>
@@ -87,9 +105,9 @@ export default function HomeScreen() {
         <>
           {isFetching && <ActivityIndicator color="#7c5cff" style={{ marginTop: 24 }} />}
           <FlatList
-            data={searchResults ?? []}
-            keyExtractor={(item) => `${item.type}-${item.id}`}
-            renderItem={({ item }) => <SeriesCard media={item} />}
+            data={pairedResults}
+            keyExtractor={(item) => `series-${item.routeId}`}
+            renderItem={({ item }) => <SeriesCard entry={item} />}
             ListEmptyComponent={
               !isFetching && query === debouncedQuery ? (
                 <Text style={styles.empty}>No results.</Text>
@@ -136,12 +154,16 @@ function LatestReleases({
     setGridWidth(e.nativeEvent.layout.width);
   };
 
+  const entries = useMemo(() => pairResults(data), [data]);
+
   const columns =
     gridWidth > 0
       ? Math.max(1, Math.floor((gridWidth + GRID_GAP) / (GRID_ITEM_WIDTH + GRID_GAP)))
       : 0;
   const visible =
-    columns > 0 ? data.slice(0, Math.floor(data.length / columns) * columns) : [];
+    columns > 0
+      ? entries.slice(0, Math.floor(entries.length / columns) * columns)
+      : [];
 
   return (
     <ScrollView contentContainerStyle={styles.latestScroll}>
@@ -149,16 +171,16 @@ function LatestReleases({
         <Text style={styles.latestEyebrow}>Now airing</Text>
         <Text style={styles.latestTitle}>Latest anime</Text>
       </View>
-      {loading && data.length === 0 ? (
+      {loading && entries.length === 0 ? (
         <ActivityIndicator color="#7c5cff" style={{ marginTop: 24 }} />
       ) : (
         <View style={styles.grid} onLayout={onGridLayout}>
-          {visible.map((media) => (
+          {visible.map((entry) => (
             <Link
-              key={media.id}
+              key={entry.routeId}
               href={{
-                pathname: media.type === 'MANGA' ? '/manga/[id]' : '/anime/[id]',
-                params: { id: media.id },
+                pathname: '/series/[id]',
+                params: { id: entry.routeId },
               }}
               asChild
             >
@@ -168,15 +190,32 @@ function LatestReleases({
                   { opacity: pressed ? 0.6 : hovered ? 0.9 : 1 },
                 ]}
               >
-                <Image
-                  source={{ uri: media.coverImage.large }}
-                  style={[
-                    styles.gridCover,
-                    { backgroundColor: media.coverImage.color ?? '#222' },
-                  ]}
-                />
+                <View style={styles.gridCoverWrap}>
+                  <Image
+                    source={{ uri: entry.primary.coverImage.large }}
+                    style={[
+                      styles.gridCover,
+                      {
+                        backgroundColor:
+                          entry.primary.coverImage.color ?? '#222',
+                      },
+                    ]}
+                  />
+                  <View
+                    style={[
+                      styles.gridBadge,
+                      { backgroundColor: BADGE_COLOR[entry.badge] },
+                    ]}
+                  >
+                    <Text style={styles.gridBadgeText}>
+                      {BADGE_LABEL[entry.badge]}
+                    </Text>
+                  </View>
+                </View>
                 <Text style={styles.gridTitle} numberOfLines={2}>
-                  {trimSeasonSuffix(media.title.english ?? media.title.romaji)}
+                  {trimSeasonSuffix(
+                    entry.primary.title.english ?? entry.primary.title.romaji
+                  )}
                 </Text>
               </Pressable>
             </Link>
@@ -251,9 +290,27 @@ const styles = StyleSheet.create({
     height: 280,
     gap: 8,
   },
+  gridCoverWrap: {
+    width: 160,
+    height: 230,
+    position: 'relative',
+  },
   gridCover: {
     width: 160,
     height: 230,
+  },
+  gridBadge: {
+    position: 'absolute',
+    top: 6,
+    left: 6,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+  },
+  gridBadgeText: {
+    color: '#0c0c0e',
+    fontSize: 9,
+    letterSpacing: 1.2,
+    fontFamily: FONT.bold,
   },
   gridTitle: {
     color: '#f5f5f5',

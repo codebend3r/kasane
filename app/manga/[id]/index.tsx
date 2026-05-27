@@ -140,7 +140,6 @@ export default function MangaDetail() {
           <EpisodeChapterRail
             mapping={mapping}
             seriesId={String(mediaId)}
-            routePrefix="manga"
             totalChapters={totalChapters}
           />
           {curatedMapping ? <SeasonCoverage mapping={curatedMapping} /> : null}

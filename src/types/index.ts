@@ -61,6 +61,16 @@ export interface SeriesMapping {
   sourceNotes?: string;
 }
 
+export type SeriesBadge = 'both' | 'manga-only' | 'anime-only';
+
+export type SeriesEntry = {
+  routeId: number;
+  primary: AniListMedia;
+  anime: AniListMedia | null;
+  manga: AniListMedia | null;
+  badge: SeriesBadge;
+};
+
 export interface MangaDexVolumeCover {
   volume: string;
   locale: string;

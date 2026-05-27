@@ -1,4 +1,9 @@
-import type { AniListMedia, SeriesMapping } from '@/types';
+import type {
+  AniListMedia,
+  RelationEdge,
+  SeriesEntry,
+  SeriesMapping,
+} from '@/types';
 import onePiece from '@/data/mappings/one-piece.json';
 import attackOnTitan from '@/data/mappings/attack-on-titan.json';
 import demonSlayer from '@/data/mappings/demon-slayer.json';
@@ -82,6 +87,60 @@ export function chapterToEpisodes(
 }
 
 export { ALL_MAPPINGS };
+
+function findRelatedId(
+  edges: RelationEdge[] | undefined,
+  relationType: 'SOURCE' | 'ADAPTATION',
+  nodeType: 'ANIME' | 'MANGA'
+): number | null {
+  const hit = edges?.find(
+    (e) => e.relationType === relationType && e.node.type === nodeType
+  );
+  return hit?.node.id ?? null;
+}
+
+export function pairResults(media: AniListMedia[]): SeriesEntry[] {
+  const byId = new Map<number, AniListMedia>();
+  for (const m of media) byId.set(m.id, m);
+
+  const absorbed = new Set<number>();
+  for (const m of media) {
+    if (m.type !== 'ANIME') continue;
+    const sourceMangaId = findRelatedId(m.relations?.edges, 'SOURCE', 'MANGA');
+    if (sourceMangaId && byId.has(sourceMangaId)) {
+      absorbed.add(m.id);
+    }
+  }
+
+  const entries: SeriesEntry[] = [];
+  for (const m of media) {
+    if (absorbed.has(m.id)) continue;
+
+    if (m.type === 'MANGA') {
+      const adapterId = findRelatedId(m.relations?.edges, 'ADAPTATION', 'ANIME');
+      const anime = adapterId ? byId.get(adapterId) ?? null : null;
+      entries.push({
+        routeId: m.id,
+        primary: m,
+        manga: m,
+        anime,
+        badge: adapterId ? 'both' : 'manga-only',
+      });
+    } else {
+      const sourceMangaId = findRelatedId(m.relations?.edges, 'SOURCE', 'MANGA');
+      const manga = sourceMangaId ? byId.get(sourceMangaId) ?? null : null;
+      entries.push({
+        routeId: sourceMangaId ?? m.id,
+        primary: manga ?? m,
+        manga,
+        anime: m,
+        badge: sourceMangaId ? 'both' : 'anime-only',
+      });
+    }
+  }
+
+  return entries;
+}
 
 const PARTNER_RELATION_TYPES = new Set(['ADAPTATION', 'SOURCE']);
 
