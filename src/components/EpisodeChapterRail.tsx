@@ -14,10 +14,12 @@ export function EpisodeChapterRail({
   mapping,
   seriesId,
   routePrefix,
+  totalChapters,
 }: {
   mapping: SeriesMapping;
   seriesId: string;
   routePrefix: 'anime' | 'manga';
+  totalChapters?: number | null;
 }) {
   const router = useRouter();
 
@@ -31,6 +33,13 @@ export function EpisodeChapterRail({
       params: { id: seriesId, arcIdx: String(arcIdx) },
     });
   };
+
+  const maxCoveredChapter = Math.max(
+    ...mapping.mappings.map((m) => m.chapters[1])
+  );
+  const showTail =
+    typeof totalChapters === 'number' && totalChapters > maxCoveredChapter;
+  const tailSpan = showTail ? totalChapters - maxCoveredChapter : 0;
 
   return (
     <View style={styles.container}>
@@ -82,6 +91,13 @@ export function EpisodeChapterRail({
             </Pressable>
           );
         })}
+        {showTail && (
+          <View style={[styles.bar, styles.tailBar, { flex: tailSpan }]}>
+            <Text style={styles.tailBarText} numberOfLines={1}>
+              {maxCoveredChapter + 1}–{totalChapters}
+            </Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -112,6 +128,15 @@ const styles = StyleSheet.create({
   },
   barText: {
     color: '#000',
+    fontSize: 13,
+    letterSpacing: -0.2,
+    fontFamily: FONT.bold,
+  },
+  tailBar: {
+    backgroundColor: '#2a2a2a',
+  },
+  tailBarText: {
+    color: '#9aa0a6',
     fontSize: 13,
     letterSpacing: -0.2,
     fontFamily: FONT.bold,

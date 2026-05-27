@@ -141,6 +141,7 @@ export default function MangaDetail() {
             mapping={mapping}
             seriesId={String(mediaId)}
             routePrefix="manga"
+            totalChapters={totalChapters}
           />
           {curatedMapping ? <SeasonCoverage mapping={curatedMapping} /> : null}
           <QuickLookup mapping={mapping} />

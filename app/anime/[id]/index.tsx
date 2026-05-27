@@ -43,6 +43,17 @@ export default function AnimeDetail() {
     ? Math.max(...mapping.mappings.map((m) => m.episodes[1]))
     : null;
 
+  const partnerMangaChapters = useMemo(() => {
+    const edges = media?.relations?.edges ?? [];
+    const partner = edges.find(
+      (e) =>
+        (e.relationType === 'SOURCE' || e.relationType === 'ADAPTATION') &&
+        e.node.type === 'MANGA' &&
+        typeof e.node.chapters === 'number'
+    );
+    return partner?.node.chapters ?? null;
+  }, [media]);
+
   if (isLoading) {
     return (
       <View style={styles.center}>
@@ -96,7 +107,12 @@ export default function AnimeDetail() {
               </Text>
             </View>
           )}
-          <EpisodeChapterRail mapping={mapping} seriesId={String(mediaId)} routePrefix="anime" />
+          <EpisodeChapterRail
+            mapping={mapping}
+            seriesId={String(mediaId)}
+            routePrefix="anime"
+            totalChapters={partnerMangaChapters}
+          />
           <QuickLookup mapping={mapping} />
         </>
       ) : (
