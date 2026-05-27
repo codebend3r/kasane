@@ -125,7 +125,7 @@ export async function searchMedia(
         SEARCH_ANY_QUERY,
         { query }
       );
-  return data.Page.media.filter(isFranchiseRoot);
+  return data.Page.media;
 }
 
 export async function getLatestAnime(): Promise<AniListMedia[]> {
