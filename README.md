@@ -31,11 +31,11 @@ Three use cases:
 ## Getting started
 
 ```bash
-npm install
-npm run web         # browser
-npm run ios         # iOS simulator (Mac + Xcode required)
-npm run android     # Android emulator
-npm run typecheck
+bun install
+bun run web         # browser
+bun run ios         # iOS simulator (Mac + Xcode required)
+bun run android     # Android emulator
+bun run typecheck
 ```
 
 ## Desktop builds (macOS / Windows / Linux)
@@ -45,18 +45,18 @@ Desktop is shipped via Tauri 2 wrapping the Expo web export. One-time setup:
 1. Install Rust: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
 2. Initialize the desktop project (creates `src-tauri/`):
    ```bash
-   npm run build:web                       # produces dist/
-   npx tauri init \
+   bun run build:web                       # produces dist/
+   bunx tauri init \
      --app-name kasane \
      --window-title "Kasane" \
      --frontend-dist ../dist \
-     --before-build-command "npm run build:web" \
+     --before-build-command "bun run build:web" \
      --dev-url ""
    ```
 3. Run / build:
    ```bash
-   npm run desktop:dev       # dev window
-   npm run desktop:build     # native binary
+   bun run desktop:dev       # dev window
+   bun run desktop:build     # native binary
    ```
 
 ## Contributing a mapping

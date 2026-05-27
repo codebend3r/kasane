@@ -26,7 +26,7 @@ Steps:
 Once enrolled, EAS Build can sign and submit:
 
 ```bash
-npm install -g eas-cli
+bun add -g eas-cli
 eas login
 eas build:configure
 eas build --platform ios --profile production
@@ -69,7 +69,7 @@ eas submit --platform android
 Free tier: 30 builds/month, plenty for one app.
 
 ```bash
-npm install -g eas-cli
+bun add -g eas-cli
 eas login        # uses your Expo account (free signup at expo.dev)
 ```
 
@@ -77,7 +77,7 @@ The free tier is enough to build, sign, and submit to both stores without owning
 
 ## 5. Web hosting — none required
 
-`npm run build:web` produces a static `dist/` folder. Drop it on any of:
+`bun run build:web` produces a static `dist/` folder. Drop it on any of:
 
 - Cloudflare Pages (free, generous bandwidth)
 - Netlify (free tier)

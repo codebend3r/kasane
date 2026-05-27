@@ -1,10 +1,9 @@
 [build]
-  command = "npm run build:web"
+  command = "bun install && bun run build:web"
   publish = "dist"
 
 [build.environment]
   NODE_VERSION = "20"
-  NPM_FLAGS = "--legacy-peer-deps"
 
 # Long-cache the hashed Expo bundle output
 [[headers]]
