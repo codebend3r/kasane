@@ -22,6 +22,7 @@ import dragonBallSuper from '@/data/mappings/dragon-ball-super.json';
 import wistoriaWandAndSword from '@/data/mappings/wistoria-wand-and-sword.json';
 import drStone from '@/data/mappings/dr-stone.json';
 import baki from '@/data/mappings/baki.json';
+import bakiHanma from '@/data/mappings/baki-hanma.json';
 
 const ALL_MAPPINGS = [
   onePiece,
@@ -47,6 +48,7 @@ const ALL_MAPPINGS = [
   wistoriaWandAndSword,
   drStone,
   baki,
+  bakiHanma,
 ] as unknown as SeriesMapping[];
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
