@@ -1,0 +1,13 @@
+{
+  "anilistAnimeId": 21175,
+  "anilistMangaId": 86508,
+  "title": "Dragon Ball Super",
+  "sourceNotes": "Dragon Ball Super (2015) anime — 131 episodes paired with the Toyotaro manga (ongoing). Anime and manga developed in parallel and diverge in pacing: Battle of Gods / Resurrection 'F' are heavily expanded in the anime (the manga compresses both into ~5 chapters), and several anime arcs (Copy-Vegeta bridge, Tournament of Power expansions) have no direct manga counterpart. Chapter ranges are arc-level approximations. Manga arcs beyond the anime (Galactic Patrol Prisoner, Granolah Survivor, Super Hero, Black Frieza) are unmapped here.",
+  "mappings": [
+    { "episodes": [1, 14],    "chapters": [1, 3],    "arc": "Battle of Gods" },
+    { "episodes": [15, 27],   "chapters": [4, 5],    "arc": "Resurrection 'F'" },
+    { "episodes": [28, 46],   "chapters": [6, 13],   "arc": "Universe 6" },
+    { "episodes": [47, 76],   "chapters": [14, 22],  "arc": "Future Trunks / Goku Black" },
+    { "episodes": [77, 131],  "chapters": [23, 42],  "arc": "Universal Survival / Tournament of Power" }
+  ]
+}

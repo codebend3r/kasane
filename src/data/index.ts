@@ -17,29 +17,33 @@ import haikyuu from '@/data/mappings/haikyuu.json';
 import fruitsBasket2019 from '@/data/mappings/fruits-basket-2019.json';
 import berserk from '@/data/mappings/berserk.json';
 import dragonBall from '@/data/mappings/dragon-ball.json';
+import dragonBallZ from '@/data/mappings/dragon-ball-z.json';
+import dragonBallSuper from '@/data/mappings/dragon-ball-super.json';
 import wistoriaWandAndSword from '@/data/mappings/wistoria-wand-and-sword.json';
 
-const ALL_MAPPINGS: SeriesMapping[] = [
-  onePiece as SeriesMapping,
-  attackOnTitan as SeriesMapping,
-  demonSlayer as SeriesMapping,
-  onePunchMan as SeriesMapping,
-  vinlandSaga as SeriesMapping,
-  fullmetalAlchemistBrotherhood as SeriesMapping,
-  hunterXHunter2011 as SeriesMapping,
-  monster as SeriesMapping,
-  jujutsuKaisen as SeriesMapping,
-  bleachTybw as SeriesMapping,
-  mobPsycho100 as SeriesMapping,
-  frieren as SeriesMapping,
-  apothecaryDiaries as SeriesMapping,
-  nana as SeriesMapping,
-  haikyuu as SeriesMapping,
-  fruitsBasket2019 as SeriesMapping,
-  berserk as SeriesMapping,
-  dragonBall as SeriesMapping,
-  wistoriaWandAndSword as SeriesMapping,
-];
+const ALL_MAPPINGS = [
+  onePiece,
+  attackOnTitan,
+  demonSlayer,
+  onePunchMan,
+  vinlandSaga,
+  fullmetalAlchemistBrotherhood,
+  hunterXHunter2011,
+  monster,
+  jujutsuKaisen,
+  bleachTybw,
+  mobPsycho100,
+  frieren,
+  apothecaryDiaries,
+  nana,
+  haikyuu,
+  fruitsBasket2019,
+  berserk,
+  dragonBall,
+  dragonBallZ,
+  dragonBallSuper,
+  wistoriaWandAndSword,
+] as unknown as SeriesMapping[];
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
   return (
