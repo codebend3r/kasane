@@ -17,6 +17,7 @@ import haikyuu from '@/data/mappings/haikyuu.json';
 import fruitsBasket2019 from '@/data/mappings/fruits-basket-2019.json';
 import berserk from '@/data/mappings/berserk.json';
 import dragonBall from '@/data/mappings/dragon-ball.json';
+import wistoriaWandAndSword from '@/data/mappings/wistoria-wand-and-sword.json';
 
 const ALL_MAPPINGS: SeriesMapping[] = [
   onePiece as SeriesMapping,
@@ -37,6 +38,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   fruitsBasket2019 as SeriesMapping,
   berserk as SeriesMapping,
   dragonBall as SeriesMapping,
+  wistoriaWandAndSword as SeriesMapping,
 ];
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
