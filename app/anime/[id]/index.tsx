@@ -11,6 +11,7 @@ import {
 import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { getMedia } from '@/api/anilist';
+import { getMangaDexInfoByAniListId } from '@/api/mangadex';
 import {
   buildSyntheticMapping,
   chapterToEpisodes,
@@ -43,16 +44,32 @@ export default function AnimeDetail() {
     ? Math.max(...mapping.mappings.map((m) => m.episodes[1]))
     : null;
 
-  const partnerMangaChapters = useMemo(() => {
+  const partnerManga = useMemo(() => {
     const edges = media?.relations?.edges ?? [];
-    const partner = edges.find(
-      (e) =>
-        (e.relationType === 'SOURCE' || e.relationType === 'ADAPTATION') &&
-        e.node.type === 'MANGA' &&
-        typeof e.node.chapters === 'number'
-    );
-    return partner?.node.chapters ?? null;
-  }, [media]);
+    const targetId = curatedMapping?.anilistMangaId;
+    const node =
+      (targetId
+        ? edges.find((e) => e.node.type === 'MANGA' && e.node.id === targetId)
+        : edges.find(
+            (e) =>
+              (e.relationType === 'SOURCE' || e.relationType === 'ADAPTATION') &&
+              e.node.type === 'MANGA'
+          ))?.node ?? null;
+    if (!node) return null;
+    const title = node.title?.english ?? node.title?.romaji ?? '';
+    return { id: node.id, title, anilistChapters: node.chapters ?? null };
+  }, [media, curatedMapping]);
+
+  const { data: partnerMangadex } = useQuery({
+    queryKey: ['mangadex', partnerManga?.id, partnerManga?.title],
+    queryFn: () =>
+      getMangaDexInfoByAniListId(partnerManga!.id, partnerManga!.title),
+    enabled: !!partnerManga && !!partnerManga.title,
+    staleTime: 60 * 60 * 1000,
+  });
+
+  const partnerMangaChapters =
+    partnerMangadex?.chapters ?? partnerManga?.anilistChapters ?? null;
 
   if (isLoading) {
     return (
