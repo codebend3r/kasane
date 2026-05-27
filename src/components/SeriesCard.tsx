@@ -2,6 +2,7 @@ import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Link } from 'expo-router';
 import type { AniListMedia } from '@/types';
 import { FONT } from '@/theme';
+import { findMappingByMediaId } from '@/data';
 
 export function SeriesCard({ media }: { media: AniListMedia }) {
   const title = media.title.english ?? media.title.romaji;
@@ -13,6 +14,7 @@ export function SeriesCard({ media }: { media: AniListMedia }) {
       : media.chapters
         ? `${media.chapters} ch`
         : 'Ongoing';
+  const hasMapping = findMappingByMediaId(media.id) != null;
 
   return (
     <Link
@@ -34,6 +36,11 @@ export function SeriesCard({ media }: { media: AniListMedia }) {
             {media.startDate.year ? ` · ${media.startDate.year}` : ''}
           </Text>
         </View>
+        {hasMapping && (
+          <View style={styles.mappedBadge}>
+            <Text style={styles.mappedBadgeText}>MAPPED</Text>
+          </View>
+        )}
       </Pressable>
     </Link>
   );
@@ -49,6 +56,18 @@ const styles = StyleSheet.create({
   },
   cover: { width: 60, height: 84 },
   meta: { flex: 1, justifyContent: 'center' },
+  mappedBadge: {
+    alignSelf: 'center',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    backgroundColor: '#7c5cff',
+  },
+  mappedBadgeText: {
+    color: '#fff',
+    fontSize: 10,
+    letterSpacing: 1.5,
+    fontFamily: FONT.bold,
+  },
   title: {
     color: '#f5f5f5',
     fontSize: 17,
