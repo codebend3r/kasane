@@ -6,15 +6,21 @@ import { findMappingByMediaId } from '@/data';
 
 export function SeriesCard({ media }: { media: AniListMedia }) {
   const title = media.title.english ?? media.title.romaji;
+  const mapping = findMappingByMediaId(media.id);
+  const mappedEpisodeCount = mapping
+    ? Math.max(...mapping.mappings.map((m) => m.episodes[1]))
+    : null;
+  const episodeCount =
+    media.type === 'ANIME' ? mappedEpisodeCount ?? media.episodes : null;
   const lengthLabel =
     media.type === 'ANIME'
-      ? media.episodes
-        ? `${media.episodes} eps`
+      ? episodeCount
+        ? `${episodeCount} eps`
         : 'Ongoing'
       : media.chapters
         ? `${media.chapters} ch`
         : 'Ongoing';
-  const hasMapping = findMappingByMediaId(media.id) != null;
+  const hasMapping = mapping != null;
 
   return (
     <Link

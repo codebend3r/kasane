@@ -39,6 +39,10 @@ export default function AnimeDetail() {
   const mapping = curatedMapping ?? syntheticMapping;
   const isAutoEstimated = !curatedMapping && !!syntheticMapping;
 
+  const mappedEpisodeCount = mapping
+    ? Math.max(...mapping.mappings.map((m) => m.episodes[1]))
+    : null;
+
   if (isLoading) {
     return (
       <View style={styles.center}>
@@ -64,7 +68,7 @@ export default function AnimeDetail() {
             {media.title.english ?? media.title.romaji}
           </Text>
           <Text style={styles.sub}>
-            ANIME · {media.episodes ?? '?'} eps
+            ANIME · {mappedEpisodeCount ?? media.episodes ?? '?'} eps
             {media.format ? ` · ${media.format}` : ''}
             {media.startDate.year ? ` · ${formatAniListDate(media.startDate)}` : ''}
           </Text>
