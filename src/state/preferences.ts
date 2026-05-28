@@ -27,18 +27,8 @@ export const usePreferences = create<PreferencesState>()(
       setLanguage: (language) => set({ language }),
     }),
     {
-      name: 'kasane-prefs',
+      name: 'kasane-prefs-v2',
       storage: createJSONStorage(() => webStorage),
-      version: 2,
-      migrate: (persisted: unknown) => {
-        if (persisted && typeof persisted === 'object' && 'language' in persisted) {
-          const lang = (persisted as { language: unknown }).language;
-          if (lang !== 'EN' && lang !== 'NATIVE') {
-            return { ...(persisted as object), language: 'EN' } as PreferencesState;
-          }
-        }
-        return persisted as PreferencesState;
-      },
     }
   )
 );
