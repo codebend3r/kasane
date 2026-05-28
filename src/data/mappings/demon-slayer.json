@@ -11,6 +11,8 @@
     { "episodes": [27, 33], "chapters": [54, 69],   "arc": "Mugen Train" },
     { "episodes": [34, 44], "chapters": [70, 97],   "arc": "Entertainment District" },
     { "episodes": [45, 55], "chapters": [98, 127],  "arc": "Swordsmith Village" },
-    { "episodes": [56, 63], "chapters": [128, 136], "arc": "Hashira Training" }
+    { "episodes": [56, 63], "chapters": [128, 136], "arc": "Hashira Training" },
+    { "chapters": [137, 180], "arc": "Infinity Castle" },
+    { "chapters": [181, 205], "arc": "Sunrise Countdown" }
   ]
 }
