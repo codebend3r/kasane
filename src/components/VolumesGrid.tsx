@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 6,
-    marginTop: 4,
+    paddingTop: 4,
     width: 120,
   },
   variantCell: {
