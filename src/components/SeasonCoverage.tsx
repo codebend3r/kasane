@@ -19,9 +19,10 @@ export function SeasonCoverage({ mapping }: { mapping: SeriesMapping }) {
   if (seasonBuckets.length === 1 && seasonBuckets[0][0] === 'Other') return null;
 
   return (
-    <View style={styles.block}>
-      <Text style={styles.label}>Per-season chapter coverage</Text>
-      {seasonBuckets.map(([label, entries]) => {
+    <View style={styles.outer}>
+      <View style={styles.block}>
+        <Text style={styles.label}>Per-season chapter coverage</Text>
+        {seasonBuckets.map(([label, entries]) => {
         const minCh = Math.min(...entries.map((e) => e.chapters[0]));
         const maxCh = Math.max(...entries.map((e) => e.chapters[1]));
         const minEp = Math.min(...entries.map((e) => e.episodes![0]));
@@ -35,16 +36,17 @@ export function SeasonCoverage({ mapping }: { mapping: SeriesMapping }) {
           </View>
         );
       })}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  outer: { paddingTop: 4 },
   block: {
     padding: 12,
     backgroundColor: '#17181b',
     gap: 6,
-    marginTop: 4,
   },
   label: {
     color: '#9aa0a6',
@@ -52,7 +54,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1.4,
     textTransform: 'uppercase',
     fontFamily: FONT.bold,
-    marginBottom: 4,
+    paddingBottom: 4,
   },
   row: {
     flexDirection: 'row',
