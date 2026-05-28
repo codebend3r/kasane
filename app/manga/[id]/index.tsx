@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
+  Animated,
   Image,
   Pressable,
   ScrollView,
@@ -260,22 +261,36 @@ function VolumeCard({ group }: { group: VolumeGroup }) {
   const variants = allCovers.filter((c) => c !== primary);
   const hasVariants = variants.length > 0;
 
+  const scale = useRef(new Animated.Value(1)).current;
+  const animateTo = (toValue: number) =>
+    Animated.timing(scale, {
+      toValue,
+      duration: 180,
+      useNativeDriver: true,
+    }).start();
+
   return (
     <View style={styles.volumeCard}>
       <Pressable
         onPress={() => hasVariants && setIsOpen((v) => !v)}
-        disabled={!hasVariants}
+        onHoverIn={() => animateTo(1.6)}
+        onHoverOut={() => animateTo(1)}
         style={({ hovered, pressed }: any) => [
           styles.volumeCoverWrap,
-          { opacity: pressed ? 0.7 : hovered && hasVariants ? 0.92 : 1 },
+          {
+            opacity: pressed ? 0.7 : 1,
+            zIndex: hovered ? 10 : 1,
+          },
         ]}
       >
-        <Image source={{ uri: primary.thumbUrl }} style={styles.volumeCover} />
-        {hasVariants && (
-          <View style={styles.variantBadge}>
-            <Text style={styles.variantBadgeText}>+{variants.length}</Text>
-          </View>
-        )}
+        <Animated.View style={[styles.volumeCoverInner, { transform: [{ scale }] }]}>
+          <Image source={{ uri: primary.thumbUrl }} style={styles.volumeCover} />
+          {hasVariants && (
+            <View style={styles.variantBadge}>
+              <Text style={styles.variantBadgeText}>+{variants.length}</Text>
+            </View>
+          )}
+        </Animated.View>
       </Pressable>
       <Text style={styles.volumeNumber}>Vol. {group.volume}</Text>
       <Text style={styles.volumeLocale}>{localeLabel(primary.locale)}</Text>
@@ -538,6 +553,11 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   volumeCoverWrap: {
+    width: 120,
+    height: 180,
+    position: 'relative',
+  },
+  volumeCoverInner: {
     width: 120,
     height: 180,
     position: 'relative',

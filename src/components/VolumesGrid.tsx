@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { useMemo, useRef, useState } from 'react';
+import { Animated, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import type { MangaDexVolumeCover } from '@/types';
 import { localeLabel } from '@/data/format';
 import { usePreferences } from '@/state/preferences';
@@ -77,22 +77,36 @@ function VolumeCard({ group }: { group: VolumeGroup }) {
   const variants = allCovers.filter((c) => c !== primary);
   const hasVariants = variants.length > 0;
 
+  const scale = useRef(new Animated.Value(1)).current;
+  const animateTo = (toValue: number) =>
+    Animated.timing(scale, {
+      toValue,
+      duration: 180,
+      useNativeDriver: true,
+    }).start();
+
   return (
     <View style={styles.card}>
       <Pressable
         onPress={() => hasVariants && setIsOpen((v) => !v)}
-        disabled={!hasVariants}
+        onHoverIn={() => animateTo(1.6)}
+        onHoverOut={() => animateTo(1)}
         style={({ hovered, pressed }: any) => [
           styles.coverWrap,
-          { opacity: pressed ? 0.7 : hovered && hasVariants ? 0.92 : 1 },
+          {
+            opacity: pressed ? 0.7 : 1,
+            zIndex: hovered ? 10 : 1,
+          },
         ]}
       >
-        <Image source={{ uri: primary.thumbUrl }} style={styles.cover} />
-        {hasVariants && (
-          <View style={styles.variantBadge}>
-            <Text style={styles.variantBadgeText}>+{variants.length}</Text>
-          </View>
-        )}
+        <Animated.View style={[styles.coverInner, { transform: [{ scale }] }]}>
+          <Image source={{ uri: primary.thumbUrl }} style={styles.cover} />
+          {hasVariants && (
+            <View style={styles.variantBadge}>
+              <Text style={styles.variantBadgeText}>+{variants.length}</Text>
+            </View>
+          )}
+        </Animated.View>
       </Pressable>
       <Text style={styles.number}>Vol. {group.volume}</Text>
       <Text style={styles.locale}>{localeLabel(primary.locale)}</Text>
@@ -133,6 +147,11 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   coverWrap: {
+    width: 120,
+    height: 180,
+    position: 'relative',
+  },
+  coverInner: {
     width: 120,
     height: 180,
     position: 'relative',
