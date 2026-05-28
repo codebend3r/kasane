@@ -40,13 +40,14 @@ function isFranchiseRoot(media: AniListMedia): boolean {
 }
 
 const SEARCH_TYPED_QUERY = gql`
-  query Search($query: String!, $type: MediaType!, $genreNotIn: [String]) {
+  query Search($query: String!, $type: MediaType!, $genreNotIn: [String], $tagNotIn: [String]) {
     Page(perPage: 20) {
       media(
         search: $query
         type: $type
         sort: SEARCH_MATCH
         genre_not_in: $genreNotIn
+        tag_not_in: $tagNotIn
       ) {
         ${MEDIA_FIELDS}
       }
@@ -55,9 +56,14 @@ const SEARCH_TYPED_QUERY = gql`
 `;
 
 const SEARCH_ANY_QUERY = gql`
-  query Search($query: String!, $genreNotIn: [String]) {
+  query Search($query: String!, $genreNotIn: [String], $tagNotIn: [String]) {
     Page(perPage: 20) {
-      media(search: $query, sort: SEARCH_MATCH, genre_not_in: $genreNotIn) {
+      media(
+        search: $query
+        sort: SEARCH_MATCH
+        genre_not_in: $genreNotIn
+        tag_not_in: $tagNotIn
+      ) {
         ${MEDIA_FIELDS}
       }
     }
@@ -65,7 +71,7 @@ const SEARCH_ANY_QUERY = gql`
 `;
 
 const LATEST_ANIME_QUERY = gql`
-  query LatestAnime($genreNotIn: [String]) {
+  query LatestAnime($genreNotIn: [String], $tagNotIn: [String]) {
     Page(perPage: 50) {
       media(
         type: ANIME
@@ -74,6 +80,7 @@ const LATEST_ANIME_QUERY = gql`
         status_in: [RELEASING, FINISHED]
         isAdult: false
         genre_not_in: $genreNotIn
+        tag_not_in: $tagNotIn
       ) {
         ${MEDIA_FIELDS}
       }
@@ -120,27 +127,41 @@ const DETAIL_QUERY = gql`
 export async function searchMedia(
   query: string,
   type?: MediaType,
-  genreNotIn?: string[] | null
+  genreNotIn?: string[] | null,
+  tagNotIn?: string[] | null
 ): Promise<AniListMedia[]> {
   if (!query.trim()) return [];
   const data = type
     ? await client.request<{ Page: { media: AniListMedia[] } }>(
         SEARCH_TYPED_QUERY,
-        { query, type, genreNotIn: genreNotIn ?? null }
+        {
+          query,
+          type,
+          genreNotIn: genreNotIn ?? null,
+          tagNotIn: tagNotIn ?? null,
+        }
       )
     : await client.request<{ Page: { media: AniListMedia[] } }>(
         SEARCH_ANY_QUERY,
-        { query, genreNotIn: genreNotIn ?? null }
+        {
+          query,
+          genreNotIn: genreNotIn ?? null,
+          tagNotIn: tagNotIn ?? null,
+        }
       );
   return data.Page.media;
 }
 
 export async function getLatestAnime(
-  genreNotIn?: string[] | null
+  genreNotIn?: string[] | null,
+  tagNotIn?: string[] | null
 ): Promise<AniListMedia[]> {
   const data = await client.request<{ Page: { media: AniListMedia[] } }>(
     LATEST_ANIME_QUERY,
-    { genreNotIn: genreNotIn ?? null }
+    {
+      genreNotIn: genreNotIn ?? null,
+      tagNotIn: tagNotIn ?? null,
+    }
   );
   return data.Page.media.filter(isFranchiseRoot);
 }
