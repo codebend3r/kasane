@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import type { MangaDexVolumeCover } from '@/types';
 import { localeLabel } from '@/data/format';
+import { usePreferences } from '@/state/preferences';
 import { FONT } from '@/theme';
 
 type VolumeGroup = {
@@ -10,9 +11,13 @@ type VolumeGroup = {
   variants: MangaDexVolumeCover[];
 };
 
-const LOCALE_RANK: Record<string, number> = { ja: 0, en: 1 };
-
-function groupCovers(covers: MangaDexVolumeCover[]): VolumeGroup[] {
+function groupCovers(
+  covers: MangaDexVolumeCover[],
+  japanese: boolean
+): VolumeGroup[] {
+  const localeRank: Record<string, number> = japanese
+    ? { ja: 0, en: 1 }
+    : { en: 0, ja: 1 };
   const groups = new Map<number, MangaDexVolumeCover[]>();
   for (const c of covers) {
     const n = Number(c.volume);
@@ -28,8 +33,8 @@ function groupCovers(covers: MangaDexVolumeCover[]): VolumeGroup[] {
         const aIsInt = !a.volume.includes('.');
         const bIsInt = !b.volume.includes('.');
         if (aIsInt !== bIsInt) return aIsInt ? -1 : 1;
-        const ra = LOCALE_RANK[a.locale] ?? 99;
-        const rb = LOCALE_RANK[b.locale] ?? 99;
+        const ra = localeRank[a.locale] ?? 99;
+        const rb = localeRank[b.locale] ?? 99;
         if (ra !== rb) return ra - rb;
         return a.volume.localeCompare(b.volume);
       });
@@ -42,11 +47,18 @@ function coverKey(c: MangaDexVolumeCover): string {
 }
 
 export function VolumesGrid({ covers }: { covers: MangaDexVolumeCover[] }) {
-  const groups = useMemo(() => groupCovers(covers), [covers]);
+  const japanese = usePreferences((s) => s.japanese);
+  const groups = useMemo(
+    () => groupCovers(covers, japanese),
+    [covers, japanese]
+  );
   return (
     <View style={styles.grid}>
       {groups.map((group) => (
-        <VolumeCard key={`vol-${group.volume}`} group={group} />
+        <VolumeCard
+          key={`vol-${group.volume}-${japanese ? 'ja' : 'en'}`}
+          group={group}
+        />
       ))}
     </View>
   );
