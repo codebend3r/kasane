@@ -7,6 +7,8 @@
     { "episodes": [1, 4],   "chapters": [1, 9],   "arc": "Aftermath of the Demon King" },
     { "episodes": [5, 11],  "chapters": [10, 26], "arc": "Heiter & Fern / Sein" },
     { "episodes": [12, 16], "chapters": [27, 41], "arc": "Northern Lands / Granat" },
-    { "episodes": [17, 28], "chapters": [42, 62], "arc": "First-Class Mage Exam" }
+    { "episodes": [17, 28], "chapters": [42, 62], "arc": "First-Class Mage Exam" },
+    { "chapters": [63, 89],  "arc": "First-Class Mage Exam (cont.)" },
+    { "chapters": [90, 147], "arc": "Aureole / Northern Continent" }
   ]
 }
