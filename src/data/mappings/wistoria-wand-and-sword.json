@@ -7,6 +7,7 @@
     { "episodes": [1, 2],   "chapters": [1, 4],   "arc": "Introduction / Dungeon Work" },
     { "episodes": [3, 7],   "chapters": [5, 13],  "arc": "Grand Magic Festival" },
     { "episodes": [8, 10],  "chapters": [14, 19], "arc": "Praxis Exam / Party Formation" },
-    { "episodes": [11, 12], "chapters": [20, 24], "arc": "Final Exam / Graduation" }
+    { "episodes": [11, 12], "chapters": [20, 24], "arc": "Final Exam / Graduation" },
+    { "chapters": [25, 65], "arc": "Post-Terminalia / Goetia" }
   ]
 }
