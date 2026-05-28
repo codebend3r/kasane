@@ -7,6 +7,7 @@
     { "episodes": [1, 12],  "chapters": [1, 11],  "arc": "Tokyo & Apartment 707" },
     { "episodes": [13, 25], "chapters": [12, 27], "arc": "Blast vs Trapnest" },
     { "episodes": [26, 36], "chapters": [28, 40], "arc": "Pregnancy & Marriage" },
-    { "episodes": [37, 47], "chapters": [41, 53], "arc": "Trapnest Tour & Hachi's Choice" }
+    { "episodes": [37, 47], "chapters": [41, 53], "arc": "Trapnest Tour & Hachi's Choice" },
+    { "chapters": [54, 84], "arc": "Post-anime (manga hiatus since 2009)" }
   ]
 }
