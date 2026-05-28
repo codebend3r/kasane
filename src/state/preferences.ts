@@ -1,7 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import { DEFAULT_HIDDEN_GENRE_IDS } from '@/data/genreFilters';
 
 type State = {
   japanese: boolean;
@@ -17,7 +16,7 @@ export const usePreferences = create<State>()(
       japanese: false,
       toggleJapanese: () => set((s) => ({ japanese: !s.japanese })),
 
-      hiddenGenres: [...DEFAULT_HIDDEN_GENRE_IDS],
+      hiddenGenres: [],
       toggleHiddenGenre: (id) =>
         set((s) => ({
           hiddenGenres: s.hiddenGenres.includes(id)
@@ -27,7 +26,7 @@ export const usePreferences = create<State>()(
     }),
     {
       name: 'kasane-preferences',
-      version: 2,
+      version: 3,
       storage: createJSONStorage(() => AsyncStorage),
       partialize: (s) => ({
         japanese: s.japanese,
@@ -39,14 +38,14 @@ export const usePreferences = create<State>()(
             ? (persisted as { japanese?: unknown; hiddenGenres?: unknown })
             : {};
         const japanese = typeof prior.japanese === 'boolean' ? prior.japanese : false;
-        if (version < 2) {
-          return { japanese, hiddenGenres: [...DEFAULT_HIDDEN_GENRE_IDS] };
+        if (version < 3) {
+          return { japanese, hiddenGenres: [] };
         }
         const hiddenGenres =
           Array.isArray(prior.hiddenGenres) &&
           prior.hiddenGenres.every((x) => typeof x === 'string')
             ? (prior.hiddenGenres as string[])
-            : [...DEFAULT_HIDDEN_GENRE_IDS];
+            : [];
         return { japanese, hiddenGenres };
       },
     }

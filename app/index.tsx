@@ -90,15 +90,17 @@ export default function HomeScreen() {
 
       <View style={styles.genreFilters}>
         {GENRE_FILTERS.map((f) => {
-          const active = hiddenGenres.includes(f.id);
+          const included = !hiddenGenres.includes(f.id);
           return (
             <Pressable
               key={f.id}
               onPress={() => toggleHiddenGenre(f.id)}
-              style={[styles.filterChip, active && styles.filterChipActive]}
+              style={[styles.filterChip, included && styles.filterChipActive]}
             >
-              <Text style={[styles.filterText, active && styles.filterTextActive]}>
-                {active ? `× ${f.label}` : f.label}
+              <Text
+                style={[styles.filterText, included && styles.filterTextActive]}
+              >
+                {included ? f.label : `× ${f.label}`}
               </Text>
             </Pressable>
           );
