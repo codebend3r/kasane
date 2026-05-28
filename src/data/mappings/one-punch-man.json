@@ -14,6 +14,8 @@
     { "season": 2, "episodes": [15, 17],"chapters": [42, 53],   "arc": "S2 · Hero Hunt" },
     { "season": 2, "episodes": [18, 20],"chapters": [54, 67],   "arc": "S2 · Martial Arts Tournament" },
     { "season": 2, "episodes": [21, 24],"chapters": [68, 84],   "arc": "S2 · Monster Association Raid" },
-    { "season": 3, "episodes": [25, 36],"chapters": [85, 116],  "arc": "S3 · Monster Association (cont.)" }
+    { "season": 3, "episodes": [25, 36],"chapters": [85, 116],  "arc": "S3 · Monster Association (cont.)" },
+    { "chapters": [117, 170], "arc": "Monster Association Aftermath" },
+    { "chapters": [171, 226], "arc": "Psychic Sisters / Neo Heroes" }
   ]
 }
