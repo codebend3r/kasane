@@ -25,29 +25,12 @@ export const usePreferences = create<State>()(
         })),
     }),
     {
-      name: 'kasane-preferences',
-      version: 3,
+      name: 'kasane-preferences-v3',
       storage: createJSONStorage(() => AsyncStorage),
       partialize: (s) => ({
         japanese: s.japanese,
         hiddenGenres: s.hiddenGenres,
       }),
-      migrate: (persisted, version) => {
-        const prior =
-          persisted && typeof persisted === 'object'
-            ? (persisted as { japanese?: unknown; hiddenGenres?: unknown })
-            : {};
-        const japanese = typeof prior.japanese === 'boolean' ? prior.japanese : false;
-        if (version < 3) {
-          return { japanese, hiddenGenres: [] };
-        }
-        const hiddenGenres =
-          Array.isArray(prior.hiddenGenres) &&
-          prior.hiddenGenres.every((x) => typeof x === 'string')
-            ? (prior.hiddenGenres as string[])
-            : [];
-        return { japanese, hiddenGenres };
-      },
     }
   )
 );
