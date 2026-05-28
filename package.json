@@ -55,6 +55,9 @@
   },
   "private": true,
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "moduleNameMapper": {
+      "^ansi-styles$": "<rootDir>/node_modules/pretty-format/node_modules/ansi-styles"
+    }
   }
 }
