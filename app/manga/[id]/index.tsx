@@ -266,7 +266,7 @@ function VolumeCard({ group }: { group: VolumeGroup }) {
   const animateTo = (toValue: number) =>
     Animated.timing(scale, {
       toValue,
-      duration: 180,
+      duration: 120,
       useNativeDriver: true,
     }).start();
 
@@ -283,21 +283,23 @@ function VolumeCard({ group }: { group: VolumeGroup }) {
           animateTo(1);
         }}
         style={({ pressed }: any) => [
-          styles.volumeCoverWrap,
+          styles.volumeCardPress,
           { opacity: pressed ? 0.7 : 1 },
         ]}
       >
-        <Animated.View style={[styles.volumeCoverInner, { transform: [{ scale }] }]}>
-          <Image source={{ uri: primary.thumbUrl }} style={styles.volumeCover} />
-          {hasVariants && (
-            <View style={styles.variantBadge}>
-              <Text style={styles.variantBadgeText}>+{variants.length}</Text>
-            </View>
-          )}
+        <Animated.View style={[styles.volumeCardInner, { transform: [{ scale }] }]}>
+          <View style={styles.volumeCoverWrap}>
+            <Image source={{ uri: primary.thumbUrl }} style={styles.volumeCover} />
+            {hasVariants && (
+              <View style={styles.variantBadge}>
+                <Text style={styles.variantBadgeText}>+{variants.length}</Text>
+              </View>
+            )}
+          </View>
+          <Text style={styles.volumeNumber}>Vol. {group.volume}</Text>
+          <Text style={styles.volumeLocale}>{localeLabel(primary.locale)}</Text>
         </Animated.View>
       </Pressable>
-      <Text style={styles.volumeNumber}>Vol. {group.volume}</Text>
-      <Text style={styles.volumeLocale}>{localeLabel(primary.locale)}</Text>
       {isOpen && (
         <View style={styles.variantRow}>
           {variants.map((v) => (
@@ -561,12 +563,14 @@ const styles = StyleSheet.create({
   volumeCardHovered: {
     zIndex: 10,
   },
-  volumeCoverWrap: {
+  volumeCardPress: {
     width: 120,
-    height: 180,
-    position: 'relative',
   },
-  volumeCoverInner: {
+  volumeCardInner: {
+    width: 120,
+    gap: 4,
+  },
+  volumeCoverWrap: {
     width: 120,
     height: 180,
     position: 'relative',
@@ -575,6 +579,8 @@ const styles = StyleSheet.create({
     width: 120,
     height: 180,
     backgroundColor: '#222',
+    borderWidth: 1,
+    borderColor: '#fff',
   },
   variantBadge: {
     position: 'absolute',

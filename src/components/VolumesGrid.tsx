@@ -82,7 +82,7 @@ function VolumeCard({ group }: { group: VolumeGroup }) {
   const animateTo = (toValue: number) =>
     Animated.timing(scale, {
       toValue,
-      duration: 180,
+      duration: 120,
       useNativeDriver: true,
     }).start();
 
@@ -99,21 +99,23 @@ function VolumeCard({ group }: { group: VolumeGroup }) {
           animateTo(1);
         }}
         style={({ pressed }: any) => [
-          styles.coverWrap,
+          styles.cardPress,
           { opacity: pressed ? 0.7 : 1 },
         ]}
       >
-        <Animated.View style={[styles.coverInner, { transform: [{ scale }] }]}>
-          <Image source={{ uri: primary.thumbUrl }} style={styles.cover} />
-          {hasVariants && (
-            <View style={styles.variantBadge}>
-              <Text style={styles.variantBadgeText}>+{variants.length}</Text>
-            </View>
-          )}
+        <Animated.View style={[styles.cardInner, { transform: [{ scale }] }]}>
+          <View style={styles.coverWrap}>
+            <Image source={{ uri: primary.thumbUrl }} style={styles.cover} />
+            {hasVariants && (
+              <View style={styles.variantBadge}>
+                <Text style={styles.variantBadgeText}>+{variants.length}</Text>
+              </View>
+            )}
+          </View>
+          <Text style={styles.number}>Vol. {group.volume}</Text>
+          <Text style={styles.locale}>{localeLabel(primary.locale)}</Text>
         </Animated.View>
       </Pressable>
-      <Text style={styles.number}>Vol. {group.volume}</Text>
-      <Text style={styles.locale}>{localeLabel(primary.locale)}</Text>
       {isOpen && (
         <View style={styles.variantRow}>
           {variants.map((v) => (
@@ -155,12 +157,14 @@ const styles = StyleSheet.create({
   cardHovered: {
     zIndex: 10,
   },
-  coverWrap: {
+  cardPress: {
     width: 120,
-    height: 180,
-    position: 'relative',
   },
-  coverInner: {
+  cardInner: {
+    width: 120,
+    gap: 4,
+  },
+  coverWrap: {
     width: 120,
     height: 180,
     position: 'relative',
@@ -169,6 +173,8 @@ const styles = StyleSheet.create({
     width: 120,
     height: 180,
     backgroundColor: '#222',
+    borderWidth: 1,
+    borderColor: '#fff',
   },
   variantBadge: {
     position: 'absolute',
