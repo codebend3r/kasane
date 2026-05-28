@@ -11,6 +11,7 @@
     { "episodes": [25, 35], "chapters": [59, 83],   "arc": "Stone Wars" },
     { "episodes": [36, 36], "chapters": [84, 91],   "arc": "Age of Exploration (Ryusui)" },
     { "episodes": [37, 58], "chapters": [92, 138],  "arc": "Treasure Island" },
-    { "episodes": [59, 82], "chapters": [139, 205], "arc": "Age of Exploration Saga (Source of DNA / Corn City / Petroleum)" }
+    { "episodes": [59, 82], "chapters": [139, 205], "arc": "Age of Exploration Saga (Source of DNA / Corn City / Petroleum)" },
+    { "chapters": [206, 236], "arc": "Moon Mission (Science Future Part 3 / finale)" }
   ]
 }
