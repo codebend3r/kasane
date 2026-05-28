@@ -96,6 +96,9 @@ export default function SeriesDetail() {
   );
   const mapping = curatedMapping ?? syntheticMapping;
   const isAutoEstimated = !curatedMapping && !!syntheticMapping;
+  const arcsBehind = mapping
+    ? mapping.mappings.filter((m) => !m.episodes).length
+    : 0;
 
   const routeId = manga?.id ?? anime?.id ?? mediaId;
 
@@ -219,7 +222,14 @@ export default function SeriesDetail() {
 
       {mapping ? (
         <View style={styles.mappingBlock}>
-          <Text style={styles.sectionTitle}>Episode ↔ Chapter map</Text>
+          <View style={styles.sectionTitleRow}>
+            <Text style={styles.sectionTitle}>Episode ↔ Chapter map</Text>
+            {arcsBehind > 0 && (
+              <View style={styles.arcsBehindBadge}>
+                <Text style={styles.arcsBehindText}>{arcsBehind} ARCS BEHIND</Text>
+              </View>
+            )}
+          </View>
           {isAutoEstimated && (
             <View style={styles.autoBanner}>
               <View style={styles.autoBadge}>
@@ -361,6 +371,26 @@ const styles = StyleSheet.create({
     color: '#f5f5f5',
     fontSize: 20,
     letterSpacing: -0.4,
+    fontFamily: FONT.bold,
+  },
+  sectionTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    flexWrap: 'wrap',
+  },
+  arcsBehindBadge: {
+    alignSelf: 'flex-start',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    backgroundColor: '#2a2a2a',
+    borderLeftWidth: 3,
+    borderLeftColor: '#ffd65c',
+  },
+  arcsBehindText: {
+    color: '#ffd65c',
+    fontSize: 11,
+    letterSpacing: 1.4,
     fontFamily: FONT.bold,
   },
   empty: { color: '#9aa0a6', fontFamily: FONT.regular, marginTop: 8 },
