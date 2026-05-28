@@ -194,7 +194,7 @@ function LatestReleases({
   const visible =
     columns > 0
       ? entries.slice(0, Math.floor(entries.length / columns) * columns)
-      : [];
+      : entries;
 
   return (
     <ScrollView contentContainerStyle={styles.latestScroll}>
