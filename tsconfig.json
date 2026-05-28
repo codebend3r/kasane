@@ -5,7 +5,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "types": ["jest", "node"],
+    "ignoreDeprecations": "6.0"
   },
   "include": [
     "**/*.ts",
