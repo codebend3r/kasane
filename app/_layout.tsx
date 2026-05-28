@@ -13,7 +13,14 @@ import {
   SpaceGrotesk_700Bold,
 } from '@expo-google-fonts/space-grotesk';
 import { ZenTokyoZoo_400Regular } from '@expo-google-fonts/zen-tokyo-zoo';
+import { type Language, usePreferences } from '@/state/preferences';
 import { FONT } from '@/theme';
+
+const LANGUAGES: { value: Language; label: string }[] = [
+  { value: 'EN', label: 'EN' },
+  { value: 'ROMAJI', label: 'RO' },
+  { value: 'NATIVE', label: '漢' },
+];
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
 
@@ -27,6 +34,8 @@ function GlobalHeader() {
   const router = useRouter();
   const pathname = usePathname();
   const isHome = pathname === '/';
+  const language = usePreferences((s) => s.language);
+  const setLanguage = usePreferences((s) => s.setLanguage);
 
   return (
     <View style={headerStyles.bar}>
@@ -56,6 +65,32 @@ function GlobalHeader() {
         </Text>
         <View style={headerStyles.rule} />
       </Pressable>
+      <View style={headerStyles.spacer} />
+      <View style={headerStyles.langGroup}>
+        {LANGUAGES.map((l) => {
+          const active = l.value === language;
+          return (
+            <Pressable
+              key={l.value}
+              onPress={() => setLanguage(l.value)}
+              style={({ hovered, pressed }: any) => [
+                headerStyles.langChip,
+                active && headerStyles.langChipActive,
+                { opacity: pressed ? 0.7 : hovered && !active ? 0.85 : 1 },
+              ]}
+            >
+              <Text
+                style={[
+                  headerStyles.langChipText,
+                  active && headerStyles.langChipTextActive,
+                ]}
+              >
+                {l.label}
+              </Text>
+            </Pressable>
+          );
+        })}
+      </View>
     </View>
   );
 }
@@ -149,5 +184,31 @@ const headerStyles = StyleSheet.create({
     width: 64,
     backgroundColor: '#7c5cff',
     marginTop: 6,
+  },
+  spacer: { flex: 1 },
+  langGroup: {
+    flexDirection: 'row',
+    gap: 4,
+    alignSelf: 'flex-start',
+    marginTop: 4,
+  },
+  langChip: {
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    backgroundColor: '#17181b',
+    minWidth: 36,
+    alignItems: 'center',
+  },
+  langChipActive: {
+    backgroundColor: '#7c5cff',
+  },
+  langChipText: {
+    color: '#9aa0a6',
+    fontSize: 12,
+    letterSpacing: 1.2,
+    fontFamily: FONT.bold,
+  },
+  langChipTextActive: {
+    color: '#0c0c0e',
   },
 });

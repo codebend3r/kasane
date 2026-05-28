@@ -16,6 +16,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getLatestAnime, searchMedia } from '@/api/anilist';
 import { pairResults } from '@/data';
 import { SeriesCard } from '@/components/SeriesCard';
+import { pickTitle, usePreferences } from '@/state/preferences';
 import type { AniListMedia, MediaType, SeriesEntry } from '@/types';
 import { FONT } from '@/theme';
 
@@ -162,6 +163,7 @@ function LatestReleases({
   loading: boolean;
 }) {
   const [gridWidth, setGridWidth] = useState(0);
+  const language = usePreferences((s) => s.language);
 
   const onGridLayout = (e: LayoutChangeEvent) => {
     setGridWidth(e.nativeEvent.layout.width);
@@ -226,9 +228,7 @@ function LatestReleases({
                   </View>
                 </View>
                 <Text style={styles.gridTitle} numberOfLines={2}>
-                  {trimSeasonSuffix(
-                    entry.primary.title.english ?? entry.primary.title.romaji
-                  )}
+                  {trimSeasonSuffix(pickTitle(entry.primary, language))}
                 </Text>
               </Pressable>
             </Link>

@@ -3,6 +3,7 @@ import { Link } from 'expo-router';
 import type { SeriesBadge, SeriesEntry } from '@/types';
 import { FONT } from '@/theme';
 import { findMappingByMediaId } from '@/data';
+import { pickTitle, usePreferences } from '@/state/preferences';
 
 const BADGE_LABEL: Record<SeriesBadge, string> = {
   both: 'ANIME + MANGA',
@@ -18,7 +19,8 @@ const BADGE_COLOR: Record<SeriesBadge, string> = {
 
 export function SeriesCard({ entry }: { entry: SeriesEntry }) {
   const { primary, anime, manga, badge, routeId } = entry;
-  const title = primary.title.english ?? primary.title.romaji;
+  const language = usePreferences((s) => s.language);
+  const title = pickTitle(primary, language);
 
   const mapping = findMappingByMediaId(routeId);
   const mappedEpisodeCount = mapping
