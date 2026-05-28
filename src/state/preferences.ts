@@ -25,7 +25,7 @@ export const usePreferences = create<State>()(
         })),
     }),
     {
-      name: 'kasane-preferences-v3',
+      name: 'kasane-preferences',
       storage: createJSONStorage(() => AsyncStorage),
       partialize: (s) => ({
         japanese: s.japanese,
