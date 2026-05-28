@@ -20,6 +20,15 @@ export function ArcDetailView({
     );
   }
 
+  if (!arc.episodes) {
+    return (
+      <View style={styles.center}>
+        <Text style={styles.empty}>Arc not yet adapted.</Text>
+      </View>
+    );
+  }
+
+  const arcEpisodes = arc.episodes;
   const episodes = expandEpisodes(arc);
   const chapters = expandChapters(arc);
 
@@ -31,7 +40,7 @@ export function ArcDetailView({
           <Text style={styles.eyebrow}>{mapping.title}</Text>
           <Text style={styles.title}>{arc.arc ?? `Arc ${arcIndex + 1}`}</Text>
           <Text style={styles.meta}>
-            Episodes {arc.episodes[0]}–{arc.episodes[1]} · Chapters {arc.chapters[0]}–{arc.chapters[1]}
+            Episodes {arcEpisodes[0]}–{arcEpisodes[1]} · Chapters {arc.chapters[0]}–{arc.chapters[1]}
             {arc.season ? ` · Season ${arc.season}` : ''}
           </Text>
           {arc.note ? <Text style={styles.note}>{arc.note}</Text> : null}
@@ -78,6 +87,7 @@ export function ArcDetailView({
 }
 
 function expandEpisodes(arc: MappingEntry) {
+  if (!arc.episodes) return [];
   const [e1, e2] = arc.episodes;
   const [c1, c2] = arc.chapters;
   const epCount = e2 - e1 + 1;
@@ -93,6 +103,7 @@ function expandEpisodes(arc: MappingEntry) {
 }
 
 function expandChapters(arc: MappingEntry) {
+  if (!arc.episodes) return [];
   const [e1, e2] = arc.episodes;
   const [c1, c2] = arc.chapters;
   const epCount = e2 - e1 + 1;

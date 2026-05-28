@@ -26,7 +26,12 @@ export function SeriesCard({ entry }: { entry: SeriesEntry }) {
 
   const mapping = findMappingByMediaId(routeId);
   const mappedEpisodeCount = mapping
-    ? Math.max(...mapping.mappings.map((m) => m.episodes[1]))
+    ? (() => {
+        const eps = mapping.mappings
+          .map((m) => m.episodes?.[1])
+          .filter((v): v is number => typeof v === 'number');
+        return eps.length > 0 ? Math.max(...eps) : null;
+      })()
     : null;
   const hasMapping = mapping != null;
 

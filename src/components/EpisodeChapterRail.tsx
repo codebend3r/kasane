@@ -39,27 +39,30 @@ export function EpisodeChapterRail({
     <View style={styles.container}>
       <Text style={styles.label}>Anime episodes →</Text>
       <View style={styles.rail}>
-        {mapping.mappings.map((m, idx) => {
-          const span = m.episodes[1] - m.episodes[0] + 1;
-          return (
-            <Pressable
-              key={`ep-${idx}`}
-              onPress={() => goToArc(idx)}
-              style={({ hovered, pressed }: any) => [
-                styles.bar,
-                {
-                  flex: span,
-                  backgroundColor: COLORS[idx % COLORS.length],
-                  opacity: pressed ? 0.7 : hovered ? 0.9 : 1,
-                },
-              ]}
-            >
-              <Text style={styles.barText} numberOfLines={1}>
-                {m.arc ?? `${m.episodes[0]}–${m.episodes[1]}`}
-              </Text>
-            </Pressable>
-          );
-        })}
+        {mapping.mappings
+          .filter((m) => m.episodes)
+          .map((m, idx) => {
+            const eps = m.episodes!;
+            const span = eps[1] - eps[0] + 1;
+            return (
+              <Pressable
+                key={`ep-${idx}`}
+                onPress={() => goToArc(idx)}
+                style={({ hovered, pressed }: any) => [
+                  styles.bar,
+                  {
+                    flex: span,
+                    backgroundColor: COLORS[idx % COLORS.length],
+                    opacity: pressed ? 0.7 : hovered ? 0.9 : 1,
+                  },
+                ]}
+              >
+                <Text style={styles.barText} numberOfLines={1}>
+                  {m.arc ?? `${eps[0]}–${eps[1]}`}
+                </Text>
+              </Pressable>
+            );
+          })}
       </View>
 
       <Text style={styles.label}>Manga chapters →</Text>

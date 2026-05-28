@@ -46,7 +46,7 @@ export interface RelationEdge {
 }
 
 export interface MappingEntry {
-  episodes: [number, number];
+  episodes?: [number, number];
   chapters: [number, number];
   arc?: string;
   season?: number;

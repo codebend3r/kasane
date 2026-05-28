@@ -71,7 +71,7 @@ export function episodeToChapters(
   episode: number
 ): [number, number] | null {
   const hit = mapping.mappings.find(
-    (m) => episode >= m.episodes[0] && episode <= m.episodes[1]
+    (m) => !!m.episodes && episode >= m.episodes[0] && episode <= m.episodes[1]
   );
   return hit ? hit.chapters : null;
 }
@@ -83,7 +83,7 @@ export function chapterToEpisodes(
   const hit = mapping.mappings.find(
     (m) => chapter >= m.chapters[0] && chapter <= m.chapters[1]
   );
-  return hit ? hit.episodes : null;
+  return hit?.episodes ?? null;
 }
 
 export { ALL_MAPPINGS };

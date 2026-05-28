@@ -7,6 +7,7 @@ export function SeasonCoverage({ mapping }: { mapping: SeriesMapping }) {
   const seasonBuckets = useMemo(() => {
     const m = new Map<string, typeof mapping.mappings>();
     for (const entry of mapping.mappings) {
+      if (!entry.episodes) continue;
       const key = entry.season ? `Season ${entry.season}` : 'Other';
       if (!m.has(key)) m.set(key, []);
       m.get(key)!.push(entry);
@@ -23,8 +24,8 @@ export function SeasonCoverage({ mapping }: { mapping: SeriesMapping }) {
       {seasonBuckets.map(([label, entries]) => {
         const minCh = Math.min(...entries.map((e) => e.chapters[0]));
         const maxCh = Math.max(...entries.map((e) => e.chapters[1]));
-        const minEp = Math.min(...entries.map((e) => e.episodes[0]));
-        const maxEp = Math.max(...entries.map((e) => e.episodes[1]));
+        const minEp = Math.min(...entries.map((e) => e.episodes![0]));
+        const maxEp = Math.max(...entries.map((e) => e.episodes![1]));
         return (
           <View key={label} style={styles.row}>
             <Text style={styles.name}>{label}</Text>

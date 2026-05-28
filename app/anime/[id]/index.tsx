@@ -41,7 +41,12 @@ export default function AnimeDetail() {
   const isAutoEstimated = !curatedMapping && !!syntheticMapping;
 
   const mappedEpisodeCount = mapping
-    ? Math.max(...mapping.mappings.map((m) => m.episodes[1]))
+    ? (() => {
+        const eps = mapping.mappings
+          .map((m) => m.episodes?.[1])
+          .filter((v): v is number => typeof v === 'number');
+        return eps.length > 0 ? Math.max(...eps) : null;
+      })()
     : null;
 
   const partnerManga = useMemo(() => {

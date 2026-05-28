@@ -132,7 +132,12 @@ export default function SeriesDetail() {
   const totalVolumes = mangadex?.volumes ?? manga?.volumes ?? null;
   const totalChapters = mangadex?.chapters ?? manga?.chapters ?? null;
   const totalEpisodes = mapping
-    ? Math.max(...mapping.mappings.map((m) => m.episodes[1]))
+    ? (() => {
+        const eps = mapping.mappings
+          .map((m) => m.episodes?.[1])
+          .filter((v): v is number => typeof v === 'number');
+        return eps.length > 0 ? Math.max(...eps) : anime?.episodes ?? null;
+      })()
     : anime?.episodes ?? null;
   const status = primary.status?.toLowerCase() ?? null;
   const showAnimeStats = badge !== 'manga-only';
