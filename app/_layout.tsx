@@ -50,8 +50,9 @@ function GlobalHeader() {
           { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
         ]}
       >
-        <Text style={headerStyles.wordmark}>
-          Kasane<Text style={headerStyles.accent}>.app</Text>
+        <Text style={headerStyles.wordmark}>Kasane</Text>
+        <Text style={headerStyles.subheading}>
+          anime <Text style={headerStyles.subAccent}>+</Text> manga
         </Text>
         <View style={headerStyles.rule} />
       </Pressable>
@@ -122,7 +123,7 @@ const headerStyles = StyleSheet.create({
     lineHeight: 32,
   },
   wordmarkPressable: {
-    gap: 6,
+    gap: 4,
   },
   wordmark: {
     color: '#f5f5f5',
@@ -131,13 +132,22 @@ const headerStyles = StyleSheet.create({
     letterSpacing: -2,
     fontFamily: FONT.display,
   },
-  accent: {
+  subheading: {
+    color: '#cfd2d6',
+    fontSize: 13,
+    letterSpacing: 6,
+    textTransform: 'uppercase',
+    fontFamily: FONT.bold,
+    marginTop: 2,
+  },
+  subAccent: {
     color: '#7c5cff',
-    fontFamily: FONT.display,
+    fontFamily: FONT.bold,
   },
   rule: {
     height: 4,
     width: 64,
     backgroundColor: '#7c5cff',
+    marginTop: 6,
   },
 });
