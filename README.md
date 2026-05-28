@@ -32,6 +32,7 @@ Three use cases:
 
 ```bash
 bun install
+bun run start
 bun run web         # browser
 bun run ios         # iOS simulator (Mac + Xcode required)
 bun run android     # Android emulator
