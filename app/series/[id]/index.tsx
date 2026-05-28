@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
   content: { padding: 16, gap: 24, paddingBottom: 48 },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   header: { flexDirection: 'row', gap: 16 },
-  cover: { width: 140, height: 200, backgroundColor: '#222' },
+  cover: { width: 240, height: 340, backgroundColor: '#222' },
   headerMeta: { flex: 1, gap: 6, minWidth: 240 },
   badgeRow: { flexDirection: 'row', gap: 6, marginBottom: 2 },
   badge: {
