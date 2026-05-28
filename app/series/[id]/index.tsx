@@ -226,7 +226,9 @@ export default function SeriesDetail() {
             <Text style={styles.sectionTitle}>Episode ↔ Chapter map</Text>
             {arcsBehind > 0 && (
               <View style={styles.arcsBehindBadge}>
-                <Text style={styles.arcsBehindText}>{arcsBehind} ARCS BEHIND</Text>
+                <Text style={styles.arcsBehindText}>
+                  {arcsBehind} {arcsBehind === 1 ? 'ARC' : 'ARCS'} BEHIND
+                </Text>
               </View>
             )}
           </View>
