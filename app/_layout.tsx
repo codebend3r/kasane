@@ -13,6 +13,7 @@ import {
   SpaceGrotesk_700Bold,
 } from '@expo-google-fonts/space-grotesk';
 import { ZenTokyoZoo_400Regular } from '@expo-google-fonts/zen-tokyo-zoo';
+import { usePreferences } from '@/state/preferences';
 import { FONT } from '@/theme';
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
@@ -27,6 +28,8 @@ function GlobalHeader() {
   const router = useRouter();
   const pathname = usePathname();
   const isHome = pathname === '/';
+  const japanese = usePreferences((s) => s.japanese);
+  const toggleJapanese = usePreferences((s) => s.toggleJapanese);
 
   return (
     <View style={headerStyles.bar}>
@@ -55,6 +58,16 @@ function GlobalHeader() {
           anime <Text style={headerStyles.subAccent}>+</Text> manga
         </Text>
         <View style={headerStyles.rule} />
+      </Pressable>
+      <View style={headerStyles.spacer} />
+      <Pressable
+        onPress={toggleJapanese}
+        style={({ hovered, pressed }: any) => [
+          headerStyles.langToggle,
+          { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
+        ]}
+      >
+        <Text style={headerStyles.langToggleText}>{japanese ? 'JP' : 'EN'}</Text>
       </Pressable>
     </View>
   );
@@ -149,5 +162,19 @@ const headerStyles = StyleSheet.create({
     width: 64,
     backgroundColor: '#7c5cff',
     marginTop: 6,
+  },
+  spacer: { flex: 1 },
+  langToggle: {
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    backgroundColor: '#7c5cff',
+    alignSelf: 'flex-start',
+    marginTop: 4,
+  },
+  langToggleText: {
+    color: '#0c0c0e',
+    fontSize: 13,
+    letterSpacing: 2,
+    fontFamily: FONT.bold,
   },
 });
