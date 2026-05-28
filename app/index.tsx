@@ -15,6 +15,7 @@ import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { getLatestAnime, searchMedia } from '@/api/anilist';
 import { pairResults } from '@/data';
+import { GENRE_FILTERS, splitHiddenForAniList } from '@/data/genreFilters';
 import { SeriesCard } from '@/components/SeriesCard';
 import { usePreferences } from '@/state/preferences';
 import type { AniListMedia, MediaType, SeriesEntry } from '@/types';
@@ -42,7 +43,9 @@ export default function HomeScreen() {
   const [query, setQuery] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState('');
   const [type, setType] = useState<MediaType | undefined>(undefined);
-  const [hideEcchi, setHideEcchi] = useState(true);
+  const hiddenGenres = usePreferences((s) => s.hiddenGenres);
+  const toggleHiddenGenre = usePreferences((s) => s.toggleHiddenGenre);
+  const { genreNotIn, tagNotIn } = splitHiddenForAniList(hiddenGenres);
 
   useEffect(() => {
     const t = setTimeout(() => setDebouncedQuery(query), 300);
@@ -50,17 +53,16 @@ export default function HomeScreen() {
   }, [query]);
 
   const isSearching = debouncedQuery.trim().length > 1;
-  const genreNotIn = hideEcchi ? ['Ecchi'] : null;
 
   const { data: searchResults, isFetching, error } = useQuery({
-    queryKey: ['search', debouncedQuery, type, genreNotIn],
-    queryFn: () => searchMedia(debouncedQuery, type, genreNotIn),
+    queryKey: ['search', debouncedQuery, type, genreNotIn, tagNotIn],
+    queryFn: () => searchMedia(debouncedQuery, type, genreNotIn, tagNotIn),
     enabled: isSearching,
   });
 
   const { data: latestAnime, isFetching: latestFetching } = useQuery({
-    queryKey: ['latest-anime', genreNotIn],
-    queryFn: () => getLatestAnime(genreNotIn),
+    queryKey: ['latest-anime', genreNotIn, tagNotIn],
+    queryFn: () => getLatestAnime(genreNotIn, tagNotIn),
     enabled: !isSearching,
     staleTime: 60 * 60 * 1000,
   });
@@ -86,15 +88,21 @@ export default function HomeScreen() {
         returnKeyType="search"
       />
 
-      <View style={styles.filters}>
-        <Pressable
-          onPress={() => setHideEcchi((v) => !v)}
-          style={[styles.filterChip, hideEcchi && styles.filterChipActive]}
-        >
-          <Text style={[styles.filterText, hideEcchi && styles.filterTextActive]}>
-            Hide ecchi
-          </Text>
-        </Pressable>
+      <View style={styles.genreFilters}>
+        {GENRE_FILTERS.map((f) => {
+          const active = hiddenGenres.includes(f.id);
+          return (
+            <Pressable
+              key={f.id}
+              onPress={() => toggleHiddenGenre(f.id)}
+              style={[styles.filterChip, active && styles.filterChipActive]}
+            >
+              <Text style={[styles.filterText, active && styles.filterTextActive]}>
+                {active ? `× ${f.label}` : f.label}
+              </Text>
+            </Pressable>
+          );
+        })}
       </View>
 
       {isSearching && (
@@ -273,6 +281,12 @@ const styles = StyleSheet.create({
     borderLeftColor: '#7c5cff',
   },
   filters: { flexDirection: 'row', gap: 8 },
+  genreFilters: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    rowGap: 8,
+  },
   filterChip: {
     paddingHorizontal: 14,
     paddingVertical: 6,
