@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import type { AniListMedia } from '@/types';
 
-export type Language = 'EN' | 'ROMAJI' | 'NATIVE';
+export type Language = 'EN' | 'NATIVE';
 
 type PreferencesState = {
   language: Language;
@@ -29,6 +29,16 @@ export const usePreferences = create<PreferencesState>()(
     {
       name: 'kasane-prefs',
       storage: createJSONStorage(() => webStorage),
+      version: 2,
+      migrate: (persisted: unknown) => {
+        if (persisted && typeof persisted === 'object' && 'language' in persisted) {
+          const lang = (persisted as { language: unknown }).language;
+          if (lang !== 'EN' && lang !== 'NATIVE') {
+            return { ...(persisted as object), language: 'EN' } as PreferencesState;
+          }
+        }
+        return persisted as PreferencesState;
+      },
     }
   )
 );
@@ -38,7 +48,6 @@ export function pickTitle(
   language: Language
 ): string {
   const { english, romaji, native } = media.title;
-  if (language === 'NATIVE') return native ?? english ?? romaji;
-  if (language === 'ROMAJI') return romaji ?? english ?? native ?? '';
+  if (language === 'NATIVE') return native ?? english ?? romaji ?? '';
   return english ?? romaji ?? native ?? '';
 }

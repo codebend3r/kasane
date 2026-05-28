@@ -18,8 +18,7 @@ import { FONT } from '@/theme';
 
 const LANGUAGES: { value: Language; label: string }[] = [
   { value: 'EN', label: 'EN' },
-  { value: 'ROMAJI', label: 'RO' },
-  { value: 'NATIVE', label: '漢' },
+  { value: 'NATIVE', label: 'JP' },
 ];
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
