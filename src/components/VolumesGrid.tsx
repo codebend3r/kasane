@@ -112,8 +112,10 @@ function VolumeCard({ group }: { group: VolumeGroup }) {
               </View>
             )}
           </View>
-          <Text style={styles.number}>Vol. {group.volume}</Text>
-          <Text style={styles.locale}>{localeLabel(primary.locale)}</Text>
+          <View style={styles.labels}>
+            <Text style={styles.number}>Vol. {group.volume}</Text>
+            <Text style={styles.locale}>{localeLabel(primary.locale)}</Text>
+          </View>
         </Animated.View>
       </Pressable>
       {isOpen && (
@@ -212,14 +214,16 @@ const styles = StyleSheet.create({
     fontFamily: FONT.semibold,
     letterSpacing: 0.4,
   },
+  labels: {
+    width: 120,
+    backgroundColor: '#000',
+    padding: 6,
+    gap: 2,
+  },
   number: {
     color: '#f5f5f5',
     fontSize: 13,
     fontFamily: FONT.bold,
-    backgroundColor: '#000',
-    alignSelf: 'flex-start',
-    paddingHorizontal: 4,
-    paddingVertical: 2,
   },
   locale: {
     color: '#9aa0a6',
@@ -227,9 +231,5 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     textTransform: 'uppercase',
     fontFamily: FONT.semibold,
-    backgroundColor: '#000',
-    alignSelf: 'flex-start',
-    paddingHorizontal: 4,
-    paddingVertical: 2,
   },
 });
