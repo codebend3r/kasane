@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Animated, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import type { MangaDexVolumeCover } from '@/types';
 import { localeLabel } from '@/data/format';
@@ -77,7 +77,8 @@ function VolumeCard({ group }: { group: VolumeGroup }) {
   const variants = allCovers.filter((c) => c !== primary);
   const hasVariants = variants.length > 0;
 
-  const scale = useRef(new Animated.Value(1)).current;
+  const [scale] = useState(() => new Animated.Value(1));
+  const [isHovered, setIsHovered] = useState(false);
   const animateTo = (toValue: number) =>
     Animated.timing(scale, {
       toValue,
@@ -86,17 +87,20 @@ function VolumeCard({ group }: { group: VolumeGroup }) {
     }).start();
 
   return (
-    <View style={styles.card}>
+    <View style={[styles.card, isHovered && styles.cardHovered]}>
       <Pressable
         onPress={() => hasVariants && setIsOpen((v) => !v)}
-        onHoverIn={() => animateTo(1.6)}
-        onHoverOut={() => animateTo(1)}
-        style={({ hovered, pressed }: any) => [
+        onHoverIn={() => {
+          setIsHovered(true);
+          animateTo(1.6);
+        }}
+        onHoverOut={() => {
+          setIsHovered(false);
+          animateTo(1);
+        }}
+        style={({ pressed }: any) => [
           styles.coverWrap,
-          {
-            opacity: pressed ? 0.7 : 1,
-            zIndex: hovered ? 10 : 1,
-          },
+          { opacity: pressed ? 0.7 : 1 },
         ]}
       >
         <Animated.View style={[styles.coverInner, { transform: [{ scale }] }]}>
@@ -145,6 +149,11 @@ const styles = StyleSheet.create({
   card: {
     width: 120,
     gap: 4,
+    position: 'relative',
+    zIndex: 1,
+  },
+  cardHovered: {
+    zIndex: 10,
   },
   coverWrap: {
     width: 120,
