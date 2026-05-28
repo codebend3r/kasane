@@ -35,8 +35,8 @@
     "expo-status-bar": "56.0.4",
     "graphql": "^16.14.0",
     "graphql-request": "^7.4.0",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
     "react-native": "0.81.5",
     "react-native-gesture-handler": "~2.28.0",
     "react-native-reanimated": "~4.1.1",
@@ -49,7 +49,7 @@
   "devDependencies": {
     "@tauri-apps/cli": "^2.11.1",
     "@types/jest": "^29",
-    "@types/react": "~19.1.0",
+    "@types/react": "19.2.15",
     "eslint": "^9",
     "eslint-config-expo": "56.0.4",
     "husky": "^9.1.7",
@@ -58,7 +58,7 @@
     "npm-run-all2": "^9.0.1",
     "prettier": "^3.8.3",
     "pretty-quick": "^4.2.2",
-    "react-test-renderer": "^19.2.6",
+    "react-test-renderer": "19.2.6",
     "typescript": "~5.9.2"
   },
   "private": true,
