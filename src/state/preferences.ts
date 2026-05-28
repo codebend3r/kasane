@@ -33,6 +33,22 @@ export const usePreferences = create<State>()(
         japanese: s.japanese,
         hiddenGenres: s.hiddenGenres,
       }),
+      migrate: (persisted, version) => {
+        const prior =
+          persisted && typeof persisted === 'object'
+            ? (persisted as { japanese?: unknown; hiddenGenres?: unknown })
+            : {};
+        const japanese = typeof prior.japanese === 'boolean' ? prior.japanese : false;
+        if (version < 2) {
+          return { japanese, hiddenGenres: [...DEFAULT_HIDDEN_GENRE_IDS] };
+        }
+        const hiddenGenres =
+          Array.isArray(prior.hiddenGenres) &&
+          prior.hiddenGenres.every((x) => typeof x === 'string')
+            ? (prior.hiddenGenres as string[])
+            : [...DEFAULT_HIDDEN_GENRE_IDS];
+        return { japanese, hiddenGenres };
+      },
     }
   )
 );
