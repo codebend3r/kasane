@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   sub: {
     color: '#9aa0a6',
     fontSize: 12,
-    marginTop: 4,
+    paddingTop: 4,
     letterSpacing: 0.8,
     textTransform: 'uppercase',
     fontFamily: FONT.semibold,
