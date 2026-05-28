@@ -142,7 +142,11 @@ export default function MangaDetail() {
             seriesId={String(mediaId)}
             totalChapters={totalChapters}
           />
-          {curatedMapping ? <SeasonCoverage mapping={curatedMapping} /> : null}
+          {curatedMapping ? (
+            <View style={styles.seasonWrap}>
+              <SeasonCoverage mapping={curatedMapping} />
+            </View>
+          ) : null}
           <QuickLookup mapping={mapping} />
         </View>
       ) : (
@@ -158,7 +162,9 @@ export default function MangaDetail() {
       <View style={styles.volumesBlock}>
         <Text style={styles.sectionTitle}>Volumes</Text>
         {mangadexLoading && !mangadex ? (
-          <ActivityIndicator color="#7c5cff" style={{ marginTop: 12 }} />
+          <View style={styles.spinnerWrap}>
+            <ActivityIndicator color="#7c5cff" />
+          </View>
         ) : mangadex && mangadex.covers.length > 0 ? (
           <VolumesGrid covers={mangadex.covers} />
         ) : (
@@ -182,10 +188,12 @@ export default function MangaDetail() {
         </View>
       ) : null}
 
-      <View style={styles.sources}>
-        <Text style={styles.sourcesText}>
-          Data: AniList (metadata) · MangaDex (volume covers, multilingual titles)
-        </Text>
+      <View style={styles.sourcesWrap}>
+        <View style={styles.sources}>
+          <Text style={styles.sourcesText}>
+            Data: AniList (metadata) · MangaDex (volume covers, multilingual titles)
+          </Text>
+        </View>
       </View>
     </ScrollView>
   );
@@ -411,14 +419,14 @@ const styles = StyleSheet.create({
     letterSpacing: 1.4,
     textTransform: 'uppercase',
     fontFamily: FONT.semibold,
-    marginTop: 2,
+    paddingTop: 2,
   },
   dates: {
     color: '#cfd2d6',
     fontSize: 13,
     fontFamily: FONT.medium,
   },
-  tagRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginTop: 4 },
+  tagRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 6, paddingTop: 4 },
   tag: {
     paddingHorizontal: 8,
     paddingVertical: 3,
@@ -437,7 +445,7 @@ const styles = StyleSheet.create({
     color: '#cfd2d6',
     fontSize: 14,
     lineHeight: 20,
-    marginTop: 8,
+    paddingTop: 8,
     fontFamily: FONT.regular,
   },
   sectionTitle: {
@@ -453,7 +461,9 @@ const styles = StyleSheet.create({
     fontFamily: FONT.regular,
     marginTop: -4,
   },
-  empty: { color: '#9aa0a6', fontFamily: FONT.regular, marginTop: 8 },
+  empty: { color: '#9aa0a6', fontFamily: FONT.regular, paddingTop: 8 },
+  spinnerWrap: { paddingTop: 12 },
+  seasonWrap: { paddingTop: 4 },
   mappingBlock: { gap: 10 },
   autoBanner: {
     padding: 14,
@@ -492,7 +502,6 @@ const styles = StyleSheet.create({
     padding: 12,
     backgroundColor: '#17181b',
     gap: 6,
-    marginTop: 4,
   },
   seasonLabel: {
     color: '#9aa0a6',
@@ -500,7 +509,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1.4,
     textTransform: 'uppercase',
     fontFamily: FONT.bold,
-    marginBottom: 4,
+    paddingBottom: 4,
   },
   seasonRow: {
     flexDirection: 'row',
@@ -556,7 +565,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 6,
-    marginTop: 4,
+    paddingTop: 4,
     width: 120,
   },
   variantCell: {
@@ -610,8 +619,8 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: FONT.regular,
   },
+  sourcesWrap: { paddingTop: 8 },
   sources: {
-    marginTop: 8,
     paddingTop: 12,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: '#2a2a2a',
@@ -622,7 +631,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     fontFamily: FONT.regular,
   },
-  lookup: { gap: 12, marginTop: 8 },
+  lookup: { gap: 12, paddingTop: 8 },
   lookupRow: { flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap' },
   lookupLabel: { color: '#cfd2d6', fontSize: 13, fontFamily: FONT.medium },
   lookupInput: {
