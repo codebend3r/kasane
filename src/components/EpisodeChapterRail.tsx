@@ -28,12 +28,15 @@ export function EpisodeChapterRail({
     });
   };
 
+  const hasUnadapted = mapping.mappings.some((m) => !m.episodes);
   const maxCoveredChapter = Math.max(
     ...mapping.mappings.map((m) => m.chapters[1])
   );
   const showTail =
-    typeof totalChapters === 'number' && totalChapters > maxCoveredChapter;
-  const tailSpan = showTail ? totalChapters - maxCoveredChapter : 0;
+    !hasUnadapted &&
+    typeof totalChapters === 'number' &&
+    totalChapters > maxCoveredChapter;
+  const tailSpan = showTail ? totalChapters! - maxCoveredChapter : 0;
 
   return (
     <View style={styles.container}>
@@ -68,6 +71,9 @@ export function EpisodeChapterRail({
       <View style={styles.rail}>
         {mapping.mappings.map((m, idx) => {
           const span = m.chapters[1] - m.chapters[0] + 1;
+          const unadapted = !m.episodes;
+          const bg = unadapted ? '#2a2a2a' : COLORS[idx % COLORS.length];
+          const textStyle = unadapted ? styles.unadaptedBarText : styles.barText;
           return (
             <Pressable
               key={`ch-${idx}`}
@@ -76,13 +82,13 @@ export function EpisodeChapterRail({
                 styles.bar,
                 {
                   flex: span,
-                  backgroundColor: COLORS[idx % COLORS.length],
+                  backgroundColor: bg,
                   opacity: pressed ? 0.7 : hovered ? 0.9 : 1,
                 },
               ]}
             >
-              <Text style={styles.barText} numberOfLines={1}>
-                {m.chapters[0]}–{m.chapters[1]}
+              <Text style={textStyle} numberOfLines={1}>
+                {m.arc ?? `${m.chapters[0]}–${m.chapters[1]}`}
               </Text>
             </Pressable>
           );
@@ -132,6 +138,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#2a2a2a',
   },
   tailBarText: {
+    color: '#9aa0a6',
+    fontSize: 13,
+    letterSpacing: -0.2,
+    fontFamily: FONT.bold,
+  },
+  unadaptedBarText: {
     color: '#9aa0a6',
     fontSize: 13,
     letterSpacing: -0.2,
