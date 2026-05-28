@@ -9,6 +9,8 @@
     { "episodes": [14, 21], "chapters": [32, 53],   "arc": "Kyoto Goodwill Event" },
     { "episodes": [22, 24], "chapters": [54, 64],   "arc": "Death Painting / Origin of Obedience" },
     { "episodes": [25, 29], "chapters": [65, 79],   "arc": "Hidden Inventory / Premature Death" },
-    { "episodes": [30, 47], "chapters": [80, 136],  "arc": "Shibuya Incident" }
+    { "episodes": [30, 47], "chapters": [80, 136],  "arc": "Shibuya Incident" },
+    { "chapters": [137, 221], "arc": "Culling Game" },
+    { "chapters": [222, 271], "arc": "Shinjuku Showdown" }
   ]
 }
