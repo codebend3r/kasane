@@ -216,6 +216,10 @@ const styles = StyleSheet.create({
     color: '#f5f5f5',
     fontSize: 13,
     fontFamily: FONT.bold,
+    backgroundColor: '#000',
+    alignSelf: 'flex-start',
+    paddingHorizontal: 4,
+    paddingVertical: 2,
   },
   locale: {
     color: '#9aa0a6',
@@ -223,5 +227,9 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     textTransform: 'uppercase',
     fontFamily: FONT.semibold,
+    backgroundColor: '#000',
+    alignSelf: 'flex-start',
+    paddingHorizontal: 4,
+    paddingVertical: 2,
   },
 });
