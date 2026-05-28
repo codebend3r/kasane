@@ -144,6 +144,7 @@ const headerStyles = StyleSheet.create({
     lineHeight: 68,
     letterSpacing: -2,
     fontFamily: FONT.display,
+    paddingBottom: 2,
   },
   subheading: {
     color: '#cfd2d6',
@@ -151,7 +152,7 @@ const headerStyles = StyleSheet.create({
     letterSpacing: 6,
     textTransform: 'uppercase',
     fontFamily: FONT.bold,
-    marginTop: 2,
+    paddingBottom: 6,
   },
   subAccent: {
     color: '#7c5cff',
@@ -161,15 +162,14 @@ const headerStyles = StyleSheet.create({
     height: 4,
     width: 64,
     backgroundColor: '#7c5cff',
-    marginTop: 6,
   },
   spacer: { flex: 1 },
   langToggle: {
     paddingHorizontal: 14,
-    paddingVertical: 8,
+    paddingTop: 12,
+    paddingBottom: 8,
     backgroundColor: '#7c5cff',
     alignSelf: 'flex-start',
-    marginTop: 4,
   },
   langToggleText: {
     color: '#0c0c0e',
