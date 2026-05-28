@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   label: {
     color: '#9aa0a6',
     fontSize: 12,
-    marginTop: 8,
+    paddingTop: 8,
     letterSpacing: 1.2,
     textTransform: 'uppercase',
     fontFamily: FONT.semibold,
