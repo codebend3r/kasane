@@ -60,8 +60,10 @@ export const GENRE_FILTERS: readonly GenreFilter[] = [
     kind: 'tag',
     token: 'Reverse Harem',
   },
-  { id: 'ecchi', label: 'Ecchi', kind: 'genre', token: 'Ecchi' },
 ];
+
+const ALWAYS_HIDDEN_GENRES: readonly string[] = ['Ecchi'];
+const ALWAYS_HIDDEN_TAGS: readonly string[] = [];
 
 export type SplitFilters = {
   genreNotIn: string[] | null;
@@ -69,8 +71,8 @@ export type SplitFilters = {
 };
 
 export function splitHiddenForAniList(hiddenIds: string[]): SplitFilters {
-  const genres: string[] = [];
-  const tags: string[] = [];
+  const genres: string[] = [...ALWAYS_HIDDEN_GENRES];
+  const tags: string[] = [...ALWAYS_HIDDEN_TAGS];
   const sorted = [...hiddenIds].sort();
   for (const id of sorted) {
     const entry = GENRE_FILTERS.find((f) => f.id === id);

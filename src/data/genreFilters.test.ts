@@ -4,8 +4,8 @@ import {
 } from './genreFilters';
 
 describe('GENRE_FILTERS catalog', () => {
-  it('has 28 entries', () => {
-    expect(GENRE_FILTERS).toHaveLength(28);
+  it('has 27 entries', () => {
+    expect(GENRE_FILTERS).toHaveLength(27);
   });
 
   it('has unique ids', () => {
@@ -24,14 +24,8 @@ describe('GENRE_FILTERS catalog', () => {
     expect(new Set(tags).size).toBe(tags.length);
   });
 
-  it('contains Ecchi as a genre', () => {
-    const ecchi = GENRE_FILTERS.find((f) => f.id === 'ecchi');
-    expect(ecchi).toEqual({
-      id: 'ecchi',
-      label: 'Ecchi',
-      kind: 'genre',
-      token: 'Ecchi',
-    });
+  it('does not expose Ecchi as a toggleable chip', () => {
+    expect(GENRE_FILTERS.find((f) => f.id === 'ecchi')).toBeUndefined();
   });
 
   it("contains BL with token \"Boys' Love\"", () => {
@@ -42,41 +36,41 @@ describe('GENRE_FILTERS catalog', () => {
 });
 
 describe('splitHiddenForAniList', () => {
-  it('returns nulls for an empty selection', () => {
+  it('always injects Ecchi into genreNotIn for an empty selection', () => {
     expect(splitHiddenForAniList([])).toEqual({
-      genreNotIn: null,
-      tagNotIn: null,
-    });
-  });
-
-  it('routes a genre id into genreNotIn', () => {
-    expect(splitHiddenForAniList(['ecchi'])).toEqual({
       genreNotIn: ['Ecchi'],
       tagNotIn: null,
     });
   });
 
-  it('routes a tag id into tagNotIn', () => {
+  it('routes a genre id into genreNotIn alongside Ecchi', () => {
+    expect(splitHiddenForAniList(['horror'])).toEqual({
+      genreNotIn: ['Ecchi', 'Horror'],
+      tagNotIn: null,
+    });
+  });
+
+  it('routes a tag id into tagNotIn while still hiding Ecchi', () => {
     expect(splitHiddenForAniList(['isekai'])).toEqual({
-      genreNotIn: null,
+      genreNotIn: ['Ecchi'],
       tagNotIn: ['Isekai'],
     });
   });
 
   it('splits mixed selections into the right buckets', () => {
-    const out = splitHiddenForAniList(['ecchi', 'isekai', 'horror', 'bl']);
+    const out = splitHiddenForAniList(['isekai', 'horror', 'bl']);
     expect(out.genreNotIn?.sort()).toEqual(['Ecchi', 'Horror']);
     expect(out.tagNotIn?.sort()).toEqual(["Boys' Love", 'Isekai']);
   });
 
   it('produces stable output regardless of input order', () => {
-    const a = splitHiddenForAniList(['horror', 'ecchi']);
-    const b = splitHiddenForAniList(['ecchi', 'horror']);
+    const a = splitHiddenForAniList(['horror', 'isekai']);
+    const b = splitHiddenForAniList(['isekai', 'horror']);
     expect(a).toEqual(b);
   });
 
   it('ignores unknown ids without throwing', () => {
-    expect(splitHiddenForAniList(['ecchi', 'nonexistent-id'])).toEqual({
+    expect(splitHiddenForAniList(['nonexistent-id'])).toEqual({
       genreNotIn: ['Ecchi'],
       tagNotIn: null,
     });
