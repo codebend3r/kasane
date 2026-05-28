@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   note: {
     color: '#cfd2d6',
     fontSize: 13,
-    marginTop: 6,
+    paddingTop: 6,
     fontStyle: 'italic',
     fontFamily: FONT.regular,
   },
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     letterSpacing: 1.2,
     textTransform: 'uppercase',
-    marginBottom: 4,
+    paddingBottom: 4,
     fontFamily: FONT.semibold,
   },
   row: {
