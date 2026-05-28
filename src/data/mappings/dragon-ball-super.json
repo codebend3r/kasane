@@ -8,6 +8,9 @@
     { "episodes": [15, 27],   "chapters": [4, 5],    "arc": "Resurrection 'F'" },
     { "episodes": [28, 46],   "chapters": [6, 13],   "arc": "Universe 6" },
     { "episodes": [47, 76],   "chapters": [14, 22],  "arc": "Future Trunks / Goku Black" },
-    { "episodes": [77, 131],  "chapters": [23, 42],  "arc": "Universal Survival / Tournament of Power" }
+    { "episodes": [77, 131],  "chapters": [23, 42],  "arc": "Universal Survival / Tournament of Power" },
+    { "chapters": [43, 67],   "arc": "Galactic Patrol Prisoner (Moro)" },
+    { "chapters": [68, 87],   "arc": "Granolah the Survivor" },
+    { "chapters": [88, 104],  "arc": "Super Hero / Black Frieza" }
   ]
 }
