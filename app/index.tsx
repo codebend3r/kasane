@@ -41,6 +41,7 @@ export default function HomeScreen() {
   const [query, setQuery] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState('');
   const [type, setType] = useState<MediaType | undefined>(undefined);
+  const [hideEcchi, setHideEcchi] = useState(true);
 
   useEffect(() => {
     const t = setTimeout(() => setDebouncedQuery(query), 300);
@@ -48,16 +49,17 @@ export default function HomeScreen() {
   }, [query]);
 
   const isSearching = debouncedQuery.trim().length > 1;
+  const genreNotIn = hideEcchi ? ['Ecchi'] : null;
 
   const { data: searchResults, isFetching, error } = useQuery({
-    queryKey: ['search', debouncedQuery, type],
-    queryFn: () => searchMedia(debouncedQuery, type),
+    queryKey: ['search', debouncedQuery, type, genreNotIn],
+    queryFn: () => searchMedia(debouncedQuery, type, genreNotIn),
     enabled: isSearching,
   });
 
   const { data: latestAnime, isFetching: latestFetching } = useQuery({
-    queryKey: ['latest-anime'],
-    queryFn: getLatestAnime,
+    queryKey: ['latest-anime', genreNotIn],
+    queryFn: () => getLatestAnime(genreNotIn),
     enabled: !isSearching,
     staleTime: 60 * 60 * 1000,
   });
@@ -82,6 +84,17 @@ export default function HomeScreen() {
         autoCorrect={false}
         returnKeyType="search"
       />
+
+      <View style={styles.filters}>
+        <Pressable
+          onPress={() => setHideEcchi((v) => !v)}
+          style={[styles.filterChip, hideEcchi && styles.filterChipActive]}
+        >
+          <Text style={[styles.filterText, hideEcchi && styles.filterTextActive]}>
+            Hide ecchi
+          </Text>
+        </Pressable>
+      </View>
 
       {isSearching && (
         <View style={styles.filters}>
