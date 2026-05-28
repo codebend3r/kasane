@@ -9,6 +9,8 @@
     { "episodes": [26, 38], "chapters": [71, 110],  "arc": "Tokyo Training Camp" },
     { "episodes": [39, 50], "chapters": [111, 148], "arc": "Spring High Preliminaries" },
     { "episodes": [51, 60], "chapters": [149, 189], "arc": "Spring High vs Shiratorizawa" },
-    { "episodes": [61, 85], "chapters": [190, 292], "arc": "Spring High Nationals" }
+    { "episodes": [61, 85], "chapters": [190, 292], "arc": "Spring High Nationals" },
+    { "chapters": [293, 369], "arc": "Battle at the Garbage Dump (Final movies)" },
+    { "chapters": [370, 402], "arc": "Timeskip / Final" }
   ]
 }
