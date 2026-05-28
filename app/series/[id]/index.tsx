@@ -24,7 +24,6 @@ import {
   formatAniListDateJa,
   localeLabel,
 } from '@/data/format';
-import { pickTitle, usePreferences } from '@/state/preferences';
 import type { SeriesBadge } from '@/types';
 import { FONT } from '@/theme';
 
@@ -37,7 +36,6 @@ const BADGE_LABEL: Record<SeriesBadge, string> = {
 export default function SeriesDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const mediaId = Number(id);
-  const language = usePreferences((s) => s.language);
 
   const { data: media, isLoading } = useQuery({
     queryKey: ['media', mediaId],
@@ -172,8 +170,10 @@ export default function SeriesDetail() {
               </View>
             )}
           </View>
-          <Text style={styles.title}>{pickTitle(primary, language)}</Text>
-          {primary.title.native && language !== 'NATIVE' ? (
+          <Text style={styles.title}>
+            {primary.title.english ?? primary.title.romaji}
+          </Text>
+          {primary.title.native ? (
             <Text style={styles.titleNative}>{primary.title.native}</Text>
           ) : null}
           <Text style={styles.sub}>{subParts.join('  ·  ')}</Text>
