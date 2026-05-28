@@ -16,7 +16,6 @@ import {
   findMappingByMediaId,
 } from '@/data';
 import { EpisodeChapterRail } from '@/components/EpisodeChapterRail';
-import { QuickLookup } from '@/components/QuickLookup';
 import { SeasonCoverage } from '@/components/SeasonCoverage';
 import { VolumesGrid } from '@/components/VolumesGrid';
 import {
@@ -234,7 +233,6 @@ export default function SeriesDetail() {
             totalChapters={totalChapters}
           />
           {curatedMapping ? <SeasonCoverage mapping={curatedMapping} /> : null}
-          <QuickLookup mapping={mapping} />
         </View>
       ) : (
         <View style={styles.noMapping}>
