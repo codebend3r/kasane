@@ -11,6 +11,9 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test": "jest",
+    "prettier": "prettier --write .",
+    "prettier:check": "prettier --check .",
+    "prettier:quick": "pretty-quick --staged",
     "system-check": "run-s lint typecheck test",
     "desktop:init": "tauri init",
     "desktop:dev": "tauri dev",
@@ -50,6 +53,8 @@
     "jest": "^29",
     "jest-expo": "^56.0.4",
     "npm-run-all2": "^9.0.1",
+    "prettier": "^3.8.3",
+    "pretty-quick": "^4.2.2",
     "react-test-renderer": "^19.2.6",
     "typescript": "~5.9.2"
   },
