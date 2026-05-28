@@ -117,14 +117,20 @@ export default function HomeScreen() {
 
       {isSearching ? (
         <>
-          {isFetching && <ActivityIndicator color="#7c5cff" style={{ marginTop: 24 }} />}
+          {isFetching && (
+            <View style={styles.spinnerWrap}>
+              <ActivityIndicator color="#7c5cff" />
+            </View>
+          )}
           <FlatList
             data={pairedResults}
             keyExtractor={(item) => `series-${item.routeId}`}
             renderItem={({ item }) => <SeriesCard entry={item} />}
             ListEmptyComponent={
               !isFetching && query === debouncedQuery ? (
-                <Text style={styles.empty}>No results.</Text>
+                <View style={styles.emptyWrap}>
+                  <Text style={styles.empty}>No results.</Text>
+                </View>
               ) : null
             }
           />
@@ -187,7 +193,9 @@ function LatestReleases({
         <Text style={styles.latestTitle}>Latest anime</Text>
       </View>
       {loading && entries.length === 0 ? (
-        <ActivityIndicator color="#7c5cff" style={{ marginTop: 24 }} />
+        <View style={styles.spinnerWrap}>
+          <ActivityIndicator color="#7c5cff" />
+        </View>
       ) : (
         <View style={styles.grid} onLayout={onGridLayout}>
           {visible.map((entry) => (
@@ -250,7 +258,6 @@ const styles = StyleSheet.create({
   tagline: {
     color: '#cfd2d6',
     fontSize: 16,
-    marginBottom: 8,
     letterSpacing: -0.2,
     fontFamily: FONT.medium,
   },
@@ -264,7 +271,6 @@ const styles = StyleSheet.create({
     fontFamily: FONT.medium,
     borderLeftWidth: 4,
     borderLeftColor: '#7c5cff',
-    marginVertical: 8,
   },
   filters: { flexDirection: 'row', gap: 8 },
   filterChip: {
@@ -281,8 +287,10 @@ const styles = StyleSheet.create({
     fontFamily: FONT.bold,
   },
   filterTextActive: { color: '#0c0c0e' },
-  empty: { color: '#6b7177', textAlign: 'center', marginTop: 32, fontFamily: FONT.regular },
-  error: { color: '#ff7c5c', textAlign: 'center', marginTop: 16, fontFamily: FONT.medium },
+  spinnerWrap: { paddingTop: 24 },
+  emptyWrap: { paddingTop: 32 },
+  empty: { color: '#6b7177', textAlign: 'center', fontFamily: FONT.regular },
+  error: { color: '#ff7c5c', textAlign: 'center', fontFamily: FONT.medium },
   latestScroll: { paddingBottom: 32, gap: 16 },
   latestHeader: { gap: 2 },
   latestEyebrow: {
