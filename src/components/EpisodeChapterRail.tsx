@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import type { SeriesMapping } from '@/types';
@@ -10,6 +11,19 @@ const COLORS = [
 
 const BAR_HEIGHT = 44;
 
+type Hover = { label: string; color: string; textColor: string; x: number; y: number };
+type MouseLike = { nativeEvent: { clientX: number; clientY: number } };
+
+function hasBoundingRect(
+  node: unknown
+): node is { getBoundingClientRect: () => { left: number; top: number } } {
+  return (
+    typeof node === 'object' &&
+    node !== null &&
+    'getBoundingClientRect' in node
+  );
+}
+
 export function EpisodeChapterRail({
   mapping,
   seriesId,
@@ -20,6 +34,27 @@ export function EpisodeChapterRail({
   totalChapters?: number | null;
 }) {
   const router = useRouter();
+  const containerRef = useRef<View>(null);
+  const [hover, setHover] = useState<Hover | null>(null);
+
+  const moveTo = (
+    label: string,
+    color: string,
+    textColor: string,
+    e: MouseLike
+  ) => {
+    const { clientX, clientY } = e.nativeEvent;
+    const node = containerRef.current;
+    const base = { label, color, textColor };
+    if (hasBoundingRect(node)) {
+      const rect = node.getBoundingClientRect();
+      setHover({ ...base, x: clientX - rect.left, y: clientY - rect.top });
+    } else {
+      setHover({ ...base, x: clientX, y: clientY });
+    }
+  };
+
+  const clearHover = () => setHover(null);
 
   const goToArc = (arcIdx: number) => {
     router.push({
@@ -39,28 +74,33 @@ export function EpisodeChapterRail({
   const tailSpan = showTail ? totalChapters! - maxCoveredChapter : 0;
 
   return (
-    <View style={styles.container}>
+    <View ref={containerRef} style={styles.container}>
       <Text style={styles.label}>Anime episodes →</Text>
       <View style={styles.rail}>
         {mapping.mappings.map((m, idx) => {
           if (!m.episodes) return null;
           const eps = m.episodes;
           const span = eps[1] - eps[0] + 1;
+          const label = m.arc ?? `${eps[0]}–${eps[1]}`;
+          const color = COLORS[idx % COLORS.length];
           return (
             <Pressable
               key={`ep-${idx}`}
               onPress={() => goToArc(idx)}
+              onHoverOut={clearHover}
+              // @ts-expect-error react-native-web forwards onMouseMove to the DOM
+              onMouseMove={(e: MouseLike) => moveTo(label, color, '#000', e)}
               style={({ hovered, pressed }: any) => [
                 styles.bar,
                 {
                   flex: span,
-                  backgroundColor: COLORS[idx % COLORS.length],
+                  backgroundColor: color,
                   opacity: pressed ? 0.7 : hovered ? 0.9 : 1,
                 },
               ]}
             >
               <Text style={styles.barText} numberOfLines={1}>
-                {m.arc ?? `${eps[0]}–${eps[1]}`}
+                {label}
               </Text>
             </Pressable>
           );
@@ -74,10 +114,15 @@ export function EpisodeChapterRail({
           const unadapted = !m.episodes;
           const bg = unadapted ? '#2a2a2a' : COLORS[idx % COLORS.length];
           const textStyle = unadapted ? styles.unadaptedBarText : styles.barText;
+          const popoverTextColor = unadapted ? '#9aa0a6' : '#000';
+          const label = m.arc ?? `${m.chapters[0]}–${m.chapters[1]}`;
           return (
             <Pressable
               key={`ch-${idx}`}
               onPress={() => goToArc(idx)}
+              onHoverOut={clearHover}
+              // @ts-expect-error react-native-web forwards onMouseMove to the DOM
+              onMouseMove={(e: MouseLike) => moveTo(label, bg, popoverTextColor, e)}
               style={({ hovered, pressed }: any) => [
                 styles.bar,
                 {
@@ -88,7 +133,7 @@ export function EpisodeChapterRail({
               ]}
             >
               <Text style={textStyle} numberOfLines={1}>
-                {m.arc ?? `${m.chapters[0]}–${m.chapters[1]}`}
+                {label}
               </Text>
             </Pressable>
           );
@@ -101,12 +146,35 @@ export function EpisodeChapterRail({
           </View>
         )}
       </View>
+
+      {hover && (
+        <View
+          pointerEvents="none"
+          style={[
+            styles.popover,
+            {
+              backgroundColor: hover.color,
+              transform: [
+                { translateX: hover.x + 14 },
+                { translateY: hover.y + 14 },
+              ],
+            },
+          ]}
+        >
+          <Text
+            style={[styles.popoverText, { color: hover.textColor }]}
+            numberOfLines={1}
+          >
+            {hover.label}
+          </Text>
+        </View>
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { gap: 8, width: '100%' },
+  container: { gap: 8, width: '100%', position: 'relative' },
   label: {
     color: '#9aa0a6',
     fontSize: 12,
@@ -145,6 +213,20 @@ const styles = StyleSheet.create({
   },
   unadaptedBarText: {
     color: '#9aa0a6',
+    fontSize: 13,
+    letterSpacing: -0.2,
+    fontFamily: FONT.bold,
+  },
+  popover: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    maxWidth: 320,
+    zIndex: 100,
+  },
+  popoverText: {
     fontSize: 13,
     letterSpacing: -0.2,
     fontFamily: FONT.bold,
