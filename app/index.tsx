@@ -17,6 +17,7 @@ import { getLatestAnime, searchMedia } from '@/api/anilist';
 import { pairResults } from '@/data';
 import { GENRE_FILTERS, splitHiddenForAniList } from '@/data/genreFilters';
 import { SeriesCard } from '@/components/SeriesCard';
+import { CoverCarousel, MOBILE_WIDTH_BREAKPOINT } from '@/components/CoverCarousel';
 import { usePreferences } from '@/state/preferences';
 import type { AniListMedia, MediaType, SeriesEntry } from '@/types';
 import { FONT } from '@/theme';
@@ -187,14 +188,62 @@ function LatestReleases({
 
   const entries = useMemo(() => pairResults(data), [data]);
 
+  const isMobile = gridWidth > 0 && gridWidth < MOBILE_WIDTH_BREAKPOINT;
+
   const columns =
     gridWidth > 0
       ? Math.max(1, Math.floor((gridWidth + GRID_GAP) / (GRID_ITEM_WIDTH + GRID_GAP)))
       : 0;
   const visible =
-    columns > 0
+    !isMobile && columns > 0
       ? entries.slice(0, Math.floor(entries.length / columns) * columns)
       : entries;
+
+  const renderCard = (entry: SeriesEntry) => (
+    <Link
+      href={{
+        pathname: '/series/[id]',
+        params: { id: entry.routeId },
+      }}
+      asChild
+    >
+      <Pressable
+        style={({ hovered, pressed }: any) => [
+          styles.gridItem,
+          { opacity: pressed ? 0.6 : hovered ? 0.9 : 1 },
+        ]}
+      >
+        <View style={styles.gridCoverWrap}>
+          <Image
+            source={{ uri: entry.primary.coverImage.large }}
+            style={[
+              styles.gridCover,
+              {
+                backgroundColor: entry.primary.coverImage.color ?? '#222',
+              },
+            ]}
+          />
+          <View
+            style={[
+              styles.gridBadge,
+              { backgroundColor: BADGE_COLOR[entry.badge] },
+            ]}
+          >
+            <Text style={styles.gridBadgeText}>{BADGE_LABEL[entry.badge]}</Text>
+          </View>
+        </View>
+        <Text style={styles.gridTitle} numberOfLines={2}>
+          {trimSeasonSuffix(
+            japanese
+              ? entry.primary.title.native ??
+                  entry.primary.title.english ??
+                  entry.primary.title.romaji
+              : entry.primary.title.english ?? entry.primary.title.romaji
+          )}
+        </Text>
+      </Pressable>
+    </Link>
+  );
 
   return (
     <ScrollView contentContainerStyle={styles.latestScroll}>
@@ -206,56 +255,21 @@ function LatestReleases({
         <View style={styles.spinnerWrap}>
           <ActivityIndicator color="#7c5cff" />
         </View>
+      ) : isMobile ? (
+        <View onLayout={onGridLayout}>
+          <CoverCarousel
+            items={visible}
+            keyExtractor={(entry) => String(entry.routeId)}
+            itemWidth={GRID_ITEM_WIDTH}
+            itemHeight={280}
+            containerWidth={gridWidth}
+            renderItem={(entry) => renderCard(entry)}
+          />
+        </View>
       ) : (
         <View style={styles.grid} onLayout={onGridLayout}>
           {visible.map((entry) => (
-            <Link
-              key={entry.routeId}
-              href={{
-                pathname: '/series/[id]',
-                params: { id: entry.routeId },
-              }}
-              asChild
-            >
-              <Pressable
-                style={({ hovered, pressed }: any) => [
-                  styles.gridItem,
-                  { opacity: pressed ? 0.6 : hovered ? 0.9 : 1 },
-                ]}
-              >
-                <View style={styles.gridCoverWrap}>
-                  <Image
-                    source={{ uri: entry.primary.coverImage.large }}
-                    style={[
-                      styles.gridCover,
-                      {
-                        backgroundColor:
-                          entry.primary.coverImage.color ?? '#222',
-                      },
-                    ]}
-                  />
-                  <View
-                    style={[
-                      styles.gridBadge,
-                      { backgroundColor: BADGE_COLOR[entry.badge] },
-                    ]}
-                  >
-                    <Text style={styles.gridBadgeText}>
-                      {BADGE_LABEL[entry.badge]}
-                    </Text>
-                  </View>
-                </View>
-                <Text style={styles.gridTitle} numberOfLines={2}>
-                  {trimSeasonSuffix(
-                    japanese
-                      ? entry.primary.title.native ??
-                          entry.primary.title.english ??
-                          entry.primary.title.romaji
-                      : entry.primary.title.english ?? entry.primary.title.romaji
-                  )}
-                </Text>
-              </Pressable>
-            </Link>
+            <View key={entry.routeId}>{renderCard(entry)}</View>
           ))}
         </View>
       )}
