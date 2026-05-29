@@ -1,9 +1,25 @@
 import { useMemo, useState } from 'react';
-import { Animated, Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  Animated,
+  Image,
+  type LayoutChangeEvent,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import type { MangaDexVolumeCover } from '@/types';
 import { localeLabel } from '@/data/format';
 import { usePreferences } from '@/state/preferences';
+import { CoverCarousel, MOBILE_WIDTH_BREAKPOINT } from '@/components/CoverCarousel';
 import { FONT } from '@/theme';
+
+const MOBILE_COVER_WIDTH = 140;
+const MOBILE_COVER_HEIGHT = 210;
+const MOBILE_LABELS_HEIGHT = 38;
+const MOBILE_VARIANT_ROW_HEIGHT = 70;
+const MOBILE_CARD_HEIGHT =
+  MOBILE_COVER_HEIGHT + MOBILE_LABELS_HEIGHT + MOBILE_VARIANT_ROW_HEIGHT;
 
 type VolumeGroup = {
   volume: number;
@@ -52,8 +68,41 @@ export function VolumesGrid({ covers }: { covers: MangaDexVolumeCover[] }) {
     () => groupCovers(covers, japanese),
     [covers, japanese]
   );
+  const [containerWidth, setContainerWidth] = useState(0);
+
+  const onLayout = (e: LayoutChangeEvent) => {
+    setContainerWidth(e.nativeEvent.layout.width);
+  };
+
+  const isMobile = containerWidth > 0 && containerWidth < MOBILE_WIDTH_BREAKPOINT;
+
+  if (containerWidth === 0) {
+    return <View style={styles.measure} onLayout={onLayout} />;
+  }
+
+  if (isMobile) {
+    return (
+      <View onLayout={onLayout}>
+        <CoverCarousel
+          items={groups}
+          keyExtractor={(g) => `vol-${g.volume}-${japanese ? 'ja' : 'en'}`}
+          itemWidth={MOBILE_COVER_WIDTH}
+          itemHeight={MOBILE_CARD_HEIGHT}
+          containerWidth={containerWidth}
+          renderItem={(g) => (
+            <VolumeCard
+              group={g}
+              width={MOBILE_COVER_WIDTH}
+              coverHeight={MOBILE_COVER_HEIGHT}
+            />
+          )}
+        />
+      </View>
+    );
+  }
+
   return (
-    <View style={styles.grid}>
+    <View style={styles.grid} onLayout={onLayout}>
       {groups.map((group) => (
         <VolumeCard
           key={`vol-${group.volume}-${japanese ? 'ja' : 'en'}`}
@@ -64,7 +113,15 @@ export function VolumesGrid({ covers }: { covers: MangaDexVolumeCover[] }) {
   );
 }
 
-function VolumeCard({ group }: { group: VolumeGroup }) {
+function VolumeCard({
+  group,
+  width = 120,
+  coverHeight = 180,
+}: {
+  group: VolumeGroup;
+  width?: number;
+  coverHeight?: number;
+}) {
   const allCovers = useMemo(
     () => [group.primary, ...group.variants],
     [group]
@@ -87,7 +144,7 @@ function VolumeCard({ group }: { group: VolumeGroup }) {
     }).start();
 
   return (
-    <View style={[styles.card, isHovered && styles.cardHovered]}>
+    <View style={[styles.card, { width }, isHovered && styles.cardHovered]}>
       <Pressable
         onPress={() => hasVariants && setIsOpen((v) => !v)}
         onHoverIn={() => {
@@ -99,27 +156,29 @@ function VolumeCard({ group }: { group: VolumeGroup }) {
           animateTo(1);
         }}
         style={({ pressed }: any) => [
-          styles.cardPress,
-          { opacity: pressed ? 0.7 : 1 },
+          { width, opacity: pressed ? 0.7 : 1 },
         ]}
       >
-        <Animated.View style={[styles.cardInner, { transform: [{ scale }] }]}>
-          <View style={styles.coverWrap}>
-            <Image source={{ uri: primary.thumbUrl }} style={styles.cover} />
+        <Animated.View style={[{ width, gap: 4 }, { transform: [{ scale }] }]}>
+          <View style={{ width, height: coverHeight, position: 'relative' }}>
+            <Image
+              source={{ uri: primary.thumbUrl }}
+              style={[styles.cover, { width, height: coverHeight }]}
+            />
             {hasVariants && (
               <View style={styles.variantBadge}>
                 <Text style={styles.variantBadgeText}>+{variants.length}</Text>
               </View>
             )}
           </View>
-          <View style={styles.labels}>
+          <View style={[styles.labels, { width }]}>
             <Text style={styles.number}>Vol. {group.volume}</Text>
             <Text style={styles.locale}>{localeLabel(primary.locale)}</Text>
           </View>
         </Animated.View>
       </Pressable>
       {isOpen && (
-        <View style={styles.variantRow}>
+        <View style={[styles.variantRow, { width }]}>
           {variants.map((v) => (
             <Pressable
               key={coverKey(v)}
@@ -145,13 +204,13 @@ function VolumeCard({ group }: { group: VolumeGroup }) {
 }
 
 const styles = StyleSheet.create({
+  measure: { height: 1 },
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 12,
   },
   card: {
-    width: 120,
     gap: 4,
     position: 'relative',
     zIndex: 1,
@@ -159,21 +218,7 @@ const styles = StyleSheet.create({
   cardHovered: {
     zIndex: 10,
   },
-  cardPress: {
-    width: 120,
-  },
-  cardInner: {
-    width: 120,
-    gap: 4,
-  },
-  coverWrap: {
-    width: 120,
-    height: 180,
-    position: 'relative',
-  },
   cover: {
-    width: 120,
-    height: 180,
     backgroundColor: '#222',
     borderWidth: 1,
     borderColor: '#fff',
@@ -197,7 +242,6 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: 6,
     paddingTop: 4,
-    width: 120,
   },
   variantCell: {
     width: 36,
@@ -215,7 +259,6 @@ const styles = StyleSheet.create({
     letterSpacing: 0.4,
   },
   labels: {
-    width: 120,
     backgroundColor: '#000',
     padding: 6,
     gap: 2,
