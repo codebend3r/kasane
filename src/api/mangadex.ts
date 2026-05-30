@@ -68,8 +68,10 @@ function coverUrl(mangaId: string, fileName: string, size: '256' | '512' | 'full
   return `${UPLOADS}/covers/${mangaId}/${fileName}.${size}.jpg`;
 }
 
+const SAFE_RATINGS = 'contentRating%5B%5D=safe&contentRating%5B%5D=suggestive';
+
 async function searchByTitle(title: string): Promise<MangaDexRecord[]> {
-  const url = `${BASE}/manga?title=${encodeURIComponent(title)}&limit=10`;
+  const url = `${BASE}/manga?title=${encodeURIComponent(title)}&limit=10&${SAFE_RATINGS}`;
   const data = await fetchJson<{ data: MangaDexRecord[] }>(url);
   return data.data;
 }
