@@ -25,6 +25,15 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
+# MangaDex API proxy — api.mangadex.org only returns Access-Control-Allow-Origin
+# for localhost, so browser fetches from the deployed site are blocked. Proxying
+# server-side makes the call same-origin to the browser.
+[[redirects]]
+  from = "/_mdx/*"
+  to = "https://api.mangadex.org/:splat"
+  status = 200
+  force = true
+
 # SPA fallback — Expo Router web output is a single index.html with client routing.
 # Must be last so it doesn't shadow static assets above.
 [[redirects]]

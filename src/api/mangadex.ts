@@ -1,6 +1,20 @@
 import type { MangaDexInfo, MangaDexVolumeCover, MangaDexTitle } from '@/types';
 
-const BASE = 'https://api.mangadex.org';
+// api.mangadex.org only returns Access-Control-Allow-Origin for localhost, so
+// on a deployed web origin we hit the Netlify proxy at /_mdx instead. Native
+// builds and local dev call MangaDex directly.
+function resolveBase(): string {
+  if (typeof window === 'undefined' || !window.location) {
+    return 'https://api.mangadex.org';
+  }
+  const host = window.location.hostname;
+  if (host === 'localhost' || host === '127.0.0.1') {
+    return 'https://api.mangadex.org';
+  }
+  return '/_mdx';
+}
+
+const BASE = resolveBase();
 const UPLOADS = 'https://uploads.mangadex.org';
 
 interface MangaDexRecord {
