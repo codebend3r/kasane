@@ -28,6 +28,10 @@ describe('GENRE_FILTERS catalog', () => {
     expect(GENRE_FILTERS.find((f) => f.id === 'ecchi')).toBeUndefined();
   });
 
+  it('does not expose Hentai as a toggleable chip', () => {
+    expect(GENRE_FILTERS.find((f) => f.id === 'hentai')).toBeUndefined();
+  });
+
   it("contains BL with token \"Boys' Love\"", () => {
     const bl = GENRE_FILTERS.find((f) => f.id === 'bl');
     expect(bl?.kind).toBe('tag');
@@ -36,30 +40,30 @@ describe('GENRE_FILTERS catalog', () => {
 });
 
 describe('splitHiddenForAniList', () => {
-  it('always injects Ecchi into genreNotIn for an empty selection', () => {
+  it('always injects Ecchi and Hentai into genreNotIn for an empty selection', () => {
     expect(splitHiddenForAniList([])).toEqual({
-      genreNotIn: ['Ecchi'],
+      genreNotIn: ['Ecchi', 'Hentai'],
       tagNotIn: null,
     });
   });
 
-  it('routes a genre id into genreNotIn alongside Ecchi', () => {
+  it('routes a genre id into genreNotIn alongside the always-hidden genres', () => {
     expect(splitHiddenForAniList(['horror'])).toEqual({
-      genreNotIn: ['Ecchi', 'Horror'],
+      genreNotIn: ['Ecchi', 'Hentai', 'Horror'],
       tagNotIn: null,
     });
   });
 
-  it('routes a tag id into tagNotIn while still hiding Ecchi', () => {
+  it('routes a tag id into tagNotIn while still hiding Ecchi and Hentai', () => {
     expect(splitHiddenForAniList(['isekai'])).toEqual({
-      genreNotIn: ['Ecchi'],
+      genreNotIn: ['Ecchi', 'Hentai'],
       tagNotIn: ['Isekai'],
     });
   });
 
   it('splits mixed selections into the right buckets', () => {
     const out = splitHiddenForAniList(['isekai', 'horror', 'bl']);
-    expect(out.genreNotIn?.sort()).toEqual(['Ecchi', 'Horror']);
+    expect(out.genreNotIn?.sort()).toEqual(['Ecchi', 'Hentai', 'Horror']);
     expect(out.tagNotIn?.sort()).toEqual(["Boys' Love", 'Isekai']);
   });
 
@@ -71,7 +75,7 @@ describe('splitHiddenForAniList', () => {
 
   it('ignores unknown ids without throwing', () => {
     expect(splitHiddenForAniList(['nonexistent-id'])).toEqual({
-      genreNotIn: ['Ecchi'],
+      genreNotIn: ['Ecchi', 'Hentai'],
       tagNotIn: null,
     });
   });

@@ -62,7 +62,7 @@ export const GENRE_FILTERS: readonly GenreFilter[] = [
   },
 ];
 
-const ALWAYS_HIDDEN_GENRES: readonly string[] = ['Ecchi'];
+const ALWAYS_HIDDEN_GENRES: readonly string[] = ['Ecchi', 'Hentai'];
 const ALWAYS_HIDDEN_TAGS: readonly string[] = [];
 
 export type SplitFilters = {
