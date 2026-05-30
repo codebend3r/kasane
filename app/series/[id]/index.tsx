@@ -21,6 +21,7 @@ import { SeasonCoverage } from '@/components/SeasonCoverage';
 import { VolumesGrid } from '@/components/VolumesGrid';
 import { MOBILE_WIDTH_BREAKPOINT } from '@/components/CoverCarousel';
 import { Footer } from '@/components/Footer';
+import { Paragraph } from '@/components/Paragraph';
 import {
   formatAniListDate,
   formatAniListDateJa,
@@ -224,9 +225,9 @@ export default function SeriesDetail() {
             </View>
           ) : null}
           {primary.description && (
-            <Text style={styles.description} numberOfLines={8}>
+            <Paragraph style={styles.description} numberOfLines={8}>
               {primary.description.replace(/<[^>]+>/g, '')}
-            </Text>
+            </Paragraph>
           )}
         </View>
       </View>
@@ -248,11 +249,11 @@ export default function SeriesDetail() {
               <View style={styles.autoBadge}>
                 <Text style={styles.autoBadgeText}>AUTO-ESTIMATED</Text>
               </View>
-              <Text style={styles.autoBannerBody}>
+              <Paragraph style={styles.autoBannerBody}>
                 Linear pacing — anime episode count distributed evenly across
                 the manga chapter count. Real pacing varies; curated JSON in{' '}
                 <Text style={styles.code}>src/data/mappings/</Text> overrides this.
-              </Text>
+              </Paragraph>
             </View>
           )}
           <EpisodeChapterRail
@@ -265,11 +266,11 @@ export default function SeriesDetail() {
       ) : badge === 'anime-only' ? null : (
         <View style={styles.noMapping}>
           <Text style={styles.noMappingTitle}>No mapping available yet</Text>
-          <Text style={styles.noMappingBody}>
+          <Paragraph style={styles.noMappingBody}>
             We couldn&apos;t find an anime↔manga adaptation pair on AniList for
             this entry, and no curated mapping exists. Add a JSON file to{' '}
             <Text style={styles.code}>src/data/mappings/</Text> in the repo.
-          </Text>
+          </Paragraph>
         </View>
       )}
 

@@ -1,6 +1,7 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Stack } from 'expo-router';
 import { Footer } from '@/components/Footer';
+import { Paragraph } from '@/components/Paragraph';
 import type { MappingEntry, SeriesMapping } from '@/types';
 import { FONT } from '@/theme';
 
@@ -43,7 +44,9 @@ export function ArcDetailView({
               ? `Episodes ${arcEpisodes[0]}–${arcEpisodes[1]} · Chapters ${arc.chapters[0]}–${arc.chapters[1]}${arc.season ? ` · Season ${arc.season}` : ''}`
               : `Chapters ${arc.chapters[0]}–${arc.chapters[1]} · Not yet in the anime`}
           </Text>
-          {arc.note ? <Text style={styles.note}>{arc.note}</Text> : null}
+          {arc.note ? (
+            <Paragraph style={styles.note}>{arc.note}</Paragraph>
+          ) : null}
         </View>
 
         <View style={styles.columns}>
@@ -68,9 +71,9 @@ export function ArcDetailView({
             ) : (
               <View style={styles.columnEmpty}>
                 <Text style={styles.columnEmptyTitle}>Not yet adapted</Text>
-                <Text style={styles.columnEmptySub}>
+                <Paragraph style={styles.columnEmptySub}>
                   This arc hasn&apos;t aired in the anime yet.
-                </Text>
+                </Paragraph>
               </View>
             )}
           </View>

@@ -22,6 +22,7 @@ import {
 } from '@/data';
 import { EpisodeChapterRail } from '@/components/EpisodeChapterRail';
 import { Footer } from '@/components/Footer';
+import { Paragraph } from '@/components/Paragraph';
 import { formatAniListDate, formatAniListDateJa, localeLabel } from '@/data/format';
 import type { MangaDexInfo, MangaDexVolumeCover, SeriesMapping } from '@/types';
 import { FONT } from '@/theme';
@@ -113,9 +114,9 @@ export default function MangaDetail() {
             </View>
           ) : null}
           {media.description && (
-            <Text style={styles.description} numberOfLines={8}>
+            <Paragraph style={styles.description} numberOfLines={8}>
               {media.description.replace(/<[^>]+>/g, '')}
-            </Text>
+            </Paragraph>
           )}
         </View>
       </View>
@@ -123,20 +124,20 @@ export default function MangaDetail() {
       {mapping ? (
         <View style={styles.mappingBlock}>
           <Text style={styles.sectionTitle}>Anime episode coverage</Text>
-          <Text style={styles.sectionLead}>
+          <Paragraph style={styles.sectionLead}>
             This manga is adapted across the following anime arcs. Tap a band for
             episode-by-episode chapter alignment.
-          </Text>
+          </Paragraph>
           {isAutoEstimated && (
             <View style={styles.autoBanner}>
               <View style={styles.autoBadge}>
                 <Text style={styles.autoBadgeText}>AUTO-ESTIMATED</Text>
               </View>
-              <Text style={styles.autoBannerBody}>
+              <Paragraph style={styles.autoBannerBody}>
                 Linear pacing — anime episode count distributed evenly across
                 the manga chapter count. Real pacing varies; curated JSON in{' '}
                 <Text style={styles.code}>src/data/mappings/</Text> overrides this.
-              </Text>
+              </Paragraph>
             </View>
           )}
           <EpisodeChapterRail
@@ -154,10 +155,10 @@ export default function MangaDetail() {
       ) : (
         <View style={styles.noMapping}>
           <Text style={styles.noMappingTitle}>No anime adaptation mapped yet</Text>
-          <Text style={styles.noMappingBody}>
+          <Paragraph style={styles.noMappingBody}>
             No curated or auto-estimated mapping is available for this manga.
             Add a JSON file to <Text style={styles.code}>src/data/mappings/</Text>.
-          </Text>
+          </Paragraph>
         </View>
       )}
 
