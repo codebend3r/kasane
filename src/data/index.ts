@@ -1,5 +1,6 @@
 import type {
   AniListMedia,
+  MappingEntry,
   RelationEdge,
   SeriesEntry,
   SeriesMapping,
@@ -59,7 +60,51 @@ import kaijuNo8 from '@/data/mappings/kaiju-no-8.json';
 import beastars from '@/data/mappings/beastars.json';
 import goldenKamuy from '@/data/mappings/golden-kamuy.json';
 
-const ALL_MAPPINGS = [
+// JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
+// `[number, number]`. `normalizeMapping` rebuilds tuples literally so we can
+// drop the `as unknown as SeriesMapping[]` cast.
+type RawEntry = {
+  episodes?: number[];
+  chapters: number[];
+  arc?: string;
+  season?: number;
+  note?: string;
+};
+type RawMapping = {
+  anilistAnimeId: number;
+  anilistMangaId: number;
+  title: string;
+  sourceNotes?: string;
+  mappings: RawEntry[];
+};
+
+function normalizeEntry(e: RawEntry): MappingEntry {
+  if (e.chapters.length !== 2) {
+    throw new Error(`mapping entry chapters must be a 2-tuple: ${JSON.stringify(e)}`);
+  }
+  if (e.episodes && e.episodes.length !== 2) {
+    throw new Error(`mapping entry episodes must be a 2-tuple: ${JSON.stringify(e)}`);
+  }
+  return {
+    chapters: [e.chapters[0], e.chapters[1]],
+    episodes: e.episodes ? [e.episodes[0], e.episodes[1]] : undefined,
+    arc: e.arc,
+    season: e.season,
+    note: e.note,
+  };
+}
+
+function normalizeMapping(m: RawMapping): SeriesMapping {
+  return {
+    anilistAnimeId: m.anilistAnimeId,
+    anilistMangaId: m.anilistMangaId,
+    title: m.title,
+    sourceNotes: m.sourceNotes,
+    mappings: m.mappings.map(normalizeEntry),
+  };
+}
+
+const ALL_MAPPINGS: SeriesMapping[] = [
   onePiece,
   attackOnTitan,
   demonSlayer,
@@ -114,7 +159,7 @@ const ALL_MAPPINGS = [
   kaijuNo8,
   beastars,
   goldenKamuy,
-] as unknown as SeriesMapping[];
+].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
   return (
