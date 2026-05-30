@@ -42,6 +42,8 @@ export default function SeriesDetail() {
   const japanese = usePreferences((s) => s.japanese);
   const { width: windowWidth } = useWindowDimensions();
   const isMobile = windowWidth < MOBILE_WIDTH_BREAKPOINT;
+  const mobileCoverWidth = Math.min(windowWidth - 32, 420);
+  const mobileCoverHeight = Math.round(mobileCoverWidth * (340 / 240));
 
   const { data: media, isLoading } = useQuery({
     queryKey: ['media', mediaId],
@@ -171,7 +173,10 @@ export default function SeriesDetail() {
       <View style={[styles.header, isMobile && styles.headerMobile]}>
         <Image
           source={{ uri: primary.coverImage.large }}
-          style={[styles.cover, isMobile && styles.coverMobile]}
+          style={[
+            styles.cover,
+            isMobile && { width: mobileCoverWidth, height: mobileCoverHeight },
+          ]}
         />
         <View style={[styles.headerMeta, isMobile && styles.headerMetaMobile]}>
           <View style={styles.badgeRow}>
@@ -318,7 +323,6 @@ const styles = StyleSheet.create({
   header: { flexDirection: 'row', gap: 16 },
   headerMobile: { flexDirection: 'column', alignItems: 'center' },
   cover: { width: 240, height: 340, backgroundColor: '#222' },
-  coverMobile: { width: 200, height: 283 },
   headerMeta: { flex: 1, gap: 6, minWidth: 240 },
   headerMetaMobile: { flex: 0, minWidth: 0, alignSelf: 'stretch' },
   badgeRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 6, paddingBottom: 2 },
