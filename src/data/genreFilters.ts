@@ -71,18 +71,18 @@ export type SplitFilters = {
 };
 
 export function splitHiddenForAniList(hiddenIds: string[]): SplitFilters {
-  const genres: string[] = [...ALWAYS_HIDDEN_GENRES];
-  const tags: string[] = [...ALWAYS_HIDDEN_TAGS];
-  const sorted = [...hiddenIds].sort();
-  for (const id of sorted) {
-    const entry = GENRE_FILTERS.find((f) => f.id === id);
-    if (!entry) continue;
-    if (entry.kind === 'genre') {
-      genres.push(entry.token);
-    } else {
-      tags.push(entry.token);
-    }
-  }
+  const matched = [...hiddenIds]
+    .sort()
+    .map((id) => GENRE_FILTERS.find((f) => f.id === id))
+    .filter((e): e is GenreFilter => !!e);
+  const genres = [
+    ...ALWAYS_HIDDEN_GENRES,
+    ...matched.filter((e) => e.kind === 'genre').map((e) => e.token),
+  ];
+  const tags = [
+    ...ALWAYS_HIDDEN_TAGS,
+    ...matched.filter((e) => e.kind === 'tag').map((e) => e.token),
+  ];
   return {
     genreNotIn: genres.length > 0 ? genres : null,
     tagNotIn: tags.length > 0 ? tags : null,
