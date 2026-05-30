@@ -89,10 +89,10 @@ async function fetchAggregate(mangaId: string): Promise<{ volumeCount: number; c
     volumes: Record<string, { volume: string; chapters: Record<string, { chapter: string }> }>;
   }>(url);
   const volumes = data.volumes ?? {};
-  let chapterCount = 0;
-  for (const key of Object.keys(volumes)) {
-    chapterCount += Object.keys(volumes[key].chapters ?? {}).length;
-  }
+  const chapterCount = Object.values(volumes).reduce(
+    (sum, v) => sum + Object.keys(v.chapters ?? {}).length,
+    0
+  );
   const numberedVolumes = Object.keys(volumes).filter(
     (k) => k !== 'none' && k !== 'null'
   );
