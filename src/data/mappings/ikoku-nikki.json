@@ -1,0 +1,13 @@
+{
+  "anilistAnimeId": 177385,
+  "anilistMangaId": 106331,
+  "title": "Ikoku Nikki",
+  "sourceNotes": "S1 only (13 eps) of an ongoing manga (~62 chapters). Arc-level approximation; chapter ranges approximate.",
+  "mappings": [
+    { "episodes": [1, 4],   "chapters": [1, 10],   "arc": "Makio & Asa / New Cohabitation" },
+    { "episodes": [5, 9],   "chapters": [11, 22],  "arc": "School Life & Friendships" },
+    { "episodes": [10, 13], "chapters": [23, 33],  "arc": "Family & Grief" },
+    { "chapters": [34, 50],  "arc": "Unadapted (cont. cohabitation)" },
+    { "chapters": [51, 62],  "arc": "Unadapted (ongoing)" }
+  ]
+}

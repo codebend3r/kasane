@@ -35,6 +35,7 @@ import marchComesInLikeALion from '@/data/mappings/3-gatsu-no-lion.json';
 import kingdom from '@/data/mappings/kingdom.json';
 import ashitaNoJoe from '@/data/mappings/ashita-no-joe.json';
 import hajimeNoIppo from '@/data/mappings/hajime-no-ippo.json';
+import ikokuNikki from '@/data/mappings/ikoku-nikki.json';
 
 const ALL_MAPPINGS = [
   onePiece,
@@ -68,6 +69,7 @@ const ALL_MAPPINGS = [
   kingdom,
   ashitaNoJoe,
   hajimeNoIppo,
+  ikokuNikki,
 ] as unknown as SeriesMapping[];
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
