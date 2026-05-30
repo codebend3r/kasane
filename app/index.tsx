@@ -4,11 +4,13 @@ import {
   FlatList,
   Image,
   type LayoutChangeEvent,
+  Modal,
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
+  useWindowDimensions,
   View,
 } from 'react-native';
 import { Link } from 'expo-router';
@@ -44,9 +46,13 @@ export default function HomeScreen() {
   const [query, setQuery] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState('');
   const [type, setType] = useState<MediaType | undefined>(undefined);
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const hiddenGenres = usePreferences((s) => s.hiddenGenres);
   const toggleHiddenGenre = usePreferences((s) => s.toggleHiddenGenre);
   const { genreNotIn, tagNotIn } = splitHiddenForAniList(hiddenGenres);
+  const { width: windowWidth } = useWindowDimensions();
+  const isMobile = windowWidth < MOBILE_WIDTH_BREAKPOINT;
+  const hiddenCount = hiddenGenres.length;
 
   useEffect(() => {
     const t = setTimeout(() => setDebouncedQuery(query), 300);
@@ -89,24 +95,55 @@ export default function HomeScreen() {
         returnKeyType="search"
       />
 
-      <View style={styles.genreFilters}>
-        {GENRE_FILTERS.map((f) => {
-          const included = !hiddenGenres.includes(f.id);
-          return (
-            <Pressable
-              key={f.id}
-              onPress={() => toggleHiddenGenre(f.id)}
-              style={[styles.filterChip, included && styles.filterChipActive]}
-            >
-              <Text
-                style={[styles.filterText, included && styles.filterTextActive]}
+      <Pressable
+        onPress={() => setFiltersOpen((o) => !o)}
+        style={({ hovered, pressed }: any) => [
+          styles.filterToggle,
+          { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
+        ]}
+      >
+        <Text style={styles.filterToggleText}>
+          {hiddenCount > 0
+            ? `Filter genres · ${hiddenCount} hidden`
+            : 'Filter genres'}
+        </Text>
+        <Text style={styles.filterToggleChevron}>
+          {filtersOpen && !isMobile ? '▴' : '▾'}
+        </Text>
+      </Pressable>
+
+      {!isMobile && filtersOpen && (
+        <View style={styles.genreFilters}>
+          {GENRE_FILTERS.map((f) => {
+            const included = !hiddenGenres.includes(f.id);
+            return (
+              <Pressable
+                key={f.id}
+                onPress={() => toggleHiddenGenre(f.id)}
+                style={[styles.filterChip, included && styles.filterChipActive]}
               >
-                {included ? f.label : `× ${f.label}`}
-              </Text>
-            </Pressable>
-          );
-        })}
-      </View>
+                <Text
+                  style={[
+                    styles.filterText,
+                    included && styles.filterTextActive,
+                  ]}
+                >
+                  {included ? f.label : `× ${f.label}`}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </View>
+      )}
+
+      {isMobile && (
+        <GenreFilterSheet
+          visible={filtersOpen}
+          hiddenGenres={hiddenGenres}
+          onToggle={toggleHiddenGenre}
+          onClose={() => setFiltersOpen(false)}
+        />
+      )}
 
       {isSearching && (
         <View style={styles.filters}>
@@ -150,6 +187,75 @@ export default function HomeScreen() {
         <LatestReleases data={latestAnime ?? []} loading={latestFetching} />
       )}
     </View>
+  );
+}
+
+function GenreFilterSheet({
+  visible,
+  hiddenGenres,
+  onToggle,
+  onClose,
+}: {
+  visible: boolean;
+  hiddenGenres: string[];
+  onToggle: (id: string) => void;
+  onClose: () => void;
+}) {
+  return (
+    <Modal
+      visible={visible}
+      transparent
+      animationType="slide"
+      onRequestClose={onClose}
+    >
+      <View style={styles.sheetBackdrop}>
+        <Pressable style={styles.sheetBackdropFill} onPress={onClose} />
+        <View style={styles.sheet}>
+          <View style={styles.sheetHandle} />
+          <View style={styles.sheetHeader}>
+            <Text style={styles.sheetTitle}>Filter genres</Text>
+            <Pressable
+              onPress={onClose}
+              hitSlop={12}
+              style={({ pressed }: any) => [
+                styles.sheetDone,
+                { opacity: pressed ? 0.7 : 1 },
+              ]}
+            >
+              <Text style={styles.sheetDoneText}>Done</Text>
+            </Pressable>
+          </View>
+          <ScrollView
+            style={styles.sheetScroll}
+            contentContainerStyle={styles.sheetScrollContent}
+          >
+            {GENRE_FILTERS.map((f) => {
+              const included = !hiddenGenres.includes(f.id);
+              return (
+                <Pressable
+                  key={f.id}
+                  onPress={() => onToggle(f.id)}
+                  style={({ pressed }: any) => [
+                    styles.sheetRow,
+                    { opacity: pressed ? 0.7 : 1 },
+                  ]}
+                >
+                  <View
+                    style={[
+                      styles.sheetCheckbox,
+                      included && styles.sheetCheckboxOn,
+                    ]}
+                  >
+                    {included && <Text style={styles.sheetCheckMark}>✓</Text>}
+                  </View>
+                  <Text style={styles.sheetRowLabel}>{f.label}</Text>
+                </Pressable>
+              );
+            })}
+          </ScrollView>
+        </View>
+      </View>
+    </Modal>
   );
 }
 
@@ -302,6 +408,108 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: 8,
     rowGap: 8,
+  },
+  filterToggle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    gap: 8,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    backgroundColor: '#17181b',
+    borderLeftWidth: 2,
+    borderLeftColor: '#7c5cff',
+  },
+  filterToggleText: {
+    color: '#cfd2d6',
+    fontSize: 12,
+    letterSpacing: 1.2,
+    textTransform: 'uppercase',
+    fontFamily: FONT.bold,
+  },
+  filterToggleChevron: {
+    color: '#7c5cff',
+    fontSize: 12,
+    lineHeight: 12,
+    fontFamily: FONT.bold,
+  },
+  sheetBackdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.55)',
+    justifyContent: 'flex-end',
+  },
+  sheetBackdropFill: { flex: 1 },
+  sheet: {
+    backgroundColor: '#17181b',
+    maxHeight: '75%',
+    paddingTop: 8,
+    paddingBottom: 24,
+    gap: 12,
+  },
+  sheetHandle: {
+    alignSelf: 'center',
+    width: 36,
+    height: 4,
+    backgroundColor: '#2a2c30',
+  },
+  sheetHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 4,
+    gap: 16,
+  },
+  sheetTitle: {
+    flex: 1,
+    color: '#f5f5f5',
+    fontSize: 18,
+    fontFamily: FONT.bold,
+    letterSpacing: -0.2,
+  },
+  sheetDone: {
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    backgroundColor: '#7c5cff',
+  },
+  sheetDoneText: {
+    color: '#0c0c0e',
+    fontSize: 12,
+    letterSpacing: 1.4,
+    textTransform: 'uppercase',
+    fontFamily: FONT.bold,
+  },
+  sheetScroll: { paddingHorizontal: 20 },
+  sheetScrollContent: { paddingBottom: 12, gap: 4 },
+  sheetRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 14,
+    paddingVertical: 12,
+  },
+  sheetCheckbox: {
+    width: 24,
+    height: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#0c0c0e',
+    borderWidth: 2,
+    borderColor: '#2a2c30',
+  },
+  sheetCheckboxOn: {
+    backgroundColor: '#7c5cff',
+    borderColor: '#7c5cff',
+  },
+  sheetCheckMark: {
+    color: '#0c0c0e',
+    fontSize: 14,
+    lineHeight: 14,
+    fontFamily: FONT.bold,
+  },
+  sheetRowLabel: {
+    color: '#f5f5f5',
+    fontSize: 16,
+    fontFamily: FONT.medium,
+    letterSpacing: -0.1,
   },
   filterChip: {
     paddingHorizontal: 14,
