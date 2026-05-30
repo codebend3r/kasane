@@ -50,6 +50,7 @@ import tokyoRevengers from '@/data/mappings/tokyo-revengers.json';
 import madeInAbyss from '@/data/mappings/made-in-abyss.json';
 import naruto from '@/data/mappings/naruto.json';
 import blackClover from '@/data/mappings/black-clover.json';
+import fireForce from '@/data/mappings/fire-force.json';
 
 const ALL_MAPPINGS = [
   onePiece,
@@ -98,6 +99,7 @@ const ALL_MAPPINGS = [
   madeInAbyss,
   naruto,
   blackClover,
+  fireForce,
 ] as unknown as SeriesMapping[];
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
