@@ -203,46 +203,41 @@ function findRelatedId(
 }
 
 export function pairResults(media: AniListMedia[]): SeriesEntry[] {
-  const byId = new Map<number, AniListMedia>();
-  for (const m of media) byId.set(m.id, m);
+  const byId = new Map<number, AniListMedia>(
+    media.map((m): [number, AniListMedia] => [m.id, m])
+  );
 
-  const absorbed = new Set<number>();
-  for (const m of media) {
-    if (m.type !== 'ANIME') continue;
-    const sourceMangaId = findRelatedId(m.relations?.edges ?? [], 'SOURCE', 'MANGA');
-    if (sourceMangaId && byId.has(sourceMangaId)) {
-      absorbed.add(m.id);
-    }
-  }
+  const absorbed = new Set(
+    media
+      .filter((m) => m.type === 'ANIME')
+      .map((m) => findRelatedId(m.relations?.edges ?? [], 'SOURCE', 'MANGA'))
+      .filter((id): id is number => id !== null && byId.has(id))
+  );
 
-  const entries: SeriesEntry[] = [];
-  for (const m of media) {
-    if (absorbed.has(m.id)) continue;
-
-    if (m.type === 'MANGA') {
-      const adapterId = findRelatedId(m.relations?.edges ?? [], 'ADAPTATION', 'ANIME');
-      const anime = adapterId ? byId.get(adapterId) ?? null : null;
-      entries.push({
-        routeId: m.id,
-        primary: m,
-        manga: m,
-        anime,
-        badge: adapterId ? 'both' : 'manga-only',
-      });
-    } else {
+  return media
+    .filter((m) => !absorbed.has(m.id))
+    .map((m): SeriesEntry => {
+      if (m.type === 'MANGA') {
+        const adapterId = findRelatedId(m.relations?.edges ?? [], 'ADAPTATION', 'ANIME');
+        const anime = adapterId ? byId.get(adapterId) ?? null : null;
+        return {
+          routeId: m.id,
+          primary: m,
+          manga: m,
+          anime,
+          badge: adapterId ? 'both' : 'manga-only',
+        };
+      }
       const sourceMangaId = findRelatedId(m.relations?.edges ?? [], 'SOURCE', 'MANGA');
       const manga = sourceMangaId ? byId.get(sourceMangaId) ?? null : null;
-      entries.push({
+      return {
         routeId: sourceMangaId ?? m.id,
         primary: manga ?? m,
         manga,
         anime: m,
         badge: sourceMangaId ? 'both' : 'anime-only',
-      });
-    }
-  }
-
-  return entries;
+      };
+    });
 }
 
 const PARTNER_RELATION_TYPES = new Set(['ADAPTATION', 'SOURCE']);
