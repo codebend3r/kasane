@@ -1,6 +1,7 @@
 import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import { version } from '../../package.json';
 import { FONT } from '@/theme';
+import type { PressableState } from '@/types';
 
 export function Footer() {
   return (
@@ -9,7 +10,7 @@ export function Footer() {
       <Pressable
         onPress={() => Linking.openURL('https://github.com/codebend3r')}
         hitSlop={6}
-        style={({ hovered, pressed }: any) => [
+        style={({ hovered, pressed }: PressableState) => [
           { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
         ]}
       >
@@ -20,7 +21,7 @@ export function Footer() {
       <Pressable
         onPress={() => Linking.openURL('https://github.com/codebend3r')}
         hitSlop={6}
-        style={({ hovered, pressed }: any) => [
+        style={({ hovered, pressed }: PressableState) => [
           { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
         ]}
       >

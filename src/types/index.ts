@@ -1,5 +1,11 @@
 export type MediaType = 'ANIME' | 'MANGA';
 
+export type PressableState = {
+  pressed: boolean;
+  hovered?: boolean;
+  focused?: boolean;
+};
+
 export type AniListDate = {
   year: number | null;
   month?: number | null;

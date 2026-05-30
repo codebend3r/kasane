@@ -8,7 +8,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import type { MangaDexVolumeCover } from '@/types';
+import type { MangaDexVolumeCover, PressableState } from '@/types';
 import { localeLabel } from '@/data/format';
 import { usePreferences } from '@/state/preferences';
 import { CoverCarousel, MOBILE_WIDTH_BREAKPOINT } from '@/components/CoverCarousel';
@@ -155,7 +155,7 @@ function VolumeCard({
           setIsHovered(false);
           animateTo(1);
         }}
-        style={({ pressed }: any) => [
+        style={({ pressed }: PressableState) => [
           { width, opacity: pressed ? 0.7 : 1 },
         ]}
       >
@@ -183,7 +183,7 @@ function VolumeCard({
             <Pressable
               key={coverKey(v)}
               onPress={() => setSelectedKey(coverKey(v))}
-              style={({ hovered, pressed }: any) => [
+              style={({ hovered, pressed }: PressableState) => [
                 styles.variantCell,
                 { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
               ]}

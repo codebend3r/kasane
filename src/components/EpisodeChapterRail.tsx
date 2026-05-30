@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
-import type { SeriesMapping } from '@/types';
+import type { PressableState, SeriesMapping } from '@/types';
 import { FONT } from '@/theme';
 
 const COLORS = [
@@ -90,7 +90,7 @@ export function EpisodeChapterRail({
               onHoverOut={clearHover}
               // @ts-expect-error react-native-web forwards onMouseMove to the DOM
               onMouseMove={(e: MouseLike) => moveTo(label, color, '#000', e)}
-              style={({ hovered, pressed }: any) => [
+              style={({ hovered, pressed }: PressableState) => [
                 styles.bar,
                 {
                   flex: span,
@@ -123,7 +123,7 @@ export function EpisodeChapterRail({
               onHoverOut={clearHover}
               // @ts-expect-error react-native-web forwards onMouseMove to the DOM
               onMouseMove={(e: MouseLike) => moveTo(label, bg, popoverTextColor, e)}
-              style={({ hovered, pressed }: any) => [
+              style={({ hovered, pressed }: PressableState) => [
                 styles.bar,
                 {
                   flex: span,
