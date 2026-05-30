@@ -1,0 +1,19 @@
+{
+  "anilistAnimeId": 12031,
+  "anilistMangaId": 46765,
+  "title": "Kingdom",
+  "sourceNotes": "Cumulative episodes across S1 (38) + S2 (39) + S3 (26) + S4 (26) + S5 (13) + S6 (13). Arc-level approximation; chapter ranges follow major manga arcs and are coarse.",
+  "mappings": [
+    { "episodes": [1, 12],    "chapters": [1, 35],     "arc": "Assassination of King Sou / Coup d'état" },
+    { "episodes": [13, 26],   "chapters": [36, 70],    "arc": "Battle of Dakan / Mouki Arc" },
+    { "episodes": [27, 38],   "chapters": [71, 104],   "arc": "Bayou Plains / Mountain Tribe" },
+    { "episodes": [39, 58],   "chapters": [105, 169],  "arc": "Battle of Sai" },
+    { "episodes": [59, 77],   "chapters": [170, 230],  "arc": "Coalition Invasion" },
+    { "episodes": [78, 103],  "chapters": [231, 295],  "arc": "Bandits of Shukoku / Aide Selection" },
+    { "episodes": [104, 129], "chapters": [296, 406],  "arc": "Western Zhao Invasion / Battle of Gyou" },
+    { "episodes": [130, 142], "chapters": [407, 490],  "arc": "Battle of Gyou Conclusion" },
+    { "episodes": [143, 155], "chapters": [491, 542],  "arc": "Battle of Shukai Plains (Part 1)" },
+    { "chapters": [543, 700], "arc": "Battle of Shukai Plains (cont.) / Eastern Zhao" },
+    { "chapters": [701, 830], "arc": "Qin's Continued Conquest" }
+  ]
+}

@@ -32,6 +32,7 @@ import assassinationClassroom from '@/data/mappings/assassination-classroom.json
 import gintama from '@/data/mappings/gintama.json';
 import kaguyaSama from '@/data/mappings/kaguya-sama.json';
 import marchComesInLikeALion from '@/data/mappings/3-gatsu-no-lion.json';
+import kingdom from '@/data/mappings/kingdom.json';
 
 const ALL_MAPPINGS = [
   onePiece,
@@ -62,6 +63,7 @@ const ALL_MAPPINGS = [
   gintama,
   kaguyaSama,
   marchComesInLikeALion,
+  kingdom,
 ] as unknown as SeriesMapping[];
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
