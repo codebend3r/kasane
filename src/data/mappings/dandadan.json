@@ -1,0 +1,15 @@
+{
+  "anilistAnimeId": 171018,
+  "anilistMangaId": 132029,
+  "title": "Dandadan",
+  "sourceNotes": "Cumulative episodes across S1 (12) + S2 (12) = 24. Manga ongoing (23 tankōbon vols as of April 2026, ~184 chapters estimated). S3 announced but unaired — unadapted tail covers post-Kaiju arcs. Final-arc chapter cap is approximate; refine via PR.",
+  "mappings": [
+    { "episodes": [1, 3],   "chapters": [1, 8],     "arc": "Turbo Granny" },
+    { "episodes": [4, 7],   "chapters": [9, 20],    "arc": "Acrobatic Silky" },
+    { "episodes": [8, 12],  "chapters": [21, 33],   "arc": "Serpo (Kito Family)" },
+    { "episodes": [13, 18], "chapters": [34, 50],   "arc": "Cursed House (Jiji)" },
+    { "episodes": [19, 21], "chapters": [51, 60],   "arc": "Evil Eye" },
+    { "episodes": [22, 24], "chapters": [61, 71],   "arc": "Space Kaiju (Vamola)" },
+    { "chapters": [72, 184], "arc": "Post-Kaiju Arcs (Ongoing)" }
+  ]
+}
