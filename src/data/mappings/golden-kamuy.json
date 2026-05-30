@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 99699,
+  "anilistMangaId": 86559,
+  "title": "Golden Kamuy",
+  "sourceNotes": "Cumulative episodes across S1 (12) + S2 (12) + S3 (12) + S4 (13) + Final Season / S5 (13). Manga complete at 314 chapters; S1-S4 cover vols 1-24 (~ch 245), Final Season adapts most of the manga's final arc with a sequel announced for the remainder. Arc-to-chapter pacing is approximate (numerous concurrent character threads). Arc boundaries from Golden Kamuy Wiki (arc names are unofficial).",
+  "mappings": [
+    { "episodes": [1, 12],   "chapters": [1, 50],     "arc": "Introduction / Otaru" },
+    { "episodes": [13, 24],  "chapters": [51, 100],   "arc": "Mainland Hokkaido Hunt" },
+    { "episodes": [25, 36],  "chapters": [101, 150],  "arc": "Abashiri Prison / Journey to Karafuto" },
+    { "episodes": [37, 49],  "chapters": [151, 225],  "arc": "Karafuto Circus / Return to Hokkaido" },
+    { "episodes": [50, 62],  "chapters": [226, 300],  "arc": "Final Arc (Hokkaido Showdown)" },
+    { "chapters": [301, 314],                         "arc": "Final Arc Conclusion (unadapted; sequel announced)" }
+  ]
+}
