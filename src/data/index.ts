@@ -55,6 +55,7 @@ import soulEater from '@/data/mappings/soul-eater.json';
 import noragami from '@/data/mappings/noragami.json';
 import mashle from '@/data/mappings/mashle.json';
 import sakamotoDays from '@/data/mappings/sakamoto-days.json';
+import kaijuNo8 from '@/data/mappings/kaiju-no-8.json';
 
 const ALL_MAPPINGS = [
   onePiece,
@@ -108,6 +109,7 @@ const ALL_MAPPINGS = [
   noragami,
   mashle,
   sakamotoDays,
+  kaijuNo8,
 ] as unknown as SeriesMapping[];
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
