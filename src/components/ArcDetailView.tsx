@@ -3,6 +3,8 @@ import { Stack } from 'expo-router';
 import type { MappingEntry, SeriesMapping } from '@/types';
 import { FONT } from '@/theme';
 
+type ChapterRow = { chapter: number; episode?: number };
+
 export function ArcDetailView({
   mapping,
   arcIndex,
@@ -14,34 +16,31 @@ export function ArcDetailView({
 
   if (!arc) {
     return (
-      <View style={styles.center}>
-        <Text style={styles.empty}>Arc not found.</Text>
-      </View>
+      <>
+        <Stack.Screen options={{ title: 'Arc' }} />
+        <View style={styles.center}>
+          <Text style={styles.empty}>Arc not found.</Text>
+        </View>
+      </>
     );
   }
 
-  if (!arc.episodes) {
-    return (
-      <View style={styles.center}>
-        <Text style={styles.empty}>Arc not yet adapted.</Text>
-      </View>
-    );
-  }
-
+  const arcTitle = arc.arc ?? `Arc ${arcIndex + 1}`;
   const arcEpisodes = arc.episodes;
   const episodes = expandEpisodes(arc);
   const chapters = expandChapters(arc);
 
   return (
     <>
-      <Stack.Screen options={{ title: arc.arc ?? 'Arc' }} />
+      <Stack.Screen options={{ title: arcTitle }} />
       <ScrollView style={styles.root} contentContainerStyle={styles.content}>
         <View style={styles.head}>
           <Text style={styles.eyebrow}>{mapping.title}</Text>
-          <Text style={styles.title}>{arc.arc ?? `Arc ${arcIndex + 1}`}</Text>
+          <Text style={styles.title}>{arcTitle}</Text>
           <Text style={styles.meta}>
-            Episodes {arcEpisodes[0]}–{arcEpisodes[1]} · Chapters {arc.chapters[0]}–{arc.chapters[1]}
-            {arc.season ? ` · Season ${arc.season}` : ''}
+            {arcEpisodes
+              ? `Episodes ${arcEpisodes[0]}–${arcEpisodes[1]} · Chapters ${arc.chapters[0]}–${arc.chapters[1]}${arc.season ? ` · Season ${arc.season}` : ''}`
+              : `Chapters ${arc.chapters[0]}–${arc.chapters[1]} · Not yet in the anime`}
           </Text>
           {arc.note ? <Text style={styles.note}>{arc.note}</Text> : null}
         </View>
@@ -49,21 +48,30 @@ export function ArcDetailView({
         <View style={styles.columns}>
           <View style={styles.column}>
             <Text style={styles.columnLabel}>Anime episodes</Text>
-            {episodes.map((ep) => (
-              <View key={ep.episode} style={styles.row}>
-                <View style={styles.indexBadge}>
-                  <Text style={styles.indexBadgeText}>{ep.episode}</Text>
+            {arcEpisodes ? (
+              episodes.map((ep) => (
+                <View key={ep.episode} style={styles.row}>
+                  <View style={styles.indexBadge}>
+                    <Text style={styles.indexBadgeText}>{ep.episode}</Text>
+                  </View>
+                  <View style={styles.rowBody}>
+                    <Text style={styles.rowTitle}>Episode {ep.episode}</Text>
+                    <Text style={styles.rowSub}>
+                      Manga ch {ep.chapterStart === ep.chapterEnd
+                        ? ep.chapterStart
+                        : `${ep.chapterStart}–${ep.chapterEnd}`}
+                    </Text>
+                  </View>
                 </View>
-                <View style={styles.rowBody}>
-                  <Text style={styles.rowTitle}>Episode {ep.episode}</Text>
-                  <Text style={styles.rowSub}>
-                    Manga ch {ep.chapterStart === ep.chapterEnd
-                      ? ep.chapterStart
-                      : `${ep.chapterStart}–${ep.chapterEnd}`}
-                  </Text>
-                </View>
+              ))
+            ) : (
+              <View style={styles.columnEmpty}>
+                <Text style={styles.columnEmptyTitle}>Not yet adapted</Text>
+                <Text style={styles.columnEmptySub}>
+                  This arc hasn&apos;t aired in the anime yet.
+                </Text>
               </View>
-            ))}
+            )}
           </View>
 
           <View style={styles.column}>
@@ -75,7 +83,11 @@ export function ArcDetailView({
                 </View>
                 <View style={styles.rowBody}>
                   <Text style={styles.rowTitle}>Chapter {ch.chapter}</Text>
-                  <Text style={styles.rowSub}>Anime ep {ch.episode}</Text>
+                  {ch.episode !== undefined ? (
+                    <Text style={styles.rowSub}>Anime ep {ch.episode}</Text>
+                  ) : (
+                    <Text style={styles.rowSub}>Unadapted</Text>
+                  )}
                 </View>
               </View>
             ))}
@@ -102,15 +114,19 @@ function expandEpisodes(arc: MappingEntry) {
   });
 }
 
-function expandChapters(arc: MappingEntry) {
-  if (!arc.episodes) return [];
-  const [e1, e2] = arc.episodes;
+function expandChapters(arc: MappingEntry): ChapterRow[] {
   const [c1, c2] = arc.chapters;
-  const epCount = e2 - e1 + 1;
   const chCount = c2 - c1 + 1;
+
+  if (!arc.episodes) {
+    return Array.from({ length: chCount }, (_, i): ChapterRow => ({ chapter: c1 + i }));
+  }
+
+  const [e1, e2] = arc.episodes;
+  const epCount = e2 - e1 + 1;
   const epPerCh = epCount / chCount;
 
-  return Array.from({ length: chCount }, (_, i) => {
+  return Array.from({ length: chCount }, (_, i): ChapterRow => {
     const chapter = c1 + i;
     const episode = e1 + Math.min(Math.floor(i * epPerCh), epCount - 1);
     return { chapter, episode };
@@ -180,4 +196,12 @@ const styles = StyleSheet.create({
   rowBody: { flex: 1, gap: 2 },
   rowTitle: { color: '#f5f5f5', fontSize: 15, fontFamily: FONT.semibold },
   rowSub: { color: '#9aa0a6', fontSize: 12, fontFamily: FONT.regular },
+  columnEmpty: {
+    backgroundColor: '#17181b',
+    paddingHorizontal: 14,
+    paddingVertical: 16,
+    gap: 4,
+  },
+  columnEmptyTitle: { color: '#f5f5f5', fontSize: 14, fontFamily: FONT.semibold },
+  columnEmptySub: { color: '#9aa0a6', fontSize: 12, fontFamily: FONT.regular },
 });
