@@ -34,14 +34,15 @@ function groupCovers(
   const localeRank: Record<string, number> = japanese
     ? { ja: 0, en: 1 }
     : { en: 0, ja: 1 };
-  const groups = new Map<number, MangaDexVolumeCover[]>();
-  for (const c of covers) {
+  const groups = covers.reduce<Map<number, MangaDexVolumeCover[]>>((acc, c) => {
     const n = Number(c.volume);
-    if (!Number.isFinite(n)) continue;
+    if (!Number.isFinite(n)) return acc;
     const base = Math.floor(n);
-    if (!groups.has(base)) groups.set(base, []);
-    groups.get(base)!.push(c);
-  }
+    const list = acc.get(base);
+    if (list) list.push(c);
+    else acc.set(base, [c]);
+    return acc;
+  }, new Map());
   return Array.from(groups.entries())
     .sort(([a], [b]) => a - b)
     .map(([volume, list]) => {
