@@ -46,6 +46,7 @@ const SEARCH_TYPED_QUERY = gql`
         search: $query
         type: $type
         sort: SEARCH_MATCH
+        isAdult: false
         genre_not_in: $genreNotIn
         tag_not_in: $tagNotIn
       ) {
@@ -61,6 +62,7 @@ const SEARCH_ANY_QUERY = gql`
       media(
         search: $query
         sort: SEARCH_MATCH
+        isAdult: false
         genre_not_in: $genreNotIn
         tag_not_in: $tagNotIn
       ) {
