@@ -21,7 +21,7 @@ import { GENRE_FILTERS, splitHiddenForAniList } from '@/data/genreFilters';
 import { SeriesCard } from '@/components/SeriesCard';
 import { CoverCarousel, MOBILE_WIDTH_BREAKPOINT } from '@/components/CoverCarousel';
 import { usePreferences } from '@/state/preferences';
-import type { AniListMedia, MediaType, SeriesEntry } from '@/types';
+import type { AniListMedia, SeriesEntry } from '@/types';
 import { FONT } from '@/theme';
 
 const BADGE_COLOR: Record<SeriesEntry['badge'], string> = {
@@ -36,16 +36,9 @@ const BADGE_LABEL: Record<SeriesEntry['badge'], string> = {
   'anime-only': 'ANIME',
 };
 
-const FILTERS: { label: string; value: MediaType | undefined }[] = [
-  { label: 'All', value: undefined },
-  { label: 'Anime', value: 'ANIME' },
-  { label: 'Manga', value: 'MANGA' },
-];
-
 export default function HomeScreen() {
   const [query, setQuery] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState('');
-  const [type, setType] = useState<MediaType | undefined>(undefined);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const hiddenGenres = usePreferences((s) => s.hiddenGenres);
   const toggleHiddenGenre = usePreferences((s) => s.toggleHiddenGenre);
@@ -62,8 +55,8 @@ export default function HomeScreen() {
   const isSearching = debouncedQuery.trim().length > 1;
 
   const { data: searchResults, isFetching, error } = useQuery({
-    queryKey: ['search', debouncedQuery, type, genreNotIn, tagNotIn],
-    queryFn: () => searchMedia(debouncedQuery, type, genreNotIn, tagNotIn),
+    queryKey: ['search', debouncedQuery, genreNotIn, tagNotIn],
+    queryFn: () => searchMedia(debouncedQuery, undefined, genreNotIn, tagNotIn),
     enabled: isSearching,
   });
 
@@ -143,22 +136,6 @@ export default function HomeScreen() {
           onToggle={toggleHiddenGenre}
           onClose={() => setFiltersOpen(false)}
         />
-      )}
-
-      {isSearching && (
-        <View style={styles.filters}>
-          {FILTERS.map((f) => (
-            <Pressable
-              key={f.label}
-              onPress={() => setType(f.value)}
-              style={[styles.filterChip, type === f.value && styles.filterChipActive]}
-            >
-              <Text style={[styles.filterText, type === f.value && styles.filterTextActive]}>
-                {f.label}
-              </Text>
-            </Pressable>
-          ))}
-        </View>
       )}
 
       {error && <Text style={styles.error}>Something went wrong. Try again.</Text>}
@@ -402,7 +379,6 @@ const styles = StyleSheet.create({
     borderLeftWidth: 4,
     borderLeftColor: '#7c5cff',
   },
-  filters: { flexDirection: 'row', gap: 8 },
   genreFilters: {
     flexDirection: 'row',
     flexWrap: 'wrap',
