@@ -121,10 +121,14 @@ export async function getMangaDexInfoByAniListId(
     fetchAggregate(match.id),
   ]);
 
+  const hasVolume = (
+    c: CoverRecord
+  ): c is CoverRecord & { attributes: { volume: string } } =>
+    !!c.attributes.volume;
   const coverList: MangaDexVolumeCover[] = covers
-    .filter((c) => c.attributes.volume)
+    .filter(hasVolume)
     .map((c) => ({
-      volume: c.attributes.volume as string,
+      volume: c.attributes.volume,
       locale: c.attributes.locale ?? 'ja',
       url: coverUrl(match.id, c.attributes.fileName, '512'),
       thumbUrl: coverUrl(match.id, c.attributes.fileName, '256'),
