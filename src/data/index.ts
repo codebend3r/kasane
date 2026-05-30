@@ -40,6 +40,7 @@ import witchHatAtelier from '@/data/mappings/witch-hat-atelier.json';
 import bocchiTheRock from '@/data/mappings/bocchi-the-rock.json';
 import orb from '@/data/mappings/orb.json';
 import mushishi from '@/data/mappings/mushishi.json';
+import myHeroAcademia from '@/data/mappings/my-hero-academia.json';
 
 const ALL_MAPPINGS = [
   onePiece,
@@ -78,6 +79,7 @@ const ALL_MAPPINGS = [
   bocchiTheRock,
   orb,
   mushishi,
+  myHeroAcademia,
 ] as unknown as SeriesMapping[];
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {

@@ -1,0 +1,19 @@
+{
+  "anilistAnimeId": 21459,
+  "anilistMangaId": 85486,
+  "title": "My Hero Academia",
+  "sourceNotes": "Cumulative episodes across S1 (13) + S2 (25) + S3 (25) + S4 (25) + S5 (25) + S6 (25) + S7 (21) + Final Season (11+). Manga complete at 432 chapters. Arc boundaries from well-known manga arcs.",
+  "mappings": [
+    { "episodes": [1, 13],    "chapters": [1, 21],    "arc": "Entrance Exam / Quirk Apprehension / USJ" },
+    { "episodes": [14, 25],   "chapters": [22, 44],   "arc": "U.A. Sports Festival" },
+    { "episodes": [26, 38],   "chapters": [45, 70],   "arc": "Vs. Hero Killer / Final Exams" },
+    { "episodes": [39, 51],   "chapters": [71, 97],   "arc": "Forest Training Camp / Hideout Raid" },
+    { "episodes": [52, 63],   "chapters": [98, 121],  "arc": "Provisional Hero License Exam" },
+    { "episodes": [64, 88],   "chapters": [122, 162], "arc": "Shie Hassaikai / Overhaul" },
+    { "episodes": [89, 113],  "chapters": [163, 216], "arc": "Joint Training / Endeavor Agency / My Villain Academia" },
+    { "episodes": [114, 138], "chapters": [217, 306], "arc": "Paranormal Liberation War" },
+    { "episodes": [139, 159], "chapters": [307, 362], "arc": "Tartarus Escapees / Star and Stripe" },
+    { "episodes": [160, 170], "chapters": [363, 423], "arc": "Final Act / Last War" },
+    { "chapters": [424, 432], "arc": "Epilogue" }
+  ]
+}
