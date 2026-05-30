@@ -261,7 +261,7 @@ export default function SeriesDetail() {
           />
           {curatedMapping ? <SeasonCoverage mapping={curatedMapping} /> : null}
         </View>
-      ) : (
+      ) : badge === 'anime-only' ? null : (
         <View style={styles.noMapping}>
           <Text style={styles.noMappingTitle}>No mapping available yet</Text>
           <Text style={styles.noMappingBody}>
