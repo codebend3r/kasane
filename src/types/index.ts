@@ -1,12 +1,12 @@
 export type MediaType = 'ANIME' | 'MANGA';
 
-export interface AniListDate {
+export type AniListDate = {
   year: number | null;
   month?: number | null;
   day?: number | null;
-}
+};
 
-export interface AniListMedia {
+export type AniListMedia = {
   id: number;
   type: MediaType;
   title: {
@@ -30,9 +30,9 @@ export interface AniListMedia {
   startDate: AniListDate;
   endDate?: AniListDate;
   relations?: { edges: RelationEdge[] };
-}
+};
 
-export interface RelationEdge {
+export type RelationEdge = {
   relationType: string;
   node: {
     id: number;
@@ -43,23 +43,23 @@ export interface RelationEdge {
     title?: { romaji: string; english: string | null };
     startDate?: { year: number | null };
   };
-}
+};
 
-export interface MappingEntry {
+export type MappingEntry = {
   episodes?: [number, number];
   chapters: [number, number];
   arc?: string;
   season?: number;
   note?: string;
-}
+};
 
-export interface SeriesMapping {
+export type SeriesMapping = {
   anilistAnimeId: number;
   anilistMangaId: number;
   title: string;
   mappings: MappingEntry[];
   sourceNotes?: string;
-}
+};
 
 export type SeriesBadge = 'both' | 'manga-only' | 'anime-only';
 
@@ -71,23 +71,23 @@ export type SeriesEntry = {
   badge: SeriesBadge;
 };
 
-export interface MangaDexVolumeCover {
+export type MangaDexVolumeCover = {
   volume: string;
   locale: string;
   url: string;
   thumbUrl: string;
-}
+};
 
-export interface MangaDexTitle {
+export type MangaDexTitle = {
   locale: string;
   value: string;
-}
+};
 
-export interface MangaDexInfo {
+export type MangaDexInfo = {
   id: string;
   primaryTitle: string;
   titles: MangaDexTitle[];
   volumes: number;
   chapters: number;
   covers: MangaDexVolumeCover[];
-}
+};

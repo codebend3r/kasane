@@ -17,7 +17,7 @@ function resolveBase(): string {
 const BASE = resolveBase();
 const UPLOADS = 'https://uploads.mangadex.org';
 
-interface MangaDexRecord {
+type MangaDexRecord = {
   id: string;
   attributes: {
     title: Record<string, string>;
@@ -26,16 +26,16 @@ interface MangaDexRecord {
     lastVolume: string | null;
     lastChapter: string | null;
   };
-}
+};
 
-interface CoverRecord {
+type CoverRecord = {
   id: string;
   attributes: {
     volume: string | null;
     locale: string | null;
     fileName: string;
   };
-}
+};
 
 async function fetchJson<T>(url: string): Promise<T> {
   const res = await fetch(url);
