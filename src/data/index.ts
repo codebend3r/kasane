@@ -43,6 +43,7 @@ import mushishi from '@/data/mappings/mushishi.json';
 import myHeroAcademia from '@/data/mappings/my-hero-academia.json';
 import oshiNoKo from '@/data/mappings/oshi-no-ko.json';
 import chainsawMan from '@/data/mappings/chainsaw-man.json';
+import spyXFamily from '@/data/mappings/spy-x-family.json';
 
 const ALL_MAPPINGS = [
   onePiece,
@@ -84,6 +85,7 @@ const ALL_MAPPINGS = [
   myHeroAcademia,
   oshiNoKo,
   chainsawMan,
+  spyXFamily,
 ] as unknown as SeriesMapping[];
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
