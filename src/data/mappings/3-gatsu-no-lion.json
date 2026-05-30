@@ -1,0 +1,16 @@
+{
+  "anilistAnimeId": 21366,
+  "anilistMangaId": 31224,
+  "title": "March Comes in Like a Lion",
+  "sourceNotes": "Cumulative episodes across S1 (22) + S2 (22). Slow, faithful Shaft adaptation; arc boundaries follow major story beats. Chapter ranges approximate.",
+  "mappings": [
+    { "episodes": [1, 8],   "chapters": [1, 20],    "arc": "Rei's Loneliness / Kawamoto Sisters" },
+    { "episodes": [9, 16],  "chapters": [21, 40],   "arc": "Newcomer Tournament / Nikaidou" },
+    { "episodes": [17, 22], "chapters": [41, 56],   "arc": "Lion King Tournament / Shimada" },
+    { "episodes": [23, 32], "chapters": [57, 80],   "arc": "Hinata's Bullying Arc" },
+    { "episodes": [33, 39], "chapters": [81, 100],  "arc": "Souya Title Match" },
+    { "episodes": [40, 44], "chapters": [101, 112], "arc": "Newcomer Title Tournament" },
+    { "chapters": [113, 145], "arc": "Tatsuyuki / Yanagihara Retirement" },
+    { "chapters": [146, 178], "arc": "Souya Meijin Defense" }
+  ]
+}
