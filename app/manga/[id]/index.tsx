@@ -21,6 +21,7 @@ import {
   findMappingByMediaId,
 } from '@/data';
 import { EpisodeChapterRail } from '@/components/EpisodeChapterRail';
+import { Footer } from '@/components/Footer';
 import { formatAniListDate, formatAniListDateJa, localeLabel } from '@/data/format';
 import type { MangaDexInfo, MangaDexVolumeCover, SeriesMapping } from '@/types';
 import { FONT } from '@/theme';
@@ -196,6 +197,8 @@ export default function MangaDetail() {
           </Text>
         </View>
       </View>
+
+      <Footer />
     </ScrollView>
   );
 }

@@ -20,6 +20,7 @@ import { EpisodeChapterRail } from '@/components/EpisodeChapterRail';
 import { SeasonCoverage } from '@/components/SeasonCoverage';
 import { VolumesGrid } from '@/components/VolumesGrid';
 import { MOBILE_WIDTH_BREAKPOINT } from '@/components/CoverCarousel';
+import { Footer } from '@/components/Footer';
 import {
   formatAniListDate,
   formatAniListDateJa,
@@ -304,6 +305,8 @@ export default function SeriesDetail() {
           </Text>
         </View>
       </View>
+
+      <Footer />
     </ScrollView>
   );
 }

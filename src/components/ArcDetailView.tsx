@@ -1,5 +1,6 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Stack } from 'expo-router';
+import { Footer } from '@/components/Footer';
 import type { MappingEntry, SeriesMapping } from '@/types';
 import { FONT } from '@/theme';
 
@@ -93,6 +94,7 @@ export function ArcDetailView({
             ))}
           </View>
         </View>
+        <Footer />
       </ScrollView>
     </>
   );

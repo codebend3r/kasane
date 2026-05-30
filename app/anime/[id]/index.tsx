@@ -19,6 +19,7 @@ import {
   findMappingByMediaId,
 } from '@/data';
 import { EpisodeChapterRail } from '@/components/EpisodeChapterRail';
+import { Footer } from '@/components/Footer';
 import { formatAniListDate } from '@/data/format';
 import { FONT } from '@/theme';
 
@@ -146,6 +147,7 @@ export default function AnimeDetail() {
           </Text>
         </View>
       )}
+      <Footer />
     </ScrollView>
   );
 }

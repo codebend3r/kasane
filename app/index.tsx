@@ -20,6 +20,7 @@ import { pairResults } from '@/data';
 import { GENRE_FILTERS, splitHiddenForAniList } from '@/data/genreFilters';
 import { SeriesCard } from '@/components/SeriesCard';
 import { CoverCarousel, MOBILE_WIDTH_BREAKPOINT } from '@/components/CoverCarousel';
+import { Footer } from '@/components/Footer';
 import { usePreferences } from '@/state/preferences';
 import type { AniListMedia, SeriesEntry } from '@/types';
 import { FONT } from '@/theme';
@@ -158,6 +159,7 @@ export default function HomeScreen() {
                 </View>
               ) : null
             }
+            ListFooterComponent={Footer}
           />
         </>
       ) : (
@@ -356,6 +358,7 @@ function LatestReleases({
           ))}
         </View>
       )}
+      <Footer />
     </ScrollView>
   );
 }
