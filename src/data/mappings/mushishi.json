@@ -1,0 +1,13 @@
+{
+  "anilistAnimeId": 457,
+  "anilistMangaId": 30418,
+  "title": "Mushishi",
+  "sourceNotes": "Cumulative episodes across S1 (26) + Zoku Shou S1 (10) + Zoku Shou S2 (10). Episodic/anthology adaptation, ~1 chapter per episode; arc names group stories by manga volume.",
+  "mappings": [
+    { "episodes": [1, 10],  "chapters": [1, 10],  "arc": "Wanderings of Ginko (Vol. 1-2)" },
+    { "episodes": [11, 20], "chapters": [11, 20], "arc": "Mountains & Mushi (Vol. 3-4)" },
+    { "episodes": [21, 26], "chapters": [21, 26], "arc": "Twilight Tales (Vol. 5-6)" },
+    { "episodes": [27, 36], "chapters": [27, 38], "arc": "The Next Passage (Vol. 7-8)" },
+    { "episodes": [37, 46], "chapters": [39, 50], "arc": "Final Stories (Vol. 9-10)" }
+  ]
+}
