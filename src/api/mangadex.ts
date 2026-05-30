@@ -70,17 +70,27 @@ async function searchByTitle(title: string): Promise<MangaDexRecord[]> {
   return data.data;
 }
 
+const COVER_PAGE_SIZE = 100;
+const COVER_MAX_PAGES = 5;
+
+async function fetchCoverPage(
+  mangaId: string,
+  offset: number,
+  acc: CoverRecord[]
+): Promise<CoverRecord[]> {
+  const url = `${BASE}/cover?manga%5B%5D=${mangaId}&limit=${COVER_PAGE_SIZE}&offset=${offset}&order%5Bvolume%5D=asc`;
+  const data = await fetchJson<{ data: CoverRecord[]; total: number }>(url);
+  const next = [...acc, ...data.data];
+  const newOffset = offset + data.data.length;
+  const done =
+    data.data.length < COVER_PAGE_SIZE ||
+    newOffset >= data.total ||
+    newOffset >= COVER_PAGE_SIZE * COVER_MAX_PAGES;
+  return done ? next : fetchCoverPage(mangaId, newOffset, next);
+}
+
 async function fetchCovers(mangaId: string): Promise<CoverRecord[]> {
-  const out: CoverRecord[] = [];
-  let offset = 0;
-  for (let page = 0; page < 5; page++) {
-    const url = `${BASE}/cover?manga%5B%5D=${mangaId}&limit=100&offset=${offset}&order%5Bvolume%5D=asc`;
-    const data = await fetchJson<{ data: CoverRecord[]; total: number }>(url);
-    out.push(...data.data);
-    offset += data.data.length;
-    if (data.data.length < 100 || offset >= data.total) break;
-  }
-  return out;
+  return fetchCoverPage(mangaId, 0, []);
 }
 
 async function fetchAggregate(mangaId: string): Promise<{ volumeCount: number; chapterCount: number }> {
