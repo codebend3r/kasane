@@ -38,6 +38,7 @@ import hajimeNoIppo from '@/data/mappings/hajime-no-ippo.json';
 import ikokuNikki from '@/data/mappings/ikoku-nikki.json';
 import witchHatAtelier from '@/data/mappings/witch-hat-atelier.json';
 import bocchiTheRock from '@/data/mappings/bocchi-the-rock.json';
+import orb from '@/data/mappings/orb.json';
 
 const ALL_MAPPINGS = [
   onePiece,
@@ -74,6 +75,7 @@ const ALL_MAPPINGS = [
   ikokuNikki,
   witchHatAtelier,
   bocchiTheRock,
+  orb,
 ] as unknown as SeriesMapping[];
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
