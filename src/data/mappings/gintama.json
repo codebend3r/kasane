@@ -1,0 +1,25 @@
+{
+  "anilistAnimeId": 918,
+  "anilistMangaId": 30044,
+  "title": "Gintama",
+  "sourceNotes": "Cumulative episodes across Gintama (201) + Gintama' (51) + Enchousen (13) + Gintama° (51) + Gintama. (12) + Porori-hen (13) + Silver Soul (12) + Silver Soul Kouhan-sen (14). Heavy filler/skits in early seasons; arc ranges trace the canon serious arcs. Chapter ranges approximate.",
+  "mappings": [
+    { "episodes": [1, 57],    "chapters": [1, 85],    "arc": "Introduction / Early Yorozuya" },
+    { "episodes": [58, 61],   "chapters": [86, 102],  "arc": "Benizakura Arc" },
+    { "episodes": [62, 73],   "chapters": [104, 123], "arc": "Yagyu Arc" },
+    { "episodes": [86, 87],   "chapters": [128, 137], "arc": "Mitsuba Arc" },
+    { "episodes": [139, 146], "chapters": [156, 167], "arc": "Shinsengumi Crisis Arc" },
+    { "episodes": [139, 152], "chapters": [168, 187], "arc": "Yoshiwara in Flames Arc" },
+    { "episodes": [177, 181], "chapters": [194, 209], "arc": "Owee Arc / Kintaro" },
+    { "episodes": [210, 214], "chapters": [210, 228], "arc": "Renho Arc" },
+    { "episodes": [227, 236], "chapters": [229, 252], "arc": "Thorny Arc / Kabukicho Stray Cat" },
+    { "episodes": [253, 256], "chapters": [253, 272], "arc": "Scandal Arc / Diviner Arc" },
+    { "episodes": [257, 261], "chapters": [274, 309], "arc": "Kabukicho Four Devas Arc" },
+    { "episodes": [266, 307], "chapters": [310, 352], "arc": "Soul Switch / Courtesan of a Nation Arc" },
+    { "episodes": [308, 316], "chapters": [353, 370], "arc": "Shogun Assassination Arc" },
+    { "episodes": [317, 328], "chapters": [380, 398], "arc": "Farewell Shinsengumi Arc" },
+    { "episodes": [329, 341], "chapters": [399, 489], "arc": "Rakuyou Decisive Battle Arc" },
+    { "episodes": [342, 367], "chapters": [596, 704], "arc": "Silver Soul Arc" },
+    { "chapters": [705, 709], "arc": "Finale" }
+  ]
+}

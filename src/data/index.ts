@@ -29,6 +29,7 @@ import drStone from '@/data/mappings/dr-stone.json';
 import baki from '@/data/mappings/baki.json';
 import bakiHanma from '@/data/mappings/baki-hanma.json';
 import assassinationClassroom from '@/data/mappings/assassination-classroom.json';
+import gintama from '@/data/mappings/gintama.json';
 
 const ALL_MAPPINGS = [
   onePiece,
@@ -56,6 +57,7 @@ const ALL_MAPPINGS = [
   baki,
   bakiHanma,
   assassinationClassroom,
+  gintama,
 ] as unknown as SeriesMapping[];
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
