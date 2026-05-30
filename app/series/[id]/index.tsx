@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
 } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
@@ -18,6 +19,7 @@ import {
 import { EpisodeChapterRail } from '@/components/EpisodeChapterRail';
 import { SeasonCoverage } from '@/components/SeasonCoverage';
 import { VolumesGrid } from '@/components/VolumesGrid';
+import { MOBILE_WIDTH_BREAKPOINT } from '@/components/CoverCarousel';
 import {
   formatAniListDate,
   formatAniListDateJa,
@@ -37,6 +39,8 @@ export default function SeriesDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const mediaId = Number(id);
   const japanese = usePreferences((s) => s.japanese);
+  const { width: windowWidth } = useWindowDimensions();
+  const isMobile = windowWidth < MOBILE_WIDTH_BREAKPOINT;
 
   const { data: media, isLoading } = useQuery({
     queryKey: ['media', mediaId],
@@ -163,12 +167,12 @@ export default function SeriesDetail() {
 
   return (
     <ScrollView style={styles.root} contentContainerStyle={styles.content}>
-      <View style={styles.header}>
+      <View style={[styles.header, isMobile && styles.headerMobile]}>
         <Image
           source={{ uri: primary.coverImage.large }}
-          style={styles.cover}
+          style={[styles.cover, isMobile && styles.coverMobile]}
         />
-        <View style={styles.headerMeta}>
+        <View style={[styles.headerMeta, isMobile && styles.headerMetaMobile]}>
           <View style={styles.badgeRow}>
             <View style={styles.badge}>
               <Text style={styles.badgeText}>{BADGE_LABEL[badge]}</Text>
@@ -309,9 +313,12 @@ const styles = StyleSheet.create({
   content: { padding: 16, gap: 24, paddingBottom: 48 },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   header: { flexDirection: 'row', gap: 16 },
+  headerMobile: { flexDirection: 'column', alignItems: 'center' },
   cover: { width: 240, height: 340, backgroundColor: '#222' },
+  coverMobile: { width: 200, height: 283 },
   headerMeta: { flex: 1, gap: 6, minWidth: 240 },
-  badgeRow: { flexDirection: 'row', gap: 6, paddingBottom: 2 },
+  headerMetaMobile: { flex: 0, minWidth: 0, alignSelf: 'stretch' },
+  badgeRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 6, paddingBottom: 2 },
   badge: {
     alignSelf: 'flex-start',
     paddingHorizontal: 8,
