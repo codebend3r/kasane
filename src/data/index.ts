@@ -46,6 +46,7 @@ import chainsawMan from '@/data/mappings/chainsaw-man.json';
 import spyXFamily from '@/data/mappings/spy-x-family.json';
 import promisedNeverland from '@/data/mappings/promised-neverland.json';
 import dandadan from '@/data/mappings/dandadan.json';
+import tokyoRevengers from '@/data/mappings/tokyo-revengers.json';
 
 const ALL_MAPPINGS = [
   onePiece,
@@ -90,6 +91,7 @@ const ALL_MAPPINGS = [
   spyXFamily,
   promisedNeverland,
   dandadan,
+  tokyoRevengers,
 ] as unknown as SeriesMapping[];
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
