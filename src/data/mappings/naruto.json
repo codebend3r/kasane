@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 20,
+  "anilistMangaId": 30011,
+  "title": "Naruto",
+  "sourceNotes": "Cumulative episodes across Naruto (220) + Naruto: Shippuden (500). Manga complete at 700 chapters. Both anime contain substantial filler; episode ranges span all (canon + filler) episodes between arc boundaries, so filler episodes resolve to the surrounding canon arc's chapter range. Arc boundaries from Narutopedia.",
+  "mappings": [
+    { "episodes": [1, 19],     "chapters": [1, 33],     "arc": "Land of Waves" },
+    { "episodes": [20, 80],    "chapters": [34, 138],   "arc": "Chunin Exams / Konoha Crush" },
+    { "episodes": [81, 100],   "chapters": [139, 171],  "arc": "Search for Tsunade" },
+    { "episodes": [101, 220],  "chapters": [172, 244],  "arc": "Sasuke Recovery / Part 1 Filler Tail" },
+    { "episodes": [221, 252],  "chapters": [245, 281],  "arc": "Kazekage Rescue" },
+    { "episodes": [253, 308],  "chapters": [282, 342],  "arc": "Sasuke and Sai / Hidan and Kakuzu" },
+    { "episodes": [309, 371],  "chapters": [343, 412],  "arc": "Itachi Pursuit / Three-Tails / Tale of Jiraiya" },
+    { "episodes": [372, 395],  "chapters": [413, 453],  "arc": "Pain's Assault" },
+    { "episodes": [396, 434],  "chapters": [454, 483],  "arc": "Five Kage Summit" },
+    { "episodes": [435, 476],  "chapters": [484, 515],  "arc": "Fourth Shinobi World War: Countdown" },
+    { "episodes": [477, 541],  "chapters": [516, 559],  "arc": "Fourth Shinobi World War: Confrontation" },
+    { "episodes": [542, 595],  "chapters": [560, 639],  "arc": "Fourth Shinobi World War: Climax" },
+    { "episodes": [596, 647],  "chapters": [640, 677],  "arc": "Birth of the Ten-Tails' Jinchuriki" },
+    { "episodes": [648, 720],  "chapters": [678, 700],  "arc": "Kaguya Otsutsuki Strikes / Epilogue" }
+  ]
+}
