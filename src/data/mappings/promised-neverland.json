@@ -1,0 +1,12 @@
+{
+  "anilistAnimeId": 101759,
+  "anilistMangaId": 87423,
+  "title": "The Promised Neverland",
+  "sourceNotes": "Cumulative episodes across S1 (12) + S2 (11) = 23. Manga complete at 181 chapters. S2 famously compresses ch 38-181 into 11 episodes, omitting the Goldy Pond Battle and Queen/Nobles arcs — unadapted-tail-style entries kept for the omitted material so manga-side navigation still resolves.",
+  "mappings": [
+    { "episodes": [1, 5],   "chapters": [1, 9],     "arc": "Introduction (Grace Field House)" },
+    { "episodes": [6, 12],  "chapters": [10, 37],   "arc": "Jailbreak (Grace Field Escape)" },
+    { "episodes": [13, 18], "chapters": [38, 63],   "arc": "Goldy Pond Hunt (Anime-Compressed)" },
+    { "episodes": [19, 23], "chapters": [64, 181],  "arc": "Cuvitidala / Seven Walls / Final (Anime-Compressed)" }
+  ]
+}
