@@ -1,0 +1,20 @@
+{
+  "anilistAnimeId": 127230,
+  "anilistMangaId": 105778,
+  "title": "Chainsaw Man",
+  "sourceNotes": "Cumulative episodes across S1 (12) + Reze-hen movie (1). Manga ongoing (current ch. 232 per AniList). Adapted material covers Public Safety arcs 1-4 (anime S1) + Bomb Girl / Reze (movie). All Academy Saga arcs unadapted; the final entry's chapter range is approximate as Part 2 is still serializing — refine via PR.",
+  "mappings": [
+    { "episodes": [1, 4],   "chapters": [1, 12],    "arc": "Introduction / Bat Devil" },
+    { "episodes": [5, 7],   "chapters": [13, 21],   "arc": "Eternity Devil (Hotel)" },
+    { "episodes": [8, 12],  "chapters": [22, 38],   "arc": "Katana Man" },
+    { "episodes": [13, 13], "chapters": [39, 52],   "arc": "Bomb Girl / Reze (Movie)" },
+    { "chapters": [53, 70],   "arc": "International Assassins" },
+    { "chapters": [71, 79],   "arc": "Gun Devil" },
+    { "chapters": [80, 97],   "arc": "Control Devil" },
+    { "chapters": [98, 111],  "arc": "Justice Devil" },
+    { "chapters": [112, 120], "arc": "Dating Denji" },
+    { "chapters": [121, 131], "arc": "Falling Devil" },
+    { "chapters": [132, 155], "arc": "Chainsaw Man Church" },
+    { "chapters": [156, 232], "arc": "Academy Saga (Ongoing)" }
+  ]
+}
