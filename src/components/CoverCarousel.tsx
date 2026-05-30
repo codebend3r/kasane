@@ -38,9 +38,7 @@ export function CoverCarousel<T>({
   const snapInterval = itemWidth + gap;
   const sidePadding = Math.max(0, (containerWidth - itemWidth) / 2);
 
-  const onMomentumScrollEnd = (
-    e: NativeSyntheticEvent<NativeScrollEvent>
-  ) => {
+  const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const x = e.nativeEvent.contentOffset.x;
     const next = Math.round(x / snapInterval);
     const clamped = Math.max(0, Math.min(items.length - 1, next));
@@ -68,7 +66,8 @@ export function CoverCarousel<T>({
         snapToAlignment="start"
         decelerationRate="fast"
         disableIntervalMomentum
-        onMomentumScrollEnd={onMomentumScrollEnd}
+        onScroll={onScroll}
+        scrollEventThrottle={16}
         contentContainerStyle={contentContainerStyle}
         getItemLayout={(_, index) => ({
           length: snapInterval,
