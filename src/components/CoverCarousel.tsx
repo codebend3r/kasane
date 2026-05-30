@@ -36,19 +36,17 @@ export function CoverCarousel<T>({
   const [activeIndex, setActiveIndex] = useState(0);
 
   const snapInterval = itemWidth + gap;
-  const sidePadding = Math.max(0, (containerWidth - itemWidth) / 2);
+  const contentWidth = items.length * itemWidth + Math.max(0, items.length - 1) * gap;
+  const maxScroll = Math.max(0, contentWidth - containerWidth);
 
   const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const x = e.nativeEvent.contentOffset.x;
-    const next = Math.round(x / snapInterval);
+    const next = x >= maxScroll - 1 ? items.length - 1 : Math.round(x / snapInterval);
     const clamped = Math.max(0, Math.min(items.length - 1, next));
     if (clamped !== activeIndex) setActiveIndex(clamped);
   };
 
-  const contentContainerStyle = useMemo(
-    () => ({ paddingHorizontal: sidePadding, gap }),
-    [sidePadding, gap]
-  );
+  const contentContainerStyle = useMemo(() => ({ gap }), [gap]);
 
   return (
     <View style={styles.root}>
