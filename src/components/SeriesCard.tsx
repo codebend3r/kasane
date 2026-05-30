@@ -28,7 +28,7 @@ export function SeriesCard({ entry }: { entry: SeriesEntry }) {
   const mappedEpisodeCount = mapping
     ? (() => {
         const eps = mapping.mappings
-          .map((m) => m.episodes?.[1])
+          .map((m) => m.episodes?.[1] ?? null)
           .filter((v): v is number => typeof v === 'number');
         return eps.length > 0 ? Math.max(...eps) : null;
       })()

@@ -111,8 +111,8 @@ export async function getMangaDexInfoByAniListId(
 ): Promise<MangaDexInfo | null> {
   const candidates = await searchByTitle(preferredTitle);
   const match = candidates.find((c) => {
-    const al = c.attributes.links?.al;
-    return al && Number(al) === anilistId;
+    const al = c.attributes.links?.al ?? null;
+    return !!al && Number(al) === anilistId;
   });
   if (!match) return null;
 

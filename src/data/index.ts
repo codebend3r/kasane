@@ -147,11 +147,11 @@ export function chapterToEpisodes(
 export { ALL_MAPPINGS };
 
 function findRelatedId(
-  edges: RelationEdge[] | undefined,
+  edges: RelationEdge[],
   relationType: 'SOURCE' | 'ADAPTATION',
   nodeType: 'ANIME' | 'MANGA'
 ): number | null {
-  const hit = edges?.find(
+  const hit = edges.find(
     (e) => e.relationType === relationType && e.node.type === nodeType
   );
   return hit?.node.id ?? null;
@@ -164,7 +164,7 @@ export function pairResults(media: AniListMedia[]): SeriesEntry[] {
   const absorbed = new Set<number>();
   for (const m of media) {
     if (m.type !== 'ANIME') continue;
-    const sourceMangaId = findRelatedId(m.relations?.edges, 'SOURCE', 'MANGA');
+    const sourceMangaId = findRelatedId(m.relations?.edges ?? [], 'SOURCE', 'MANGA');
     if (sourceMangaId && byId.has(sourceMangaId)) {
       absorbed.add(m.id);
     }
@@ -175,7 +175,7 @@ export function pairResults(media: AniListMedia[]): SeriesEntry[] {
     if (absorbed.has(m.id)) continue;
 
     if (m.type === 'MANGA') {
-      const adapterId = findRelatedId(m.relations?.edges, 'ADAPTATION', 'ANIME');
+      const adapterId = findRelatedId(m.relations?.edges ?? [], 'ADAPTATION', 'ANIME');
       const anime = adapterId ? byId.get(adapterId) ?? null : null;
       entries.push({
         routeId: m.id,
@@ -185,7 +185,7 @@ export function pairResults(media: AniListMedia[]): SeriesEntry[] {
         badge: adapterId ? 'both' : 'manga-only',
       });
     } else {
-      const sourceMangaId = findRelatedId(m.relations?.edges, 'SOURCE', 'MANGA');
+      const sourceMangaId = findRelatedId(m.relations?.edges ?? [], 'SOURCE', 'MANGA');
       const manga = sourceMangaId ? byId.get(sourceMangaId) ?? null : null;
       entries.push({
         routeId: sourceMangaId ?? m.id,
