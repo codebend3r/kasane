@@ -45,22 +45,16 @@ async function fetchJson<T>(url: string): Promise<T> {
 
 function buildTitles(record: MangaDexRecord): MangaDexTitle[] {
   const seen = new Set<string>();
-  const out: MangaDexTitle[] = [];
-  const push = (locale: string, value: string) => {
+  return [
+    ...Object.entries(record.attributes.title),
+    ...record.attributes.altTitles.flatMap((alt) => Object.entries(alt)),
+  ].reduce<MangaDexTitle[]>((acc, [locale, value]) => {
     const key = `${locale}::${value}`;
-    if (seen.has(key)) return;
+    if (seen.has(key)) return acc;
     seen.add(key);
-    out.push({ locale, value });
-  };
-  for (const [locale, value] of Object.entries(record.attributes.title)) {
-    push(locale, value);
-  }
-  for (const alt of record.attributes.altTitles) {
-    for (const [locale, value] of Object.entries(alt)) {
-      push(locale, value);
-    }
-  }
-  return out;
+    acc.push({ locale, value });
+    return acc;
+  }, []);
 }
 
 function coverUrl(mangaId: string, fileName: string, size: '256' | '512' | 'full'): string {
