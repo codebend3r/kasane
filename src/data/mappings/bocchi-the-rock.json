@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 130003,
+  "anilistMangaId": 111258,
+  "title": "Bocchi the Rock!",
+  "sourceNotes": "S1 only (12 eps). 4-koma source — chapter ranges are approximate and follow narrative beats rather than strict 4-koma counts. Refine via PR.",
+  "mappings": [
+    { "episodes": [1, 3],   "chapters": [1, 12],   "arc": "Forming Kessoku Band" },
+    { "episodes": [4, 6],   "chapters": [13, 24],  "arc": "First Live / Starry" },
+    { "episodes": [7, 9],   "chapters": [25, 36],  "arc": "Summer Festival / Costumes" },
+    { "episodes": [10, 12], "chapters": [37, 48],  "arc": "Bushibu Festival" },
+    { "chapters": [49, 70],  "arc": "School Trip / New Songs" },
+    { "chapters": [71, 95],  "arc": "Second-Year Arc" }
+  ]
+}
