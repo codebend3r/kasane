@@ -5,13 +5,15 @@ import { FONT } from '@/theme';
 
 export function SeasonCoverage({ mapping }: { mapping: SeriesMapping }) {
   const seasonBuckets = useMemo(() => {
-    const m = new Map<string, typeof mapping.mappings>();
-    for (const entry of mapping.mappings) {
-      if (!entry.episodes) continue;
-      const key = entry.season ? `Season ${entry.season}` : 'Other';
-      if (!m.has(key)) m.set(key, []);
-      m.get(key)!.push(entry);
-    }
+    const m = mapping.mappings
+      .filter((entry) => !!entry.episodes)
+      .reduce<Map<string, typeof mapping.mappings>>((acc, entry) => {
+        const key = entry.season ? `Season ${entry.season}` : 'Other';
+        const list = acc.get(key);
+        if (list) list.push(entry);
+        else acc.set(key, [entry]);
+        return acc;
+      }, new Map());
     return Array.from(m.entries());
   }, [mapping]);
 
