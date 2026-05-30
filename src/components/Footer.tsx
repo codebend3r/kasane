@@ -1,5 +1,5 @@
 import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
-import { version } from '../../package.json';
+import { version } from '@pkg';
 import { FONT } from '@/theme';
 import type { PressableState } from '@/types';
 
