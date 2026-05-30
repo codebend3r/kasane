@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
   coverAnimeOnly: {
     borderWidth: 2,
     borderColor: 'rgb(124, 92, 255)',
-    borderBottomRightRadius: 28,
+    borderBottomRightRadius: 16,
     cornerBottomRightShape: 'bevel',
     overflow: 'hidden',
   },
