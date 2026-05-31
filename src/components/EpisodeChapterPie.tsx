@@ -7,9 +7,14 @@ import {
   type GestureResponderEvent,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import Svg, { Circle, Path } from 'react-native-svg';
+import Svg, { Circle, Line, Path } from 'react-native-svg';
 import type { PressableState, SeriesMapping } from '@/types';
 import { FONT } from '@/theme';
+import {
+  useProgress,
+  useSeriesProgress,
+  type ProgressSide,
+} from '@/state/progress';
 import {
   HoverLabel,
   hasBoundingRect,
@@ -35,7 +40,10 @@ type Slice = {
   color: string;
   textColor: string;
   label: string;
+  chapterEnd: number;
 };
+
+const LONG_PRESS_MS = 320;
 
 const polar = (deg: number, r: number): [number, number] => {
   const a = ((deg - 90) * Math.PI) / 180;
@@ -61,15 +69,20 @@ export function EpisodeChapterPie({
   mapping,
   seriesId,
   totalChapters,
+  onMarked,
 }: {
   mapping: SeriesMapping;
   seriesId: string;
   totalChapters?: number | null;
+  onMarked?: (side: ProgressSide, position: number) => void;
 }) {
   const router = useRouter();
   const { containerRef, hover, moveTo, clearHover } = useHoverLabel();
+  const routeId = Number(seriesId);
+  const setSide = useProgress((s) => s.setSide);
+  const progress = useSeriesProgress(routeId);
 
-  const { slices, percentAdapted } = useMemo(() => {
+  const { slices, percentAdapted, mangaTotal } = useMemo(() => {
     const hasUnadapted = mapping.mappings.some((m) => !m.episodes);
     const maxCoveredChapter = Math.max(
       ...mapping.mappings.map((m) => m.chapters[1])
@@ -103,6 +116,7 @@ export function EpisodeChapterPie({
           color: unadapted ? '#2a2a2a' : COLORS[idx % COLORS.length],
           textColor: unadapted ? '#9aa0a6' : '#000',
           label: m.arc ?? `${m.chapters[0]}–${m.chapters[1]}`,
+          chapterEnd: m.chapters[1],
         };
         return { cursor: nextCursor, built: [...acc.built, slice] };
       },
@@ -118,6 +132,7 @@ export function EpisodeChapterPie({
             color: '#2a2a2a',
             textColor: '#9aa0a6',
             label: `${maxCoveredChapter + 1}–${totalChapters}`,
+            chapterEnd: totalChapters ?? maxCoveredChapter,
           },
         ]
       : [];
@@ -130,8 +145,22 @@ export function EpisodeChapterPie({
     );
     const percent = Math.round((adaptedSpan / mappingSpan) * 100);
 
-    return { slices: all, percentAdapted: percent };
+    return { slices: all, percentAdapted: percent, mangaTotal: totalSpan };
   }, [mapping, totalChapters]);
+
+  const mangaPos = progress?.manga?.position ?? 0;
+  const markerDeg =
+    mangaTotal > 0 && mangaPos > 0
+      ? Math.min((mangaPos / mangaTotal) * 360, 360)
+      : 0;
+  const showMarker = markerDeg > 0 && markerDeg < 360;
+  const [markerOuterX, markerOuterY] = polar(markerDeg, R_OUTER);
+  const [markerInnerX, markerInnerY] = polar(markerDeg, R_INNER);
+
+  const markProgress = (side: ProgressSide, position: number) => {
+    setSide(routeId, side, position);
+    onMarked?.(side, position);
+  };
 
   const sliceFromLocal = (
     x: number,
@@ -150,6 +179,13 @@ export function EpisodeChapterPie({
   };
 
   const onPress = (e: GestureResponderEvent) => {
+    const { locationX, locationY } = e.nativeEvent;
+    const slice = sliceFromLocal(locationX, locationY, SIZE);
+    if (!slice) return;
+    markProgress('manga', slice.chapterEnd);
+  };
+
+  const onLongPress = (e: GestureResponderEvent) => {
     const { locationX, locationY } = e.nativeEvent;
     const slice = sliceFromLocal(locationX, locationY, SIZE);
     if (!slice || slice.arcIdx < 0) return;
@@ -185,6 +221,8 @@ export function EpisodeChapterPie({
       <Pressable
         ref={containerRef}
         onPress={onPress}
+        onLongPress={onLongPress}
+        delayLongPress={LONG_PRESS_MS}
         onHoverOut={clearHover}
         // @ts-expect-error react-native-web forwards onMouseMove to the DOM
         onMouseMove={onMouseMove}
@@ -212,6 +250,23 @@ export function EpisodeChapterPie({
               />
             ))
           )}
+          {showMarker && (
+            <>
+              <Path
+                d={annularSectorPath(markerDeg, 360)}
+                fill="rgba(12,12,14,0.55)"
+              />
+              <Line
+                x1={markerInnerX}
+                y1={markerInnerY}
+                x2={markerOuterX}
+                y2={markerOuterY}
+                stroke="#f5f5f5"
+                strokeWidth={0.018}
+                strokeLinecap="round"
+              />
+            </>
+          )}
         </Svg>
         <View style={styles.hole} pointerEvents="none">
           <Text style={styles.percent}>{percentAdapted}%</Text>
@@ -219,6 +274,7 @@ export function EpisodeChapterPie({
         </View>
         <HoverLabel hover={hover} />
       </Pressable>
+      <Text style={styles.hint}>Tap to mark · Long-press to open arc</Text>
     </View>
   );
 }
@@ -257,6 +313,14 @@ const styles = StyleSheet.create({
     color: '#9aa0a6',
     fontSize: 11,
     letterSpacing: 1.4,
+    fontFamily: FONT.semibold,
+  },
+  hint: {
+    color: '#6b7177',
+    fontSize: 11,
+    letterSpacing: 1,
+    paddingTop: 6,
+    textTransform: 'uppercase',
     fontFamily: FONT.semibold,
   },
 });
