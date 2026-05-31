@@ -83,7 +83,8 @@ export function EpisodeChapterPie({
     const arcSpans = mapping.mappings.map(
       (m) => m.chapters[1] - m.chapters[0] + 1
     );
-    const totalSpan = arcSpans.reduce((acc, n) => acc + n, 0) + tailSpan;
+    const mappingSpan = arcSpans.reduce((acc, n) => acc + n, 0);
+    const totalSpan = mappingSpan + tailSpan;
 
     const { built } = mapping.mappings.reduce<{
       cursor: number;
@@ -127,7 +128,7 @@ export function EpisodeChapterPie({
       (acc, m, idx) => (m.episodes ? acc + arcSpans[idx] : acc),
       0
     );
-    const percent = Math.round((adaptedSpan / totalSpan) * 100);
+    const percent = Math.round((adaptedSpan / mappingSpan) * 100);
 
     return { slices: all, percentAdapted: percent };
   }, [mapping, totalChapters]);
