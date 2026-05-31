@@ -1,6 +1,13 @@
-import { useMemo, useRef } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useMemo } from 'react';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  type GestureResponderEvent,
+} from 'react-native';
 import { useRouter } from 'expo-router';
+import Svg, { Circle, Path } from 'react-native-svg';
 import type { PressableState, SeriesMapping } from '@/types';
 import { FONT } from '@/theme';
 import {
@@ -18,6 +25,8 @@ const COLORS = [
 const SIZE = 280;
 const RING_RATIO = 0.56;
 const HOLE = SIZE * RING_RATIO;
+const R_OUTER = 1;
+const R_INNER = RING_RATIO;
 
 type Slice = {
   arcIdx: number;
@@ -26,6 +35,26 @@ type Slice = {
   color: string;
   textColor: string;
   label: string;
+};
+
+const polar = (deg: number, r: number): [number, number] => {
+  const a = ((deg - 90) * Math.PI) / 180;
+  return [r * Math.cos(a), r * Math.sin(a)];
+};
+
+const annularSectorPath = (startDeg: number, endDeg: number): string => {
+  const [x1o, y1o] = polar(startDeg, R_OUTER);
+  const [x2o, y2o] = polar(endDeg, R_OUTER);
+  const [x1i, y1i] = polar(startDeg, R_INNER);
+  const [x2i, y2i] = polar(endDeg, R_INNER);
+  const largeArc = endDeg - startDeg > 180 ? 1 : 0;
+  return [
+    `M ${x1o} ${y1o}`,
+    `A ${R_OUTER} ${R_OUTER} 0 ${largeArc} 1 ${x2o} ${y2o}`,
+    `L ${x2i} ${y2i}`,
+    `A ${R_INNER} ${R_INNER} 0 ${largeArc} 0 ${x1i} ${y1i}`,
+    'Z',
+  ].join(' ');
 };
 
 export function EpisodeChapterPie({
@@ -39,9 +68,8 @@ export function EpisodeChapterPie({
 }) {
   const router = useRouter();
   const { containerRef, hover, moveTo, clearHover } = useHoverLabel();
-  const hoverIdxRef = useRef<number | null>(null);
 
-  const { slices, gradientCss, percentAdapted } = useMemo(() => {
+  const { slices, percentAdapted } = useMemo(() => {
     const hasUnadapted = mapping.mappings.some((m) => !m.episodes);
     const maxCoveredChapter = Math.max(
       ...mapping.mappings.map((m) => m.chapters[1])
@@ -94,9 +122,6 @@ export function EpisodeChapterPie({
       : [];
 
     const all = [...built, ...tail];
-    const css = `conic-gradient(${all
-      .map((s) => `${s.color} ${s.startDeg}deg ${s.endDeg}deg`)
-      .join(', ')})`;
 
     const adaptedSpan = mapping.mappings.reduce(
       (acc, m, idx) => (m.episodes ? acc + arcSpans[idx] : acc),
@@ -104,67 +129,89 @@ export function EpisodeChapterPie({
     );
     const percent = Math.round((adaptedSpan / totalSpan) * 100);
 
-    return { slices: all, gradientCss: css, percentAdapted: percent };
+    return { slices: all, percentAdapted: percent };
   }, [mapping, totalChapters]);
 
-  const sliceFromEvent = (e: MouseLike): Slice | null => {
-    const node = containerRef.current;
-    if (!hasBoundingRect(node)) return null;
-    const rect = node.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    const dx = e.nativeEvent.clientX - cx;
-    const dy = e.nativeEvent.clientY - cy;
+  const sliceFromLocal = (
+    x: number,
+    y: number,
+    boxSize: number
+  ): Slice | null => {
+    const dx = x - boxSize / 2;
+    const dy = y - boxSize / 2;
     const dist = Math.sqrt(dx * dx + dy * dy);
-    const outer = rect.width / 2;
+    const outer = boxSize / 2;
     const inner = (HOLE / SIZE) * outer;
     if (dist > outer || dist < inner) return null;
     const raw = (Math.atan2(dy, dx) * 180) / Math.PI;
     const angle = (raw + 90 + 360) % 360;
-    return (
-      slices.find((s) => angle >= s.startDeg && angle < s.endDeg) ?? null
-    );
+    return slices.find((s) => angle >= s.startDeg && angle < s.endDeg) ?? null;
   };
 
-  const onMove = (e: MouseLike) => {
-    const slice = sliceFromEvent(e);
+  const onPress = (e: GestureResponderEvent) => {
+    const { locationX, locationY } = e.nativeEvent;
+    const slice = sliceFromLocal(locationX, locationY, SIZE);
+    if (!slice || slice.arcIdx < 0) return;
+    router.push({
+      pathname: '/series/[id]/arc/[arcIdx]',
+      params: { id: seriesId, arcIdx: String(slice.arcIdx) },
+    });
+  };
+
+  const onMouseMove = (e: MouseLike) => {
+    const node = containerRef.current;
+    if (!hasBoundingRect(node)) return;
+    const rect = node.getBoundingClientRect();
+    const slice = sliceFromLocal(
+      e.nativeEvent.clientX - rect.left,
+      e.nativeEvent.clientY - rect.top,
+      rect.width
+    );
     if (!slice) {
-      hoverIdxRef.current = null;
       clearHover();
       return;
     }
-    hoverIdxRef.current = slice.arcIdx;
     moveTo(
       { label: slice.label, color: slice.color, textColor: slice.textColor },
       e
     );
   };
 
-  const onPress = () => {
-    const idx = hoverIdxRef.current;
-    if (idx === null || idx < 0) return;
-    router.push({
-      pathname: '/series/[id]/arc/[arcIdx]',
-      params: { id: seriesId, arcIdx: String(idx) },
-    });
-  };
+  const fullCircle = slices.length === 1;
 
   return (
     <View style={styles.outer}>
       <Pressable
         ref={containerRef}
         onPress={onPress}
-        onHoverOut={() => {
-          hoverIdxRef.current = null;
-          clearHover();
-        }}
+        onHoverOut={clearHover}
         // @ts-expect-error react-native-web forwards onMouseMove to the DOM
-        onMouseMove={onMove}
+        onMouseMove={onMouseMove}
         style={({ hovered }: PressableState) => [
           styles.donut,
-          { backgroundImage: gradientCss, opacity: hovered ? 0.96 : 1 },
+          { opacity: hovered ? 0.96 : 1 },
         ]}
       >
+        <Svg width={SIZE} height={SIZE} viewBox="-1 -1 2 2">
+          {fullCircle ? (
+            <Circle
+              cx={0}
+              cy={0}
+              r={(R_OUTER + R_INNER) / 2}
+              fill="none"
+              stroke={slices[0].color}
+              strokeWidth={R_OUTER - R_INNER}
+            />
+          ) : (
+            slices.map((s) => (
+              <Path
+                key={`${s.arcIdx}-${s.startDeg}`}
+                d={annularSectorPath(s.startDeg, s.endDeg)}
+                fill={s.color}
+              />
+            ))
+          )}
+        </Svg>
         <View style={styles.hole} pointerEvents="none">
           <Text style={styles.percent}>{percentAdapted}%</Text>
           <Text style={styles.percentLabel}>ADAPTED</Text>
@@ -184,12 +231,12 @@ const styles = StyleSheet.create({
   donut: {
     width: SIZE,
     height: SIZE,
-    borderRadius: SIZE,
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
   },
   hole: {
+    position: 'absolute',
     width: HOLE,
     height: HOLE,
     borderRadius: HOLE,
