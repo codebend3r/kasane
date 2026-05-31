@@ -20,6 +20,7 @@ import { getLatestAnime, searchMedia } from '@/api/anilist';
 import { pairResults } from '@/data';
 import { GENRE_FILTERS, splitHiddenForAniList } from '@/data/genreFilters';
 import { SeriesCard } from '@/components/SeriesCard';
+import { ContinueSection } from '@/components/ContinueSection';
 import { CoverCarousel, MOBILE_WIDTH_BREAKPOINT } from '@/components/CoverCarousel';
 import { Footer } from '@/components/Footer';
 import { usePreferences } from '@/state/preferences';
@@ -345,6 +346,7 @@ function LatestReleases({
 
   return (
     <ScrollView contentContainerStyle={styles.latestScroll}>
+      <ContinueSection />
       <View style={styles.latestHeader}>
         <Text style={styles.latestEyebrow}>Now airing</Text>
         <Text style={styles.latestTitle}>Latest anime</Text>

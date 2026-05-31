@@ -91,6 +91,16 @@ const LATEST_ANIME_QUERY = gql`
   }
 `;
 
+const MEDIA_BY_IDS_QUERY = gql`
+  query MediaByIds($ids: [Int]!) {
+    Page(perPage: 50) {
+      media(id_in: $ids) {
+        ${MEDIA_FIELDS}
+      }
+    }
+  }
+`;
+
 const DETAIL_QUERY = gql`
   query Detail($id: Int!) {
     Media(id: $id) {
@@ -173,4 +183,13 @@ export async function getLatestAnime(
 export async function getMedia(id: number): Promise<AniListMedia> {
   const data = await client.request<{ Media: AniListMedia }>(DETAIL_QUERY, { id });
   return data.Media;
+}
+
+export async function getMediaByIds(ids: number[]): Promise<AniListMedia[]> {
+  if (ids.length === 0) return [];
+  const data = await client.request<{ Page: { media: AniListMedia[] } }>(
+    MEDIA_BY_IDS_QUERY,
+    { ids }
+  );
+  return data.Page.media;
 }
