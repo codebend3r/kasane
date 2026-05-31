@@ -74,7 +74,11 @@ export function EpisodeChapterPie({
   mapping: SeriesMapping;
   seriesId: string;
   totalChapters?: number | null;
-  onMarked?: (side: ProgressSide, position: number) => void;
+  onMarked?: (
+    side: ProgressSide,
+    position: number,
+    previous?: number
+  ) => void;
 }) {
   const router = useRouter();
   const { containerRef, hover, moveTo, clearHover } = useHoverLabel();
@@ -158,8 +162,9 @@ export function EpisodeChapterPie({
   const [markerInnerX, markerInnerY] = polar(markerDeg, R_INNER);
 
   const markProgress = (side: ProgressSide, position: number) => {
+    const previous = useProgress.getState().byRouteId[routeId]?.[side]?.position;
     setSide(routeId, side, position);
-    onMarked?.(side, position);
+    onMarked?.(side, position, previous);
   };
 
   const sliceFromLocal = (

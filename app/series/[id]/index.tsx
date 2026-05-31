@@ -15,10 +15,16 @@ import { getMedia } from '@/api/anilist';
 import { getMangaDexInfoByAniListId } from '@/api/mangadex';
 import {
   buildSyntheticMapping,
+  chapterToEpisodes,
+  episodeToChapters,
   findMappingByMediaId,
 } from '@/data';
 import { EpisodeChapterRail } from '@/components/EpisodeChapterRail';
 import { EpisodeChapterPie } from '@/components/EpisodeChapterPie';
+import {
+  ProgressMarkBanner,
+  type MarkEvent,
+} from '@/components/ProgressMarkBanner';
 import { SeasonCoverage } from '@/components/SeasonCoverage';
 import { VolumesGrid } from '@/components/VolumesGrid';
 import { MOBILE_WIDTH_BREAKPOINT } from '@/components/CoverCarousel';
@@ -30,6 +36,7 @@ import {
   localeLabel,
 } from '@/data/format';
 import { usePreferences } from '@/state/preferences';
+import { useProgress, type ProgressSide } from '@/state/progress';
 import type { PressableState, SeriesBadge } from '@/types';
 import { FONT } from '@/theme';
 
@@ -52,6 +59,7 @@ export default function SeriesDetail() {
   const [mappingView, setMappingView] = useState<MappingView>(
     isMobile ? 'pie' : 'rail'
   );
+  const [markEvent, setMarkEvent] = useState<MarkEvent | null>(null);
 
   const { data: media, isLoading } = useQuery({
     queryKey: ['media', mediaId],
@@ -116,6 +124,27 @@ export default function SeriesDetail() {
     : 0;
 
   const routeId = manga?.id ?? anime?.id ?? mediaId;
+
+  const onMarked = (
+    side: ProgressSide,
+    position: number,
+    previous?: number
+  ) => {
+    const otherSide: ProgressSide = side === 'anime' ? 'manga' : 'anime';
+    const otherPosition =
+      useProgress.getState().byRouteId[routeId]?.[otherSide]?.position ?? 0;
+    const range = mapping
+      ? side === 'anime'
+        ? episodeToChapters(mapping, position)
+        : chapterToEpisodes(mapping, position)
+      : null;
+    const suggested = range?.[1];
+    const suggestion =
+      typeof suggested === 'number' && suggested > otherPosition
+        ? { side: otherSide, position: suggested }
+        : undefined;
+    setMarkEvent({ side, position, previous, suggestion });
+  };
 
   const badge: SeriesBadge = useMemo(() => {
     if (!media) return 'manga-only';
@@ -283,17 +312,26 @@ export default function SeriesDetail() {
               </Paragraph>
             </View>
           )}
+          {markEvent ? (
+            <ProgressMarkBanner
+              event={markEvent}
+              routeId={routeId}
+              onDismiss={() => setMarkEvent(null)}
+            />
+          ) : null}
           {mappingView === 'rail' ? (
             <EpisodeChapterRail
               mapping={mapping}
               seriesId={String(routeId)}
               totalChapters={totalChapters}
+              onMarked={onMarked}
             />
           ) : (
             <EpisodeChapterPie
               mapping={mapping}
               seriesId={String(routeId)}
               totalChapters={totalChapters}
+              onMarked={onMarked}
             />
           )}
           {curatedMapping ? <SeasonCoverage mapping={curatedMapping} /> : null}

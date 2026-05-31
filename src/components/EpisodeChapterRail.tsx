@@ -26,7 +26,11 @@ export function EpisodeChapterRail({
   mapping: SeriesMapping;
   seriesId: string;
   totalChapters?: number | null;
-  onMarked?: (side: ProgressSide, position: number) => void;
+  onMarked?: (
+    side: ProgressSide,
+    position: number,
+    previous?: number
+  ) => void;
 }) {
   const router = useRouter();
   const { containerRef, hover, moveTo, clearHover } = useHoverLabel();
@@ -42,8 +46,9 @@ export function EpisodeChapterRail({
   };
 
   const markSide = (side: ProgressSide, position: number) => {
+    const previous = useProgress.getState().byRouteId[routeId]?.[side]?.position;
     setSide(routeId, side, position);
-    onMarked?.(side, position);
+    onMarked?.(side, position, previous);
   };
 
   const hasUnadapted = mapping.mappings.some((m) => !m.episodes);
