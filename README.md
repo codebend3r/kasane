@@ -10,6 +10,24 @@ Three use cases:
 2. **Anime viewer** — figure out which manga volume to buy to continue from where the anime left off.
 3. **Both** — follow a chapter↔episode guide while consuming both.
 
+## Screenshots
+
+Browse and search the catalog:
+
+![Home — Latest Anime grid](docs/screenshots/01-home.png)
+
+Series detail — arc-level rail mapping anime episodes to manga chapters, with MangaDex volume covers below:
+
+![Series detail with episode↔chapter rail and volumes](docs/screenshots/02-series.png)
+
+Anime-side view with the *Quick lookup* form ("I finished episode X → you're on chapter Y"):
+
+![Anime page with rail + quick lookup](docs/screenshots/04-anime.png)
+
+Drill into a single arc to see per-episode ↔ per-chapter alignment:
+
+![Romance Dawn arc — episodes 1–3, chapters 1–7](docs/screenshots/03-arc.png)
+
 ## Platforms (one codebase)
 
 | Platform | How it ships |
