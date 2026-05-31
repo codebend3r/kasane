@@ -12,6 +12,7 @@ import {
   TextInput,
   useWindowDimensions,
   View,
+  type ViewStyle,
 } from 'react-native';
 import { Link } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
@@ -255,7 +256,21 @@ function trimSeasonSuffix(title: string): string {
 }
 
 const GRID_ITEM_WIDTH = 160;
+const GRID_ITEM_HEIGHT = 280;
 const GRID_GAP = 16;
+
+const COLUMN_BREAKPOINTS = [
+  { minWidth: 2000, columns: 9 },
+  { minWidth: 1700, columns: 8 },
+  { minWidth: 1450, columns: 7 },
+  { minWidth: 1200, columns: 6 },
+  { minWidth: 1000, columns: 5 },
+  { minWidth: 800, columns: 4 },
+  { minWidth: 0, columns: 3 },
+] as const;
+
+const columnsForWidth = (width: number): number =>
+  COLUMN_BREAKPOINTS.find((b) => width >= b.minWidth)?.columns ?? 3;
 
 function LatestReleases({
   data,
@@ -264,21 +279,18 @@ function LatestReleases({
   data: AniListMedia[];
   loading: boolean;
 }) {
-  const [gridWidth, setGridWidth] = useState(0);
+  const { width: windowWidth } = useWindowDimensions();
+  const isMobile = windowWidth < MOBILE_WIDTH_BREAKPOINT;
+  const [carouselWidth, setCarouselWidth] = useState(0);
   const japanese = usePreferences((s) => s.japanese);
 
-  const onGridLayout = (e: LayoutChangeEvent) => {
-    setGridWidth(e.nativeEvent.layout.width);
+  const onCarouselLayout = (e: LayoutChangeEvent) => {
+    setCarouselWidth(e.nativeEvent.layout.width);
   };
 
   const entries = useMemo(() => pairResults(data), [data]);
 
-  const isMobile = gridWidth > 0 && gridWidth < MOBILE_WIDTH_BREAKPOINT;
-
-  const columns =
-    gridWidth > 0
-      ? Math.max(1, Math.floor((gridWidth + GRID_GAP) / (GRID_ITEM_WIDTH + GRID_GAP)))
-      : 0;
+  const columns = isMobile ? 0 : columnsForWidth(windowWidth);
   const visible =
     !isMobile && columns > 0
       ? entries.slice(0, Math.floor(entries.length / columns) * columns)
@@ -341,18 +353,25 @@ function LatestReleases({
           <ActivityIndicator color="#7c5cff" />
         </View>
       ) : isMobile ? (
-        <View onLayout={onGridLayout}>
+        <View onLayout={onCarouselLayout}>
           <CoverCarousel
             items={visible}
             keyExtractor={(entry) => String(entry.routeId)}
             itemWidth={GRID_ITEM_WIDTH}
-            itemHeight={280}
-            containerWidth={gridWidth}
+            itemHeight={GRID_ITEM_HEIGHT}
+            containerWidth={carouselWidth}
             renderItem={(entry) => renderCard(entry)}
           />
         </View>
       ) : (
-        <View style={styles.grid} onLayout={onGridLayout}>
+        <View
+          style={{
+            display: 'grid',
+            gridTemplateColumns: `repeat(${columns}, 1fr)`,
+            gap: GRID_GAP,
+            alignItems: 'flex-start',
+          } as unknown as ViewStyle}
+        >
           {visible.map((entry) => (
             <View key={entry.routeId}>{renderCard(entry)}</View>
           ))}
@@ -523,25 +542,17 @@ const styles = StyleSheet.create({
     letterSpacing: -0.4,
     fontFamily: FONT.bold,
   },
-  grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 16,
-    alignItems: 'flex-start',
-  },
   gridItem: {
-    width: 160,
-    height: 280,
     gap: 8,
   },
   gridCoverWrap: {
-    width: 160,
-    height: 230,
+    width: '100%',
+    aspectRatio: 160 / 230,
     position: 'relative',
   },
   gridCover: {
-    width: 160,
-    height: 230,
+    width: '100%',
+    height: '100%',
   },
   gridBadge: {
     position: 'absolute',
@@ -561,7 +572,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 18,
     height: 36,
-    width: 160,
+    width: '100%',
     overflow: 'hidden',
     fontFamily: FONT.semibold,
     letterSpacing: -0.2,
