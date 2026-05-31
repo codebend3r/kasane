@@ -1,7 +1,8 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import {
   ActivityIndicator,
   Image,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -17,6 +18,7 @@ import {
   findMappingByMediaId,
 } from '@/data';
 import { EpisodeChapterRail } from '@/components/EpisodeChapterRail';
+import { EpisodeChapterPie } from '@/components/EpisodeChapterPie';
 import { SeasonCoverage } from '@/components/SeasonCoverage';
 import { VolumesGrid } from '@/components/VolumesGrid';
 import { MOBILE_WIDTH_BREAKPOINT } from '@/components/CoverCarousel';
@@ -28,8 +30,10 @@ import {
   localeLabel,
 } from '@/data/format';
 import { usePreferences } from '@/state/preferences';
-import type { SeriesBadge } from '@/types';
+import type { PressableState, SeriesBadge } from '@/types';
 import { FONT } from '@/theme';
+
+type MappingView = 'rail' | 'pie';
 
 const BADGE_LABEL: Record<SeriesBadge, string> = {
   both: 'ANIME + MANGA',
@@ -45,6 +49,7 @@ export default function SeriesDetail() {
   const isMobile = windowWidth < MOBILE_WIDTH_BREAKPOINT;
   const mobileCoverWidth = Math.min(windowWidth - 32, 420);
   const mobileCoverHeight = Math.round(mobileCoverWidth * (340 / 240));
+  const [mappingView, setMappingView] = useState<MappingView>('rail');
 
   const { data: media, isLoading } = useQuery({
     queryKey: ['media', mediaId],
@@ -235,14 +240,34 @@ export default function SeriesDetail() {
       {mapping ? (
         <View style={styles.mappingBlock}>
           <View style={styles.sectionTitleRow}>
-            <Text style={styles.sectionTitle}>Episode ↔ Chapter map</Text>
-            {arcsBehind > 0 && (
-              <View style={styles.arcsBehindBadge}>
-                <Text style={styles.arcsBehindText}>
-                  {arcsBehind} {arcsBehind === 1 ? 'ARC' : 'ARCS'} BEHIND
-                </Text>
-              </View>
-            )}
+            <View style={styles.sectionTitleLeft}>
+              <Text style={styles.sectionTitle}>Episode ↔ Chapter map</Text>
+              {arcsBehind > 0 && (
+                <View style={styles.arcsBehindBadge}>
+                  <Text style={styles.arcsBehindText}>
+                    {arcsBehind} {arcsBehind === 1 ? 'ARC' : 'ARCS'} BEHIND
+                  </Text>
+                </View>
+              )}
+            </View>
+            <Pressable
+              onPress={() =>
+                setMappingView((v) => (v === 'rail' ? 'pie' : 'rail'))
+              }
+              accessibilityLabel={
+                mappingView === 'rail'
+                  ? 'Show pie chart view'
+                  : 'Show rail view'
+              }
+              style={({ hovered, pressed }: PressableState) => [
+                styles.viewToggle,
+                { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
+              ]}
+            >
+              <Text style={styles.viewToggleIcon}>
+                {mappingView === 'rail' ? '◐' : '▤'}
+              </Text>
+            </Pressable>
           </View>
           {isAutoEstimated && (
             <View style={styles.autoBanner}>
@@ -256,11 +281,19 @@ export default function SeriesDetail() {
               </Paragraph>
             </View>
           )}
-          <EpisodeChapterRail
-            mapping={mapping}
-            seriesId={String(routeId)}
-            totalChapters={totalChapters}
-          />
+          {mappingView === 'rail' ? (
+            <EpisodeChapterRail
+              mapping={mapping}
+              seriesId={String(routeId)}
+              totalChapters={totalChapters}
+            />
+          ) : (
+            <EpisodeChapterPie
+              mapping={mapping}
+              seriesId={String(routeId)}
+              totalChapters={totalChapters}
+            />
+          )}
           {curatedMapping ? <SeasonCoverage mapping={curatedMapping} /> : null}
         </View>
       ) : badge === 'anime-only' ? null : (
@@ -407,6 +440,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
     flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  sectionTitleLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    flexWrap: 'wrap',
+  },
+  viewToggle: {
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    backgroundColor: '#17181b',
+    borderLeftWidth: 2,
+    borderLeftColor: '#7c5cff',
+  },
+  viewToggleIcon: {
+    color: '#cfd2d6',
+    fontSize: 16,
+    fontFamily: FONT.bold,
+    lineHeight: 18,
   },
   arcsBehindBadge: {
     paddingHorizontal: 12,
