@@ -49,7 +49,9 @@ export default function SeriesDetail() {
   const isMobile = windowWidth < MOBILE_WIDTH_BREAKPOINT;
   const mobileCoverWidth = Math.min(windowWidth - 32, 420);
   const mobileCoverHeight = Math.round(mobileCoverWidth * (340 / 240));
-  const [mappingView, setMappingView] = useState<MappingView>('rail');
+  const [mappingView, setMappingView] = useState<MappingView>(
+    isMobile ? 'pie' : 'rail'
+  );
 
   const { data: media, isLoading } = useQuery({
     queryKey: ['media', mediaId],
