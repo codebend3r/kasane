@@ -260,6 +260,7 @@ const GRID_ITEM_HEIGHT = 280;
 const GRID_GAP = 16;
 
 const COLUMN_BREAKPOINTS = [
+  { minWidth: 2400, columns: 12 },
   { minWidth: 2000, columns: 9 },
   { minWidth: 1700, columns: 8 },
   { minWidth: 1450, columns: 7 },
