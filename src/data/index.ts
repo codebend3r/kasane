@@ -213,7 +213,7 @@ export function pairResults(media: AniListMedia[]): SeriesEntry[] {
       .filter((id): id is number => id !== null && byId.has(id))
   );
 
-  return media
+  const entries = media
     .filter((m) => !absorbed.has(m.id))
     .map((m): SeriesEntry => {
       if (m.type === 'MANGA') {
@@ -237,6 +237,17 @@ export function pairResults(media: AniListMedia[]): SeriesEntry[] {
         badge: sourceMangaId ? 'both' : 'anime-only',
       };
     });
+
+  // Multiple anime adapting the same source manga (e.g. Mob Psycho 100 S1/II/III)
+  // all collapse to the same routeId — keep the first (highest SEARCH_MATCH).
+  return Array.from(
+    entries
+      .reduce((acc, e) => {
+        if (!acc.has(e.routeId)) acc.set(e.routeId, e);
+        return acc;
+      }, new Map<number, SeriesEntry>())
+      .values()
+  );
 }
 
 const PARTNER_RELATION_TYPES = new Set(['ADAPTATION', 'SOURCE']);
