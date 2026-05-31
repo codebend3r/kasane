@@ -1,8 +1,8 @@
-import { useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import type { PressableState, SeriesMapping } from '@/types';
 import { FONT } from '@/theme';
+import { HoverLabel, useHoverLabel, type MouseLike } from './HoverLabel';
 
 const COLORS = [
   '#7c5cff', '#ff7c5c', '#5cff9d', '#ffd65c',
@@ -10,19 +10,6 @@ const COLORS = [
 ];
 
 const BAR_HEIGHT = 44;
-
-type Hover = { label: string; color: string; textColor: string; x: number; y: number };
-type MouseLike = { nativeEvent: { clientX: number; clientY: number } };
-
-function hasBoundingRect(
-  node: unknown
-): node is { getBoundingClientRect: () => { left: number; top: number } } {
-  return (
-    typeof node === 'object' &&
-    node !== null &&
-    'getBoundingClientRect' in node
-  );
-}
 
 export function EpisodeChapterRail({
   mapping,
@@ -34,27 +21,7 @@ export function EpisodeChapterRail({
   totalChapters?: number | null;
 }) {
   const router = useRouter();
-  const containerRef = useRef<View>(null);
-  const [hover, setHover] = useState<Hover | null>(null);
-
-  const moveTo = (
-    label: string,
-    color: string,
-    textColor: string,
-    e: MouseLike
-  ) => {
-    const { clientX, clientY } = e.nativeEvent;
-    const node = containerRef.current;
-    const base = { label, color, textColor };
-    if (hasBoundingRect(node)) {
-      const rect = node.getBoundingClientRect();
-      setHover({ ...base, x: clientX - rect.left, y: clientY - rect.top });
-    } else {
-      setHover({ ...base, x: clientX, y: clientY });
-    }
-  };
-
-  const clearHover = () => setHover(null);
+  const { containerRef, hover, moveTo, clearHover } = useHoverLabel();
 
   const goToArc = (arcIdx: number) => {
     router.push({
@@ -89,7 +56,9 @@ export function EpisodeChapterRail({
               onPress={() => goToArc(idx)}
               onHoverOut={clearHover}
               // @ts-expect-error react-native-web forwards onMouseMove to the DOM
-              onMouseMove={(e: MouseLike) => moveTo(label, color, '#000', e)}
+              onMouseMove={(e: MouseLike) =>
+                moveTo({ label, color, textColor: '#000' }, e)
+              }
               style={({ hovered, pressed }: PressableState) => [
                 styles.bar,
                 {
@@ -122,7 +91,9 @@ export function EpisodeChapterRail({
               onPress={() => goToArc(idx)}
               onHoverOut={clearHover}
               // @ts-expect-error react-native-web forwards onMouseMove to the DOM
-              onMouseMove={(e: MouseLike) => moveTo(label, bg, popoverTextColor, e)}
+              onMouseMove={(e: MouseLike) =>
+                moveTo({ label, color: bg, textColor: popoverTextColor }, e)
+              }
               style={({ hovered, pressed }: PressableState) => [
                 styles.bar,
                 {
@@ -147,28 +118,7 @@ export function EpisodeChapterRail({
         )}
       </View>
 
-      {hover && (
-        <View
-          pointerEvents="none"
-          style={[
-            styles.popover,
-            {
-              backgroundColor: hover.color,
-              transform: [
-                { translateX: hover.x + 14 },
-                { translateY: hover.y + 14 },
-              ],
-            },
-          ]}
-        >
-          <Text
-            style={[styles.popoverText, { color: hover.textColor }]}
-            numberOfLines={1}
-          >
-            {hover.label}
-          </Text>
-        </View>
-      )}
+      <HoverLabel hover={hover} />
     </View>
   );
 }
@@ -213,20 +163,6 @@ const styles = StyleSheet.create({
   },
   unadaptedBarText: {
     color: '#9aa0a6',
-    fontSize: 13,
-    letterSpacing: -0.2,
-    fontFamily: FONT.bold,
-  },
-  popover: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    maxWidth: 320,
-    zIndex: 100,
-  },
-  popoverText: {
     fontSize: 13,
     letterSpacing: -0.2,
     fontFamily: FONT.bold,
