@@ -2,6 +2,11 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import type { PressableState, SeriesMapping } from '@/types';
 import { FONT } from '@/theme';
+import {
+  useProgress,
+  useSeriesProgress,
+  type ProgressSide,
+} from '@/state/progress';
 import { HoverLabel, useHoverLabel, type MouseLike } from './HoverLabel';
 
 const COLORS = [
@@ -10,24 +15,35 @@ const COLORS = [
 ];
 
 const BAR_HEIGHT = 44;
+const LONG_PRESS_MS = 320;
 
 export function EpisodeChapterRail({
   mapping,
   seriesId,
   totalChapters,
+  onMarked,
 }: {
   mapping: SeriesMapping;
   seriesId: string;
   totalChapters?: number | null;
+  onMarked?: (side: ProgressSide, position: number) => void;
 }) {
   const router = useRouter();
   const { containerRef, hover, moveTo, clearHover } = useHoverLabel();
+  const routeId = Number(seriesId);
+  const setSide = useProgress((s) => s.setSide);
+  const progress = useSeriesProgress(routeId);
 
   const goToArc = (arcIdx: number) => {
     router.push({
       pathname: '/series/[id]/arc/[arcIdx]',
       params: { id: seriesId, arcIdx: String(arcIdx) },
     });
+  };
+
+  const markSide = (side: ProgressSide, position: number) => {
+    setSide(routeId, side, position);
+    onMarked?.(side, position);
   };
 
   const hasUnadapted = mapping.mappings.some((m) => !m.episodes);
@@ -39,6 +55,23 @@ export function EpisodeChapterRail({
     typeof totalChapters === 'number' &&
     totalChapters > maxCoveredChapter;
   const tailSpan = showTail ? totalChapters! - maxCoveredChapter : 0;
+
+  const animeTotal = mapping.mappings.reduce(
+    (acc, m) => (m.episodes ? Math.max(acc, m.episodes[1]) : acc),
+    0
+  );
+  const mangaTotal = showTail
+    ? totalChapters!
+    : maxCoveredChapter;
+
+  const animeFrac =
+    progress?.anime && animeTotal > 0
+      ? Math.min(progress.anime.position, animeTotal) / animeTotal
+      : null;
+  const mangaFrac =
+    progress?.manga && mangaTotal > 0
+      ? Math.min(progress.manga.position, mangaTotal) / mangaTotal
+      : null;
 
   return (
     <View ref={containerRef} style={styles.container}>
@@ -53,7 +86,9 @@ export function EpisodeChapterRail({
           return (
             <Pressable
               key={`ep-${idx}`}
-              onPress={() => goToArc(idx)}
+              onPress={() => markSide('anime', eps[1])}
+              onLongPress={() => goToArc(idx)}
+              delayLongPress={LONG_PRESS_MS}
               onHoverOut={clearHover}
               // @ts-expect-error react-native-web forwards onMouseMove to the DOM
               onMouseMove={(e: MouseLike) =>
@@ -74,6 +109,7 @@ export function EpisodeChapterRail({
             </Pressable>
           );
         })}
+        {animeFrac !== null && <ProgressOverlay frac={animeFrac} />}
       </View>
 
       <Text style={styles.label}>Manga chapters →</Text>
@@ -88,7 +124,9 @@ export function EpisodeChapterRail({
           return (
             <Pressable
               key={`ch-${idx}`}
-              onPress={() => goToArc(idx)}
+              onPress={() => markSide('manga', m.chapters[1])}
+              onLongPress={() => goToArc(idx)}
+              delayLongPress={LONG_PRESS_MS}
               onHoverOut={clearHover}
               // @ts-expect-error react-native-web forwards onMouseMove to the DOM
               onMouseMove={(e: MouseLike) =>
@@ -116,9 +154,31 @@ export function EpisodeChapterRail({
             </Text>
           </View>
         )}
+        {mangaFrac !== null && <ProgressOverlay frac={mangaFrac} />}
       </View>
 
+      <Text style={styles.hint}>Tap to mark · Long-press to open arc</Text>
+
       <HoverLabel hover={hover} />
+    </View>
+  );
+}
+
+function ProgressOverlay({ frac }: { frac: number }) {
+  return (
+    <View pointerEvents="none" style={StyleSheet.absoluteFill}>
+      <View
+        style={[
+          styles.unconsumedOverlay,
+          { left: `${frac * 100}%`, right: 0 },
+        ]}
+      />
+      <View
+        style={[
+          styles.progressMarker,
+          { left: `${frac * 100}%` },
+        ]}
+      />
     </View>
   );
 }
@@ -133,12 +193,21 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontFamily: FONT.semibold,
   },
+  hint: {
+    color: '#6b7177',
+    fontSize: 11,
+    letterSpacing: 1,
+    paddingTop: 4,
+    textTransform: 'uppercase',
+    fontFamily: FONT.semibold,
+  },
   rail: {
     flexDirection: 'row',
     height: BAR_HEIGHT,
     width: '100%',
     backgroundColor: '#1a1a1a',
     overflow: 'hidden',
+    position: 'relative',
   },
   bar: {
     height: BAR_HEIGHT,
@@ -166,5 +235,18 @@ const styles = StyleSheet.create({
     fontSize: 13,
     letterSpacing: -0.2,
     fontFamily: FONT.bold,
+  },
+  unconsumedOverlay: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(12,12,14,0.55)',
+  },
+  progressMarker: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    width: 2,
+    backgroundColor: '#f5f5f5',
   },
 });
