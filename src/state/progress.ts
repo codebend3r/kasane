@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
@@ -83,16 +84,20 @@ export type InProgressEntry = {
   updatedAt: number;
 };
 
-export const useInProgressEntries = (): InProgressEntry[] =>
-  useProgress((s) =>
-    Object.entries(s.byRouteId)
-      .map(([id, progress]) => ({
-        routeId: Number(id),
-        progress,
-        updatedAt: Math.max(
-          progress.anime?.updatedAt ?? 0,
-          progress.manga?.updatedAt ?? 0
-        ),
-      }))
-      .sort((a, b) => b.updatedAt - a.updatedAt)
+export const useInProgressEntries = (): InProgressEntry[] => {
+  const byRouteId = useProgress((s) => s.byRouteId);
+  return useMemo(
+    () =>
+      Object.entries(byRouteId)
+        .map(([id, progress]) => ({
+          routeId: Number(id),
+          progress,
+          updatedAt: Math.max(
+            progress.anime?.updatedAt ?? 0,
+            progress.manga?.updatedAt ?? 0
+          ),
+        }))
+        .sort((a, b) => b.updatedAt - a.updatedAt),
+    [byRouteId]
   );
+};
