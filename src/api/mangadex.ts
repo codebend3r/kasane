@@ -70,6 +70,52 @@ async function searchByTitle(title: string): Promise<MangaDexRecord[]> {
   return data.data;
 }
 
+// Re-prints and color editions on MangaDex often own the AniList link even when
+// the main series doesn't. Detect them in the primary title so the matcher can
+// fall through to the main entry when the user's preferred title is plain.
+const EDITION_MARKER_REGEX =
+  /\b(?:official\s+)?(?:colou?red|deluxe|anniversary|box[\s-]*set|reprint|complete\s+edition|kanzenban|aizoban|bunkoban|full[\s-]?colou?r|colou?r|special\s+edition|hardcover|remaster(?:ed)?)\b/i;
+
+function primaryTitle(record: MangaDexRecord): string {
+  const t = record.attributes.title;
+  return t.en ?? t['ja-ro'] ?? t.ja ?? Object.values(t)[0] ?? '';
+}
+
+function normalizeTitle(s: string): string {
+  return s
+    .toLowerCase()
+    .replace(/[‐-―]/g, '-')
+    .replace(/[^\w\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+export function pickBestMatch(
+  candidates: MangaDexRecord[],
+  anilistId: number,
+  preferredTitle: string
+): MangaDexRecord | null {
+  const target = normalizeTitle(preferredTitle);
+  const preferredHasMarker = EDITION_MARKER_REGEX.test(preferredTitle);
+  const scored = candidates.map((c) => {
+    const title = primaryTitle(c);
+    return {
+      record: c,
+      alMatch:
+        !!c.attributes.links?.al && Number(c.attributes.links.al) === anilistId,
+      titleExact: normalizeTitle(title) === target,
+      penalized: !preferredHasMarker && EDITION_MARKER_REGEX.test(title),
+    };
+  });
+  return (
+    scored.find((s) => s.alMatch && !s.penalized)?.record ??
+    scored.find((s) => s.titleExact && !s.penalized)?.record ??
+    scored.find((s) => s.alMatch)?.record ??
+    scored.find((s) => s.titleExact)?.record ??
+    null
+  );
+}
+
 const COVER_PAGE_SIZE = 100;
 const COVER_MAX_PAGES = 5;
 
@@ -114,10 +160,7 @@ export async function getMangaDexInfoByAniListId(
   preferredTitle: string
 ): Promise<MangaDexInfo | null> {
   const candidates = await searchByTitle(preferredTitle);
-  const match = candidates.find((c) => {
-    const al = c.attributes.links?.al ?? null;
-    return !!al && Number(al) === anilistId;
-  });
+  const match = pickBestMatch(candidates, anilistId, preferredTitle);
   if (!match) return null;
 
   const [covers, aggregate] = await Promise.all([
