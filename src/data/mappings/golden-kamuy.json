@@ -29,5 +29,15 @@
       "chapters": [301, 314],
       "arc": "Final Arc Conclusion (unadapted; sequel announced)"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 196115,
+      "title": "Golden Kamuy: Sapporo Beer Koujou-hen",
+      "year": 2025,
+      "chapters": [301, 314],
+      "afterEpisode": 62,
+      "note": "Continuation film adapting the Sapporo Beer Factory portion of the final arc (range approximate)."
+    }
   ]
 }
