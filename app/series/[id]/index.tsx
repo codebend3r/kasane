@@ -199,6 +199,10 @@ export default function SeriesDetail() {
   }
   if (showAnimeStats) {
     subParts.push(`${totalEpisodes ?? "?"} eps`);
+    const totalMovies = curatedMapping?.movies?.length ?? 0;
+    if (totalMovies > 0) {
+      subParts.push(`${totalMovies} ${totalMovies === 1 ? "movie" : "movies"}`);
+    }
   }
   if (primary.format) subParts.push(primary.format);
   if (primary.startDate.year) {
