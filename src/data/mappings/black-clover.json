@@ -43,5 +43,14 @@
       "arc": "Spade Kingdom Raid"
     },
     { "chapters": [332, 392], "arc": "Judgment Day (Final Arc)" }
+  ],
+  "movies": [
+    {
+      "anilistId": 131680,
+      "title": "Black Clover: Sword of the Wizard King",
+      "year": 2023,
+      "afterEpisode": 170,
+      "note": "Canon side-story film set after the Spade Kingdom arc."
+    }
   ]
 }
