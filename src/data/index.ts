@@ -89,6 +89,7 @@ import madokaMagica from '@/data/mappings/madoka-magica.json';
 import reZero from '@/data/mappings/re-zero.json';
 import mushokuTensei from '@/data/mappings/mushoku-tensei.json';
 import overlord from '@/data/mappings/overlord.json';
+import tensura from '@/data/mappings/tensura.json';
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -218,6 +219,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   reZero,
   mushokuTensei,
   overlord,
+  tensura,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
