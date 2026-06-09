@@ -34,5 +34,20 @@
     { "episodes": [234, 265], "chapters": [417, 466], "arc": "Tartaros" },
     { "episodes": [278, 284], "chapters": [467, 486], "arc": "Avatar" },
     { "episodes": [285, 328], "chapters": [487, 549], "arc": "Alvarez Empire" }
+  ],
+  "movies": [
+    {
+      "anilistId": 12049,
+      "title": "Fairy Tail: Phoenix Priestess",
+      "year": 2012,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 21191,
+      "title": "Fairy Tail: Dragon Cry",
+      "year": 2017,
+      "afterEpisode": 277,
+      "note": "Canon side-story film between the 2014 series and the Final Series."
+    }
   ]
 }
