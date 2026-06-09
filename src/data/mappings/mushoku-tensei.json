@@ -1,0 +1,13 @@
+{
+  "anilistAnimeId": 108465,
+  "anilistMangaId": 85470,
+  "title": "Mushoku Tensei: Jobless Reincarnation",
+  "sourceNotes": "Cumulative episodes across S1 Part 1 (11) + S1 Part 2 (12, eps 12-23) + S2 (25, eps 24-48). Manga complete at 334 chapters (Yuka Fujikawa adaptation). Both the anime and the manga follow the light novel; pacing differs. Per-arc chapter boundaries approximate.",
+  "mappings": [
+    { "episodes": [1, 11], "chapters": [1, 60], "arc": "Infant Period (Rudeus's New Life)" },
+    { "episodes": [12, 23], "chapters": [61, 130], "arc": "Juvenile Period (Demon Continent / Eris)" },
+    { "episodes": [24, 36], "chapters": [131, 200], "arc": "Adolescent Period (Magic University Beginning)" },
+    { "episodes": [37, 48], "chapters": [201, 260], "arc": "Adolescent Period (Magic University Continuing)" },
+    { "chapters": [261, 334], "arc": "Final Arc (unadapted)" }
+  ]
+}
