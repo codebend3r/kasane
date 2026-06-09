@@ -104,6 +104,7 @@ import bakemonogatari from '@/data/mappings/bakemonogatari.json';
 import durarara from '@/data/mappings/durarara.json';
 import toaruMajutsuNoIndex from '@/data/mappings/toaru-majutsu-no-index.json';
 import spiceAndWolf from '@/data/mappings/spice-and-wolf.json';
+import quintessentialQuintuplets from '@/data/mappings/quintessential-quintuplets.json';
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -248,6 +249,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   durarara,
   toaruMajutsuNoIndex,
   spiceAndWolf,
+  quintessentialQuintuplets,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
