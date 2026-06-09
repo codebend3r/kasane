@@ -79,6 +79,7 @@ import parasyte from '@/data/mappings/parasyte.json';
 import goblinSlayer from '@/data/mappings/goblin-slayer.json';
 import deathNote from '@/data/mappings/death-note.json';
 import codeGeass from '@/data/mappings/code-geass.json';
+import steinsGate from '@/data/mappings/steins-gate.json';
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -198,6 +199,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   goblinSlayer,
   deathNote,
   codeGeass,
+  steinsGate,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {

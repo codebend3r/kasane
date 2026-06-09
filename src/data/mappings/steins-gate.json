@@ -1,0 +1,10 @@
+{
+  "anilistAnimeId": 9253,
+  "anilistMangaId": 47517,
+  "title": "Steins;Gate",
+  "sourceNotes": "24-episode 2011 anime adapts the 2009 visual novel; both anime and the Yomi Sarachi manga retelling (23 chapters / 2 vols) share the same source story. Pacing differs noticeably between adaptations. Steins;Gate 0 (2018 anime + 2017 manga, 41 ch) is a separate parallel-timeline sequel with its own AniList entries.",
+  "mappings": [
+    { "episodes": [1, 12], "chapters": [1, 12], "arc": "α-World Line (SERN, IBN 5100, time-leap experiments)" },
+    { "episodes": [13, 24], "chapters": [13, 23], "arc": "β-World Line (Mayuri's fate, Suzuha, finale)" }
+  ]
+}
