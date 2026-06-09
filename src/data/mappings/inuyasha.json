@@ -1,0 +1,13 @@
+{
+  "anilistAnimeId": 249,
+  "anilistMangaId": 30676,
+  "title": "InuYasha",
+  "sourceNotes": "Cumulative episodes across the original 2000-2004 anime (167 eps, manga vols 1-36 with interleaved filler) + The Final Act (26 eps, vols 34-56). Manga complete at 558 chapters. The original series's arc boundaries are loose because of interleaved filler; ranges below approximate the dominant manga material per anime block. The Final Act is a faithful, filler-free adaptation of the closing arcs.",
+  "mappings": [
+    { "episodes": [1, 32], "chapters": [1, 60], "arc": "Shikon Jewel Quest / Introduction" },
+    { "episodes": [33, 100], "chapters": [61, 212], "arc": "Naraku and the Shard Hunt" },
+    { "episodes": [101, 138], "chapters": [213, 294], "arc": "Band of Seven / Shichinintai" },
+    { "episodes": [139, 167], "chapters": [295, 336], "arc": "Mount Hakurei / Naraku's Body" },
+    { "episodes": [168, 193], "chapters": [337, 558], "arc": "The Final Act" }
+  ]
+}
