@@ -1,0 +1,9 @@
+{
+  "anilistAnimeId": 6,
+  "anilistMangaId": 30703,
+  "title": "Trigun",
+  "sourceNotes": "Original 1998 anime (26 eps) loosely adapts Trigun manga (3 vols / 23 chapters) in eps 1-13, then continues with anime-original material inspired by early Trigun Maximum. The Trigun Maximum sequel manga (AniList id 30704, 14 vols / 104 ch) is not covered here. Trigun Stampede (2023) and Trigun Stargaze (2026) are separate CGI re-adaptations.",
+  "mappings": [
+    { "episodes": [1, 13], "chapters": [1, 23], "arc": "Vash the Stampede (Trigun manga vol 1-3)" }
+  ]
+}

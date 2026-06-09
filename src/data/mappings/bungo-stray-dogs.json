@@ -1,0 +1,15 @@
+{
+  "anilistAnimeId": 21311,
+  "anilistMangaId": 85307,
+  "title": "Bungo Stray Dogs",
+  "sourceNotes": "Cumulative episodes across S1 (12) + S2 (12, eps 13-24) + S3 (12, eps 25-36) + S4 (13, eps 37-49) + S5 (11, eps 50-60) = 60 total. Manga ongoing (~110+ chapters / 28 volumes as of 2026). S3 ends at ch 53; S5 picks up at ch 78. Arc chapter boundaries approximate — refine via PR.",
+  "mappings": [
+    { "episodes": [1, 3], "chapters": [1, 7], "arc": "Azure Apostle" },
+    { "episodes": [4, 12], "chapters": [8, 21], "arc": "Port Mafia / Kyouka" },
+    { "episodes": [13, 16], "chapters": [22, 26], "arc": "Dark Era (Prequel)" },
+    { "episodes": [17, 24], "chapters": [27, 41], "arc": "Guild Arc" },
+    { "episodes": [25, 36], "chapters": [42, 53], "arc": "Cannibalism / Guild Aftermath" },
+    { "episodes": [37, 49], "chapters": [54, 77], "arc": "Hunting Dogs / Decay of Angels Setup" },
+    { "episodes": [50, 60], "chapters": [78, 110], "arc": "Kamui Revelation / Vampire Outbreak" }
+  ]
+}

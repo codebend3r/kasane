@@ -1,0 +1,13 @@
+{
+  "anilistAnimeId": 30,
+  "anilistMangaId": 30698,
+  "title": "Neon Genesis Evangelion",
+  "sourceNotes": "26-episode 1995 anime paired with Yoshiyuki Sadamoto's manga (97 chapters / 14 vols, 1994-2013). Both ran concurrently from the same original concept; the manga diverges substantially in later volumes, retelling much of the End of Evangelion material in its own way. Episode-to-chapter pacing is approximate.",
+  "mappings": [
+    { "episodes": [1, 6], "chapters": [1, 14], "arc": "Sachiel → Ramiel (Angel Encounters Begin)" },
+    { "episodes": [7, 13], "chapters": [15, 32], "arc": "Asuka Arrives / Israfel / Bardiel" },
+    { "episodes": [14, 19], "chapters": [33, 56], "arc": "Zeruel / NERV's Secrets" },
+    { "episodes": [20, 24], "chapters": [57, 78], "arc": "Armisael / Tabris" },
+    { "episodes": [25, 26], "chapters": [79, 97], "arc": "Instrumentality (anime: 25-26; manga: extended through Vol 14)" }
+  ]
+}

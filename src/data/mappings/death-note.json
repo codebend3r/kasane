@@ -1,0 +1,11 @@
+{
+  "anilistAnimeId": 1535,
+  "anilistMangaId": 30021,
+  "title": "Death Note",
+  "sourceNotes": "37-episode 2006-2007 anime (Madhouse) is a faithful adaptation of the full Death Note manga (12 vols / 108 chapters, 2003-2006). Both complete.",
+  "mappings": [
+    { "episodes": [1, 7], "chapters": [1, 19], "arc": "Introduction / Light vs L's Investigation" },
+    { "episodes": [8, 25], "chapters": [20, 58], "arc": "Yotsuba / L's Death" },
+    { "episodes": [26, 37], "chapters": [59, 108], "arc": "Near & Mello / Finale" }
+  ]
+}

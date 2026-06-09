@@ -1,0 +1,9 @@
+{
+  "anilistAnimeId": 205,
+  "anilistMangaId": 30512,
+  "title": "Samurai Champloo",
+  "sourceNotes": "Anime-original 2004 series (26 eps, Manglobe). Paired with the Masaru Gotsubo manga (10 chapters / 2 vols, 2004) which adapts select scenes. No tight chapter-to-episode correspondence; the anime is the canonical telling.",
+  "mappings": [
+    { "episodes": [1, 26], "chapters": [1, 10], "arc": "Loose adaptation (no per-arc alignment)" }
+  ]
+}

@@ -59,6 +59,56 @@ import sakamotoDays from '@/data/mappings/sakamoto-days.json';
 import kaijuNo8 from '@/data/mappings/kaiju-no-8.json';
 import beastars from '@/data/mappings/beastars.json';
 import goldenKamuy from '@/data/mappings/golden-kamuy.json';
+import bleach from '@/data/mappings/bleach.json';
+import yuYuHakusho from '@/data/mappings/yu-yu-hakusho.json';
+import rurouniKenshin from '@/data/mappings/rurouni-kenshin.json';
+import inuyasha from '@/data/mappings/inuyasha.json';
+import fairyTail from '@/data/mappings/fairy-tail.json';
+import sevenDeadlySins from '@/data/mappings/seven-deadly-sins.json';
+import dgrayMan from '@/data/mappings/dgray-man.json';
+import magi from '@/data/mappings/magi.json';
+import akameGaKill from '@/data/mappings/akame-ga-kill.json';
+import yonaOfTheDawn from '@/data/mappings/yona-of-the-dawn.json';
+import jojoStardustCrusaders from '@/data/mappings/jojo-stardust-crusaders.json';
+import tokyoGhoul from '@/data/mappings/tokyo-ghoul.json';
+import bungoStrayDogs from '@/data/mappings/bungo-stray-dogs.json';
+import hellsingUltimate from '@/data/mappings/hellsing-ultimate.json';
+import blackButler from '@/data/mappings/black-butler.json';
+import trigun from '@/data/mappings/trigun.json';
+import parasyte from '@/data/mappings/parasyte.json';
+import goblinSlayer from '@/data/mappings/goblin-slayer.json';
+import deathNote from '@/data/mappings/death-note.json';
+import codeGeass from '@/data/mappings/code-geass.json';
+import steinsGate from '@/data/mappings/steins-gate.json';
+import psychoPass from '@/data/mappings/psycho-pass.json';
+import neonGenesisEvangelion from '@/data/mappings/neon-genesis-evangelion.json';
+import cowboyBebop from '@/data/mappings/cowboy-bebop.json';
+import samuraiChamploo from '@/data/mappings/samurai-champloo.json';
+import eightySix from '@/data/mappings/86-eighty-six.json';
+import madokaMagica from '@/data/mappings/madoka-magica.json';
+import reZero from '@/data/mappings/re-zero.json';
+import mushokuTensei from '@/data/mappings/mushoku-tensei.json';
+import overlord from '@/data/mappings/overlord.json';
+import tensura from '@/data/mappings/tensura.json';
+import shieldHero from '@/data/mappings/shield-hero.json';
+import konosuba from '@/data/mappings/konosuba.json';
+import noGameNoLife from '@/data/mappings/no-game-no-life.json';
+import logHorizon from '@/data/mappings/log-horizon.json';
+import tanyaTheEvil from '@/data/mappings/tanya-the-evil.json';
+import eminenceInShadow from '@/data/mappings/eminence-in-shadow.json';
+import soloLeveling from '@/data/mappings/solo-leveling.json';
+import swordArtOnline from '@/data/mappings/sword-art-online.json';
+import fateZero from '@/data/mappings/fate-zero.json';
+import fateStayNight from '@/data/mappings/fate-stay-night.json';
+import bakemonogatari from '@/data/mappings/bakemonogatari.json';
+import durarara from '@/data/mappings/durarara.json';
+import toaruMajutsuNoIndex from '@/data/mappings/toaru-majutsu-no-index.json';
+import spiceAndWolf from '@/data/mappings/spice-and-wolf.json';
+import quintessentialQuintuplets from '@/data/mappings/quintessential-quintuplets.json';
+import slamDunk from '@/data/mappings/slam-dunk.json';
+import cardcaptorSakura from '@/data/mappings/cardcaptor-sakura.json';
+import yugiohDuelMonsters from '@/data/mappings/yugioh-duel-monsters.json';
+import digimonAdventure from '@/data/mappings/digimon-adventure.json';
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -158,6 +208,56 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   kaijuNo8,
   beastars,
   goldenKamuy,
+  bleach,
+  yuYuHakusho,
+  rurouniKenshin,
+  inuyasha,
+  fairyTail,
+  sevenDeadlySins,
+  dgrayMan,
+  magi,
+  akameGaKill,
+  yonaOfTheDawn,
+  jojoStardustCrusaders,
+  tokyoGhoul,
+  bungoStrayDogs,
+  hellsingUltimate,
+  blackButler,
+  trigun,
+  parasyte,
+  goblinSlayer,
+  deathNote,
+  codeGeass,
+  steinsGate,
+  psychoPass,
+  neonGenesisEvangelion,
+  cowboyBebop,
+  samuraiChamploo,
+  eightySix,
+  madokaMagica,
+  reZero,
+  mushokuTensei,
+  overlord,
+  tensura,
+  shieldHero,
+  konosuba,
+  noGameNoLife,
+  logHorizon,
+  tanyaTheEvil,
+  eminenceInShadow,
+  soloLeveling,
+  swordArtOnline,
+  fateZero,
+  fateStayNight,
+  bakemonogatari,
+  durarara,
+  toaruMajutsuNoIndex,
+  spiceAndWolf,
+  quintessentialQuintuplets,
+  slamDunk,
+  cardcaptorSakura,
+  yugiohDuelMonsters,
+  digimonAdventure,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {

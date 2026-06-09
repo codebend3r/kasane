@@ -1,0 +1,12 @@
+{
+  "anilistAnimeId": 20832,
+  "anilistMangaId": 85934,
+  "title": "Overlord",
+  "sourceNotes": "Cumulative episodes across S1 (13) + S2 (13, eps 14-26) + S3 (13, eps 27-39) + S4 (13, eps 40-52) = 52 total. Paired with the Satoshi Ōshio manga adaptation (83 ch). Both anime and manga adapt the same Kugane Maruyama light novel. Per-arc chapter boundaries approximate.",
+  "mappings": [
+    { "episodes": [1, 13], "chapters": [1, 20], "arc": "The Undead King (S1: Carne Village / E-Rantel)" },
+    { "episodes": [14, 26], "chapters": [21, 38], "arc": "The Dark Warrior (S2: Lizardmen / Re-Estize)" },
+    { "episodes": [27, 39], "chapters": [39, 60], "arc": "The Bloody Valkyrie (S3: Carne Defense / Jaldabaoth)" },
+    { "episodes": [40, 52], "chapters": [61, 83], "arc": "The Ruler of Conspiracy (S4: Holy Kingdom / Re-Estize Invasion)" }
+  ]
+}

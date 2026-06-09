@@ -1,0 +1,12 @@
+{
+  "anilistAnimeId": 392,
+  "anilistMangaId": 30053,
+  "title": "Yu Yu Hakusho",
+  "sourceNotes": "Anime complete at 112 episodes (1992-1995). Manga complete at 176 chapters (1990-1994). Four canonical sagas; anime is a faithful adaptation.",
+  "mappings": [
+    { "episodes": [1, 25], "chapters": [1, 51], "arc": "Spirit Detective Saga" },
+    { "episodes": [26, 66], "chapters": [52, 112], "arc": "Dark Tournament Saga" },
+    { "episodes": [67, 94], "chapters": [113, 153], "arc": "Chapter Black Saga" },
+    { "episodes": [95, 112], "chapters": [154, 176], "arc": "Three Kings Saga" }
+  ]
+}
