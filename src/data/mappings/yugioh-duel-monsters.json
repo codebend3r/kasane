@@ -25,5 +25,26 @@
       "chapters": [281, 343],
       "arc": "Millennium World / Memory World"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 1894,
+      "title": "Yu-Gi-Oh! The Movie: Pyramid of Light",
+      "year": 2004,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 6951,
+      "title": "Yu-Gi-Oh!: Bonds Beyond Time",
+      "year": 2010,
+      "note": "Crossover film with GX and 5D's."
+    },
+    {
+      "anilistId": 21265,
+      "title": "Yu-Gi-Oh!: The Dark Side of Dimensions",
+      "year": 2016,
+      "afterEpisode": 224,
+      "note": "Canon sequel film set after the manga's ending."
+    }
   ]
 }
