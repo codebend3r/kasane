@@ -108,6 +108,7 @@ import quintessentialQuintuplets from '@/data/mappings/quintessential-quintuplet
 import slamDunk from '@/data/mappings/slam-dunk.json';
 import cardcaptorSakura from '@/data/mappings/cardcaptor-sakura.json';
 import yugiohDuelMonsters from '@/data/mappings/yugioh-duel-monsters.json';
+import digimonAdventure from '@/data/mappings/digimon-adventure.json';
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -256,6 +257,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   slamDunk,
   cardcaptorSakura,
   yugiohDuelMonsters,
+  digimonAdventure,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
