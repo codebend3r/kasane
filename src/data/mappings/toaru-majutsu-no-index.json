@@ -19,5 +19,14 @@
       "chapters": [81, 132],
       "arc": "S3: World War III / God's Right Seat"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 11743,
+      "title": "A Certain Magical Index: The Movie - The Miracle of Endymion",
+      "year": 2013,
+      "afterEpisode": 48,
+      "note": "Side story (anime-original)."
+    }
   ]
 }
