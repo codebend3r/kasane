@@ -1,6 +1,7 @@
 import type {
   AniListMedia,
   MappingEntry,
+  MovieEntry,
   RelationEdge,
   SeriesEntry,
   SeriesMapping,
@@ -119,12 +120,21 @@ type RawEntry = {
   season?: number;
   note?: string;
 };
+type RawMovie = {
+  anilistId: number;
+  title: string;
+  year: number;
+  chapters?: number[];
+  afterEpisode?: number;
+  note?: string;
+};
 type RawMapping = {
   anilistAnimeId: number;
   anilistMangaId: number;
   title: string;
   sourceNotes?: string;
   mappings: RawEntry[];
+  movies?: RawMovie[];
 };
 
 function normalizeEntry(e: RawEntry): MappingEntry {
@@ -147,6 +157,22 @@ function normalizeEntry(e: RawEntry): MappingEntry {
   };
 }
 
+function normalizeMovie(m: RawMovie): MovieEntry {
+  if (m.chapters && m.chapters.length !== 2) {
+    throw new Error(
+      `movie entry chapters must be a 2-tuple: ${JSON.stringify(m)}`,
+    );
+  }
+  return {
+    anilistId: m.anilistId,
+    title: m.title,
+    year: m.year,
+    chapters: m.chapters ? [m.chapters[0], m.chapters[1]] : undefined,
+    afterEpisode: m.afterEpisode,
+    note: m.note,
+  };
+}
+
 function normalizeMapping(m: RawMapping): SeriesMapping {
   return {
     anilistAnimeId: m.anilistAnimeId,
@@ -154,6 +180,7 @@ function normalizeMapping(m: RawMapping): SeriesMapping {
     title: m.title,
     sourceNotes: m.sourceNotes,
     mappings: m.mappings.map(normalizeEntry),
+    movies: m.movies?.map(normalizeMovie) ?? undefined,
   };
 }
 
