@@ -67,6 +67,7 @@ import fairyTail from '@/data/mappings/fairy-tail.json';
 import sevenDeadlySins from '@/data/mappings/seven-deadly-sins.json';
 import dgrayMan from '@/data/mappings/dgray-man.json';
 import magi from '@/data/mappings/magi.json';
+import akameGaKill from '@/data/mappings/akame-ga-kill.json';
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -174,6 +175,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   sevenDeadlySins,
   dgrayMan,
   magi,
+  akameGaKill,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
