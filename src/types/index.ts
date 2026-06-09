@@ -59,11 +59,21 @@ export type MappingEntry = {
   note?: string;
 };
 
+export type MovieEntry = {
+  anilistId: number;
+  title: string;
+  year: number;
+  chapters?: [number, number];
+  afterEpisode?: number;
+  note?: string;
+};
+
 export type SeriesMapping = {
   anilistAnimeId: number;
   anilistMangaId: number;
   title: string;
   mappings: MappingEntry[];
+  movies?: MovieEntry[];
   sourceNotes?: string;
 };
 
