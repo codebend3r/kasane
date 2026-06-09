@@ -24,5 +24,14 @@
       "chapters": [61, 83],
       "arc": "The Ruler of Conspiracy (S4: Holy Kingdom / Re-Estize Invasion)"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 133845,
+      "title": "Overlord: The Sacred Kingdom",
+      "year": 2024,
+      "afterEpisode": 52,
+      "note": "Canon film adapting the Holy Kingdom arc (LN vols 12-13)."
+    }
   ]
 }
