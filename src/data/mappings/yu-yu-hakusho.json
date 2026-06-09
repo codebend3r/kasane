@@ -20,5 +20,19 @@
       "arc": "Chapter Black Saga"
     },
     { "episodes": [95, 112], "chapters": [154, 176], "arc": "Three Kings Saga" }
+  ],
+  "movies": [
+    {
+      "anilistId": 882,
+      "title": "Yu Yu Hakusho: The Movie",
+      "year": 1993,
+      "note": "Theatrical side story."
+    },
+    {
+      "anilistId": 883,
+      "title": "Yu Yu Hakusho the Movie: Poltergeist Report",
+      "year": 1994,
+      "note": "Theatrical side story."
+    }
   ]
 }
