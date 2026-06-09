@@ -4,13 +4,13 @@
   "title": "Noragami",
   "sourceNotes": "Cumulative episodes across Noragami S1 (12) + Noragami Aragoto S2 (13). Manga complete at 109 chapters; anime only adapted through ch ~38, so most arcs are unadapted. Arc boundaries from Noragami Wiki (arc names are unofficial except Final Arc).",
   "mappings": [
-    { "episodes": [1, 12],  "chapters": [1, 11],     "arc": "Yukine Arc" },
-    { "episodes": [13, 18], "chapters": [12, 24],    "arc": "Bishamonten Arc" },
-    { "episodes": [19, 25], "chapters": [25, 38],    "arc": "Ebisu Arc" },
-    { "chapters": [39, 54],                          "arc": "Yomi Arc" },
-    { "chapters": [55, 72],                          "arc": "Heaven Arc" },
-    { "chapters": [73, 91],                          "arc": "Stray Arc" },
-    { "chapters": [92, 99],                          "arc": "Crisis Arc" },
-    { "chapters": [100, 109],                        "arc": "Final Arc" }
+    { "episodes": [1, 12], "chapters": [1, 11], "arc": "Yukine Arc" },
+    { "episodes": [13, 18], "chapters": [12, 24], "arc": "Bishamonten Arc" },
+    { "episodes": [19, 25], "chapters": [25, 38], "arc": "Ebisu Arc" },
+    { "chapters": [39, 54], "arc": "Yomi Arc" },
+    { "chapters": [55, 72], "arc": "Heaven Arc" },
+    { "chapters": [73, 91], "arc": "Stray Arc" },
+    { "chapters": [92, 99], "arc": "Crisis Arc" },
+    { "chapters": [100, 109], "arc": "Final Arc" }
   ]
 }

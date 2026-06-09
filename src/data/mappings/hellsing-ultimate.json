@@ -4,15 +4,55 @@
   "title": "Hellsing Ultimate",
   "sourceNotes": "10-episode OVA series (2006-2012), each episode adapting one full manga volume. Manga complete at 92 chapters / 10 volumes. The earlier 2001 Hellsing TV series (id 270) is a separate anime with an anime-original ending and is not covered here. Per-OVA chapter ranges are estimated as ~9 chapters per volume.",
   "mappings": [
-    { "episodes": [1, 1], "chapters": [1, 9], "arc": "Volume 1: The Hellsing Organization" },
-    { "episodes": [2, 2], "chapters": [10, 19], "arc": "Volume 2: Order of the Knights of the Round Table" },
-    { "episodes": [3, 3], "chapters": [20, 28], "arc": "Volume 3: Letztes Bataillon" },
-    { "episodes": [4, 4], "chapters": [29, 37], "arc": "Volume 4: The Captain / Rip Van Winkle" },
-    { "episodes": [5, 5], "chapters": [38, 46], "arc": "Volume 5: London Raid Begins" },
-    { "episodes": [6, 6], "chapters": [47, 55], "arc": "Volume 6: Schrödinger" },
-    { "episodes": [7, 7], "chapters": [56, 64], "arc": "Volume 7: Anderson vs Alucard" },
-    { "episodes": [8, 8], "chapters": [65, 73], "arc": "Volume 8: Walter's Betrayal" },
-    { "episodes": [9, 9], "chapters": [74, 82], "arc": "Volume 9: The Major's Speech" },
-    { "episodes": [10, 10], "chapters": [83, 92], "arc": "Volume 10: Final Battle" }
+    {
+      "episodes": [1, 1],
+      "chapters": [1, 9],
+      "arc": "Volume 1: The Hellsing Organization"
+    },
+    {
+      "episodes": [2, 2],
+      "chapters": [10, 19],
+      "arc": "Volume 2: Order of the Knights of the Round Table"
+    },
+    {
+      "episodes": [3, 3],
+      "chapters": [20, 28],
+      "arc": "Volume 3: Letztes Bataillon"
+    },
+    {
+      "episodes": [4, 4],
+      "chapters": [29, 37],
+      "arc": "Volume 4: The Captain / Rip Van Winkle"
+    },
+    {
+      "episodes": [5, 5],
+      "chapters": [38, 46],
+      "arc": "Volume 5: London Raid Begins"
+    },
+    {
+      "episodes": [6, 6],
+      "chapters": [47, 55],
+      "arc": "Volume 6: Schrödinger"
+    },
+    {
+      "episodes": [7, 7],
+      "chapters": [56, 64],
+      "arc": "Volume 7: Anderson vs Alucard"
+    },
+    {
+      "episodes": [8, 8],
+      "chapters": [65, 73],
+      "arc": "Volume 8: Walter's Betrayal"
+    },
+    {
+      "episodes": [9, 9],
+      "chapters": [74, 82],
+      "arc": "Volume 9: The Major's Speech"
+    },
+    {
+      "episodes": [10, 10],
+      "chapters": [83, 92],
+      "arc": "Volume 10: Final Battle"
+    }
   ]
 }

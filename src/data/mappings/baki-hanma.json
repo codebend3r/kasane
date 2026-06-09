@@ -4,8 +4,16 @@
   "title": "Baki Hanma",
   "sourceNotes": "Cumulative eps 1-39 across Hanma Baki (2021, 12 eps) + Hanma Baki Season 2 (2023, 27 eps split into two 13/14-ep cours). Adapts the `Hanma Baki: Son of Ogre` manga (314 ch). Successor to `baki.json`; precedes `baki-dou` (Baki-Dou 2014 manga, anime adaptation aired 2026). Arc-level approximation.",
   "mappings": [
-    { "episodes": [1, 12],  "chapters": [1, 75],    "arc": "Pickle Wars (Prehistoric Era) Part 1" },
-    { "episodes": [13, 25], "chapters": [76, 148],  "arc": "Pickle Wars (Prehistoric Era) Part 2" },
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 75],
+      "arc": "Pickle Wars (Prehistoric Era) Part 1"
+    },
+    {
+      "episodes": [13, 25],
+      "chapters": [76, 148],
+      "arc": "Pickle Wars (Prehistoric Era) Part 2"
+    },
     { "episodes": [26, 39], "chapters": [149, 314], "arc": "Father vs Son" }
   ]
 }

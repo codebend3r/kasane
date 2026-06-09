@@ -4,10 +4,22 @@
   "title": "The Apothecary Diaries",
   "sourceNotes": "Cumulative episodes across S1 (24) + S2 (24). The anime restructures LN volumes; manga (99026) is the closer adaptation. Arc-level approximation.",
   "mappings": [
-    { "episodes": [1, 6],   "chapters": [1, 13],   "arc": "Inner Court Mysteries" },
-    { "episodes": [7, 14],  "chapters": [14, 32],  "arc": "Outer Court & Pyrotechnics" },
-    { "episodes": [15, 24], "chapters": [33, 55],  "arc": "Garden Party / Lakan's Plot" },
-    { "episodes": [25, 36], "chapters": [56, 78],  "arc": "Western Capital" },
-    { "episodes": [37, 48], "chapters": [79, 100], "arc": "Shrine Investigation" }
+    { "episodes": [1, 6], "chapters": [1, 13], "arc": "Inner Court Mysteries" },
+    {
+      "episodes": [7, 14],
+      "chapters": [14, 32],
+      "arc": "Outer Court & Pyrotechnics"
+    },
+    {
+      "episodes": [15, 24],
+      "chapters": [33, 55],
+      "arc": "Garden Party / Lakan's Plot"
+    },
+    { "episodes": [25, 36], "chapters": [56, 78], "arc": "Western Capital" },
+    {
+      "episodes": [37, 48],
+      "chapters": [79, 100],
+      "arc": "Shrine Investigation"
+    }
   ]
 }

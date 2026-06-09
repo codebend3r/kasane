@@ -4,7 +4,15 @@
   "title": "Spice and Wolf",
   "sourceNotes": "Cumulative episodes across S1 (13) + S2 (12, eps 14-25) = 25 total. Paired with the Keito Koume manga adaptation (108 chapters, finished). Both adapt the Isuna Hasekura light novel. The 2024 'Merchant Meets the Wise Wolf' reboot anime is a separate AniList entry.",
   "mappings": [
-    { "episodes": [1, 13], "chapters": [1, 50], "arc": "S1: First Journey (Wheat, Silver Coin)" },
-    { "episodes": [14, 25], "chapters": [51, 108], "arc": "S2: Amati / Diana Ruvik" }
+    {
+      "episodes": [1, 13],
+      "chapters": [1, 50],
+      "arc": "S1: First Journey (Wheat, Silver Coin)"
+    },
+    {
+      "episodes": [14, 25],
+      "chapters": [51, 108],
+      "arc": "S2: Amati / Diana Ruvik"
+    }
   ]
 }

@@ -11,6 +11,7 @@
 **Spec:** `docs/superpowers/specs/2026-05-28-genre-filters-design.md`
 
 **Per repo CLAUDE.md:**
+
 - All new types use `type`, never `interface`.
 - No `any`. Prefer type guards.
 - Layout via `display: grid`/`gap`/`padding`. **Never** add `margin`. (RN equivalent: `gap`, `rowGap`, `columnGap`, `padding`.)
@@ -71,6 +72,7 @@ EOF
 ## Task 2: Create genre filter catalog + pure helper (TDD)
 
 **Files:**
+
 - Create: `src/data/genreFilters.ts`
 - Create: `src/data/genreFilters.test.ts`
 
@@ -79,86 +81,83 @@ EOF
 Create `src/data/genreFilters.test.ts` with the full contents:
 
 ```ts
-import {
-  GENRE_FILTERS,
-  splitHiddenForAniList,
-} from './genreFilters';
+import { GENRE_FILTERS, splitHiddenForAniList } from "./genreFilters";
 
-describe('GENRE_FILTERS catalog', () => {
-  it('has 28 entries', () => {
+describe("GENRE_FILTERS catalog", () => {
+  it("has 28 entries", () => {
     expect(GENRE_FILTERS).toHaveLength(28);
   });
 
-  it('has unique ids', () => {
+  it("has unique ids", () => {
     const ids = GENRE_FILTERS.map((f) => f.id);
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it('has unique tokens within each kind', () => {
-    const genres = GENRE_FILTERS.filter((f) => f.kind === 'genre').map(
-      (f) => f.token
+  it("has unique tokens within each kind", () => {
+    const genres = GENRE_FILTERS.filter((f) => f.kind === "genre").map(
+      (f) => f.token,
     );
-    const tags = GENRE_FILTERS.filter((f) => f.kind === 'tag').map(
-      (f) => f.token
+    const tags = GENRE_FILTERS.filter((f) => f.kind === "tag").map(
+      (f) => f.token,
     );
     expect(new Set(genres).size).toBe(genres.length);
     expect(new Set(tags).size).toBe(tags.length);
   });
 
-  it('contains Ecchi as a genre', () => {
-    const ecchi = GENRE_FILTERS.find((f) => f.id === 'ecchi');
+  it("contains Ecchi as a genre", () => {
+    const ecchi = GENRE_FILTERS.find((f) => f.id === "ecchi");
     expect(ecchi).toEqual({
-      id: 'ecchi',
-      label: 'Ecchi',
-      kind: 'genre',
-      token: 'Ecchi',
+      id: "ecchi",
+      label: "Ecchi",
+      kind: "genre",
+      token: "Ecchi",
     });
   });
 
-  it("contains BL with token \"Boys' Love\"", () => {
-    const bl = GENRE_FILTERS.find((f) => f.id === 'bl');
-    expect(bl?.kind).toBe('tag');
+  it('contains BL with token "Boys\' Love"', () => {
+    const bl = GENRE_FILTERS.find((f) => f.id === "bl");
+    expect(bl?.kind).toBe("tag");
     expect(bl?.token).toBe("Boys' Love");
   });
 });
 
-describe('splitHiddenForAniList', () => {
-  it('returns nulls for an empty selection', () => {
+describe("splitHiddenForAniList", () => {
+  it("returns nulls for an empty selection", () => {
     expect(splitHiddenForAniList([])).toEqual({
       genreNotIn: null,
       tagNotIn: null,
     });
   });
 
-  it('routes a genre id into genreNotIn', () => {
-    expect(splitHiddenForAniList(['ecchi'])).toEqual({
-      genreNotIn: ['Ecchi'],
+  it("routes a genre id into genreNotIn", () => {
+    expect(splitHiddenForAniList(["ecchi"])).toEqual({
+      genreNotIn: ["Ecchi"],
       tagNotIn: null,
     });
   });
 
-  it('routes a tag id into tagNotIn', () => {
-    expect(splitHiddenForAniList(['isekai'])).toEqual({
+  it("routes a tag id into tagNotIn", () => {
+    expect(splitHiddenForAniList(["isekai"])).toEqual({
       genreNotIn: null,
-      tagNotIn: ['Isekai'],
+      tagNotIn: ["Isekai"],
     });
   });
 
-  it('splits mixed selections into the right buckets', () => {
-    const out = splitHiddenForAniList(['ecchi', 'isekai', 'horror', 'bl']);
-    expect(out.genreNotIn?.sort()).toEqual(['Ecchi', 'Horror']);
-    expect(out.tagNotIn?.sort()).toEqual(["Boys' Love", 'Isekai']);
+  it("splits mixed selections into the right buckets", () => {
+    const out = splitHiddenForAniList(["ecchi", "isekai", "horror", "bl"]);
+    expect(out.genreNotIn?.sort()).toEqual(["Ecchi", "Horror"]);
+    expect(out.tagNotIn?.sort()).toEqual(["Boys' Love", "Isekai"]);
   });
 
-  it('produces stable output regardless of input order', () => {
-    const a = splitHiddenForAniList(['horror', 'ecchi']);
-    const b = splitHiddenForAniList(['ecchi', 'horror']);
+  it("produces stable output regardless of input order", () => {
+    const a = splitHiddenForAniList(["horror", "ecchi"]);
+    const b = splitHiddenForAniList(["ecchi", "horror"]);
     expect(a).toEqual(b);
   });
 
-  it('ignores unknown ids without throwing', () => {
-    expect(splitHiddenForAniList(['ecchi', 'nonexistent-id'])).toEqual({
-      genreNotIn: ['Ecchi'],
+  it("ignores unknown ids without throwing", () => {
+    expect(splitHiddenForAniList(["ecchi", "nonexistent-id"])).toEqual({
+      genreNotIn: ["Ecchi"],
       tagNotIn: null,
     });
   });
@@ -180,7 +179,7 @@ Expected: FAIL — `Cannot find module './genreFilters'`.
 Create `src/data/genreFilters.ts` with the full contents:
 
 ```ts
-export type GenreFilterKind = 'genre' | 'tag';
+export type GenreFilterKind = "genre" | "tag";
 
 export type GenreFilter = {
   id: string;
@@ -190,59 +189,59 @@ export type GenreFilter = {
 };
 
 export const GENRE_FILTERS: readonly GenreFilter[] = [
-  { id: 'shounen', label: 'Shounen', kind: 'tag', token: 'Shounen' },
-  { id: 'shoujo', label: 'Shoujo', kind: 'tag', token: 'Shoujo' },
-  { id: 'seinen', label: 'Seinen', kind: 'tag', token: 'Seinen' },
-  { id: 'josei', label: 'Josei', kind: 'tag', token: 'Josei' },
-  { id: 'kids', label: 'Kids', kind: 'tag', token: 'Kids' },
-  { id: 'action', label: 'Action', kind: 'genre', token: 'Action' },
-  { id: 'adventure', label: 'Adventure', kind: 'genre', token: 'Adventure' },
-  { id: 'comedy', label: 'Comedy', kind: 'genre', token: 'Comedy' },
-  { id: 'drama', label: 'Drama', kind: 'genre', token: 'Drama' },
-  { id: 'romance', label: 'Romance', kind: 'genre', token: 'Romance' },
+  { id: "shounen", label: "Shounen", kind: "tag", token: "Shounen" },
+  { id: "shoujo", label: "Shoujo", kind: "tag", token: "Shoujo" },
+  { id: "seinen", label: "Seinen", kind: "tag", token: "Seinen" },
+  { id: "josei", label: "Josei", kind: "tag", token: "Josei" },
+  { id: "kids", label: "Kids", kind: "tag", token: "Kids" },
+  { id: "action", label: "Action", kind: "genre", token: "Action" },
+  { id: "adventure", label: "Adventure", kind: "genre", token: "Adventure" },
+  { id: "comedy", label: "Comedy", kind: "genre", token: "Comedy" },
+  { id: "drama", label: "Drama", kind: "genre", token: "Drama" },
+  { id: "romance", label: "Romance", kind: "genre", token: "Romance" },
   {
-    id: 'slice-of-life',
-    label: 'Slice of Life',
-    kind: 'genre',
-    token: 'Slice of Life',
+    id: "slice-of-life",
+    label: "Slice of Life",
+    kind: "genre",
+    token: "Slice of Life",
   },
-  { id: 'mystery', label: 'Mystery', kind: 'genre', token: 'Mystery' },
+  { id: "mystery", label: "Mystery", kind: "genre", token: "Mystery" },
   {
-    id: 'psychological',
-    label: 'Psychological',
-    kind: 'genre',
-    token: 'Psychological',
+    id: "psychological",
+    label: "Psychological",
+    kind: "genre",
+    token: "Psychological",
   },
-  { id: 'thriller', label: 'Thriller', kind: 'genre', token: 'Thriller' },
-  { id: 'horror', label: 'Horror', kind: 'genre', token: 'Horror' },
-  { id: 'mecha', label: 'Mecha', kind: 'genre', token: 'Mecha' },
+  { id: "thriller", label: "Thriller", kind: "genre", token: "Thriller" },
+  { id: "horror", label: "Horror", kind: "genre", token: "Horror" },
+  { id: "mecha", label: "Mecha", kind: "genre", token: "Mecha" },
   {
-    id: 'mahou-shoujo',
-    label: 'Magical Girl',
-    kind: 'genre',
-    token: 'Mahou Shoujo',
+    id: "mahou-shoujo",
+    label: "Magical Girl",
+    kind: "genre",
+    token: "Mahou Shoujo",
   },
-  { id: 'sports', label: 'Sports', kind: 'genre', token: 'Sports' },
-  { id: 'music', label: 'Music', kind: 'genre', token: 'Music' },
-  { id: 'isekai', label: 'Isekai', kind: 'tag', token: 'Isekai' },
-  { id: 'iyashikei', label: 'Iyashikei', kind: 'tag', token: 'Iyashikei' },
-  { id: 'yuri', label: 'Yuri', kind: 'tag', token: 'Yuri' },
-  { id: 'bl', label: 'BL', kind: 'tag', token: "Boys' Love" },
-  { id: 'cooking', label: 'Cooking', kind: 'tag', token: 'Cooking' },
+  { id: "sports", label: "Sports", kind: "genre", token: "Sports" },
+  { id: "music", label: "Music", kind: "genre", token: "Music" },
+  { id: "isekai", label: "Isekai", kind: "tag", token: "Isekai" },
+  { id: "iyashikei", label: "Iyashikei", kind: "tag", token: "Iyashikei" },
+  { id: "yuri", label: "Yuri", kind: "tag", token: "Yuri" },
+  { id: "bl", label: "BL", kind: "tag", token: "Boys' Love" },
+  { id: "cooking", label: "Cooking", kind: "tag", token: "Cooking" },
   {
-    id: 'dark-fantasy',
-    label: 'Dark Fantasy',
-    kind: 'tag',
-    token: 'Dark Fantasy',
+    id: "dark-fantasy",
+    label: "Dark Fantasy",
+    kind: "tag",
+    token: "Dark Fantasy",
   },
-  { id: 'harem', label: 'Harem', kind: 'tag', token: 'Harem' },
+  { id: "harem", label: "Harem", kind: "tag", token: "Harem" },
   {
-    id: 'reverse-harem',
-    label: 'Reverse Harem',
-    kind: 'tag',
-    token: 'Reverse Harem',
+    id: "reverse-harem",
+    label: "Reverse Harem",
+    kind: "tag",
+    token: "Reverse Harem",
   },
-  { id: 'ecchi', label: 'Ecchi', kind: 'genre', token: 'Ecchi' },
+  { id: "ecchi", label: "Ecchi", kind: "genre", token: "Ecchi" },
 ];
 
 export type SplitFilters = {
@@ -257,7 +256,7 @@ export function splitHiddenForAniList(hiddenIds: string[]): SplitFilters {
   for (const id of sorted) {
     const entry = GENRE_FILTERS.find((f) => f.id === id);
     if (!entry) continue;
-    if (entry.kind === 'genre') {
+    if (entry.kind === "genre") {
       genres.push(entry.token);
     } else {
       tags.push(entry.token);
@@ -309,6 +308,7 @@ EOF
 ## Task 3: Persist `preferences` store + add `hiddenGenres`
 
 **Files:**
+
 - Modify: `src/state/preferences.ts`
 
 - [ ] **Step 3.1: Replace the store with a persisted version**
@@ -316,9 +316,9 @@ EOF
 Replace the entire contents of `src/state/preferences.ts` with:
 
 ```ts
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 type State = {
   japanese: boolean;
@@ -334,7 +334,7 @@ export const usePreferences = create<State>()(
       japanese: false,
       toggleJapanese: () => set((s) => ({ japanese: !s.japanese })),
 
-      hiddenGenres: ['ecchi'],
+      hiddenGenres: ["ecchi"],
       toggleHiddenGenre: (id) =>
         set((s) => ({
           hiddenGenres: s.hiddenGenres.includes(id)
@@ -343,19 +343,20 @@ export const usePreferences = create<State>()(
         })),
     }),
     {
-      name: 'kasane-preferences',
+      name: "kasane-preferences",
       version: 1,
       storage: createJSONStorage(() => AsyncStorage),
       partialize: (s) => ({
         japanese: s.japanese,
         hiddenGenres: s.hiddenGenres,
       }),
-    }
-  )
+    },
+  ),
 );
 ```
 
 Notes for the implementer:
+
 - `createJSONStorage(() => AsyncStorage)` is the official zustand pattern for RN. AsyncStorage's web shim uses `localStorage`, so this also works in the browser export.
 - `partialize` excludes the action functions from the persisted payload.
 - `version: 1` is the seed for future migrations; no `migrate` function needed yet.
@@ -400,6 +401,7 @@ EOF
 ## Task 4: Add `tag_not_in` to AniList queries
 
 **Files:**
+
 - Modify: `src/api/anilist.ts:42-65` (both search queries), `src/api/anilist.ts:67-82` (latest), `src/api/anilist.ts:120-146` (exported functions)
 
 - [ ] **Step 4.1: Add `$tagNotIn` to all three queries**
@@ -466,7 +468,7 @@ export async function searchMedia(
   query: string,
   type?: MediaType,
   genreNotIn?: string[] | null,
-  tagNotIn?: string[] | null
+  tagNotIn?: string[] | null,
 ): Promise<AniListMedia[]> {
   if (!query.trim()) return [];
   const data = type
@@ -477,7 +479,7 @@ export async function searchMedia(
           type,
           genreNotIn: genreNotIn ?? null,
           tagNotIn: tagNotIn ?? null,
-        }
+        },
       )
     : await client.request<{ Page: { media: AniListMedia[] } }>(
         SEARCH_ANY_QUERY,
@@ -485,21 +487,21 @@ export async function searchMedia(
           query,
           genreNotIn: genreNotIn ?? null,
           tagNotIn: tagNotIn ?? null,
-        }
+        },
       );
   return data.Page.media;
 }
 
 export async function getLatestAnime(
   genreNotIn?: string[] | null,
-  tagNotIn?: string[] | null
+  tagNotIn?: string[] | null,
 ): Promise<AniListMedia[]> {
   const data = await client.request<{ Page: { media: AniListMedia[] } }>(
     LATEST_ANIME_QUERY,
     {
       genreNotIn: genreNotIn ?? null,
       tagNotIn: tagNotIn ?? null,
-    }
+    },
   );
   return data.Page.media.filter(isFranchiseRoot);
 }
@@ -544,6 +546,7 @@ EOF
 ## Task 5: Replace home-screen ecchi toggle with full chip catalog
 
 **Files:**
+
 - Modify: `app/index.tsx:41-66` (state + queries), `app/index.tsx:89-98` (chip row), `app/index.tsx:275-289` (styles)
 
 - [ ] **Step 5.1: Update imports**
@@ -551,7 +554,7 @@ EOF
 In `app/index.tsx`, add these imports near the existing imports (keep the existing import order — alphabetical within each group):
 
 ```ts
-import { GENRE_FILTERS, splitHiddenForAniList } from '@/data/genreFilters';
+import { GENRE_FILTERS, splitHiddenForAniList } from "@/data/genreFilters";
 ```
 
 - [ ] **Step 5.2: Replace local `hideEcchi` state with persisted `hiddenGenres`**
@@ -567,7 +570,7 @@ const [hideEcchi, setHideEcchi] = useState(true);
 …and:
 
 ```ts
-const genreNotIn = hideEcchi ? ['Ecchi'] : null;
+const genreNotIn = hideEcchi ? ["Ecchi"] : null;
 ```
 
 Add these in their place (just below `const [type, setType] = useState<MediaType | undefined>(undefined);`):
@@ -583,8 +586,12 @@ const { genreNotIn, tagNotIn } = splitHiddenForAniList(hiddenGenres);
 Replace the existing search query call with:
 
 ```ts
-const { data: searchResults, isFetching, error } = useQuery({
-  queryKey: ['search', debouncedQuery, type, genreNotIn, tagNotIn],
+const {
+  data: searchResults,
+  isFetching,
+  error,
+} = useQuery({
+  queryKey: ["search", debouncedQuery, type, genreNotIn, tagNotIn],
   queryFn: () => searchMedia(debouncedQuery, type, genreNotIn, tagNotIn),
   enabled: isSearching,
 });
@@ -594,7 +601,7 @@ Replace the existing latest-anime query call with:
 
 ```ts
 const { data: latestAnime, isFetching: latestFetching } = useQuery({
-  queryKey: ['latest-anime', genreNotIn, tagNotIn],
+  queryKey: ["latest-anime", genreNotIn, tagNotIn],
   queryFn: () => getLatestAnime(genreNotIn, tagNotIn),
   enabled: !isSearching,
   staleTime: 60 * 60 * 1000,
@@ -718,6 +725,7 @@ EOF
 ## Self-Review
 
 **Spec coverage:**
+
 - ✅ Filter catalog (28 entries, genre vs tag) — Task 2.
 - ✅ `splitHiddenForAniList` helper — Task 2.
 - ✅ Persisted `hiddenGenres` in `preferences` with `ecchi` default — Task 3.
@@ -730,11 +738,13 @@ EOF
 **Placeholder scan:** No `TBD`/`TODO`/"similar to" — every step has the full code.
 
 **Type/name consistency:**
+
 - `GenreFilter` type, `GenreFilterKind`, `GENRE_FILTERS`, `SplitFilters`, `splitHiddenForAniList` — same names used in Tasks 2, 5.
 - `hiddenGenres` / `toggleHiddenGenre` — defined Task 3, consumed Task 5.
 - `genreNotIn` / `tagNotIn` — produced by helper Task 2, consumed by API Task 4, wired in Task 5.
 
 **Repo conventions:**
+
 - All new types use `type`, not `interface`. ✅
 - No `any`. ✅
 - No `margin` added. ✅

@@ -22,16 +22,16 @@ Out of scope: user accounts, sync, ratings, watch-tracking, light-novel mapping,
 
 ## Tech Stack
 
-| Layer | Choice | Why |
-|---|---|---|
-| Core framework | **Expo (React Native + React Native Web)** | One codebase for iOS, Android, Web. Mature, huge ecosystem. |
-| Routing | **Expo Router** (file-based) | Universal routes that work on native + web. |
-| Language | **TypeScript** | Type safety across boundaries. |
-| Desktop wrapper | **Tauri 2** | Wraps the Expo web export for macOS/Windows/Linux. Smaller and faster than Electron. |
-| Data fetching | **TanStack Query** | Caching, request dedupe, offline-friendly. |
-| Local state | **Zustand** | Lightweight, no boilerplate. |
-| Anime/manga API | **AniList GraphQL** | Free, no auth needed, rich data (covers, chapter counts, descriptions). |
-| Mapping data | **Bundled JSON in `src/data/mappings/`** | No clean public API exists for episode↔chapter mapping. Versioned in-repo, community-contributable. |
+| Layer           | Choice                                     | Why                                                                                                 |
+| --------------- | ------------------------------------------ | --------------------------------------------------------------------------------------------------- |
+| Core framework  | **Expo (React Native + React Native Web)** | One codebase for iOS, Android, Web. Mature, huge ecosystem.                                         |
+| Routing         | **Expo Router** (file-based)               | Universal routes that work on native + web.                                                         |
+| Language        | **TypeScript**                             | Type safety across boundaries.                                                                      |
+| Desktop wrapper | **Tauri 2**                                | Wraps the Expo web export for macOS/Windows/Linux. Smaller and faster than Electron.                |
+| Data fetching   | **TanStack Query**                         | Caching, request dedupe, offline-friendly.                                                          |
+| Local state     | **Zustand**                                | Lightweight, no boilerplate.                                                                        |
+| Anime/manga API | **AniList GraphQL**                        | Free, no auth needed, rich data (covers, chapter counts, descriptions).                             |
+| Mapping data    | **Bundled JSON in `src/data/mappings/`**   | No clean public API exists for episode↔chapter mapping. Versioned in-repo, community-contributable. |
 
 ### Why this stack over alternatives
 
@@ -100,12 +100,12 @@ Episode/chapter ranges are inclusive. An "arc" label groups related entries.
 
 ## Distribution
 
-| Platform | Channel | Requires |
-|---|---|---|
-| iOS | App Store via EAS Build | Apple Developer Program ($99/yr) |
-| Android | Play Store via EAS Build | Google Play Console ($25 one-time) |
-| Web | Static hosting (Netlify/Vercel/Cloudflare Pages) | nothing |
-| macOS / Windows / Linux | Tauri-built binaries, GitHub Releases | nothing (code signing optional) |
+| Platform                | Channel                                          | Requires                           |
+| ----------------------- | ------------------------------------------------ | ---------------------------------- |
+| iOS                     | App Store via EAS Build                          | Apple Developer Program ($99/yr)   |
+| Android                 | Play Store via EAS Build                         | Google Play Console ($25 one-time) |
+| Web                     | Static hosting (Netlify/Vercel/Cloudflare Pages) | nothing                            |
+| macOS / Windows / Linux | Tauri-built binaries, GitHub Releases            | nothing (code signing optional)    |
 
 ## Open Questions
 

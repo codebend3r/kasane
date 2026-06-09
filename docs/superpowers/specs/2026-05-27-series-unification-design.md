@@ -15,6 +15,7 @@ Merge separate anime and manga results/routes into a single "series" entity. One
 ## ID resolution
 
 `routeId` for a series:
+
 - If a manga exists in the pair → manga's AniList ID.
 - Else (anime-original) → anime's AniList ID.
 
@@ -27,7 +28,7 @@ The `/series/[id]` page accepts either a manga ID or an anime ID. If an anime ID
 New type in `src/types/index.ts`:
 
 ```ts
-export type SeriesBadge = 'both' | 'manga-only' | 'anime-only';
+export type SeriesBadge = "both" | "manga-only" | "anime-only";
 
 export type SeriesEntry = {
   routeId: number;
@@ -45,16 +46,17 @@ export type SeriesEntry = {
 Add to `src/data/index.ts`:
 
 ```ts
-export function pairResults(media: AniListMedia[]): SeriesEntry[]
+export function pairResults(media: AniListMedia[]): SeriesEntry[];
 ```
 
 Algorithm:
+
 1. Build `byId = Map<id, AniListMedia>` from input.
 2. For each manga in input, find anime adapters: collect IDs from its `relations.edges` where `relationType === 'ADAPTATION'` and `node.type === 'ANIME'`. Also collect `relationType === 'SOURCE'` reverse links (anime whose source is this manga, when iterating from the anime side).
 3. For each anime in input, find its source manga: `relations.edges` where `relationType === 'SOURCE'` and `node.type === 'MANGA'`.
 4. Drop anime entries whose source manga is also in the input — they're absorbed by the manga's `SeriesEntry`.
 5. Build entries:
-   - **Manga in input** → entry with `manga = media`, `anime = byId.get(adapterAnimeId) ?? null`, `primary = manga`, badge `both` if any adapter anime exists in input *or* in relations, else `manga-only`.
+   - **Manga in input** → entry with `manga = media`, `anime = byId.get(adapterAnimeId) ?? null`, `primary = manga`, badge `both` if any adapter anime exists in input _or_ in relations, else `manga-only`.
    - **Anime in input** (not absorbed) → entry with `anime = media`, `manga = byId.get(sourceMangaId) ?? null`, `primary = manga ?? anime`, badge `both` if a manga source exists in relations (even if not in input), `routeId = manga?.id ?? anime.id`, else `anime-only`.
 6. Preserve input order by first occurrence.
 
@@ -75,15 +77,16 @@ Loads `media = getMedia(id)`. Branches:
 
 Header rendering (table from brainstorm):
 
-| Section | Both | Manga-only | Anime-only |
-|---|---|---|---|
-| Cover | manga | manga | anime |
-| Title + native | manga | manga | anime |
-| Subtitle | `{ch} ch · {vol} vol · {eps} eps · {format} · {date}` | `{ch} ch · {vol} vol · {format} · {status}` | `{eps} eps · {format} · {date}` |
-| Description | manga | manga | anime |
-| Badges | `ANIME + MANGA` + optional `MAPPED` | `MANGA ONLY` + optional `MAPPED` | `ANIME ONLY` + optional `MAPPED` |
+| Section        | Both                                                  | Manga-only                                  | Anime-only                       |
+| -------------- | ----------------------------------------------------- | ------------------------------------------- | -------------------------------- |
+| Cover          | manga                                                 | manga                                       | anime                            |
+| Title + native | manga                                                 | manga                                       | anime                            |
+| Subtitle       | `{ch} ch · {vol} vol · {eps} eps · {format} · {date}` | `{ch} ch · {vol} vol · {format} · {status}` | `{eps} eps · {format} · {date}`  |
+| Description    | manga                                                 | manga                                       | anime                            |
+| Badges         | `ANIME + MANGA` + optional `MAPPED`                   | `MANGA ONLY` + optional `MAPPED`            | `ANIME ONLY` + optional `MAPPED` |
 
 Body sections (rendered in order when applicable):
+
 - Optional auto-estimated banner (synthetic mapping)
 - `EpisodeChapterRail` with `totalChapters` (MangaDex when manga exists, else null)
 - `SeasonCoverage` (curated mapping only)
@@ -107,6 +110,7 @@ Old `/anime/[id]` and `/manga/[id]` pages continue to pass `routePrefix="series"
 ### `SeriesCard`
 
 Signature change: `media: AniListMedia` → `entry: SeriesEntry`. Renders:
+
 - Cover from `primary.coverImage.large`
 - Title from `primary.title.english ?? primary.title.romaji`
 - Length label: if both, show `{eps} eps · {ch} ch`; else show the side that exists.

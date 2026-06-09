@@ -4,7 +4,15 @@
   "title": "Fate/Zero",
   "sourceNotes": "Cumulative episodes across S1 (13) + S2 (12, eps 14-25) = 25 total. Paired with the Shinjiro manga adaptation (74 chapters / 16 vols, finished). Both adapt the Gen Urobuchi light novel.",
   "mappings": [
-    { "episodes": [1, 13], "chapters": [1, 35], "arc": "4th Holy Grail War: Opening Salvos (S1)" },
-    { "episodes": [14, 25], "chapters": [36, 74], "arc": "4th Holy Grail War: Endgame (S2)" }
+    {
+      "episodes": [1, 13],
+      "chapters": [1, 35],
+      "arc": "4th Holy Grail War: Opening Salvos (S1)"
+    },
+    {
+      "episodes": [14, 25],
+      "chapters": [36, 74],
+      "arc": "4th Holy Grail War: Endgame (S2)"
+    }
   ]
 }

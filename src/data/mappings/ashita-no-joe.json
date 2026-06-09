@@ -4,11 +4,19 @@
   "title": "Ashita no Joe",
   "sourceNotes": "1970 TV series (79 eps) covering roughly the first half of the manga through Rikiishi. Ashita no Joe 2 (1980) adapts the remainder; chapter ranges approximate.",
   "mappings": [
-    { "episodes": [1, 12],  "chapters": [1, 14],   "arc": "Doya-gai / Tange Dan" },
-    { "episodes": [13, 30], "chapters": [15, 38],  "arc": "Juvenile Reformatory" },
-    { "episodes": [31, 52], "chapters": [39, 65],  "arc": "Pro Debut / East Japan Rookie King" },
-    { "episodes": [53, 79], "chapters": [66, 90],  "arc": "Rikiishi Toru" },
-    { "chapters": [91, 130],  "arc": "Carlos Rivera / Wandering" },
+    { "episodes": [1, 12], "chapters": [1, 14], "arc": "Doya-gai / Tange Dan" },
+    {
+      "episodes": [13, 30],
+      "chapters": [15, 38],
+      "arc": "Juvenile Reformatory"
+    },
+    {
+      "episodes": [31, 52],
+      "chapters": [39, 65],
+      "arc": "Pro Debut / East Japan Rookie King"
+    },
+    { "episodes": [53, 79], "chapters": [66, 90], "arc": "Rikiishi Toru" },
+    { "chapters": [91, 130], "arc": "Carlos Rivera / Wandering" },
     { "chapters": [131, 155], "arc": "Harimao / World Bantamweight" },
     { "chapters": [156, 171], "arc": "Jose Mendoza" }
   ]

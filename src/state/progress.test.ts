@@ -1,8 +1,8 @@
-import * as React from 'react';
-import TestRenderer, { act } from 'react-test-renderer';
-import { useInProgressEntries, useProgress } from './progress';
+import * as React from "react";
+import TestRenderer, { act } from "react-test-renderer";
+import { useInProgressEntries, useProgress } from "./progress";
 
-jest.mock('@react-native-async-storage/async-storage', () => {
+jest.mock("@react-native-async-storage/async-storage", () => {
   const store = new Map<string, string>();
   return {
     __esModule: true,
@@ -32,8 +32,8 @@ afterEach(() => {
   });
 });
 
-describe('useInProgressEntries', () => {
-  it('returns a referentially stable array across re-renders when the store has not changed', () => {
+describe("useInProgressEntries", () => {
+  it("returns a referentially stable array across re-renders when the store has not changed", () => {
     const captures: ReturnType<typeof useInProgressEntries>[] = [];
 
     const Probe = () => {
@@ -66,7 +66,7 @@ describe('useInProgressEntries', () => {
     root?.unmount();
   });
 
-  it('returns a fresh array (sorted by updatedAt desc) when the store changes', () => {
+  it("returns a fresh array (sorted by updatedAt desc) when the store changes", () => {
     const captures: ReturnType<typeof useInProgressEntries>[] = [];
 
     const Probe = () => {
@@ -75,18 +75,18 @@ describe('useInProgressEntries', () => {
     };
 
     let root: TestRenderer.ReactTestRenderer | undefined;
-    const nowSpy = jest.spyOn(Date, 'now');
+    const nowSpy = jest.spyOn(Date, "now");
     try {
       act(() => {
         root = TestRenderer.create(createElement(Probe));
       });
       nowSpy.mockReturnValue(100);
       act(() => {
-        useProgress.getState().setSide(1, 'anime', 3);
+        useProgress.getState().setSide(1, "anime", 3);
       });
       nowSpy.mockReturnValue(200);
       act(() => {
-        useProgress.getState().setSide(2, 'manga', 5);
+        useProgress.getState().setSide(2, "manga", 5);
       });
 
       const final = captures[captures.length - 1];

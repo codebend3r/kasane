@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { FONT } from '@/theme';
+import { useRef, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { FONT } from "@/theme";
 
 export type MouseLike = { nativeEvent: { clientX: number; clientY: number } };
 
@@ -8,12 +8,10 @@ type HoverContent = { label: string; color: string; textColor: string };
 type Hover = HoverContent & { x: number; y: number };
 
 export function hasBoundingRect(
-  node: unknown
+  node: unknown,
 ): node is { getBoundingClientRect: () => DOMRect } {
   return (
-    typeof node === 'object' &&
-    node !== null &&
-    'getBoundingClientRect' in node
+    typeof node === "object" && node !== null && "getBoundingClientRect" in node
   );
 }
 
@@ -65,7 +63,7 @@ export function HoverLabel({ hover }: { hover: Hover | null }) {
 
 const styles = StyleSheet.create({
   popover: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     paddingHorizontal: 8,

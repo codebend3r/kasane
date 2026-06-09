@@ -4,12 +4,34 @@
   "title": "Kaguya-sama: Love Is War",
   "sourceNotes": "Cumulative episodes across S1 (12) + S2 (12) + S3 Ultra Romantic (13). Episodes are mostly self-contained chapter adaptations; arc boundaries follow major story shifts in the manga. Chapter ranges approximate.",
   "mappings": [
-    { "episodes": [1, 12],   "chapters": [1, 45],     "arc": "Battle of Wits / Introduction" },
-    { "episodes": [13, 24],  "chapters": [46, 90],    "arc": "New Student Council / Election" },
-    { "episodes": [25, 31],  "chapters": [91, 113],   "arc": "Run-up to the Culture Festival" },
-    { "episodes": [32, 37],  "chapters": [114, 135],  "arc": "Culture Festival / Confession" },
-    { "chapters": [136, 152], "arc": "First Kiss That Never Ends (post-confession, adapted as OVA)" },
-    { "chapters": [153, 200], "arc": "Twin Star Arc / Student Council Reformation" },
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 45],
+      "arc": "Battle of Wits / Introduction"
+    },
+    {
+      "episodes": [13, 24],
+      "chapters": [46, 90],
+      "arc": "New Student Council / Election"
+    },
+    {
+      "episodes": [25, 31],
+      "chapters": [91, 113],
+      "arc": "Run-up to the Culture Festival"
+    },
+    {
+      "episodes": [32, 37],
+      "chapters": [114, 135],
+      "arc": "Culture Festival / Confession"
+    },
+    {
+      "chapters": [136, 152],
+      "arc": "First Kiss That Never Ends (post-confession, adapted as OVA)"
+    },
+    {
+      "chapters": [153, 200],
+      "arc": "Twin Star Arc / Student Council Reformation"
+    },
     { "chapters": [201, 240], "arc": "Christmas Arc / Ishigami Backstory" },
     { "chapters": [241, 281], "arc": "Final Arc / Graduation" }
   ]

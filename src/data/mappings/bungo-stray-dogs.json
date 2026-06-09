@@ -8,8 +8,20 @@
     { "episodes": [4, 12], "chapters": [8, 21], "arc": "Port Mafia / Kyouka" },
     { "episodes": [13, 16], "chapters": [22, 26], "arc": "Dark Era (Prequel)" },
     { "episodes": [17, 24], "chapters": [27, 41], "arc": "Guild Arc" },
-    { "episodes": [25, 36], "chapters": [42, 53], "arc": "Cannibalism / Guild Aftermath" },
-    { "episodes": [37, 49], "chapters": [54, 77], "arc": "Hunting Dogs / Decay of Angels Setup" },
-    { "episodes": [50, 60], "chapters": [78, 110], "arc": "Kamui Revelation / Vampire Outbreak" }
+    {
+      "episodes": [25, 36],
+      "chapters": [42, 53],
+      "arc": "Cannibalism / Guild Aftermath"
+    },
+    {
+      "episodes": [37, 49],
+      "chapters": [54, 77],
+      "arc": "Hunting Dogs / Decay of Angels Setup"
+    },
+    {
+      "episodes": [50, 60],
+      "chapters": [78, 110],
+      "arc": "Kamui Revelation / Vampire Outbreak"
+    }
   ]
 }

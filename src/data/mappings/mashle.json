@@ -4,11 +4,15 @@
   "title": "Mashle: Magic and Muscles",
   "sourceNotes": "Cumulative episodes across S1 (12) + S2 Divine Visionary Candidate Exam (12). Manga complete at 162 chapters; anime adapted through ch ~74. Arc boundaries from Mashle Wiki.",
   "mappings": [
-    { "episodes": [1, 7],   "chapters": [1, 15],     "arc": "Easton Enrollment" },
-    { "episodes": [8, 12],  "chapters": [16, 39],    "arc": "Magia Lupus" },
-    { "episodes": [13, 14], "chapters": [40, 43],    "arc": "Execution" },
-    { "episodes": [15, 24], "chapters": [44, 74],    "arc": "Divine Visionary Selection Exam" },
-    { "chapters": [75, 102],                         "arc": "Tri-Magic-Athalon Final Exam" },
-    { "chapters": [103, 162],                        "arc": "Eclipse (Final Arc)" }
+    { "episodes": [1, 7], "chapters": [1, 15], "arc": "Easton Enrollment" },
+    { "episodes": [8, 12], "chapters": [16, 39], "arc": "Magia Lupus" },
+    { "episodes": [13, 14], "chapters": [40, 43], "arc": "Execution" },
+    {
+      "episodes": [15, 24],
+      "chapters": [44, 74],
+      "arc": "Divine Visionary Selection Exam"
+    },
+    { "chapters": [75, 102], "arc": "Tri-Magic-Athalon Final Exam" },
+    { "chapters": [103, 162], "arc": "Eclipse (Final Arc)" }
   ]
 }

@@ -23,6 +23,7 @@
 ## Task 1: Make `MappingEntry.episodes` optional and update existing consumers
 
 **Files:**
+
 - Modify: `src/types/index.ts:48-54`
 - Modify: `src/components/SeasonCoverage.tsx:7-15`
 - Modify: `src/components/EpisodeChapterRail.tsx:31-36`, `42-63`
@@ -53,7 +54,7 @@ const seasonBuckets = useMemo(() => {
   const m = new Map<string, typeof mapping.mappings>();
   for (const entry of mapping.mappings) {
     if (!entry.episodes) continue;
-    const key = entry.season ? `Season ${entry.season}` : 'Other';
+    const key = entry.season ? `Season ${entry.season}` : "Other";
     if (!m.has(key)) m.set(key, []);
     m.get(key)!.push(entry);
   }
@@ -70,10 +71,10 @@ const totalEpisodes = mapping
   ? (() => {
       const eps = mapping.mappings
         .map((m) => m.episodes?.[1])
-        .filter((v): v is number => typeof v === 'number');
-      return eps.length > 0 ? Math.max(...eps) : anime?.episodes ?? null;
+        .filter((v): v is number => typeof v === "number");
+      return eps.length > 0 ? Math.max(...eps) : (anime?.episodes ?? null);
     })()
-  : anime?.episodes ?? null;
+  : (anime?.episodes ?? null);
 ```
 
 - [ ] **Step 1.4: Split adapted vs unadapted in `EpisodeChapterRail` (typecheck-only fix)**
@@ -83,30 +84,32 @@ In `src/components/EpisodeChapterRail.tsx`, the top "Anime episodes →" row cur
 Filter the top row to only adapted entries. Replace the top-row `.map` (currently `mapping.mappings.map((m, idx) => …)` at lines ~42–63) with:
 
 ```tsx
-{mapping.mappings
-  .filter((m) => m.episodes)
-  .map((m, idx) => {
-    const eps = m.episodes!;
-    const span = eps[1] - eps[0] + 1;
-    return (
-      <Pressable
-        key={`ep-${idx}`}
-        onPress={() => goToArc(idx)}
-        style={({ hovered, pressed }: any) => [
-          styles.bar,
-          {
-            flex: span,
-            backgroundColor: COLORS[idx % COLORS.length],
-            opacity: pressed ? 0.7 : hovered ? 0.9 : 1,
-          },
-        ]}
-      >
-        <Text style={styles.barText} numberOfLines={1}>
-          {m.arc ?? `${eps[0]}–${eps[1]}`}
-        </Text>
-      </Pressable>
-    );
-  })}
+{
+  mapping.mappings
+    .filter((m) => m.episodes)
+    .map((m, idx) => {
+      const eps = m.episodes!;
+      const span = eps[1] - eps[0] + 1;
+      return (
+        <Pressable
+          key={`ep-${idx}`}
+          onPress={() => goToArc(idx)}
+          style={({ hovered, pressed }: any) => [
+            styles.bar,
+            {
+              flex: span,
+              backgroundColor: COLORS[idx % COLORS.length],
+              opacity: pressed ? 0.7 : hovered ? 0.9 : 1,
+            },
+          ]}
+        >
+          <Text style={styles.barText} numberOfLines={1}>
+            {m.arc ?? `${eps[0]}–${eps[1]}`}
+          </Text>
+        </Pressable>
+      );
+    });
+}
 ```
 
 Note: `idx` here is the index in the filtered array; Task 2 fixes that so `goToArc` still receives the original index.
@@ -143,6 +146,7 @@ EOF
 ## Task 2: Render unadapted entries as muted bars on the manga row
 
 **Files:**
+
 - Modify: `src/components/EpisodeChapterRail.tsx`
 
 Goal: on the manga (bottom) row, unadapted entries render as muted bars labeled with their arc name (or chapter range). When the mapping has ≥1 unadapted entry, the generic grey "tail" bar is suppressed because the named muted bars replace it.
@@ -152,29 +156,31 @@ Goal: on the manga (bottom) row, unadapted entries render as muted bars labeled 
 To keep `onPress={() => goToArc(idx)}` correct, switch from `.filter().map()` to `.map().filter()` style — or better, iterate with original indices. Replace the top-row block:
 
 ```tsx
-{mapping.mappings.map((m, idx) => {
-  if (!m.episodes) return null;
-  const eps = m.episodes;
-  const span = eps[1] - eps[0] + 1;
-  return (
-    <Pressable
-      key={`ep-${idx}`}
-      onPress={() => goToArc(idx)}
-      style={({ hovered, pressed }: any) => [
-        styles.bar,
-        {
-          flex: span,
-          backgroundColor: COLORS[idx % COLORS.length],
-          opacity: pressed ? 0.7 : hovered ? 0.9 : 1,
-        },
-      ]}
-    >
-      <Text style={styles.barText} numberOfLines={1}>
-        {m.arc ?? `${eps[0]}–${eps[1]}`}
-      </Text>
-    </Pressable>
-  );
-})}
+{
+  mapping.mappings.map((m, idx) => {
+    if (!m.episodes) return null;
+    const eps = m.episodes;
+    const span = eps[1] - eps[0] + 1;
+    return (
+      <Pressable
+        key={`ep-${idx}`}
+        onPress={() => goToArc(idx)}
+        style={({ hovered, pressed }: any) => [
+          styles.bar,
+          {
+            flex: span,
+            backgroundColor: COLORS[idx % COLORS.length],
+            opacity: pressed ? 0.7 : hovered ? 0.9 : 1,
+          },
+        ]}
+      >
+        <Text style={styles.barText} numberOfLines={1}>
+          {m.arc ?? `${eps[0]}–${eps[1]}`}
+        </Text>
+      </Pressable>
+    );
+  });
+}
 ```
 
 - [ ] **Step 2.2: Update `showTail` logic to account for unadapted entries**
@@ -184,11 +190,11 @@ Replace the `showTail` / `tailSpan` lines (~31–36) with:
 ```tsx
 const hasUnadapted = mapping.mappings.some((m) => !m.episodes);
 const maxCoveredChapter = Math.max(
-  ...mapping.mappings.map((m) => m.chapters[1])
+  ...mapping.mappings.map((m) => m.chapters[1]),
 );
 const showTail =
   !hasUnadapted &&
-  typeof totalChapters === 'number' &&
+  typeof totalChapters === "number" &&
   totalChapters > maxCoveredChapter;
 const tailSpan = showTail ? totalChapters! - maxCoveredChapter : 0;
 ```
@@ -198,30 +204,32 @@ const tailSpan = showTail ? totalChapters! - maxCoveredChapter : 0;
 Replace the bottom-row `.map` (currently lines ~67–87) with:
 
 ```tsx
-{mapping.mappings.map((m, idx) => {
-  const span = m.chapters[1] - m.chapters[0] + 1;
-  const unadapted = !m.episodes;
-  const bg = unadapted ? '#2a2a2a' : COLORS[idx % COLORS.length];
-  const textStyle = unadapted ? styles.unadaptedBarText : styles.barText;
-  return (
-    <Pressable
-      key={`ch-${idx}`}
-      onPress={() => goToArc(idx)}
-      style={({ hovered, pressed }: any) => [
-        styles.bar,
-        {
-          flex: span,
-          backgroundColor: bg,
-          opacity: pressed ? 0.7 : hovered ? 0.9 : 1,
-        },
-      ]}
-    >
-      <Text style={textStyle} numberOfLines={1}>
-        {m.arc ?? `${m.chapters[0]}–${m.chapters[1]}`}
-      </Text>
-    </Pressable>
-  );
-})}
+{
+  mapping.mappings.map((m, idx) => {
+    const span = m.chapters[1] - m.chapters[0] + 1;
+    const unadapted = !m.episodes;
+    const bg = unadapted ? "#2a2a2a" : COLORS[idx % COLORS.length];
+    const textStyle = unadapted ? styles.unadaptedBarText : styles.barText;
+    return (
+      <Pressable
+        key={`ch-${idx}`}
+        onPress={() => goToArc(idx)}
+        style={({ hovered, pressed }: any) => [
+          styles.bar,
+          {
+            flex: span,
+            backgroundColor: bg,
+            opacity: pressed ? 0.7 : hovered ? 0.9 : 1,
+          },
+        ]}
+      >
+        <Text style={textStyle} numberOfLines={1}>
+          {m.arc ?? `${m.chapters[0]}–${m.chapters[1]}`}
+        </Text>
+      </Pressable>
+    );
+  });
+}
 ```
 
 - [ ] **Step 2.4: Add the `unadaptedBarText` style**
@@ -264,6 +272,7 @@ EOF
 ## Task 3: Render `N ARCS BEHIND` tag inline with section title
 
 **Files:**
+
 - Modify: `app/series/[id]/index.tsx`
 
 - [ ] **Step 3.1: Compute the count near the other derived values**
@@ -345,6 +354,7 @@ EOF
 ## Task 4: Seed `one-piece.json` with one unadapted arc
 
 **Files:**
+
 - Modify: `src/data/mappings/one-piece.json`
 
 For an initial visible demo, append one unadapted manga arc (Elbaf — the current ongoing arc as of late-2026, not yet covered by the anime).
@@ -366,7 +376,11 @@ Replace `src/data/mappings/one-piece.json` with:
     { "episodes": [19, 30], "chapters": [42, 68], "arc": "Baratie" },
     { "episodes": [31, 47], "chapters": [69, 95], "arc": "Arlong Park" },
     { "episodes": [48, 53], "chapters": [96, 105], "arc": "Loguetown" },
-    { "episodes": [62, 77], "chapters": [106, 132], "arc": "Whisky Peak / Little Garden" },
+    {
+      "episodes": [62, 77],
+      "chapters": [106, 132],
+      "arc": "Whisky Peak / Little Garden"
+    },
     { "episodes": [92, 130], "chapters": [155, 217], "arc": "Alabasta" },
     { "chapters": [1118, 1180], "arc": "Elbaf" }
   ]
@@ -390,6 +404,7 @@ npm run web
 ```
 
 Navigate to the series page for One Piece (e.g., `/series/21` or `/series/30013`). Verify:
+
 - `1 ARCS BEHIND` tag is visible next to "Episode ↔ Chapter map" title.
 - The bottom (manga) row of the rail has a muted grey bar labeled "Elbaf" at the right end.
 - The top (anime) row of the rail is unchanged.

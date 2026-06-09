@@ -4,13 +4,37 @@
   "title": "Hajime no Ippo",
   "sourceNotes": "Cumulative episodes across S1 The Fighting! (75) + New Challenger (26) + Rising (25). Manga is ongoing; arc-level approximation, chapter ranges approximate.",
   "mappings": [
-    { "episodes": [1, 25],    "chapters": [1, 60],    "arc": "Rookie Ippo / East Japan Rookie King" },
-    { "episodes": [26, 41],   "chapters": [61, 99],   "arc": "All Japan Rookie King / Vs. Sendo" },
-    { "episodes": [42, 63],   "chapters": [100, 152], "arc": "Japan Featherweight Title / Vs. Date" },
-    { "episodes": [64, 75],   "chapters": [153, 185], "arc": "Title Defenses / Champion Road" },
-    { "episodes": [76, 101],  "chapters": [186, 295], "arc": "New Challenger / Vs. Sawamura / Vs. Volg (OPBF)" },
-    { "episodes": [102, 126], "chapters": [296, 431], "arc": "Rising / Vs. Sendo II / Vs. Ricardo" },
-    { "chapters": [432, 700],  "arc": "Post-Ricardo / Itagaki & Volg arcs" },
+    {
+      "episodes": [1, 25],
+      "chapters": [1, 60],
+      "arc": "Rookie Ippo / East Japan Rookie King"
+    },
+    {
+      "episodes": [26, 41],
+      "chapters": [61, 99],
+      "arc": "All Japan Rookie King / Vs. Sendo"
+    },
+    {
+      "episodes": [42, 63],
+      "chapters": [100, 152],
+      "arc": "Japan Featherweight Title / Vs. Date"
+    },
+    {
+      "episodes": [64, 75],
+      "chapters": [153, 185],
+      "arc": "Title Defenses / Champion Road"
+    },
+    {
+      "episodes": [76, 101],
+      "chapters": [186, 295],
+      "arc": "New Challenger / Vs. Sawamura / Vs. Volg (OPBF)"
+    },
+    {
+      "episodes": [102, 126],
+      "chapters": [296, 431],
+      "arc": "Rising / Vs. Sendo II / Vs. Ricardo"
+    },
+    { "chapters": [432, 700], "arc": "Post-Ricardo / Itagaki & Volg arcs" },
     { "chapters": [701, 1000], "arc": "Ippo's Retirement / Coach Ippo" },
     { "chapters": [1001, 1500], "arc": "Ongoing (post-retirement)" }
   ]

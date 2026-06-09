@@ -54,8 +54,8 @@ Skill explains how to read the response:
 - Follow `relations.edges` where `relationType === "ADAPTATION"` and `node.type === "ANIME"` to get `anilistAnimeId` and `episodes`.
 - If the user named the anime first, do the inverse: pick the `ANIME` entry, follow `relationType === "SOURCE"` and `node.type === "MANGA"`.
 - **Sequels vs re-airs**:
-  - *Sequels* (S2/S3 of the same adaptation, surfaced as `relationType === "SEQUEL"`) — use the **first season's** AniList anime ID as `anilistAnimeId`; episode counts in `mappings[]` are cumulative across seasons (see `my-hero-academia.json` using id `21459` = S1).
-  - *Re-airs* (alternate full adaptations of the same manga, e.g. HxH 1999 vs 2011, Fruits Basket 2001 vs 2019) — pick the canonical one and disambiguate via year in the slug (`hunter-x-hunter-2011`, `fruits-basket-2019`).
+  - _Sequels_ (S2/S3 of the same adaptation, surfaced as `relationType === "SEQUEL"`) — use the **first season's** AniList anime ID as `anilistAnimeId`; episode counts in `mappings[]` are cumulative across seasons (see `my-hero-academia.json` using id `21459` = S1).
+  - _Re-airs_ (alternate full adaptations of the same manga, e.g. HxH 1999 vs 2011, Fruits Basket 2001 vs 2019) — pick the canonical one and disambiguate via year in the slug (`hunter-x-hunter-2011`, `fruits-basket-2019`).
 - Episode/chapter counts can be `null` on AniList for the wrong partner type or for ongoing series — always read `episodes` from the `ANIME` entry and `chapters` from the `MANGA` entry.
 
 ### 2. Research arc boundaries on the web
@@ -197,7 +197,7 @@ description: <as above>
 
 ## Out of scope
 
-- **Updating an existing mapping** (corrections, new arcs for ongoing manga). Separate concern; the skill explicitly notes it covers only *creation* of a new mapping file. Updates are handled ad hoc.
+- **Updating an existing mapping** (corrections, new arcs for ongoing manga). Separate concern; the skill explicitly notes it covers only _creation_ of a new mapping file. Updates are handled ad hoc.
 - **Auto-fetching arc data from any single source.** Wikis differ in completeness; the skill lists priorities but does not script web fetches — Claude does them adaptively.
 - **Auto-running the GraphQL query.** Claude runs the curl block itself; the skill provides the snippet.
 

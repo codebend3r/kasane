@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState } from "react";
 import {
   Animated,
   Image,
@@ -7,12 +7,15 @@ import {
   StyleSheet,
   Text,
   View,
-} from 'react-native';
-import type { MangaDexVolumeCover, PressableState } from '@/types';
-import { localeLabel } from '@/data/format';
-import { usePreferences } from '@/state/preferences';
-import { CoverCarousel, MOBILE_WIDTH_BREAKPOINT } from '@/components/CoverCarousel';
-import { FONT } from '@/theme';
+} from "react-native";
+import type { MangaDexVolumeCover, PressableState } from "@/types";
+import { localeLabel } from "@/data/format";
+import { usePreferences } from "@/state/preferences";
+import {
+  CoverCarousel,
+  MOBILE_WIDTH_BREAKPOINT,
+} from "@/components/CoverCarousel";
+import { FONT } from "@/theme";
 
 const MOBILE_COVER_WIDTH = 140;
 const MOBILE_COVER_HEIGHT = 210;
@@ -29,7 +32,7 @@ type VolumeGroup = {
 
 function groupCovers(
   covers: MangaDexVolumeCover[],
-  japanese: boolean
+  japanese: boolean,
 ): VolumeGroup[] {
   const localeRank: Record<string, number> = japanese
     ? { ja: 0, en: 1 }
@@ -47,8 +50,8 @@ function groupCovers(
     .sort(([a], [b]) => a - b)
     .map(([volume, list]) => {
       const sorted = [...list].sort((a, b) => {
-        const aIsInt = !a.volume.includes('.');
-        const bIsInt = !b.volume.includes('.');
+        const aIsInt = !a.volume.includes(".");
+        const bIsInt = !b.volume.includes(".");
         if (aIsInt !== bIsInt) return aIsInt ? -1 : 1;
         const ra = localeRank[a.locale] ?? 99;
         const rb = localeRank[b.locale] ?? 99;
@@ -67,7 +70,7 @@ export function VolumesGrid({ covers }: { covers: MangaDexVolumeCover[] }) {
   const japanese = usePreferences((s) => s.japanese);
   const groups = useMemo(
     () => groupCovers(covers, japanese),
-    [covers, japanese]
+    [covers, japanese],
   );
   const [containerWidth, setContainerWidth] = useState(0);
 
@@ -75,7 +78,8 @@ export function VolumesGrid({ covers }: { covers: MangaDexVolumeCover[] }) {
     setContainerWidth(e.nativeEvent.layout.width);
   };
 
-  const isMobile = containerWidth > 0 && containerWidth < MOBILE_WIDTH_BREAKPOINT;
+  const isMobile =
+    containerWidth > 0 && containerWidth < MOBILE_WIDTH_BREAKPOINT;
 
   if (containerWidth === 0) {
     return <View style={styles.measure} onLayout={onLayout} />;
@@ -86,7 +90,7 @@ export function VolumesGrid({ covers }: { covers: MangaDexVolumeCover[] }) {
       <View onLayout={onLayout}>
         <CoverCarousel
           items={groups}
-          keyExtractor={(g) => `vol-${g.volume}-${japanese ? 'ja' : 'en'}`}
+          keyExtractor={(g) => `vol-${g.volume}-${japanese ? "ja" : "en"}`}
           itemWidth={MOBILE_COVER_WIDTH}
           itemHeight={MOBILE_CARD_HEIGHT}
           containerWidth={containerWidth}
@@ -106,7 +110,7 @@ export function VolumesGrid({ covers }: { covers: MangaDexVolumeCover[] }) {
     <View style={styles.grid} onLayout={onLayout}>
       {groups.map((group) => (
         <VolumeCard
-          key={`vol-${group.volume}-${japanese ? 'ja' : 'en'}`}
+          key={`vol-${group.volume}-${japanese ? "ja" : "en"}`}
           group={group}
         />
       ))}
@@ -123,11 +127,10 @@ function VolumeCard({
   width?: number;
   coverHeight?: number;
 }) {
-  const allCovers = useMemo(
-    () => [group.primary, ...group.variants],
-    [group]
+  const allCovers = useMemo(() => [group.primary, ...group.variants], [group]);
+  const [selectedKey, setSelectedKey] = useState<string>(
+    coverKey(group.primary),
   );
-  const [selectedKey, setSelectedKey] = useState<string>(coverKey(group.primary));
   const [isOpen, setIsOpen] = useState(false);
 
   const primary =
@@ -161,7 +164,7 @@ function VolumeCard({
         ]}
       >
         <Animated.View style={[{ width, gap: 4 }, { transform: [{ scale }] }]}>
-          <View style={{ width, height: coverHeight, position: 'relative' }}>
+          <View style={{ width, height: coverHeight, position: "relative" }}>
             <Image
               source={{ uri: primary.thumbUrl }}
               style={[styles.cover, { width, height: coverHeight }]}
@@ -194,7 +197,7 @@ function VolumeCard({
                 {v.volume}
                 {v.locale && v.locale !== primary.locale
                   ? ` · ${v.locale.toUpperCase()}`
-                  : ''}
+                  : ""}
               </Text>
             </Pressable>
           ))}
@@ -207,40 +210,40 @@ function VolumeCard({
 const styles = StyleSheet.create({
   measure: { height: 1 },
   grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     gap: 12,
   },
   card: {
     gap: 4,
-    position: 'relative',
+    position: "relative",
     zIndex: 1,
   },
   cardHovered: {
     zIndex: 10,
   },
   cover: {
-    backgroundColor: '#222',
+    backgroundColor: "#222",
     borderWidth: 1,
-    borderColor: '#fff',
+    borderColor: "#fff",
   },
   variantBadge: {
-    position: 'absolute',
+    position: "absolute",
     top: 6,
     right: 6,
     paddingHorizontal: 6,
     paddingVertical: 2,
-    backgroundColor: 'rgba(124, 92, 255, 0.92)',
+    backgroundColor: "rgba(124, 92, 255, 0.92)",
   },
   variantBadgeText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 10,
     letterSpacing: 0.6,
     fontFamily: FONT.bold,
   },
   variantRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     gap: 6,
     paddingTop: 4,
   },
@@ -251,29 +254,29 @@ const styles = StyleSheet.create({
   variantThumb: {
     width: 36,
     height: 54,
-    backgroundColor: '#222',
+    backgroundColor: "#222",
   },
   variantLabel: {
-    color: '#9aa0a6',
+    color: "#9aa0a6",
     fontSize: 9,
     fontFamily: FONT.semibold,
     letterSpacing: 0.4,
   },
   labels: {
-    backgroundColor: '#000',
+    backgroundColor: "#000",
     padding: 6,
     gap: 2,
   },
   number: {
-    color: '#f5f5f5',
+    color: "#f5f5f5",
     fontSize: 13,
     fontFamily: FONT.bold,
   },
   locale: {
-    color: '#9aa0a6',
+    color: "#9aa0a6",
     fontSize: 11,
     letterSpacing: 0.8,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     fontFamily: FONT.semibold,
   },
 });

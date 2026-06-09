@@ -4,6 +4,10 @@
   "title": "Log Horizon",
   "sourceNotes": "S1 anime (25 eps, 2013-2014) paired with the Kazuhiro Hara manga adaptation (10 chapters, finished). Both adapt the Mamare Touno light novel; the manga covered only the early arc. S2 (eps 26-50) and Destruction of the Round Table (eps 51-62) go beyond the manga's coverage and have no manga reference.",
   "mappings": [
-    { "episodes": [1, 25], "chapters": [1, 10], "arc": "Apocalypse / Crescent Moon Alliance (S1)" }
+    {
+      "episodes": [1, 25],
+      "chapters": [1, 10],
+      "arc": "Apocalypse / Crescent Moon Alliance (S1)"
+    }
   ]
 }

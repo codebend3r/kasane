@@ -21,45 +21,45 @@ A single static array defined in `src/data/genreFilters.ts`. Each entry has:
 
 ```ts
 export type GenreFilter = {
-  id: string;          // stable key, e.g. 'ecchi', 'mahou-shoujo'
-  label: string;       // display string for the chip
-  kind: 'genre' | 'tag';
-  token: string;       // exact AniList token (case-sensitive)
+  id: string; // stable key, e.g. 'ecchi', 'mahou-shoujo'
+  label: string; // display string for the chip
+  kind: "genre" | "tag";
+  token: string; // exact AniList token (case-sensitive)
 };
 ```
 
 The list, in chip-render order (demographics first, then thematic, then tone modifiers):
 
-| id | label | kind | token |
-|---|---|---|---|
-| shounen | Shounen | tag | Shounen |
-| shoujo | Shoujo | tag | Shoujo |
-| seinen | Seinen | tag | Seinen |
-| josei | Josei | tag | Josei |
-| kids | Kids | tag | Kids |
-| action | Action | genre | Action |
-| adventure | Adventure | genre | Adventure |
-| comedy | Comedy | genre | Comedy |
-| drama | Drama | genre | Drama |
-| romance | Romance | genre | Romance |
+| id            | label         | kind  | token         |
+| ------------- | ------------- | ----- | ------------- |
+| shounen       | Shounen       | tag   | Shounen       |
+| shoujo        | Shoujo        | tag   | Shoujo        |
+| seinen        | Seinen        | tag   | Seinen        |
+| josei         | Josei         | tag   | Josei         |
+| kids          | Kids          | tag   | Kids          |
+| action        | Action        | genre | Action        |
+| adventure     | Adventure     | genre | Adventure     |
+| comedy        | Comedy        | genre | Comedy        |
+| drama         | Drama         | genre | Drama         |
+| romance       | Romance       | genre | Romance       |
 | slice-of-life | Slice of Life | genre | Slice of Life |
-| mystery | Mystery | genre | Mystery |
+| mystery       | Mystery       | genre | Mystery       |
 | psychological | Psychological | genre | Psychological |
-| thriller | Thriller | genre | Thriller |
-| horror | Horror | genre | Horror |
-| mecha | Mecha | genre | Mecha |
-| mahou-shoujo | Magical Girl | genre | Mahou Shoujo |
-| sports | Sports | genre | Sports |
-| music | Music | genre | Music |
-| isekai | Isekai | tag | Isekai |
-| iyashikei | Iyashikei | tag | Iyashikei |
-| yuri | Yuri | tag | Yuri |
-| bl | BL | tag | Boys' Love |
-| cooking | Cooking | tag | Cooking |
-| dark-fantasy | Dark Fantasy | tag | Dark Fantasy |
-| harem | Harem | tag | Harem |
-| reverse-harem | Reverse Harem | tag | Reverse Harem |
-| ecchi | Ecchi | genre | Ecchi |
+| thriller      | Thriller      | genre | Thriller      |
+| horror        | Horror        | genre | Horror        |
+| mecha         | Mecha         | genre | Mecha         |
+| mahou-shoujo  | Magical Girl  | genre | Mahou Shoujo  |
+| sports        | Sports        | genre | Sports        |
+| music         | Music         | genre | Music         |
+| isekai        | Isekai        | tag   | Isekai        |
+| iyashikei     | Iyashikei     | tag   | Iyashikei     |
+| yuri          | Yuri          | tag   | Yuri          |
+| bl            | BL            | tag   | Boys' Love    |
+| cooking       | Cooking       | tag   | Cooking       |
+| dark-fantasy  | Dark Fantasy  | tag   | Dark Fantasy  |
+| harem         | Harem         | tag   | Harem         |
+| reverse-harem | Reverse Harem | tag   | Reverse Harem |
+| ecchi         | Ecchi         | genre | Ecchi         |
 
 The `kind` field is what splits a selection set into the two AniList query variables (`genre_not_in`, `tag_not_in`).
 
@@ -74,7 +74,7 @@ type State = {
   japanese: boolean;
   toggleJapanese: () => void;
 
-  hiddenGenres: string[];          // array of GenreFilter.id values
+  hiddenGenres: string[]; // array of GenreFilter.id values
   toggleHiddenGenre: (id: string) => void;
 };
 ```
@@ -112,15 +112,16 @@ query LatestAnime($genreNotIn: [String], $tagNotIn: [String]) {
 A small helper in `src/data/genreFilters.ts`:
 
 ```ts
-export function splitHiddenForAniList(
-  hiddenIds: string[]
-): { genreNotIn: string[] | null; tagNotIn: string[] | null } {
+export function splitHiddenForAniList(hiddenIds: string[]): {
+  genreNotIn: string[] | null;
+  tagNotIn: string[] | null;
+} {
   const genres: string[] = [];
   const tags: string[] = [];
   for (const id of hiddenIds) {
     const entry = GENRE_FILTERS.find((f) => f.id === id);
     if (!entry) continue;
-    (entry.kind === 'genre' ? genres : tags).push(entry.token);
+    (entry.kind === "genre" ? genres : tags).push(entry.token);
   }
   return {
     genreNotIn: genres.length > 0 ? genres : null,
@@ -176,8 +177,8 @@ The local `hideEcchi` `useState` and its chip are removed. The `genreNotIn` comp
 Both queries' `queryKey` arrays gain `tagNotIn`:
 
 ```ts
-queryKey: ['search', debouncedQuery, type, genreNotIn, tagNotIn]
-queryKey: ['latest-anime', genreNotIn, tagNotIn]
+queryKey: ["search", debouncedQuery, type, genreNotIn, tagNotIn];
+queryKey: ["latest-anime", genreNotIn, tagNotIn];
 ```
 
 Arrays are stable references when produced from the same sorted source, so to avoid cache misses on re-renders we sort `hiddenGenres` once inside `splitHiddenForAniList` before pushing into the two output arrays.

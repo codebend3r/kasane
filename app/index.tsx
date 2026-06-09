@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -13,35 +13,38 @@ import {
   useWindowDimensions,
   View,
   type ViewStyle,
-} from 'react-native';
-import { Link } from 'expo-router';
-import { useQuery } from '@tanstack/react-query';
-import { getLatestAnime, searchMedia } from '@/api/anilist';
-import { pairResults } from '@/data';
-import { GENRE_FILTERS, splitHiddenForAniList } from '@/data/genreFilters';
-import { SeriesCard } from '@/components/SeriesCard';
-import { ContinueSection } from '@/components/ContinueSection';
-import { CoverCarousel, MOBILE_WIDTH_BREAKPOINT } from '@/components/CoverCarousel';
-import { Footer } from '@/components/Footer';
-import { usePreferences } from '@/state/preferences';
-import type { AniListMedia, SeriesEntry } from '@/types';
-import { FONT } from '@/theme';
+} from "react-native";
+import { Link } from "expo-router";
+import { useQuery } from "@tanstack/react-query";
+import { getLatestAnime, searchMedia } from "@/api/anilist";
+import { pairResults } from "@/data";
+import { GENRE_FILTERS, splitHiddenForAniList } from "@/data/genreFilters";
+import { SeriesCard } from "@/components/SeriesCard";
+import { ContinueSection } from "@/components/ContinueSection";
+import {
+  CoverCarousel,
+  MOBILE_WIDTH_BREAKPOINT,
+} from "@/components/CoverCarousel";
+import { Footer } from "@/components/Footer";
+import { usePreferences } from "@/state/preferences";
+import type { AniListMedia, SeriesEntry } from "@/types";
+import { FONT } from "@/theme";
 
-const BADGE_COLOR: Record<SeriesEntry['badge'], string> = {
-  both: '#7c5cff',
-  'manga-only': '#ff7c5c',
-  'anime-only': '#5cdfff',
+const BADGE_COLOR: Record<SeriesEntry["badge"], string> = {
+  both: "#7c5cff",
+  "manga-only": "#ff7c5c",
+  "anime-only": "#5cdfff",
 };
 
-const BADGE_LABEL: Record<SeriesEntry['badge'], string> = {
-  both: 'ANIME + MANGA',
-  'manga-only': 'MANGA',
-  'anime-only': 'ANIME',
+const BADGE_LABEL: Record<SeriesEntry["badge"], string> = {
+  both: "ANIME + MANGA",
+  "manga-only": "MANGA",
+  "anime-only": "ANIME",
 };
 
 export default function HomeScreen() {
-  const [query, setQuery] = useState('');
-  const [debouncedQuery, setDebouncedQuery] = useState('');
+  const [query, setQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const hiddenGenres = usePreferences((s) => s.hiddenGenres);
   const toggleHiddenGenre = usePreferences((s) => s.toggleHiddenGenre);
@@ -57,14 +60,18 @@ export default function HomeScreen() {
 
   const isSearching = debouncedQuery.trim().length > 1;
 
-  const { data: searchResults, isFetching, error } = useQuery({
-    queryKey: ['search', debouncedQuery, genreNotIn, tagNotIn],
+  const {
+    data: searchResults,
+    isFetching,
+    error,
+  } = useQuery({
+    queryKey: ["search", debouncedQuery, genreNotIn, tagNotIn],
     queryFn: () => searchMedia(debouncedQuery, undefined, genreNotIn, tagNotIn),
     enabled: isSearching,
   });
 
   const { data: latestAnime, isFetching: latestFetching } = useQuery({
-    queryKey: ['latest-anime', genreNotIn, tagNotIn],
+    queryKey: ["latest-anime", genreNotIn, tagNotIn],
     queryFn: () => getLatestAnime(genreNotIn, tagNotIn),
     enabled: !isSearching,
     staleTime: 60 * 60 * 1000,
@@ -72,7 +79,7 @@ export default function HomeScreen() {
 
   const pairedResults = useMemo(
     () => pairResults(searchResults ?? []),
-    [searchResults]
+    [searchResults],
   );
 
   return (
@@ -101,10 +108,10 @@ export default function HomeScreen() {
         <Text style={styles.filterToggleText}>
           {hiddenCount > 0
             ? `Filter genres · ${hiddenCount} hidden`
-            : 'Filter genres'}
+            : "Filter genres"}
         </Text>
         <Text style={styles.filterToggleChevron}>
-          {filtersOpen && !isMobile ? '▴' : '▾'}
+          {filtersOpen && !isMobile ? "▴" : "▾"}
         </Text>
       </Pressable>
 
@@ -141,7 +148,9 @@ export default function HomeScreen() {
         />
       )}
 
-      {error && <Text style={styles.error}>Something went wrong. Try again.</Text>}
+      {error && (
+        <Text style={styles.error}>Something went wrong. Try again.</Text>
+      )}
 
       {isSearching ? (
         <>
@@ -244,14 +253,14 @@ function trimSeasonSuffix(title: string): string {
   const cleaned = title
     .replace(
       /\s*[:\-—–]\s*(?:the\s+)?(?:final\s+)?season(?:\s+[\divxlcm]+)?(?:\s+part\s+[\divxlcm]+)?\s*$/i,
-      ''
+      "",
     )
-    .replace(/\s+season\s+[\divxlcm]+\s*$/i, '')
-    .replace(/\s+\d+(?:st|nd|rd|th)\s+season\s*$/i, '')
-    .replace(/\s+(?:the\s+)?final\s+season\s*$/i, '')
-    .replace(/\s+part\s+[\divxlcm]+\s*$/i, '')
-    .replace(/\s+(?:\d+(?:st|nd|rd|th)\s+)?cour(?:\s+[\divxlcm]+)?\s*$/i, '')
-    .replace(/[:\-—–]\s*$/, '')
+    .replace(/\s+season\s+[\divxlcm]+\s*$/i, "")
+    .replace(/\s+\d+(?:st|nd|rd|th)\s+season\s*$/i, "")
+    .replace(/\s+(?:the\s+)?final\s+season\s*$/i, "")
+    .replace(/\s+part\s+[\divxlcm]+\s*$/i, "")
+    .replace(/\s+(?:\d+(?:st|nd|rd|th)\s+)?cour(?:\s+[\divxlcm]+)?\s*$/i, "")
+    .replace(/[:\-—–]\s*$/, "")
     .trim();
   return cleaned || title;
 }
@@ -301,7 +310,7 @@ function LatestReleases({
   const renderCard = (entry: SeriesEntry) => (
     <Link
       href={{
-        pathname: '/series/[id]',
+        pathname: "/series/[id]",
         params: { id: entry.routeId },
       }}
       asChild
@@ -318,7 +327,7 @@ function LatestReleases({
             style={[
               styles.gridCover,
               {
-                backgroundColor: entry.primary.coverImage.color ?? '#222',
+                backgroundColor: entry.primary.coverImage.color ?? "#222",
               },
             ]}
           />
@@ -334,10 +343,10 @@ function LatestReleases({
         <Text style={styles.gridTitle} numberOfLines={2}>
           {trimSeasonSuffix(
             japanese
-              ? entry.primary.title.native ??
+              ? (entry.primary.title.native ??
                   entry.primary.title.english ??
-                  entry.primary.title.romaji
-              : entry.primary.title.english ?? entry.primary.title.romaji
+                  entry.primary.title.romaji)
+              : (entry.primary.title.english ?? entry.primary.title.romaji),
           )}
         </Text>
       </Pressable>
@@ -368,12 +377,14 @@ function LatestReleases({
         </View>
       ) : (
         <View
-          style={{
-            display: 'grid',
-            gridTemplateColumns: `repeat(${columns}, 1fr)`,
-            gap: GRID_GAP,
-            alignItems: 'flex-start',
-          } as unknown as ViewStyle}
+          style={
+            {
+              display: "grid",
+              gridTemplateColumns: `repeat(${columns}, 1fr)`,
+              gap: GRID_GAP,
+              alignItems: "flex-start",
+            } as unknown as ViewStyle
+          }
         >
           {visible.map((entry) => (
             <View key={entry.routeId}>{renderCard(entry)}</View>
@@ -388,81 +399,81 @@ function LatestReleases({
 const styles = StyleSheet.create({
   root: { flex: 1, padding: 16, gap: 16 },
   tagline: {
-    color: '#cfd2d6',
+    color: "#cfd2d6",
     fontSize: 16,
     letterSpacing: -0.2,
     fontFamily: FONT.medium,
   },
   input: {
-    backgroundColor: '#17181b',
-    color: '#f5f5f5',
+    backgroundColor: "#17181b",
+    color: "#f5f5f5",
     paddingHorizontal: 24,
     paddingVertical: 24,
     fontSize: 22,
     lineHeight: 28,
     fontFamily: FONT.medium,
     borderLeftWidth: 4,
-    borderLeftColor: '#7c5cff',
+    borderLeftColor: "#7c5cff",
   },
   genreFilters: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     gap: 8,
     rowGap: 8,
   },
   filterToggle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'flex-start',
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "flex-start",
     gap: 8,
     paddingHorizontal: 14,
     paddingVertical: 8,
-    backgroundColor: '#17181b',
+    backgroundColor: "#17181b",
     borderLeftWidth: 2,
-    borderLeftColor: '#7c5cff',
+    borderLeftColor: "#7c5cff",
   },
   filterToggleText: {
-    color: '#cfd2d6',
+    color: "#cfd2d6",
     fontSize: 12,
     letterSpacing: 1.2,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
   filterToggleChevron: {
-    color: '#7c5cff',
+    color: "#7c5cff",
     fontSize: 12,
     lineHeight: 12,
     fontFamily: FONT.bold,
   },
   sheetBackdrop: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.55)',
-    justifyContent: 'flex-end',
+    backgroundColor: "rgba(0,0,0,0.55)",
+    justifyContent: "flex-end",
   },
   sheetBackdropFill: { flex: 1 },
   sheet: {
-    backgroundColor: '#17181b',
-    maxHeight: '75%',
+    backgroundColor: "#17181b",
+    maxHeight: "75%",
     paddingTop: 8,
     paddingBottom: 24,
     gap: 12,
   },
   sheetHandle: {
-    alignSelf: 'center',
+    alignSelf: "center",
     width: 36,
     height: 4,
-    backgroundColor: '#2a2c30',
+    backgroundColor: "#2a2c30",
   },
   sheetHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: 20,
     paddingTop: 4,
     gap: 16,
   },
   sheetTitle: {
     flex: 1,
-    color: '#f5f5f5',
+    color: "#f5f5f5",
     fontSize: 18,
     fontFamily: FONT.bold,
     letterSpacing: -0.2,
@@ -470,44 +481,44 @@ const styles = StyleSheet.create({
   sheetDone: {
     paddingHorizontal: 14,
     paddingVertical: 8,
-    backgroundColor: '#7c5cff',
+    backgroundColor: "#7c5cff",
   },
   sheetDoneText: {
-    color: '#0c0c0e',
+    color: "#0c0c0e",
     fontSize: 12,
     letterSpacing: 1.4,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
   sheetScroll: { paddingHorizontal: 20 },
   sheetScrollContent: { paddingBottom: 12, gap: 4 },
   sheetRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 14,
     paddingVertical: 12,
   },
   sheetCheckbox: {
     width: 24,
     height: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#0c0c0e',
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#0c0c0e",
     borderWidth: 2,
-    borderColor: '#2a2c30',
+    borderColor: "#2a2c30",
   },
   sheetCheckboxOn: {
-    backgroundColor: '#7c5cff',
-    borderColor: '#7c5cff',
+    backgroundColor: "#7c5cff",
+    borderColor: "#7c5cff",
   },
   sheetCheckMark: {
-    color: '#0c0c0e',
+    color: "#0c0c0e",
     fontSize: 14,
     lineHeight: 14,
     fontFamily: FONT.bold,
   },
   sheetRowLabel: {
-    color: '#f5f5f5',
+    color: "#f5f5f5",
     fontSize: 16,
     fontFamily: FONT.medium,
     letterSpacing: -0.1,
@@ -515,32 +526,32 @@ const styles = StyleSheet.create({
   filterChip: {
     paddingHorizontal: 14,
     paddingVertical: 6,
-    backgroundColor: '#17181b',
+    backgroundColor: "#17181b",
   },
-  filterChipActive: { backgroundColor: '#7c5cff' },
+  filterChipActive: { backgroundColor: "#7c5cff" },
   filterText: {
-    color: '#9aa0a6',
+    color: "#9aa0a6",
     fontSize: 12,
     letterSpacing: 1.2,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
-  filterTextActive: { color: '#0c0c0e' },
+  filterTextActive: { color: "#0c0c0e" },
   spinnerWrap: { paddingTop: 24 },
   emptyWrap: { paddingTop: 32 },
-  empty: { color: '#6b7177', textAlign: 'center', fontFamily: FONT.regular },
-  error: { color: '#ff7c5c', textAlign: 'center', fontFamily: FONT.medium },
+  empty: { color: "#6b7177", textAlign: "center", fontFamily: FONT.regular },
+  error: { color: "#ff7c5c", textAlign: "center", fontFamily: FONT.medium },
   latestScroll: { paddingBottom: 32, gap: 16 },
   latestHeader: { gap: 2 },
   latestEyebrow: {
-    color: '#7c5cff',
+    color: "#7c5cff",
     fontSize: 11,
     letterSpacing: 1.8,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
   latestTitle: {
-    color: '#f5f5f5',
+    color: "#f5f5f5",
     fontSize: 22,
     letterSpacing: -0.4,
     fontFamily: FONT.bold,
@@ -549,34 +560,34 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   gridCoverWrap: {
-    width: '100%',
+    width: "100%",
     aspectRatio: 160 / 230,
-    position: 'relative',
+    position: "relative",
   },
   gridCover: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   gridBadge: {
-    position: 'absolute',
+    position: "absolute",
     top: 6,
     left: 6,
     paddingHorizontal: 6,
     paddingVertical: 2,
   },
   gridBadgeText: {
-    color: '#0c0c0e',
+    color: "#0c0c0e",
     fontSize: 9,
     letterSpacing: 1.2,
     fontFamily: FONT.bold,
   },
   gridTitle: {
-    color: '#f5f5f5',
+    color: "#f5f5f5",
     fontSize: 14,
     lineHeight: 18,
     height: 36,
-    width: '100%',
-    overflow: 'hidden',
+    width: "100%",
+    overflow: "hidden",
     fontFamily: FONT.semibold,
     letterSpacing: -0.2,
   },

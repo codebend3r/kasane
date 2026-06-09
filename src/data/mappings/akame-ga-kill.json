@@ -5,7 +5,11 @@
   "sourceNotes": "Anime complete at 24 episodes (2014). Manga complete at 80 chapters (2010-2016). Anime faithfully adapts ch 1-38 across eps 1-18, then diverges with an anime-original ending in eps 19-24 (unmapped). Manga continues with the Wild Hunt arc and the canonical resolution.",
   "mappings": [
     { "episodes": [1, 7], "chapters": [1, 15], "arc": "Night Raid Initiation" },
-    { "episodes": [8, 18], "chapters": [16, 38], "arc": "Jaegers / Three Beasts" },
+    {
+      "episodes": [8, 18],
+      "chapters": [16, 38],
+      "arc": "Jaegers / Three Beasts"
+    },
     { "chapters": [39, 58], "arc": "Wild Hunt (unadapted; anime diverges)" },
     { "chapters": [59, 80], "arc": "Revolution / Final Battle (unadapted)" }
   ]

@@ -1,9 +1,9 @@
-import { useMemo } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
+import { useMemo } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
-export type ProgressSide = 'anime' | 'manga';
+export type ProgressSide = "anime" | "manga";
 
 export type SidePointer = {
   position: number;
@@ -25,7 +25,7 @@ type State = {
 const withSide = (
   current: SeriesProgress | undefined,
   side: ProgressSide,
-  pointer: SidePointer
+  pointer: SidePointer,
 ): SeriesProgress => ({
   ...(current ?? {}),
   [side]: pointer,
@@ -33,7 +33,7 @@ const withSide = (
 
 const withoutSide = (
   current: SeriesProgress | undefined,
-  side: ProgressSide
+  side: ProgressSide,
 ): SeriesProgress | null => {
   if (!current) return null;
   const next = { ...current };
@@ -68,15 +68,16 @@ export const useProgress = create<State>()(
         }),
     }),
     {
-      name: 'kasane-progress',
+      name: "kasane-progress",
       storage: createJSONStorage(() => AsyncStorage),
       partialize: (s) => ({ byRouteId: s.byRouteId }),
-    }
-  )
+    },
+  ),
 );
 
-export const useSeriesProgress = (routeId: number): SeriesProgress | undefined =>
-  useProgress((s) => s.byRouteId[routeId]);
+export const useSeriesProgress = (
+  routeId: number,
+): SeriesProgress | undefined => useProgress((s) => s.byRouteId[routeId]);
 
 export type InProgressEntry = {
   routeId: number;
@@ -94,10 +95,10 @@ export const useInProgressEntries = (): InProgressEntry[] => {
           progress,
           updatedAt: Math.max(
             progress.anime?.updatedAt ?? 0,
-            progress.manga?.updatedAt ?? 0
+            progress.manga?.updatedAt ?? 0,
           ),
         }))
         .sort((a, b) => b.updatedAt - a.updatedAt),
-    [byRouteId]
+    [byRouteId],
   );
 };

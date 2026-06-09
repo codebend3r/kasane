@@ -4,10 +4,26 @@
   "title": "Fruits Basket (2019)",
   "sourceNotes": "2019 reboot adapts the full manga (138 ch) across S1 (25) + S2 (25) + S3 The Final (13). Arc-level approximation.",
   "mappings": [
-    { "episodes": [1, 11],  "chapters": [1, 28],    "arc": "Meet the Sohmas" },
-    { "episodes": [12, 25], "chapters": [29, 54],   "arc": "Summer & School Festival" },
-    { "episodes": [26, 38], "chapters": [55, 84],   "arc": "Akito's Curse Begins to Crack" },
-    { "episodes": [39, 50], "chapters": [85, 113],  "arc": "Breaking the Curse" },
-    { "episodes": [51, 63], "chapters": [114, 138], "arc": "Resolution & Goodbye" }
+    { "episodes": [1, 11], "chapters": [1, 28], "arc": "Meet the Sohmas" },
+    {
+      "episodes": [12, 25],
+      "chapters": [29, 54],
+      "arc": "Summer & School Festival"
+    },
+    {
+      "episodes": [26, 38],
+      "chapters": [55, 84],
+      "arc": "Akito's Curse Begins to Crack"
+    },
+    {
+      "episodes": [39, 50],
+      "chapters": [85, 113],
+      "arc": "Breaking the Curse"
+    },
+    {
+      "episodes": [51, 63],
+      "chapters": [114, 138],
+      "arc": "Resolution & Goodbye"
+    }
   ]
 }

@@ -4,12 +4,16 @@
   "title": "Berserk (1997)",
   "sourceNotes": "1997 TV series; covers Black Swordsman intro + Golden Age arc (manga ch ~1–94). Conviction arc onward is adapted by the 2016/2017 series and the Golden Age movies. Arc-level approximation.",
   "mappings": [
-    { "episodes": [1, 1],   "chapters": [1, 8],   "arc": "Black Swordsman (prologue)" },
-    { "episodes": [2, 6],   "chapters": [9, 32],  "arc": "Band of the Hawk" },
-    { "episodes": [7, 13],  "chapters": [33, 56], "arc": "Hundred-Year War" },
+    {
+      "episodes": [1, 1],
+      "chapters": [1, 8],
+      "arc": "Black Swordsman (prologue)"
+    },
+    { "episodes": [2, 6], "chapters": [9, 32], "arc": "Band of the Hawk" },
+    { "episodes": [7, 13], "chapters": [33, 56], "arc": "Hundred-Year War" },
     { "episodes": [14, 19], "chapters": [57, 75], "arc": "Conspiracy" },
     { "episodes": [20, 25], "chapters": [76, 94], "arc": "Eclipse" },
-    { "chapters": [95, 176],  "arc": "Conviction" },
+    { "chapters": [95, 176], "arc": "Conviction" },
     { "chapters": [177, 306], "arc": "Millennium Falcon" },
     { "chapters": [307, 383], "arc": "Fantasia" }
   ]

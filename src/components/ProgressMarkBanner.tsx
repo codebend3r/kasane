@@ -1,10 +1,7 @@
-import { useEffect } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { FONT } from '@/theme';
-import {
-  useProgress,
-  type ProgressSide,
-} from '@/state/progress';
+import { useEffect } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { FONT } from "@/theme";
+import { useProgress, type ProgressSide } from "@/state/progress";
 
 const AUTO_DISMISS_MS = 8000;
 
@@ -35,11 +32,11 @@ export function ProgressMarkBanner({
     return () => clearTimeout(t);
   }, [event, onDismiss]);
 
-  const sideLabel = event.side === 'anime' ? 'ep' : 'ch';
-  const otherLabel = event.suggestion?.side === 'anime' ? 'ep' : 'ch';
+  const sideLabel = event.side === "anime" ? "ep" : "ch";
+  const otherLabel = event.suggestion?.side === "anime" ? "ep" : "ch";
 
   const undo = () => {
-    if (typeof event.previous === 'number') {
+    if (typeof event.previous === "number") {
       setSide(routeId, event.side, event.previous);
     } else {
       clearSide(routeId, event.side);
@@ -57,7 +54,8 @@ export function ProgressMarkBanner({
     <View style={styles.banner}>
       <View style={styles.row}>
         <Text style={styles.headline}>
-          Marked {sideLabel} {event.position} {event.side === 'anime' ? 'watched' : 'read'}
+          Marked {sideLabel} {event.position}{" "}
+          {event.side === "anime" ? "watched" : "read"}
         </Text>
         <Pressable
           onPress={onDismiss}
@@ -72,7 +70,7 @@ export function ProgressMarkBanner({
       </View>
       {event.suggestion ? (
         <Text style={styles.suggestionText}>
-          ≈ {otherLabel} {event.suggestion.position} on the{' '}
+          ≈ {otherLabel} {event.suggestion.position} on the{" "}
           {event.suggestion.side} side
         </Text>
       ) : null}
@@ -107,19 +105,19 @@ export function ProgressMarkBanner({
 const styles = StyleSheet.create({
   banner: {
     padding: 14,
-    backgroundColor: '#17181b',
+    backgroundColor: "#17181b",
     borderLeftWidth: 4,
-    borderLeftColor: '#5cff9d',
+    borderLeftColor: "#5cff9d",
     gap: 8,
   },
   row: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 12,
   },
   headline: {
     flex: 1,
-    color: '#f5f5f5',
+    color: "#f5f5f5",
     fontSize: 14,
     fontFamily: FONT.bold,
     letterSpacing: -0.2,
@@ -128,43 +126,43 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
   },
   closeText: {
-    color: '#9aa0a6',
+    color: "#9aa0a6",
     fontSize: 20,
     lineHeight: 20,
     fontFamily: FONT.bold,
   },
   suggestionText: {
-    color: '#cfd2d6',
+    color: "#cfd2d6",
     fontSize: 13,
     fontFamily: FONT.regular,
   },
   actionsRow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 8,
-    flexWrap: 'wrap',
+    flexWrap: "wrap",
   },
   primaryBtn: {
     paddingHorizontal: 12,
     paddingVertical: 8,
-    backgroundColor: '#5cff9d',
+    backgroundColor: "#5cff9d",
   },
   primaryBtnText: {
-    color: '#0c0c0e',
+    color: "#0c0c0e",
     fontSize: 11,
     letterSpacing: 1.4,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
   secondaryBtn: {
     paddingHorizontal: 12,
     paddingVertical: 8,
-    backgroundColor: '#2a2a2a',
+    backgroundColor: "#2a2a2a",
   },
   secondaryBtnText: {
-    color: '#cfd2d6',
+    color: "#cfd2d6",
     fontSize: 11,
     letterSpacing: 1.4,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
 });

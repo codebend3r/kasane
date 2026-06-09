@@ -1,21 +1,21 @@
-import type { MangaDexInfo, MangaDexVolumeCover, MangaDexTitle } from '@/types';
+import type { MangaDexInfo, MangaDexVolumeCover, MangaDexTitle } from "@/types";
 
 // api.mangadex.org only returns Access-Control-Allow-Origin for localhost, so
 // on a deployed web origin we hit the Netlify proxy at /_mdx instead. Native
 // builds and local dev call MangaDex directly.
 function resolveBase(): string {
-  if (typeof window === 'undefined' || !window.location) {
-    return 'https://api.mangadex.org';
+  if (typeof window === "undefined" || !window.location) {
+    return "https://api.mangadex.org";
   }
   const host = window.location.hostname;
-  if (host === 'localhost' || host === '127.0.0.1') {
-    return 'https://api.mangadex.org';
+  if (host === "localhost" || host === "127.0.0.1") {
+    return "https://api.mangadex.org";
   }
-  return '/_mdx';
+  return "/_mdx";
 }
 
 const BASE = resolveBase();
-const UPLOADS = 'https://uploads.mangadex.org';
+const UPLOADS = "https://uploads.mangadex.org";
 
 type MangaDexRecord = {
   id: string;
@@ -57,12 +57,16 @@ function buildTitles(record: MangaDexRecord): MangaDexTitle[] {
   }, []);
 }
 
-function coverUrl(mangaId: string, fileName: string, size: '256' | '512' | 'full'): string {
-  if (size === 'full') return `${UPLOADS}/covers/${mangaId}/${fileName}`;
+function coverUrl(
+  mangaId: string,
+  fileName: string,
+  size: "256" | "512" | "full",
+): string {
+  if (size === "full") return `${UPLOADS}/covers/${mangaId}/${fileName}`;
   return `${UPLOADS}/covers/${mangaId}/${fileName}.${size}.jpg`;
 }
 
-const SAFE_RATINGS = 'contentRating%5B%5D=safe&contentRating%5B%5D=suggestive';
+const SAFE_RATINGS = "contentRating%5B%5D=safe&contentRating%5B%5D=suggestive";
 
 async function searchByTitle(title: string): Promise<MangaDexRecord[]> {
   const url = `${BASE}/manga?title=${encodeURIComponent(title)}&limit=10&${SAFE_RATINGS}`;
@@ -78,22 +82,22 @@ const EDITION_MARKER_REGEX =
 
 function primaryTitle(record: MangaDexRecord): string {
   const t = record.attributes.title;
-  return t.en ?? t['ja-ro'] ?? t.ja ?? Object.values(t)[0] ?? '';
+  return t.en ?? t["ja-ro"] ?? t.ja ?? Object.values(t)[0] ?? "";
 }
 
 function normalizeTitle(s: string): string {
   return s
     .toLowerCase()
-    .replace(/[‐-―]/g, '-')
-    .replace(/[^\w\s]/g, ' ')
-    .replace(/\s+/g, ' ')
+    .replace(/[‐-―]/g, "-")
+    .replace(/[^\w\s]/g, " ")
+    .replace(/\s+/g, " ")
     .trim();
 }
 
 export function pickBestMatch(
   candidates: MangaDexRecord[],
   anilistId: number,
-  preferredTitle: string
+  preferredTitle: string,
 ): MangaDexRecord | null {
   const target = normalizeTitle(preferredTitle);
   const preferredHasMarker = EDITION_MARKER_REGEX.test(preferredTitle);
@@ -122,7 +126,7 @@ const COVER_MAX_PAGES = 5;
 async function fetchCoverPage(
   mangaId: string,
   offset: number,
-  acc: CoverRecord[]
+  acc: CoverRecord[],
 ): Promise<CoverRecord[]> {
   const url = `${BASE}/cover?manga%5B%5D=${mangaId}&limit=${COVER_PAGE_SIZE}&offset=${offset}&order%5Bvolume%5D=asc`;
   const data = await fetchJson<{ data: CoverRecord[]; total: number }>(url);
@@ -139,25 +143,30 @@ async function fetchCovers(mangaId: string): Promise<CoverRecord[]> {
   return fetchCoverPage(mangaId, 0, []);
 }
 
-async function fetchAggregate(mangaId: string): Promise<{ volumeCount: number; chapterCount: number }> {
+async function fetchAggregate(
+  mangaId: string,
+): Promise<{ volumeCount: number; chapterCount: number }> {
   const url = `${BASE}/manga/${mangaId}/aggregate`;
   const data = await fetchJson<{
-    volumes: Record<string, { volume: string; chapters: Record<string, { chapter: string }> }>;
+    volumes: Record<
+      string,
+      { volume: string; chapters: Record<string, { chapter: string }> }
+    >;
   }>(url);
   const volumes = data.volumes ?? {};
   const chapterCount = Object.values(volumes).reduce(
     (sum, v) => sum + Object.keys(v.chapters ?? {}).length,
-    0
+    0,
   );
   const numberedVolumes = Object.keys(volumes).filter(
-    (k) => k !== 'none' && k !== 'null'
+    (k) => k !== "none" && k !== "null",
   );
   return { volumeCount: numberedVolumes.length, chapterCount };
 }
 
 export async function getMangaDexInfoByAniListId(
   anilistId: number,
-  preferredTitle: string
+  preferredTitle: string,
 ): Promise<MangaDexInfo | null> {
   const candidates = await searchByTitle(preferredTitle);
   const match = pickBestMatch(candidates, anilistId, preferredTitle);
@@ -169,16 +178,16 @@ export async function getMangaDexInfoByAniListId(
   ]);
 
   const hasVolume = (
-    c: CoverRecord
+    c: CoverRecord,
   ): c is CoverRecord & { attributes: { volume: string } } =>
     !!c.attributes.volume;
   const coverList: MangaDexVolumeCover[] = covers
     .filter(hasVolume)
     .map((c) => ({
       volume: c.attributes.volume,
-      locale: c.attributes.locale ?? 'ja',
-      url: coverUrl(match.id, c.attributes.fileName, '512'),
-      thumbUrl: coverUrl(match.id, c.attributes.fileName, '256'),
+      locale: c.attributes.locale ?? "ja",
+      url: coverUrl(match.id, c.attributes.fileName, "512"),
+      thumbUrl: coverUrl(match.id, c.attributes.fileName, "256"),
     }))
     .sort((a, b) => {
       const av = Number(a.volume);
@@ -189,8 +198,8 @@ export async function getMangaDexInfoByAniListId(
 
   const titles = buildTitles(match);
   const primaryTitle =
-    titles.find((t) => t.locale === 'en')?.value ??
-    titles.find((t) => t.locale === 'ja-ro')?.value ??
+    titles.find((t) => t.locale === "en")?.value ??
+    titles.find((t) => t.locale === "ja-ro")?.value ??
     titles[0]?.value ??
     preferredTitle;
 
