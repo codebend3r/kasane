@@ -63,7 +63,9 @@ describe("useInProgressEntries", () => {
     expect(captures[0]).toBe(captures[1]);
     expect(captures[1]).toBe(captures[2]);
 
-    root?.unmount();
+    act(() => {
+      root?.unmount();
+    });
   });
 
   it("returns a fresh array (sorted by updatedAt desc) when the store changes", () => {
@@ -94,7 +96,9 @@ describe("useInProgressEntries", () => {
       expect(captures[0]).not.toBe(final);
     } finally {
       nowSpy.mockRestore();
-      root?.unmount();
+      act(() => {
+        root?.unmount();
+      });
     }
   });
 });
