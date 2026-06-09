@@ -20,5 +20,20 @@
       "chapters": [111, 168],
       "arc": "Holy Empire War (S3)"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 139498,
+      "title": "That Time I Got Reincarnated as a Slime the Movie: Scarlet Bond",
+      "year": 2022,
+      "afterEpisode": 48,
+      "note": "Side-story film between S2 and S3."
+    },
+    {
+      "anilistId": 182206,
+      "title": "That Time I Got Reincarnated as a Slime the Movie: Tears of the Azure Sea",
+      "year": 2026,
+      "note": "Side-story film."
+    }
   ]
 }
