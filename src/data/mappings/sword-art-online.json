@@ -9,5 +9,25 @@
       "chapters": [1, 12],
       "arc": "Aincrad (Floors 1-100)"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 21403,
+      "title": "Sword Art Online the Movie: Ordinal Scale",
+      "year": 2017,
+      "note": "Canon sequel film between SAO II and Alicization."
+    },
+    {
+      "anilistId": 124140,
+      "title": "Sword Art Online the Movie -Progressive- Aria of a Starless Night",
+      "year": 2021,
+      "note": "Progressive retelling of the Aincrad arc."
+    },
+    {
+      "anilistId": 140999,
+      "title": "Sword Art Online the Movie -Progressive- Scherzo of Deep Night",
+      "year": 2022,
+      "note": "Progressive retelling of the Aincrad arc."
+    }
   ]
 }
