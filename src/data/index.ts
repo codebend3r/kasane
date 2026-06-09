@@ -72,6 +72,7 @@ import yonaOfTheDawn from '@/data/mappings/yona-of-the-dawn.json';
 import jojoStardustCrusaders from '@/data/mappings/jojo-stardust-crusaders.json';
 import tokyoGhoul from '@/data/mappings/tokyo-ghoul.json';
 import bungoStrayDogs from '@/data/mappings/bungo-stray-dogs.json';
+import hellsingUltimate from '@/data/mappings/hellsing-ultimate.json';
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -184,6 +185,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   jojoStardustCrusaders,
   tokyoGhoul,
   bungoStrayDogs,
+  hellsingUltimate,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
