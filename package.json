@@ -14,7 +14,7 @@
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "prettier:quick": "pretty-quick --staged",
-    "system-check": "run-s lint typecheck test",
+    "system-check": "run-s typecheck prettier:check lint test build:web",
     "prepare": "husky",
     "desktop:init": "tauri init",
     "desktop:dev": "tauri dev",
