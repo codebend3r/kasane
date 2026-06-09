@@ -10,11 +10,19 @@ jobs:
   system-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-      - run: bun install --frozen-lockfile
-      - run: bun run typecheck
-      - run: bun run prettier:check
-      - run: bun run lint
-      - run: bun run test
-      - run: bun run build:web
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+      - name: 🥟 Set up Bun
+        uses: oven-sh/setup-bun@v2
+      - name: 📦 Install dependencies
+        run: bun install --frozen-lockfile
+      - name: 🔎 Typecheck
+        run: bun run typecheck
+      - name: 💅 Prettier check
+        run: bun run prettier:check
+      - name: 🧹 Lint
+        run: bun run lint
+      - name: 🧪 Test
+        run: bun run test
+      - name: 🏗️ Build (web)
+        run: bun run build:web
