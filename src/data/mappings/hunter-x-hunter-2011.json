@@ -16,5 +16,19 @@
       "arc": "13th Hunter Chairman Election"
     },
     { "chapters": [340, 410], "arc": "Dark Continent / Succession Contest" }
+  ],
+  "movies": [
+    {
+      "anilistId": 13271,
+      "title": "Hunter x Hunter: Phantom Rouge",
+      "year": 2013,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 19951,
+      "title": "Hunter x Hunter: The Last Mission",
+      "year": 2013,
+      "note": "Side story (anime-original)."
+    }
   ]
 }
