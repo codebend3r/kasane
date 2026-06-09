@@ -14,5 +14,37 @@
       "chapters": [15, 27],
       "arc": "Cour 2: Pursuit of Makishima / Finale"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 20514,
+      "title": "PSYCHO-PASS: The Movie",
+      "year": 2015,
+      "note": "Canon sequel film, set after S2."
+    },
+    {
+      "anilistId": 102649,
+      "title": "PSYCHO-PASS: Sinners of the System Case.1 - Crime and Punishment",
+      "year": 2019,
+      "note": "Canon side-story film."
+    },
+    {
+      "anilistId": 104382,
+      "title": "PSYCHO-PASS: Sinners of the System Case.2 - First Guardian",
+      "year": 2019,
+      "note": "Canon side-story film."
+    },
+    {
+      "anilistId": 104990,
+      "title": "PSYCHO-PASS: Sinners of the System Case.3 - On the Other Side of Love and Hate",
+      "year": 2019,
+      "note": "Canon side-story film."
+    },
+    {
+      "anilistId": 153687,
+      "title": "PSYCHO-PASS: Providence",
+      "year": 2023,
+      "note": "Canon film bridging Sinners of the System and S3."
+    }
   ]
 }
