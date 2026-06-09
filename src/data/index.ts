@@ -99,6 +99,7 @@ import eminenceInShadow from '@/data/mappings/eminence-in-shadow.json';
 import soloLeveling from '@/data/mappings/solo-leveling.json';
 import swordArtOnline from '@/data/mappings/sword-art-online.json';
 import fateZero from '@/data/mappings/fate-zero.json';
+import fateStayNight from '@/data/mappings/fate-stay-night.json';
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -238,6 +239,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   soloLeveling,
   swordArtOnline,
   fateZero,
+  fateStayNight,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {

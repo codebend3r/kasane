@@ -1,0 +1,10 @@
+{
+  "anilistAnimeId": 356,
+  "anilistMangaId": 30715,
+  "title": "Fate/stay night",
+  "sourceNotes": "Original 2006 Studio DEEN anime (24 eps) adapts the 'Fate' route of the Type-Moon visual novel. Paired with the Datto Nishiwaki manga (87 chapters / 20 vols, 2005-2012) which also adapts the Fate route. The UBW (2014-2015, id 19603) and Heaven's Feel (movie trilogy) anime adapt different VN routes and have their own AniList entries.",
+  "mappings": [
+    { "episodes": [1, 12], "chapters": [1, 40], "arc": "Fate Route: Holy Grail War Begins" },
+    { "episodes": [13, 24], "chapters": [41, 87], "arc": "Fate Route: Saber's Wish / Finale" }
+  ]
+}
