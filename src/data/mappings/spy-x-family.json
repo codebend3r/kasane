@@ -24,5 +24,14 @@
     { "chapters": [67, 75], "arc": "Bus Hijacking" },
     { "chapters": [76, 84], "arc": "Wheeler / Mole Hunt" },
     { "chapters": [85, 127], "arc": "Family Photo / Recent Missions (Ongoing)" }
+  ],
+  "movies": [
+    {
+      "anilistId": 158928,
+      "title": "SPY x FAMILY CODE: White",
+      "year": 2023,
+      "afterEpisode": 37,
+      "note": "Side-story film (anime-original) between S2 and S3."
+    }
   ]
 }
