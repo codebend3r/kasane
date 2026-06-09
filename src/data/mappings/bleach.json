@@ -54,5 +54,35 @@
       "chapters": [424, 479],
       "arc": "The Lost Substitute Shinigami / Fullbring"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 1686,
+      "title": "Bleach the Movie: Memories of Nobody",
+      "year": 2006,
+      "afterEpisode": 117,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 2889,
+      "title": "Bleach the Movie: The DiamondDust Rebellion",
+      "year": 2007,
+      "afterEpisode": 137,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 4835,
+      "title": "Bleach the Movie: Fade to Black",
+      "year": 2008,
+      "afterEpisode": 196,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 8247,
+      "title": "Bleach the Movie: Hell Verse",
+      "year": 2010,
+      "afterEpisode": 299,
+      "note": "Side story (anime-original)."
+    }
   ]
 }
