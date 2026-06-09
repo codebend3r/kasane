@@ -76,6 +76,7 @@ import hellsingUltimate from '@/data/mappings/hellsing-ultimate.json';
 import blackButler from '@/data/mappings/black-butler.json';
 import trigun from '@/data/mappings/trigun.json';
 import parasyte from '@/data/mappings/parasyte.json';
+import goblinSlayer from '@/data/mappings/goblin-slayer.json';
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -192,6 +193,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   blackButler,
   trigun,
   parasyte,
+  goblinSlayer,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
