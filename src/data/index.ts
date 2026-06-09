@@ -121,7 +121,7 @@ type RawEntry = {
   note?: string;
 };
 type RawMovie = {
-  anilistId: number;
+  anilistId?: number;
   title: string;
   year: number;
   chapters?: number[];

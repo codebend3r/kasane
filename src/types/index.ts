@@ -60,7 +60,7 @@ export type MappingEntry = {
 };
 
 export type MovieEntry = {
-  anilistId: number;
+  anilistId?: number;
   title: string;
   year: number;
   chapters?: [number, number];
