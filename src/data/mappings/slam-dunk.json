@@ -1,0 +1,12 @@
+{
+  "anilistAnimeId": 170,
+  "anilistMangaId": 30051,
+  "title": "Slam Dunk",
+  "sourceNotes": "1993-1996 anime (101 eps) covers manga ch 1-159 approximately. Manga complete at 276 chapters; the Inter-High tournament (Toyotama, Sannoh, Aiwa) is unadapted in the TV series. THE FIRST SLAM DUNK (2022 movie) covers the Sannoh match from the unadapted portion.",
+  "mappings": [
+    { "episodes": [1, 25], "chapters": [1, 50], "arc": "Shohoku Founding / Inter-High Qualifier Begins" },
+    { "episodes": [26, 60], "chapters": [51, 110], "arc": "Kainan / Shoyo / Ryonan Battles" },
+    { "episodes": [61, 101], "chapters": [111, 159], "arc": "Inter-High Qualifier Finals (Kainan Rematch)" },
+    { "chapters": [160, 276], "arc": "Inter-High Tournament: Toyotama / Sannoh / Aiwa (unadapted in TV; Sannoh covered by 2022 movie)" }
+  ]
+}
