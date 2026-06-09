@@ -102,6 +102,7 @@ import fateZero from '@/data/mappings/fate-zero.json';
 import fateStayNight from '@/data/mappings/fate-stay-night.json';
 import bakemonogatari from '@/data/mappings/bakemonogatari.json';
 import durarara from '@/data/mappings/durarara.json';
+import toaruMajutsuNoIndex from '@/data/mappings/toaru-majutsu-no-index.json';
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -244,6 +245,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   fateStayNight,
   bakemonogatari,
   durarara,
+  toaruMajutsuNoIndex,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
