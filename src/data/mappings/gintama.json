@@ -69,5 +69,33 @@
       "arc": "Silver Soul Arc"
     },
     { "chapters": [705, 709], "arc": "Finale" }
+  ],
+  "movies": [
+    {
+      "anilistId": 7472,
+      "title": "Gintama: The Movie",
+      "year": 2010,
+      "note": "All-new-animation theatrical remake of the Benizakura arc."
+    },
+    {
+      "anilistId": 15335,
+      "title": "Gintama: The Final Chapter - Be Forever Yorozuya",
+      "year": 2013,
+      "note": "Canon anime-original film."
+    },
+    {
+      "anilistId": 114129,
+      "title": "Gintama: THE VERY FINAL",
+      "year": 2021,
+      "chapters": [705, 709],
+      "afterEpisode": 367,
+      "note": "Adapts the manga's final chapters; concludes the story after the Silver Soul arc."
+    },
+    {
+      "anilistId": 197474,
+      "title": "Gintama the Movie 2026: Yoshiwara in Flames",
+      "year": 2026,
+      "note": "All-new-animation theatrical remake of the Yoshiwara in Flames arc with added characters."
+    }
   ]
 }

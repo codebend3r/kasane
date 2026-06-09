@@ -9,5 +9,14 @@
       "chapters": [1, 11],
       "arc": "Loose adaptation (no per-arc alignment)"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 5,
+      "title": "Cowboy Bebop: The Movie - Knockin' on Heaven's Door",
+      "year": 2001,
+      "afterEpisode": 22,
+      "note": "Side story set between eps 22 and 23."
+    }
   ]
 }

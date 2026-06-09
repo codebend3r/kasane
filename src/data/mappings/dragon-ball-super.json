@@ -20,5 +20,21 @@
     { "chapters": [43, 67], "arc": "Galactic Patrol Prisoner (Moro)" },
     { "chapters": [68, 87], "arc": "Granolah the Survivor" },
     { "chapters": [88, 104], "arc": "Super Hero / Black Frieza" }
+  ],
+  "movies": [
+    {
+      "anilistId": 101302,
+      "title": "Dragon Ball Super: Broly",
+      "year": 2018,
+      "afterEpisode": 131,
+      "note": "Canon film following the Universe Survival arc."
+    },
+    {
+      "anilistId": 133898,
+      "title": "Dragon Ball Super: Super Hero",
+      "year": 2022,
+      "afterEpisode": 131,
+      "note": "Canon film set after Broly."
+    }
   ]
 }

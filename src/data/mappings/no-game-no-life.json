@@ -19,5 +19,13 @@
       "chapters": [9, 11],
       "arc": "Old Deus / Game vs Kurami"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 21875,
+      "title": "No Game, No Life: Zero",
+      "year": 2017,
+      "note": "Prequel film (LN vol 6)."
+    }
   ]
 }

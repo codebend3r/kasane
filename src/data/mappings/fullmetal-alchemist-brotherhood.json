@@ -32,5 +32,14 @@
     },
     { "episodes": [44, 58], "chapters": [94, 107], "arc": "Promised Day" },
     { "episodes": [59, 64], "chapters": [108, 108], "arc": "Epilogue" }
+  ],
+  "movies": [
+    {
+      "anilistId": 9135,
+      "title": "Fullmetal Alchemist: The Sacred Star of Milos",
+      "year": 2011,
+      "afterEpisode": 20,
+      "note": "Side story (anime-original), set around eps 20-21."
+    }
   ]
 }

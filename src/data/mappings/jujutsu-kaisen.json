@@ -37,5 +37,20 @@
     },
     { "chapters": [181, 221], "arc": "Culling Game (Part 2)" },
     { "chapters": [222, 272], "arc": "Shinjuku Showdown / Finale" }
+  ],
+  "movies": [
+    {
+      "anilistId": 131573,
+      "title": "JUJUTSU KAISEN 0",
+      "year": 2021,
+      "note": "Prequel film adapting the Jujutsu Kaisen 0 volume."
+    },
+    {
+      "anilistId": 204066,
+      "title": "JUJUTSU KAISEN: Execution -Shibuya Incident x The Culling Game Begins-",
+      "year": 2025,
+      "afterEpisode": 47,
+      "note": "Shibuya Incident recap plus early premiere of the first two Culling Game episodes."
+    }
   ]
 }

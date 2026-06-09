@@ -14,5 +14,14 @@
       "chapters": [13, 23],
       "arc": "β-World Line (Mayuri's fate, Suzuha, finale)"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 11577,
+      "title": "Steins;Gate the Movie: Load Region of Deja Vu",
+      "year": 2013,
+      "afterEpisode": 24,
+      "note": "Sequel film (anime-original)."
+    }
   ]
 }

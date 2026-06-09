@@ -29,5 +29,14 @@
       "chapters": [39, 50],
       "arc": "Final Stories (Vol. 9-10)"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 21008,
+      "title": "Mushishi: Bell Droplets",
+      "year": 2015,
+      "afterEpisode": 46,
+      "note": "Theatrical special adapting Suzu no Shizuku, the manga's final story."
+    }
   ]
 }

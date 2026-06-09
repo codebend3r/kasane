@@ -28,5 +28,15 @@
     { "chapters": [121, 131], "arc": "Falling Devil" },
     { "chapters": [132, 155], "arc": "Chainsaw Man Church" },
     { "chapters": [156, 232], "arc": "Academy Saga (Part 2)" }
+  ],
+  "movies": [
+    {
+      "anilistId": 171627,
+      "title": "Chainsaw Man - The Movie: Reze Arc",
+      "year": 2025,
+      "chapters": [39, 52],
+      "afterEpisode": 12,
+      "note": "Canon Bomb Girl / Reze arc; counted as ep 13 in this mapping's cumulative numbering."
+    }
   ]
 }

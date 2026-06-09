@@ -7,5 +7,13 @@
     { "episodes": [1, 27], "chapters": [1, 47], "arc": "Tokyo Arc" },
     { "episodes": [28, 62], "chapters": [48, 151], "arc": "Kyoto Arc" },
     { "chapters": [152, 259], "arc": "Jinchū Arc (unadapted in 1996 TV anime)" }
+  ],
+  "movies": [
+    {
+      "anilistId": 46,
+      "title": "Samurai X: The Motion Picture",
+      "year": 1997,
+      "note": "Side-story film (Ishin Shishi e no Requiem) in the 1996 anime continuity."
+    }
   ]
 }

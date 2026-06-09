@@ -24,5 +24,20 @@
       "chapters": [29, 35],
       "arc": "Dark Masters / Apocalymon"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 2961,
+      "title": "Digimon Adventure (Movie)",
+      "year": 1999,
+      "note": "Theatrical prologue short film; Hikari's first Digimon encounter."
+    },
+    {
+      "anilistId": 2397,
+      "title": "Digimon Adventure: Our War Game!",
+      "year": 2000,
+      "afterEpisode": 54,
+      "note": "Canon film set between Adventure and 02."
+    }
   ]
 }

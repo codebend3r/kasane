@@ -25,5 +25,14 @@
       "chapters": [114, 138],
       "arc": "Resolution & Goodbye"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 136192,
+      "title": "Fruits Basket -prelude-",
+      "year": 2022,
+      "afterEpisode": 63,
+      "note": "Recap plus new prequel content (Kyoko and Katsuya's story)."
+    }
   ]
 }

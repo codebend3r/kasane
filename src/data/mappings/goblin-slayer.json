@@ -15,5 +15,14 @@
       "arc": "Water Town / Dark Elf (S2)"
     },
     { "chapters": [76, 99], "arc": "Currently-publishing arcs (unadapted)" }
+  ],
+  "movies": [
+    {
+      "anilistId": 108623,
+      "title": "Goblin Slayer: Goblin's Crown",
+      "year": 2020,
+      "afterEpisode": 12,
+      "note": "Canon film between S1 and S2 (LN vol 5)."
+    }
   ]
 }

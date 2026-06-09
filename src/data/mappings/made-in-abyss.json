@@ -25,5 +25,15 @@
       "arc": "Capital of the Unreturned / Village of Iruburu"
     },
     { "chapters": [61, 65], "arc": "Ganja Squad / Faputa (Ongoing)" }
+  ],
+  "movies": [
+    {
+      "anilistId": 100643,
+      "title": "Made in Abyss: Dawn of the Deep Soul",
+      "year": 2020,
+      "chapters": [27, 39],
+      "afterEpisode": 13,
+      "note": "Canon Idofront / Bondrewd arc; counted as ep 14 in this mapping's cumulative numbering."
+    }
   ]
 }

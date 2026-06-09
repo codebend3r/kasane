@@ -20,5 +20,14 @@
       "arc": "Royal Capital (S3)"
     },
     { "chapters": [101, 127], "arc": "Final Arcs (unadapted in TV anime)" }
+  ],
+  "movies": [
+    {
+      "anilistId": 102976,
+      "title": "KONOSUBA - God's Blessing on This Wonderful World! Legend of Crimson",
+      "year": 2019,
+      "afterEpisode": 20,
+      "note": "Canon film between S2 and S3 (Crimson Demon Village)."
+    }
   ]
 }

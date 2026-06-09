@@ -10,5 +10,14 @@
       "arc": "Norden Campaign / Imperial Promotion"
     },
     { "episodes": [7, 12], "chapters": [21, 40], "arc": "Dakia / Rhine Front" }
+  ],
+  "movies": [
+    {
+      "anilistId": 100878,
+      "title": "Saga of Tanya the Evil - The Movie",
+      "year": 2019,
+      "afterEpisode": 12,
+      "note": "Canon sequel film continuing from S1."
+    }
   ]
 }

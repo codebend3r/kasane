@@ -25,5 +25,20 @@
       "chapters": [307, 367],
       "arc": "Final Battle / Demon King"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 99540,
+      "title": "The Seven Deadly Sins the Movie: Prisoners of the Sky",
+      "year": 2018,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 128740,
+      "title": "The Seven Deadly Sins: Cursed by Light",
+      "year": 2021,
+      "afterEpisode": 100,
+      "note": "Canon sequel film adapting the manga's epilogue chapters."
+    }
   ]
 }

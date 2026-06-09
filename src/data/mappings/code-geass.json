@@ -10,5 +10,13 @@
       "chapters": [19, 40],
       "arc": "Stage 2: Black Knights Rebellion → S1 Finale"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 97880,
+      "title": "Code Geass: Lelouch of the Re;surrection",
+      "year": 2019,
+      "note": "Sequel film following the compilation-movie continuity, not the TV timeline."
+    }
   ]
 }

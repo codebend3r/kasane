@@ -12,5 +12,97 @@
       "arc": "Android & Cell Saga"
     },
     { "episodes": [195, 291], "chapters": [421, 519], "arc": "Majin Buu Saga" }
+  ],
+  "movies": [
+    {
+      "anilistId": 894,
+      "title": "Dragon Ball Z: Dead Zone",
+      "year": 1989,
+      "note": "Side story (theatrical)."
+    },
+    {
+      "anilistId": 895,
+      "title": "Dragon Ball Z: The World's Strongest",
+      "year": 1990,
+      "note": "Side story (theatrical)."
+    },
+    {
+      "anilistId": 896,
+      "title": "Dragon Ball Z: The Tree of Might",
+      "year": 1990,
+      "note": "Side story (theatrical)."
+    },
+    {
+      "anilistId": 897,
+      "title": "Dragon Ball Z: Lord Slug",
+      "year": 1991,
+      "note": "Side story (theatrical)."
+    },
+    {
+      "anilistId": 898,
+      "title": "Dragon Ball Z: Cooler's Revenge",
+      "year": 1991,
+      "note": "Side story (theatrical)."
+    },
+    {
+      "anilistId": 899,
+      "title": "Dragon Ball Z: The Return of Cooler",
+      "year": 1992,
+      "note": "Side story (theatrical)."
+    },
+    {
+      "anilistId": 900,
+      "title": "Dragon Ball Z: Super Android 13!",
+      "year": 1992,
+      "note": "Side story (theatrical)."
+    },
+    {
+      "anilistId": 901,
+      "title": "Dragon Ball Z: Broly - The Legendary Super Saiyan",
+      "year": 1993,
+      "note": "Side story (theatrical)."
+    },
+    {
+      "anilistId": 902,
+      "title": "Dragon Ball Z: Bojack Unbound",
+      "year": 1993,
+      "note": "Side story (theatrical)."
+    },
+    {
+      "anilistId": 903,
+      "title": "Dragon Ball Z: Broly - Second Coming",
+      "year": 1994,
+      "note": "Side story (theatrical)."
+    },
+    {
+      "anilistId": 904,
+      "title": "Dragon Ball Z: Bio-Broly",
+      "year": 1994,
+      "note": "Side story (theatrical)."
+    },
+    {
+      "anilistId": 905,
+      "title": "Dragon Ball Z: Fusion Reborn",
+      "year": 1995,
+      "note": "Side story (theatrical)."
+    },
+    {
+      "anilistId": 906,
+      "title": "Dragon Ball Z: Wrath of the Dragon",
+      "year": 1995,
+      "note": "Side story (theatrical)."
+    },
+    {
+      "anilistId": 14837,
+      "title": "Dragon Ball Z: Battle of Gods",
+      "year": 2013,
+      "note": "Canon film set after the Majin Buu arc; later retold in Dragon Ball Super."
+    },
+    {
+      "anilistId": 20778,
+      "title": "Dragon Ball Z: Resurrection 'F'",
+      "year": 2015,
+      "note": "Canon film set after the Majin Buu arc; later retold in Dragon Ball Super."
+    }
   ]
 }

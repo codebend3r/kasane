@@ -15,5 +15,14 @@
       "chapters": [18, 25],
       "arc": "Houndsworth (S1 diverges into anime-original ending at ep 16)"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 21425,
+      "title": "Black Butler: Book of the Atlantic",
+      "year": 2017,
+      "chapters": [51, 66],
+      "note": "Adapts the Luxury Liner arc; follows the Book of Circus continuity rather than the 2008 series."
+    }
   ]
 }

@@ -36,5 +36,13 @@
       "arc": "Final Decision / Korosensei's Past"
     },
     { "episodes": [44, 47], "chapters": [180, 188], "arc": "Graduation" }
+  ],
+  "movies": [
+    {
+      "anilistId": 198373,
+      "title": "Assassination Classroom: Our Time",
+      "year": 2026,
+      "note": "10th-anniversary film adapting previously unadapted class-life chapters; a continuation of the main story."
+    }
   ]
 }

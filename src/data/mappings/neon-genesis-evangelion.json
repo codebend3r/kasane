@@ -25,5 +25,14 @@
       "chapters": [79, 97],
       "arc": "Instrumentality (anime: 25-26; manga: extended through Vol 14)"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 32,
+      "title": "Neon Genesis Evangelion: The End of Evangelion",
+      "year": 1997,
+      "afterEpisode": 24,
+      "note": "Theatrical finale reimagining eps 25-26."
+    }
   ]
 }

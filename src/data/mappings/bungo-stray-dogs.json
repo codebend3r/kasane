@@ -23,5 +23,14 @@
       "chapters": [78, 110],
       "arc": "Kamui Revelation / Vampire Outbreak"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 98384,
+      "title": "Bungo Stray Dogs: DEAD APPLE",
+      "year": 2018,
+      "afterEpisode": 24,
+      "note": "Canon film set between S2 and S3."
+    }
   ]
 }

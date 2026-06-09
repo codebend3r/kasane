@@ -25,5 +25,35 @@
       "arc": "Mount Hakurei / Naraku's Body"
     },
     { "episodes": [168, 193], "chapters": [337, 558], "arc": "The Final Act" }
+  ],
+  "movies": [
+    {
+      "anilistId": 452,
+      "title": "InuYasha the Movie: Affections Touching Across Time",
+      "year": 2001,
+      "afterEpisode": 54,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 450,
+      "title": "InuYasha the Movie 2: The Castle Beyond the Looking Glass",
+      "year": 2002,
+      "afterEpisode": 95,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 451,
+      "title": "InuYasha the Movie 3: Swords of an Honorable Ruler",
+      "year": 2003,
+      "afterEpisode": 136,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 449,
+      "title": "InuYasha the Movie 4: Fire on the Mystic Island",
+      "year": 2004,
+      "afterEpisode": 167,
+      "note": "Side story (anime-original)."
+    }
   ]
 }

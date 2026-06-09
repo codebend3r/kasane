@@ -35,5 +35,15 @@
       "arc": "Battle at the Garbage Dump (Final movies)"
     },
     { "chapters": [370, 402], "arc": "Timeskip / Final" }
+  ],
+  "movies": [
+    {
+      "anilistId": 153658,
+      "title": "HAIKYU!! The Dumpster Battle",
+      "year": 2024,
+      "chapters": [293, 330],
+      "afterEpisode": 85,
+      "note": "First of the two Final films; adapts the Karasuno vs Nekoma match (range approximate)."
+    }
   ]
 }

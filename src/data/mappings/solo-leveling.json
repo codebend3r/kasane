@@ -15,5 +15,14 @@
       "arc": "Job Change Quest / Jeju Island (S2)"
     },
     { "chapters": [111, 201], "arc": "Monarchs War / Final Arc (unadapted)" }
+  ],
+  "movies": [
+    {
+      "anilistId": 184694,
+      "title": "Solo Leveling: ReAwakening",
+      "year": 2024,
+      "afterEpisode": 12,
+      "note": "S1 recap plus early premiere of the first two S2 episodes."
+    }
   ]
 }

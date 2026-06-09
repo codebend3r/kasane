@@ -66,5 +66,68 @@
       "chapters": [678, 700],
       "arc": "Kaguya Otsutsuki Strikes / Epilogue"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 442,
+      "title": "Naruto the Movie: Ninja Clash in the Land of Snow",
+      "year": 2004,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 936,
+      "title": "Naruto the Movie: Legend of the Stone of Gelel",
+      "year": 2005,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 2144,
+      "title": "Naruto the Movie: Guardians of the Crescent Moon Kingdom",
+      "year": 2006,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 2472,
+      "title": "Naruto Shippuden the Movie",
+      "year": 2007,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 4437,
+      "title": "Naruto Shippuden the Movie: Bonds",
+      "year": 2008,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 6325,
+      "title": "Naruto Shippuden the Movie: The Will of Fire",
+      "year": 2009,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 8246,
+      "title": "Naruto Shippuden the Movie: The Lost Tower",
+      "year": 2010,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 10589,
+      "title": "Naruto Shippuden the Movie: Blood Prison",
+      "year": 2011,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 13667,
+      "title": "Road to Ninja: Naruto the Movie",
+      "year": 2012,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 16870,
+      "title": "The Last: Naruto the Movie",
+      "year": 2014,
+      "afterEpisode": 713,
+      "note": "Canon film set between manga ch 699 and 700."
+    }
   ]
 }
