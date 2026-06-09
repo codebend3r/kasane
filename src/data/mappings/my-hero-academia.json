@@ -55,5 +55,31 @@
       "arc": "Final Act / Last War"
     },
     { "chapters": [424, 432], "arc": "Epilogue" }
+  ],
+  "movies": [
+    {
+      "anilistId": 100723,
+      "title": "My Hero Academia: Two Heroes",
+      "year": 2018,
+      "note": "Side-story film (set after S3's Final Exams arc)."
+    },
+    {
+      "anilistId": 108553,
+      "title": "My Hero Academia: Heroes Rising",
+      "year": 2019,
+      "note": "Side-story film (set after S4)."
+    },
+    {
+      "anilistId": 126659,
+      "title": "My Hero Academia: World Heroes' Mission",
+      "year": 2021,
+      "note": "Side-story film (set during S5's Endeavor Agency arc)."
+    },
+    {
+      "anilistId": 168013,
+      "title": "My Hero Academia: You're Next",
+      "year": 2024,
+      "note": "Side-story film (set after S7)."
+    }
   ]
 }
