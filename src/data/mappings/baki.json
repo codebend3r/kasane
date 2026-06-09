@@ -4,7 +4,15 @@
   "title": "Baki",
   "sourceNotes": "Netflix 2018 Baki + 2020 Great Raitai Tournament Saga — cumulative eps 1-39 (26 + 13). Both adapt the 'Baki' (a.k.a. 'New Grappler Baki') manga (276 ch). The Maximum Tournament arc (~ch 105-220) is skipped by this lineage — that arc was adapted by the 2001 anime `Grappler Baki Maximum Tournament` and is not animated here. See `baki-hanma.json` for the next manga (Hanma Baki).",
   "mappings": [
-    { "episodes": [1, 26],  "chapters": [1, 104],    "arc": "Most Evil Death Row Convicts" },
-    { "episodes": [27, 39], "chapters": [221, 276],  "arc": "Great Raitai Tournament (China Tournament)" }
+    {
+      "episodes": [1, 26],
+      "chapters": [1, 104],
+      "arc": "Most Evil Death Row Convicts"
+    },
+    {
+      "episodes": [27, 39],
+      "chapters": [221, 276],
+      "arc": "Great Raitai Tournament (China Tournament)"
+    }
   ]
 }

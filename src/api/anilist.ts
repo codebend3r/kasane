@@ -1,8 +1,8 @@
-import { GraphQLClient, gql } from 'graphql-request';
-import { applySearchAlias } from '@/data/searchAliases';
-import type { AniListMedia, MediaType } from '@/types';
+import { GraphQLClient, gql } from "graphql-request";
+import { applySearchAlias } from "@/data/searchAliases";
+import type { AniListMedia, MediaType } from "@/types";
 
-const client = new GraphQLClient('https://graphql.anilist.co');
+const client = new GraphQLClient("https://graphql.anilist.co");
 
 const MEDIA_FIELDS = `
   id
@@ -27,8 +27,17 @@ const MEDIA_FIELDS = `
   }
 `;
 
-const PARENT_RELATIONS = new Set(['PREQUEL', 'PARENT']);
-const NON_ROOT_BLOCKING_FORMATS = new Set(['MANGA', 'ONE_SHOT', 'TV', 'TV_SHORT', 'MOVIE', 'OVA', 'ONA', 'SPECIAL']);
+const PARENT_RELATIONS = new Set(["PREQUEL", "PARENT"]);
+const NON_ROOT_BLOCKING_FORMATS = new Set([
+  "MANGA",
+  "ONE_SHOT",
+  "TV",
+  "TV_SHORT",
+  "MOVIE",
+  "OVA",
+  "ONA",
+  "SPECIAL",
+]);
 
 function isFranchiseRoot(media: AniListMedia): boolean {
   const edges = media.relations?.edges ?? [];
@@ -36,7 +45,7 @@ function isFranchiseRoot(media: AniListMedia): boolean {
     (e) =>
       PARENT_RELATIONS.has(e.relationType) &&
       e.node.type === media.type &&
-      (e.node.format == null || NON_ROOT_BLOCKING_FORMATS.has(e.node.format))
+      (e.node.format == null || NON_ROOT_BLOCKING_FORMATS.has(e.node.format)),
   );
 }
 
@@ -106,8 +115,15 @@ const DETAIL_QUERY = gql`
     Media(id: $id) {
       id
       type
-      title { romaji english native }
-      coverImage { large color }
+      title {
+        romaji
+        english
+        native
+      }
+      coverImage {
+        large
+        color
+      }
       description(asHtml: false)
       episodes
       chapters
@@ -117,8 +133,16 @@ const DETAIL_QUERY = gql`
       countryOfOrigin
       synonyms
       genres
-      startDate { year month day }
-      endDate { year month day }
+      startDate {
+        year
+        month
+        day
+      }
+      endDate {
+        year
+        month
+        day
+      }
       relations {
         edges {
           relationType(version: 2)
@@ -128,8 +152,13 @@ const DETAIL_QUERY = gql`
             format
             episodes
             chapters
-            title { romaji english }
-            startDate { year }
+            title {
+              romaji
+              english
+            }
+            startDate {
+              year
+            }
           }
         }
       }
@@ -141,7 +170,7 @@ export async function searchMedia(
   query: string,
   type?: MediaType,
   genreNotIn?: string[] | null,
-  tagNotIn?: string[] | null
+  tagNotIn?: string[] | null,
 ): Promise<AniListMedia[]> {
   if (!query.trim()) return [];
   const resolved = applySearchAlias(query);
@@ -153,7 +182,7 @@ export async function searchMedia(
           type,
           genreNotIn: genreNotIn ?? null,
           tagNotIn: tagNotIn ?? null,
-        }
+        },
       )
     : await client.request<{ Page: { media: AniListMedia[] } }>(
         SEARCH_ANY_QUERY,
@@ -161,27 +190,29 @@ export async function searchMedia(
           query: resolved,
           genreNotIn: genreNotIn ?? null,
           tagNotIn: tagNotIn ?? null,
-        }
+        },
       );
   return data.Page.media;
 }
 
 export async function getLatestAnime(
   genreNotIn?: string[] | null,
-  tagNotIn?: string[] | null
+  tagNotIn?: string[] | null,
 ): Promise<AniListMedia[]> {
   const data = await client.request<{ Page: { media: AniListMedia[] } }>(
     LATEST_ANIME_QUERY,
     {
       genreNotIn: genreNotIn ?? null,
       tagNotIn: tagNotIn ?? null,
-    }
+    },
   );
   return data.Page.media.filter(isFranchiseRoot);
 }
 
 export async function getMedia(id: number): Promise<AniListMedia> {
-  const data = await client.request<{ Media: AniListMedia }>(DETAIL_QUERY, { id });
+  const data = await client.request<{ Media: AniListMedia }>(DETAIL_QUERY, {
+    id,
+  });
   return data.Media;
 }
 
@@ -189,7 +220,7 @@ export async function getMediaByIds(ids: number[]): Promise<AniListMedia[]> {
   if (ids.length === 0) return [];
   const data = await client.request<{ Page: { media: AniListMedia[] } }>(
     MEDIA_BY_IDS_QUERY,
-    { ids }
+    { ids },
   );
   return data.Page.media;
 }

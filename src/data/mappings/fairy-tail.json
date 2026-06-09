@@ -4,16 +4,32 @@
   "title": "Fairy Tail",
   "sourceNotes": "Cumulative episodes across original 2009 series (175 eps) + 2014 series (eps 176-277) + Final Series (eps 278-328) = 328 total. Manga complete at 545 chapters (AniList lists 549 incl. extras). Three filler arcs (Daphne eps 72-85, Key of the Starry Sky eps 151-175, Eclipse Celestial Spirits eps 227-233) are omitted. Chapter boundaries for later arcs are approximate — refine via PR.",
   "mappings": [
-    { "episodes": [1, 9], "chapters": [1, 21], "arc": "Lullaby (Macao / Daybreak / Eisenwald)" },
+    {
+      "episodes": [1, 9],
+      "chapters": [1, 21],
+      "arc": "Lullaby (Macao / Daybreak / Eisenwald)"
+    },
     { "episodes": [10, 19], "chapters": [22, 44], "arc": "Galuna Island" },
     { "episodes": [20, 29], "chapters": [45, 69], "arc": "Phantom Lord" },
     { "episodes": [30, 32], "chapters": [70, 78], "arc": "Loke" },
     { "episodes": [33, 39], "chapters": [79, 110], "arc": "Tower of Heaven" },
-    { "episodes": [40, 48], "chapters": [111, 148], "arc": "Battle of Fairy Tail / Fighting Festival" },
+    {
+      "episodes": [40, 48],
+      "chapters": [111, 148],
+      "arc": "Battle of Fairy Tail / Fighting Festival"
+    },
     { "episodes": [49, 71], "chapters": [149, 187], "arc": "Oración Seis" },
     { "episodes": [86, 122], "chapters": [188, 235], "arc": "Edolas" },
-    { "episodes": [123, 150], "chapters": [236, 302], "arc": "Tenrou Island / Grimoire Heart" },
-    { "episodes": [176, 226], "chapters": [303, 388], "arc": "Grand Magic Games" },
+    {
+      "episodes": [123, 150],
+      "chapters": [236, 302],
+      "arc": "Tenrou Island / Grimoire Heart"
+    },
+    {
+      "episodes": [176, 226],
+      "chapters": [303, 388],
+      "arc": "Grand Magic Games"
+    },
     { "episodes": [228, 233], "chapters": [389, 416], "arc": "Sun Village" },
     { "episodes": [234, 265], "chapters": [417, 466], "arc": "Tartaros" },
     { "episodes": [278, 284], "chapters": [467, 486], "arc": "Avatar" },

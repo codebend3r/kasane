@@ -1,30 +1,36 @@
-import { useMemo } from 'react';
+import { useMemo } from "react";
 import {
   Pressable,
   StyleSheet,
   Text,
   View,
   type GestureResponderEvent,
-} from 'react-native';
-import { useRouter } from 'expo-router';
-import Svg, { Circle, Line, Path } from 'react-native-svg';
-import type { PressableState, SeriesMapping } from '@/types';
-import { FONT } from '@/theme';
+} from "react-native";
+import { useRouter } from "expo-router";
+import Svg, { Circle, Line, Path } from "react-native-svg";
+import type { PressableState, SeriesMapping } from "@/types";
+import { FONT } from "@/theme";
 import {
   useProgress,
   useSeriesProgress,
   type ProgressSide,
-} from '@/state/progress';
+} from "@/state/progress";
 import {
   HoverLabel,
   hasBoundingRect,
   useHoverLabel,
   type MouseLike,
-} from './HoverLabel';
+} from "./HoverLabel";
 
 const COLORS = [
-  '#7c5cff', '#ff7c5c', '#5cff9d', '#ffd65c',
-  '#5cdfff', '#ff5c9d', '#9dff5c', '#ff9d5c',
+  "#7c5cff",
+  "#ff7c5c",
+  "#5cff9d",
+  "#ffd65c",
+  "#5cdfff",
+  "#ff5c9d",
+  "#9dff5c",
+  "#ff9d5c",
 ];
 
 const SIZE = 280;
@@ -61,8 +67,8 @@ const annularSectorPath = (startDeg: number, endDeg: number): string => {
     `A ${R_OUTER} ${R_OUTER} 0 ${largeArc} 1 ${x2o} ${y2o}`,
     `L ${x2i} ${y2i}`,
     `A ${R_INNER} ${R_INNER} 0 ${largeArc} 0 ${x1i} ${y1i}`,
-    'Z',
-  ].join(' ');
+    "Z",
+  ].join(" ");
 };
 
 export function EpisodeChapterPie({
@@ -74,11 +80,7 @@ export function EpisodeChapterPie({
   mapping: SeriesMapping;
   seriesId: string;
   totalChapters?: number | null;
-  onMarked?: (
-    side: ProgressSide,
-    position: number,
-    previous?: number
-  ) => void;
+  onMarked?: (side: ProgressSide, position: number, previous?: number) => void;
 }) {
   const router = useRouter();
   const { containerRef, hover, moveTo, clearHover } = useHoverLabel();
@@ -89,16 +91,16 @@ export function EpisodeChapterPie({
   const { slices, percentAdapted, mangaTotal } = useMemo(() => {
     const hasUnadapted = mapping.mappings.some((m) => !m.episodes);
     const maxCoveredChapter = Math.max(
-      ...mapping.mappings.map((m) => m.chapters[1])
+      ...mapping.mappings.map((m) => m.chapters[1]),
     );
     const showTail =
       !hasUnadapted &&
-      typeof totalChapters === 'number' &&
+      typeof totalChapters === "number" &&
       totalChapters > maxCoveredChapter;
     const tailSpan = showTail ? totalChapters! - maxCoveredChapter : 0;
 
     const arcSpans = mapping.mappings.map(
-      (m) => m.chapters[1] - m.chapters[0] + 1
+      (m) => m.chapters[1] - m.chapters[0] + 1,
     );
     const mappingSpan = arcSpans.reduce((acc, n) => acc + n, 0);
     const totalSpan = mappingSpan + tailSpan;
@@ -117,14 +119,14 @@ export function EpisodeChapterPie({
           arcIdx: idx,
           startDeg,
           endDeg,
-          color: unadapted ? '#2a2a2a' : COLORS[idx % COLORS.length],
-          textColor: unadapted ? '#9aa0a6' : '#000',
+          color: unadapted ? "#2a2a2a" : COLORS[idx % COLORS.length],
+          textColor: unadapted ? "#9aa0a6" : "#000",
           label: m.arc ?? `${m.chapters[0]}–${m.chapters[1]}`,
           chapterEnd: m.chapters[1],
         };
         return { cursor: nextCursor, built: [...acc.built, slice] };
       },
-      { cursor: 0, built: [] }
+      { cursor: 0, built: [] },
     );
 
     const tail: Slice[] = showTail
@@ -133,8 +135,8 @@ export function EpisodeChapterPie({
             arcIdx: -1,
             startDeg: ((totalSpan - tailSpan) / totalSpan) * 360,
             endDeg: 360,
-            color: '#2a2a2a',
-            textColor: '#9aa0a6',
+            color: "#2a2a2a",
+            textColor: "#9aa0a6",
             label: `${maxCoveredChapter + 1}–${totalChapters}`,
             chapterEnd: totalChapters ?? maxCoveredChapter,
           },
@@ -145,7 +147,7 @@ export function EpisodeChapterPie({
 
     const adaptedSpan = mapping.mappings.reduce(
       (acc, m, idx) => (m.episodes ? acc + arcSpans[idx] : acc),
-      0
+      0,
     );
     const percent = Math.round((adaptedSpan / mappingSpan) * 100);
 
@@ -162,7 +164,8 @@ export function EpisodeChapterPie({
   const [markerInnerX, markerInnerY] = polar(markerDeg, R_INNER);
 
   const markProgress = (side: ProgressSide, position: number) => {
-    const previous = useProgress.getState().byRouteId[routeId]?.[side]?.position;
+    const previous =
+      useProgress.getState().byRouteId[routeId]?.[side]?.position;
     setSide(routeId, side, position);
     onMarked?.(side, position, previous);
   };
@@ -170,7 +173,7 @@ export function EpisodeChapterPie({
   const sliceFromLocal = (
     x: number,
     y: number,
-    boxSize: number
+    boxSize: number,
   ): Slice | null => {
     const dx = x - boxSize / 2;
     const dy = y - boxSize / 2;
@@ -187,7 +190,7 @@ export function EpisodeChapterPie({
     const { locationX, locationY } = e.nativeEvent;
     const slice = sliceFromLocal(locationX, locationY, SIZE);
     if (!slice) return;
-    markProgress('manga', slice.chapterEnd);
+    markProgress("manga", slice.chapterEnd);
   };
 
   const onLongPress = (e: GestureResponderEvent) => {
@@ -195,7 +198,7 @@ export function EpisodeChapterPie({
     const slice = sliceFromLocal(locationX, locationY, SIZE);
     if (!slice || slice.arcIdx < 0) return;
     router.push({
-      pathname: '/series/[id]/arc/[arcIdx]',
+      pathname: "/series/[id]/arc/[arcIdx]",
       params: { id: seriesId, arcIdx: String(slice.arcIdx) },
     });
   };
@@ -207,7 +210,7 @@ export function EpisodeChapterPie({
     const slice = sliceFromLocal(
       e.nativeEvent.clientX - rect.left,
       e.nativeEvent.clientY - rect.top,
-      rect.width
+      rect.width,
     );
     if (!slice) {
       clearHover();
@@ -215,7 +218,7 @@ export function EpisodeChapterPie({
     }
     moveTo(
       { label: slice.label, color: slice.color, textColor: slice.textColor },
-      e
+      e,
     );
   };
 
@@ -286,46 +289,46 @@ export function EpisodeChapterPie({
 
 const styles = StyleSheet.create({
   outer: {
-    width: '100%',
-    alignItems: 'center',
+    width: "100%",
+    alignItems: "center",
     paddingVertical: 12,
   },
   donut: {
     width: SIZE,
     height: SIZE,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
   },
   hole: {
-    position: 'absolute',
+    position: "absolute",
     width: HOLE,
     height: HOLE,
     borderRadius: HOLE,
-    backgroundColor: '#0c0c0e',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#0c0c0e",
+    alignItems: "center",
+    justifyContent: "center",
     gap: 2,
   },
   percent: {
-    color: '#f5f5f5',
+    color: "#f5f5f5",
     fontSize: 44,
     letterSpacing: -2,
     fontFamily: FONT.bold,
     lineHeight: 48,
   },
   percentLabel: {
-    color: '#9aa0a6',
+    color: "#9aa0a6",
     fontSize: 11,
     letterSpacing: 1.4,
     fontFamily: FONT.semibold,
   },
   hint: {
-    color: '#6b7177',
+    color: "#6b7177",
     fontSize: 11,
     letterSpacing: 1,
     paddingTop: 6,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     fontFamily: FONT.semibold,
   },
 });

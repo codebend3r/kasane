@@ -4,6 +4,10 @@
   "title": "Cowboy Bebop",
   "sourceNotes": "Anime-original 1998 series (26 eps). Paired with the Cain Kuga manga adaptation (11 chapters / 3 vols, 1999) which retells select arcs and adds side stories. No tight chapter-to-episode correspondence; the anime is the canonical telling. Shooting Star (id 30174) is a separate prequel manga.",
   "mappings": [
-    { "episodes": [1, 26], "chapters": [1, 11], "arc": "Loose adaptation (no per-arc alignment)" }
+    {
+      "episodes": [1, 26],
+      "chapters": [1, 11],
+      "arc": "Loose adaptation (no per-arc alignment)"
+    }
   ]
 }

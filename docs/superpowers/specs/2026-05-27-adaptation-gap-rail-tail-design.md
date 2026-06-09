@@ -49,9 +49,9 @@ const partnerMangaChapters = useMemo(() => {
   const edges = media?.relations?.edges ?? [];
   const partner = edges.find(
     (e) =>
-      (e.relationType === 'SOURCE' || e.relationType === 'ADAPTATION') &&
-      e.node.type === 'MANGA' &&
-      typeof e.node.chapters === 'number'
+      (e.relationType === "SOURCE" || e.relationType === "ADAPTATION") &&
+      e.node.type === "MANGA" &&
+      typeof e.node.chapters === "number",
   );
   return partner?.node.chapters ?? null;
 }, [media]);

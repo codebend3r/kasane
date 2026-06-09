@@ -4,9 +4,21 @@
   "title": "Konosuba: God's Blessing on This Wonderful World!",
   "sourceNotes": "Cumulative episodes across S1 (10) + S2 (10, eps 11-20) + S3 (11, eps 21-31) = 31 total. Paired with the Watari Masahito manga adaptation (127 chapters, finished). Both adapt the same Natsume Akatsuki light novel; the Crimson Legends, Megumin spinoff, and Legend of Crimson movie are separate AniList entries.",
   "mappings": [
-    { "episodes": [1, 10], "chapters": [1, 27], "arc": "Becoming an Adventurer / Dullahan (S1)" },
-    { "episodes": [11, 20], "chapters": [28, 60], "arc": "Crimson Demons / Vanir / Lich Restoration (S2)" },
-    { "episodes": [21, 31], "chapters": [61, 100], "arc": "Royal Capital (S3)" },
+    {
+      "episodes": [1, 10],
+      "chapters": [1, 27],
+      "arc": "Becoming an Adventurer / Dullahan (S1)"
+    },
+    {
+      "episodes": [11, 20],
+      "chapters": [28, 60],
+      "arc": "Crimson Demons / Vanir / Lich Restoration (S2)"
+    },
+    {
+      "episodes": [21, 31],
+      "chapters": [61, 100],
+      "arc": "Royal Capital (S3)"
+    },
     { "chapters": [101, 127], "arc": "Final Arcs (unadapted in TV anime)" }
   ]
 }

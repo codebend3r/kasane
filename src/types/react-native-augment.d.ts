@@ -1,8 +1,8 @@
-import 'react-native';
+import "react-native";
 
-type CornerShape = 'bevel' | 'round' | 'notch' | 'scoop' | 'squircle';
+type CornerShape = "bevel" | "round" | "notch" | "scoop" | "squircle";
 
-declare module 'react-native' {
+declare module "react-native" {
   interface ViewStyle {
     cornerShape?: CornerShape;
     cornerTopLeftShape?: CornerShape;

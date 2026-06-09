@@ -4,8 +4,20 @@
   "title": "A Certain Magical Index",
   "sourceNotes": "Cumulative episodes across S1 (24) + S2 (24, eps 25-48) + S3 (26, eps 49-74) = 74 total. Paired with the Chuya Kogino manga adaptation (ongoing). Both adapt the Kazuma Kamachi light novel. Per-arc chapter boundaries approximate. The Toaru Kagaku no Railgun and Accelerator spinoffs are separate franchises.",
   "mappings": [
-    { "episodes": [1, 24], "chapters": [1, 40], "arc": "S1: Index Introduction / Angel Fall / Sisters" },
-    { "episodes": [25, 48], "chapters": [41, 80], "arc": "S2: Daihaseisai / Document of Constantine" },
-    { "episodes": [49, 74], "chapters": [81, 132], "arc": "S3: World War III / God's Right Seat" }
+    {
+      "episodes": [1, 24],
+      "chapters": [1, 40],
+      "arc": "S1: Index Introduction / Angel Fall / Sisters"
+    },
+    {
+      "episodes": [25, 48],
+      "chapters": [41, 80],
+      "arc": "S2: Daihaseisai / Document of Constantine"
+    },
+    {
+      "episodes": [49, 74],
+      "chapters": [81, 132],
+      "arc": "S3: World War III / God's Right Seat"
+    }
   ]
 }

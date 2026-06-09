@@ -4,11 +4,23 @@
   "title": "Mob Psycho 100",
   "sourceNotes": "Cumulative episodes across S1 (12) + S2 (13) + S3 (12). Manga is 101 chapters; arcs are episode-grouped, chapter ranges approximate.",
   "mappings": [
-    { "episodes": [1, 6],   "chapters": [1, 18],   "arc": "Telepathy Club & Body Improvement" },
-    { "episodes": [7, 12],  "chapters": [19, 38],  "arc": "Claw 7th Division" },
-    { "episodes": [13, 19], "chapters": [39, 60],  "arc": "Mogami / Awakening" },
-    { "episodes": [20, 25], "chapters": [61, 80],  "arc": "Claw Arc Concluded" },
-    { "episodes": [26, 31], "chapters": [81, 92],  "arc": "Divine Tree & Psycho Helmet" },
-    { "episodes": [32, 37], "chapters": [93, 101], "arc": "Confession & ???% Mob" }
+    {
+      "episodes": [1, 6],
+      "chapters": [1, 18],
+      "arc": "Telepathy Club & Body Improvement"
+    },
+    { "episodes": [7, 12], "chapters": [19, 38], "arc": "Claw 7th Division" },
+    { "episodes": [13, 19], "chapters": [39, 60], "arc": "Mogami / Awakening" },
+    { "episodes": [20, 25], "chapters": [61, 80], "arc": "Claw Arc Concluded" },
+    {
+      "episodes": [26, 31],
+      "chapters": [81, 92],
+      "arc": "Divine Tree & Psycho Helmet"
+    },
+    {
+      "episodes": [32, 37],
+      "chapters": [93, 101],
+      "arc": "Confession & ???% Mob"
+    }
   ]
 }

@@ -1,6 +1,6 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 type State = {
   japanese: boolean;
@@ -25,12 +25,12 @@ export const usePreferences = create<State>()(
         })),
     }),
     {
-      name: 'kasane-preferences',
+      name: "kasane-preferences",
       storage: createJSONStorage(() => AsyncStorage),
       partialize: (s) => ({
         japanese: s.japanese,
         hiddenGenres: s.hiddenGenres,
       }),
-    }
-  )
+    },
+  ),
 );

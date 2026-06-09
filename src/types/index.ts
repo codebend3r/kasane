@@ -1,4 +1,4 @@
-export type MediaType = 'ANIME' | 'MANGA';
+export type MediaType = "ANIME" | "MANGA";
 
 export type PressableState = {
   pressed: boolean;
@@ -67,7 +67,7 @@ export type SeriesMapping = {
   sourceNotes?: string;
 };
 
-export type SeriesBadge = 'both' | 'manga-only' | 'anime-only';
+export type SeriesBadge = "both" | "manga-only" | "anime-only";
 
 export type SeriesEntry = {
   routeId: number;

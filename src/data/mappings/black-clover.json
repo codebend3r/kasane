@@ -4,16 +4,44 @@
   "title": "Black Clover",
   "sourceNotes": "Single 170-episode anime run across 4 seasons. Anime adapted through ch ~270 (start of Spade Kingdom Raid). Manga ongoing (current ch. 392); unadapted tail included. Arc boundaries from Black Clover Wiki.",
   "mappings": [
-    { "episodes": [1, 13],    "chapters": [1, 10],     "arc": "Magic Knights Entrance" },
-    { "episodes": [14, 19],   "chapters": [11, 21],    "arc": "Dungeon Exploration" },
-    { "episodes": [20, 27],   "chapters": [22, 37],    "arc": "Royal Capital Assault" },
-    { "episodes": [28, 39],   "chapters": [38, 56],    "arc": "Eye of the Midnight Sun" },
-    { "episodes": [40, 51],   "chapters": [57, 74],    "arc": "Seabed Temple" },
-    { "episodes": [52, 65],   "chapters": [75, 101],   "arc": "Witches' Forest" },
-    { "episodes": [66, 96],   "chapters": [102, 149],  "arc": "Royal Knights" },
-    { "episodes": [97, 157],  "chapters": [150, 228],  "arc": "Elf Reincarnation" },
-    { "episodes": [158, 167], "chapters": [229, 260],  "arc": "Heart Kingdom Joint Struggle" },
-    { "episodes": [168, 170], "chapters": [261, 331],  "arc": "Spade Kingdom Raid" },
-    { "chapters": [332, 392],                          "arc": "Judgment Day (Final Arc)" }
+    {
+      "episodes": [1, 13],
+      "chapters": [1, 10],
+      "arc": "Magic Knights Entrance"
+    },
+    {
+      "episodes": [14, 19],
+      "chapters": [11, 21],
+      "arc": "Dungeon Exploration"
+    },
+    {
+      "episodes": [20, 27],
+      "chapters": [22, 37],
+      "arc": "Royal Capital Assault"
+    },
+    {
+      "episodes": [28, 39],
+      "chapters": [38, 56],
+      "arc": "Eye of the Midnight Sun"
+    },
+    { "episodes": [40, 51], "chapters": [57, 74], "arc": "Seabed Temple" },
+    { "episodes": [52, 65], "chapters": [75, 101], "arc": "Witches' Forest" },
+    { "episodes": [66, 96], "chapters": [102, 149], "arc": "Royal Knights" },
+    {
+      "episodes": [97, 157],
+      "chapters": [150, 228],
+      "arc": "Elf Reincarnation"
+    },
+    {
+      "episodes": [158, 167],
+      "chapters": [229, 260],
+      "arc": "Heart Kingdom Joint Struggle"
+    },
+    {
+      "episodes": [168, 170],
+      "chapters": [261, 331],
+      "arc": "Spade Kingdom Raid"
+    },
+    { "chapters": [332, 392], "arc": "Judgment Day (Final Arc)" }
   ]
 }

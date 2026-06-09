@@ -4,12 +4,20 @@
   "title": "Soul Eater",
   "sourceNotes": "Single 51-episode 2008 anime; faithfully adapts manga chapters ~1-32 through ep 35, then diverges into an anime-original ending across ep 36-51. Manga complete at 117 chapters. Anime-original eps 36-51 are intentionally unmapped; unadapted manga arcs are included at the tail.",
   "mappings": [
-    { "episodes": [1, 19],  "chapters": [1, 19],    "arc": "Introduction / DWMA / Italy Mission" },
-    { "episodes": [20, 35], "chapters": [20, 32],   "arc": "DWMA Anniversary / Asura's Awakening (anime-canon end)" },
-    { "chapters": [33, 44],                         "arc": "Vs. Arachnophobia / Brew" },
-    { "chapters": [45, 60],                         "arc": "Operation Capture Baba Yaga Castle" },
-    { "chapters": [61, 71],                         "arc": "Tezca Tlipoca / Spartoi" },
-    { "chapters": [72, 81],                         "arc": "Salvage Arc" },
-    { "chapters": [82, 117],                        "arc": "Battle on the Moon / Finale" }
+    {
+      "episodes": [1, 19],
+      "chapters": [1, 19],
+      "arc": "Introduction / DWMA / Italy Mission"
+    },
+    {
+      "episodes": [20, 35],
+      "chapters": [20, 32],
+      "arc": "DWMA Anniversary / Asura's Awakening (anime-canon end)"
+    },
+    { "chapters": [33, 44], "arc": "Vs. Arachnophobia / Brew" },
+    { "chapters": [45, 60], "arc": "Operation Capture Baba Yaga Castle" },
+    { "chapters": [61, 71], "arc": "Tezca Tlipoca / Spartoi" },
+    { "chapters": [72, 81], "arc": "Salvage Arc" },
+    { "chapters": [82, 117], "arc": "Battle on the Moon / Finale" }
   ]
 }

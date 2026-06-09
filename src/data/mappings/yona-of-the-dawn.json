@@ -4,10 +4,25 @@
   "title": "Yona of the Dawn",
   "sourceNotes": "Anime complete at 24 episodes (2014-2015), faithfully adapting ch 1-47 (no filler). Manga concluded December 2025 at 47 volumes (~280 chapters; AniList chapter count not yet finalized). Post-anime arcs (Kai Empire, Sky Tribe rebellion, Final Battle) are unadapted.",
   "mappings": [
-    { "episodes": [1, 4], "chapters": [1, 10], "arc": "Hiryuu Castle / Yona's Flight" },
-    { "episodes": [5, 12], "chapters": [11, 25], "arc": "Gathering the Four Dragons" },
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 10],
+      "arc": "Hiryuu Castle / Yona's Flight"
+    },
+    {
+      "episodes": [5, 12],
+      "chapters": [11, 25],
+      "arc": "Gathering the Four Dragons"
+    },
     { "episodes": [13, 18], "chapters": [26, 34], "arc": "Awa Pirates" },
-    { "episodes": [19, 24], "chapters": [35, 47], "arc": "Fire Tribe / Sui Province" },
-    { "chapters": [48, 280], "arc": "Kai Empire / Sky Tribe Rebellion / Final Arc (unadapted)" }
+    {
+      "episodes": [19, 24],
+      "chapters": [35, 47],
+      "arc": "Fire Tribe / Sui Province"
+    },
+    {
+      "chapters": [48, 280],
+      "arc": "Kai Empire / Sky Tribe Rebellion / Final Arc (unadapted)"
+    }
   ]
 }

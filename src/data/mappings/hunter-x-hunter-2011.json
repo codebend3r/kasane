@@ -4,13 +4,17 @@
   "title": "Hunter x Hunter (2011)",
   "sourceNotes": "Well-documented arc boundaries; chapter ranges aligned with manga arc boundaries.",
   "mappings": [
-    { "episodes": [1, 21],    "chapters": [1, 38],    "arc": "Hunter Exam" },
-    { "episodes": [22, 26],   "chapters": [39, 43],   "arc": "Zoldyck Family" },
-    { "episodes": [27, 36],   "chapters": [44, 62],   "arc": "Heavens Arena" },
-    { "episodes": [37, 58],   "chapters": [63, 119],  "arc": "Yorknew City" },
-    { "episodes": [59, 75],   "chapters": [120, 154], "arc": "Greed Island" },
-    { "episodes": [76, 136],  "chapters": [155, 317], "arc": "Chimera Ant" },
-    { "episodes": [137, 148], "chapters": [318, 339], "arc": "13th Hunter Chairman Election" },
+    { "episodes": [1, 21], "chapters": [1, 38], "arc": "Hunter Exam" },
+    { "episodes": [22, 26], "chapters": [39, 43], "arc": "Zoldyck Family" },
+    { "episodes": [27, 36], "chapters": [44, 62], "arc": "Heavens Arena" },
+    { "episodes": [37, 58], "chapters": [63, 119], "arc": "Yorknew City" },
+    { "episodes": [59, 75], "chapters": [120, 154], "arc": "Greed Island" },
+    { "episodes": [76, 136], "chapters": [155, 317], "arc": "Chimera Ant" },
+    {
+      "episodes": [137, 148],
+      "chapters": [318, 339],
+      "arc": "13th Hunter Chairman Election"
+    },
     { "chapters": [340, 410], "arc": "Dark Continent / Succession Contest" }
   ]
 }

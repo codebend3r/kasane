@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState } from "react";
 import {
   ActivityIndicator,
   Image,
@@ -7,37 +7,40 @@ import {
   Text,
   TextInput,
   View,
-} from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
-import { useQuery } from '@tanstack/react-query';
-import { getMedia } from '@/api/anilist';
-import { getMangaDexInfoByAniListId } from '@/api/mangadex';
+} from "react-native";
+import { useLocalSearchParams } from "expo-router";
+import { useQuery } from "@tanstack/react-query";
+import { getMedia } from "@/api/anilist";
+import { getMangaDexInfoByAniListId } from "@/api/mangadex";
 import {
   buildSyntheticMapping,
   chapterToEpisodes,
   episodeToChapters,
   findMappingByMediaId,
-} from '@/data';
-import { EpisodeChapterRail } from '@/components/EpisodeChapterRail';
-import { Footer } from '@/components/Footer';
-import { Paragraph } from '@/components/Paragraph';
-import { formatAniListDate } from '@/data/format';
-import { FONT } from '@/theme';
+} from "@/data";
+import { EpisodeChapterRail } from "@/components/EpisodeChapterRail";
+import { Footer } from "@/components/Footer";
+import { Paragraph } from "@/components/Paragraph";
+import { formatAniListDate } from "@/data/format";
+import { FONT } from "@/theme";
 
 export default function AnimeDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const mediaId = Number(id);
 
   const { data: media, isLoading } = useQuery({
-    queryKey: ['media', mediaId],
+    queryKey: ["media", mediaId],
     queryFn: () => getMedia(mediaId),
     enabled: !Number.isNaN(mediaId),
   });
 
-  const curatedMapping = useMemo(() => findMappingByMediaId(mediaId), [mediaId]);
+  const curatedMapping = useMemo(
+    () => findMappingByMediaId(mediaId),
+    [mediaId],
+  );
   const syntheticMapping = useMemo(
     () => (media && !curatedMapping ? buildSyntheticMapping(media) : null),
-    [media, curatedMapping]
+    [media, curatedMapping],
   );
   const mapping = curatedMapping ?? syntheticMapping;
   const isAutoEstimated = !curatedMapping && !!syntheticMapping;
@@ -46,7 +49,7 @@ export default function AnimeDetail() {
     ? (() => {
         const eps = mapping.mappings
           .map((m) => m.episodes?.[1])
-          .filter((v): v is number => typeof v === 'number');
+          .filter((v): v is number => typeof v === "number");
         return eps.length > 0 ? Math.max(...eps) : null;
       })()
     : null;
@@ -56,19 +59,21 @@ export default function AnimeDetail() {
     const targetId = curatedMapping?.anilistMangaId;
     const node =
       (targetId
-        ? edges.find((e) => e.node.type === 'MANGA' && e.node.id === targetId)
+        ? edges.find((e) => e.node.type === "MANGA" && e.node.id === targetId)
         : edges.find(
             (e) =>
-              (e.relationType === 'SOURCE' || e.relationType === 'ADAPTATION') &&
-              e.node.type === 'MANGA'
-          ))?.node ?? null;
+              (e.relationType === "SOURCE" ||
+                e.relationType === "ADAPTATION") &&
+              e.node.type === "MANGA",
+          )
+      )?.node ?? null;
     if (!node) return null;
-    const title = node.title?.english ?? node.title?.romaji ?? '';
+    const title = node.title?.english ?? node.title?.romaji ?? "";
     return { id: node.id, title, anilistChapters: node.chapters ?? null };
   }, [media, curatedMapping]);
 
   const { data: partnerMangadex } = useQuery({
-    queryKey: ['mangadex', partnerManga?.id, partnerManga?.title],
+    queryKey: ["mangadex", partnerManga?.id, partnerManga?.title],
     queryFn: () =>
       getMangaDexInfoByAniListId(partnerManga!.id, partnerManga!.title),
     enabled: !!partnerManga && !!partnerManga.title,
@@ -103,13 +108,15 @@ export default function AnimeDetail() {
             {media.title.english ?? media.title.romaji}
           </Text>
           <Text style={styles.sub}>
-            ANIME · {mappedEpisodeCount ?? media.episodes ?? '?'} eps
-            {media.format ? ` · ${media.format}` : ''}
-            {media.startDate.year ? ` · ${formatAniListDate(media.startDate)}` : ''}
+            ANIME · {mappedEpisodeCount ?? media.episodes ?? "?"} eps
+            {media.format ? ` · ${media.format}` : ""}
+            {media.startDate.year
+              ? ` · ${formatAniListDate(media.startDate)}`
+              : ""}
           </Text>
           {media.description && (
             <Paragraph style={styles.description} numberOfLines={6}>
-              {media.description.replace(/<[^>]+>/g, '')}
+              {media.description.replace(/<[^>]+>/g, "")}
             </Paragraph>
           )}
         </View>
@@ -124,10 +131,11 @@ export default function AnimeDetail() {
                 <Text style={styles.autoBadgeText}>AUTO-ESTIMATED</Text>
               </View>
               <Paragraph style={styles.autoBannerBody}>
-                Linear pacing — anime episode count distributed evenly across the
-                manga chapter count. Real arcs rarely adapt at a uniform rate, so
-                treat numbers as a rough guide. Curated JSON in{' '}
-                <Text style={styles.code}>src/data/mappings/</Text> overrides this.
+                Linear pacing — anime episode count distributed evenly across
+                the manga chapter count. Real arcs rarely adapt at a uniform
+                rate, so treat numbers as a rough guide. Curated JSON in{" "}
+                <Text style={styles.code}>src/data/mappings/</Text> overrides
+                this.
               </Paragraph>
             </View>
           )}
@@ -142,8 +150,8 @@ export default function AnimeDetail() {
         <View style={styles.noMapping}>
           <Text style={styles.noMappingTitle}>No mapping available yet</Text>
           <Paragraph style={styles.noMappingBody}>
-            We couldn&apos;t find an anime↔manga adaptation pair on AniList for this
-            entry, and no curated mapping exists. Add a JSON file to{' '}
+            We couldn&apos;t find an anime↔manga adaptation pair on AniList for
+            this entry, and no curated mapping exists. Add a JSON file to{" "}
             <Text style={styles.code}>src/data/mappings/</Text> in the repo.
           </Paragraph>
         </View>
@@ -153,16 +161,26 @@ export default function AnimeDetail() {
   );
 }
 
-function QuickLookup({ mapping }: { mapping: ReturnType<typeof findMappingByMediaId> }) {
-  const [epInput, setEpInput] = useState('');
-  const [chInput, setChInput] = useState('');
+function QuickLookup({
+  mapping,
+}: {
+  mapping: ReturnType<typeof findMappingByMediaId>;
+}) {
+  const [epInput, setEpInput] = useState("");
+  const [chInput, setChInput] = useState("");
 
   if (!mapping) return null;
 
   const epNum = Number(epInput);
   const chNum = Number(chInput);
-  const fromEp = !Number.isNaN(epNum) && epNum > 0 ? episodeToChapters(mapping, epNum) : null;
-  const fromCh = !Number.isNaN(chNum) && chNum > 0 ? chapterToEpisodes(mapping, chNum) : null;
+  const fromEp =
+    !Number.isNaN(epNum) && epNum > 0
+      ? episodeToChapters(mapping, epNum)
+      : null;
+  const fromCh =
+    !Number.isNaN(chNum) && chNum > 0
+      ? chapterToEpisodes(mapping, chNum)
+      : null;
 
   return (
     <View style={styles.lookup}>
@@ -178,7 +196,7 @@ function QuickLookup({ mapping }: { mapping: ReturnType<typeof findMappingByMedi
           placeholderTextColor="#6b7177"
         />
         <Text style={styles.lookupResult}>
-          → {fromEp ? `chapters ${fromEp[0]}–${fromEp[1]}` : '—'}
+          → {fromEp ? `chapters ${fromEp[0]}–${fromEp[1]}` : "—"}
         </Text>
       </View>
       <View style={styles.lookupRow}>
@@ -192,7 +210,7 @@ function QuickLookup({ mapping }: { mapping: ReturnType<typeof findMappingByMedi
           placeholderTextColor="#6b7177"
         />
         <Text style={styles.lookupResult}>
-          → {fromCh ? `episodes ${fromCh[0]}–${fromCh[1]}` : '—'}
+          → {fromCh ? `episodes ${fromCh[0]}–${fromCh[1]}` : "—"}
         </Text>
       </View>
     </View>
@@ -202,81 +220,91 @@ function QuickLookup({ mapping }: { mapping: ReturnType<typeof findMappingByMedi
 const styles = StyleSheet.create({
   root: { flex: 1 },
   content: { padding: 16, gap: 20 },
-  center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  header: { flexDirection: 'row', gap: 16 },
-  cover: { width: 110, height: 154, backgroundColor: '#222' },
+  center: { flex: 1, alignItems: "center", justifyContent: "center" },
+  header: { flexDirection: "row", gap: 16 },
+  cover: { width: 110, height: 154, backgroundColor: "#222" },
   headerMeta: { flex: 1, gap: 6 },
   title: {
-    color: '#f5f5f5',
+    color: "#f5f5f5",
     fontSize: 28,
     letterSpacing: -0.8,
     fontFamily: FONT.bold,
   },
   sub: {
-    color: '#9aa0a6',
+    color: "#9aa0a6",
     fontSize: 12,
     letterSpacing: 1.2,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     fontFamily: FONT.semibold,
   },
   description: {
-    color: '#cfd2d6',
+    color: "#cfd2d6",
     fontSize: 14,
     lineHeight: 20,
     paddingTop: 6,
     fontFamily: FONT.regular,
   },
   sectionTitle: {
-    color: '#f5f5f5',
+    color: "#f5f5f5",
     fontSize: 18,
     paddingTop: 10,
     letterSpacing: -0.3,
     fontFamily: FONT.bold,
   },
-  empty: { color: '#9aa0a6', fontFamily: FONT.regular },
+  empty: { color: "#9aa0a6", fontFamily: FONT.regular },
   autoBanner: {
     padding: 14,
-    backgroundColor: '#1f1a2e',
+    backgroundColor: "#1f1a2e",
     borderLeftWidth: 4,
-    borderLeftColor: '#ffd65c',
+    borderLeftColor: "#ffd65c",
     gap: 8,
   },
   autoBadge: {
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
     paddingHorizontal: 8,
     paddingVertical: 3,
-    backgroundColor: '#ffd65c',
+    backgroundColor: "#ffd65c",
   },
   autoBadgeText: {
-    color: '#0c0c0e',
+    color: "#0c0c0e",
     fontSize: 11,
     letterSpacing: 1.5,
     fontFamily: FONT.bold,
   },
   autoBannerBody: {
-    color: '#cfd2d6',
+    color: "#cfd2d6",
     fontSize: 13,
     lineHeight: 19,
     fontFamily: FONT.regular,
   },
   noMapping: {
     padding: 16,
-    backgroundColor: '#17181b',
+    backgroundColor: "#17181b",
     gap: 6,
   },
-  noMappingTitle: { color: '#ffd65c', fontFamily: FONT.bold },
-  noMappingBody: { color: '#cfd2d6', fontSize: 13, lineHeight: 18, fontFamily: FONT.regular },
-  code: { fontFamily: 'Menlo', color: '#7c5cff' },
+  noMappingTitle: { color: "#ffd65c", fontFamily: FONT.bold },
+  noMappingBody: {
+    color: "#cfd2d6",
+    fontSize: 13,
+    lineHeight: 18,
+    fontFamily: FONT.regular,
+  },
+  code: { fontFamily: "Menlo", color: "#7c5cff" },
   lookup: { gap: 12, paddingTop: 8 },
-  lookupRow: { flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap' },
-  lookupLabel: { color: '#cfd2d6', fontSize: 13, fontFamily: FONT.medium },
+  lookupRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    flexWrap: "wrap",
+  },
+  lookupLabel: { color: "#cfd2d6", fontSize: 13, fontFamily: FONT.medium },
   lookupInput: {
-    backgroundColor: '#17181b',
-    color: '#f5f5f5',
+    backgroundColor: "#17181b",
+    color: "#f5f5f5",
     paddingHorizontal: 10,
     paddingVertical: 8,
     minWidth: 80,
     fontFamily: FONT.regular,
   },
-  lookupResult: { color: '#7c5cff', fontSize: 13, fontFamily: FONT.bold },
+  lookupResult: { color: "#7c5cff", fontSize: 13, fontFamily: FONT.bold },
 });

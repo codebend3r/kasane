@@ -34,6 +34,7 @@ eas submit --platform ios
 ```
 
 **Notes:**
+
 - You can test on a real iPhone via a free Apple ID + Xcode without paying, but apps expire after 7 days.
 - The App Store has a 30% commission on paid apps / in-app purchases.
 
@@ -61,8 +62,9 @@ eas submit --platform android
 ```
 
 **Notes:**
+
 - The 14-day / 20-tester rule was introduced in late 2023 for new Personal accounts. Organization accounts skip it.
-- Privacy policy URL is required *before* the first internal test. Host a minimal one on GitHub Pages (you already have `codebend3r.github.io`).
+- Privacy policy URL is required _before_ the first internal test. Host a minimal one on GitHub Pages (you already have `codebend3r.github.io`).
 
 ## 4. EAS (Expo Application Services) — optional but recommended
 

@@ -4,9 +4,24 @@
   "title": "The Quintessential Quintuplets",
   "sourceNotes": "Cumulative episodes across S1 (12) + S2 (12, eps 13-24) = 24 total. The 2022 Movie wraps up the story; it's a separate AniList entry. Manga complete at 122 chapters.",
   "mappings": [
-    { "episodes": [1, 6], "chapters": [1, 30], "arc": "Camp / Reunion (S1 first half)" },
-    { "episodes": [7, 12], "chapters": [31, 56], "arc": "Final Exam (S1 second half)" },
-    { "episodes": [13, 24], "chapters": [57, 100], "arc": "School Festival / Reveals (S2)" },
-    { "chapters": [101, 122], "arc": "Wedding / Finale (covered by 2022 movie)" }
+    {
+      "episodes": [1, 6],
+      "chapters": [1, 30],
+      "arc": "Camp / Reunion (S1 first half)"
+    },
+    {
+      "episodes": [7, 12],
+      "chapters": [31, 56],
+      "arc": "Final Exam (S1 second half)"
+    },
+    {
+      "episodes": [13, 24],
+      "chapters": [57, 100],
+      "arc": "School Festival / Reveals (S2)"
+    },
+    {
+      "chapters": [101, 122],
+      "arc": "Wedding / Finale (covered by 2022 movie)"
+    }
   ]
 }

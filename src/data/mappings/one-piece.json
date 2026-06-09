@@ -10,7 +10,11 @@
     { "episodes": [19, 30], "chapters": [42, 68], "arc": "Baratie" },
     { "episodes": [31, 47], "chapters": [69, 95], "arc": "Arlong Park" },
     { "episodes": [48, 53], "chapters": [96, 105], "arc": "Loguetown" },
-    { "episodes": [62, 77], "chapters": [106, 132], "arc": "Whisky Peak / Little Garden" },
+    {
+      "episodes": [62, 77],
+      "chapters": [106, 132],
+      "arc": "Whisky Peak / Little Garden"
+    },
     { "episodes": [92, 130], "chapters": [155, 217], "arc": "Alabasta" },
     { "chapters": [1118, 1180], "arc": "Elbaf" }
   ]

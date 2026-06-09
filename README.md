@@ -1,6 +1,6 @@
 # Kasane
 
-> **kasane** (重ね) — *Japanese: to layer, to overlap.* Anime episode and manga chapter, side by side.
+> **kasane** (重ね) — _Japanese: to layer, to overlap._ Anime episode and manga chapter, side by side.
 
 Find which **anime episodes** cover which **manga chapters**, and vice versa — one app, every platform.
 
@@ -20,7 +20,7 @@ Series detail — arc-level rail mapping anime episodes to manga chapters, with 
 
 ![Series detail with episode↔chapter rail and volumes](docs/screenshots/02-series.png)
 
-Anime-side view with the *Quick lookup* form ("I finished episode X → you're on chapter Y"):
+Anime-side view with the _Quick lookup_ form ("I finished episode X → you're on chapter Y"):
 
 ![Anime page with rail + quick lookup](docs/screenshots/04-anime.png)
 
@@ -30,12 +30,12 @@ Drill into a single arc to see per-episode ↔ per-chapter alignment:
 
 ## Platforms (one codebase)
 
-| Platform | How it ships |
-|---|---|
-| iOS | Expo / EAS Build |
-| Android | Expo / EAS Build |
-| Web | `expo export -p web` (static) |
-| macOS / Windows / Linux | Tauri 2 wraps the web build |
+| Platform                | How it ships                  |
+| ----------------------- | ----------------------------- |
+| iOS                     | Expo / EAS Build              |
+| Android                 | Expo / EAS Build              |
+| Web                     | `expo export -p web` (static) |
+| macOS / Windows / Linux | Tauri 2 wraps the web build   |
 
 ## Stack
 

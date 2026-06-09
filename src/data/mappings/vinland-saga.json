@@ -4,9 +4,13 @@
   "title": "Vinland Saga",
   "sourceNotes": "Cumulative episodes across S1 (24) + S2 (24). Arc boundaries from the manga; refine via PR.",
   "mappings": [
-    { "episodes": [1, 3],   "chapters": [1, 16],   "arc": "Prologue / Iceland" },
-    { "episodes": [4, 18],  "chapters": [17, 44],  "arc": "England Campaign" },
-    { "episodes": [19, 24], "chapters": [45, 54],  "arc": "Royal Court / Askeladd's End" },
+    { "episodes": [1, 3], "chapters": [1, 16], "arc": "Prologue / Iceland" },
+    { "episodes": [4, 18], "chapters": [17, 44], "arc": "England Campaign" },
+    {
+      "episodes": [19, 24],
+      "chapters": [45, 54],
+      "arc": "Royal Court / Askeladd's End"
+    },
     { "episodes": [25, 48], "chapters": [55, 100], "arc": "Farmland Saga" },
     { "chapters": [101, 166], "arc": "Eastern Expedition / Baltic" },
     { "chapters": [167, 220], "arc": "Vinland (finale)" }

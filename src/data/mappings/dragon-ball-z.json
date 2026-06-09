@@ -4,9 +4,13 @@
   "title": "Dragon Ball Z",
   "sourceNotes": "Dragon Ball Z (1989) anime — 291 episodes covering manga chapters 195–519 (Saiyan saga through Majin Buu / end of manga). DBZ has substantial anime filler (Garlic Jr., Other World Tournament, etc.) not in the manga; chapter ranges here count only manga-adapted episodes.",
   "mappings": [
-    { "episodes": [1, 39],    "chapters": [195, 241], "arc": "Saiyan Saga" },
-    { "episodes": [40, 117],  "chapters": [242, 329], "arc": "Frieza Saga" },
-    { "episodes": [118, 194], "chapters": [330, 420], "arc": "Android & Cell Saga" },
+    { "episodes": [1, 39], "chapters": [195, 241], "arc": "Saiyan Saga" },
+    { "episodes": [40, 117], "chapters": [242, 329], "arc": "Frieza Saga" },
+    {
+      "episodes": [118, 194],
+      "chapters": [330, 420],
+      "arc": "Android & Cell Saga"
+    },
     { "episodes": [195, 291], "chapters": [421, 519], "arc": "Majin Buu Saga" }
   ]
 }

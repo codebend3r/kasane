@@ -4,12 +4,20 @@
   "title": "Sakamoto Days",
   "sourceNotes": "Cumulative episodes across Sakamoto Days S1 Cour 1 (11) + Cour 2 / Part 2 (11). Manga ongoing (current ch. ~260 as of May 2026). Anime adapted through ch ~75 (start of JCC Infiltration). Arc boundaries from Sakamoto Days Wiki / Deltia's arc guide.",
   "mappings": [
-    { "episodes": [1, 11],  "chapters": [1, 37],     "arc": "Introduction / Amusement Park / Lab" },
-    { "episodes": [12, 22], "chapters": [38, 75],    "arc": "Death Row Prisoners / JCC Transfer Exams" },
-    { "chapters": [76, 104],                         "arc": "JCC Infiltration" },
-    { "chapters": [105, 120],                        "arc": "Taro Sakamoto's Past" },
-    { "chapters": [121, 130],                        "arc": "Bangkok" },
-    { "chapters": [131, 168],                        "arc": "Assassin Exhibition of the Century" },
-    { "chapters": [169, 260],                        "arc": "JAA Jail / New JAA (Current)" }
+    {
+      "episodes": [1, 11],
+      "chapters": [1, 37],
+      "arc": "Introduction / Amusement Park / Lab"
+    },
+    {
+      "episodes": [12, 22],
+      "chapters": [38, 75],
+      "arc": "Death Row Prisoners / JCC Transfer Exams"
+    },
+    { "chapters": [76, 104], "arc": "JCC Infiltration" },
+    { "chapters": [105, 120], "arc": "Taro Sakamoto's Past" },
+    { "chapters": [121, 130], "arc": "Bangkok" },
+    { "chapters": [131, 168], "arc": "Assassin Exhibition of the Century" },
+    { "chapters": [169, 260], "arc": "JAA Jail / New JAA (Current)" }
   ]
 }

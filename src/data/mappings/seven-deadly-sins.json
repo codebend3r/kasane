@@ -4,10 +4,26 @@
   "title": "The Seven Deadly Sins",
   "sourceNotes": "Cumulative episodes across S1 (24) + Signs of Holy War (4, eps 25-28) + Revival of the Commandments (24, eps 29-52) + Wrath of the Gods (24, eps 53-76) + Dragon's Judgement (24, eps 77-100) = 100 total. Manga complete at 346 main chapters (AniList lists 367 incl. extras). Arc boundaries approximate — refine via PR.",
   "mappings": [
-    { "episodes": [1, 9], "chapters": [1, 72], "arc": "Sins of Liones (Introduction → Vaizel Fight Festival)" },
-    { "episodes": [10, 23], "chapters": [73, 100], "arc": "Kingdom Infiltration / Armor Giant" },
-    { "episodes": [24, 66], "chapters": [101, 256], "arc": "Ten Commandments Saga" },
+    {
+      "episodes": [1, 9],
+      "chapters": [1, 72],
+      "arc": "Sins of Liones (Introduction → Vaizel Fight Festival)"
+    },
+    {
+      "episodes": [10, 23],
+      "chapters": [73, 100],
+      "arc": "Kingdom Infiltration / Armor Giant"
+    },
+    {
+      "episodes": [24, 66],
+      "chapters": [101, 256],
+      "arc": "Ten Commandments Saga"
+    },
     { "episodes": [67, 90], "chapters": [257, 306], "arc": "New Holy War" },
-    { "episodes": [91, 100], "chapters": [307, 367], "arc": "Final Battle / Demon King" }
+    {
+      "episodes": [91, 100],
+      "chapters": [307, 367],
+      "arc": "Final Battle / Demon King"
+    }
   ]
 }

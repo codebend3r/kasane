@@ -44,8 +44,8 @@ type CoverCarouselProps<T> = {
   renderItem: (item: T, index: number) => React.ReactNode;
   itemWidth: number;
   itemHeight: number;
-  gap?: number;            // default 12
-  containerWidth: number;  // measured by caller
+  gap?: number; // default 12
+  containerWidth: number; // measured by caller
 };
 ```
 

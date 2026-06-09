@@ -4,10 +4,22 @@
   "title": "Beastars",
   "sourceNotes": "Cumulative episodes across S1 (12) + S2 (12) + Final Season Part 1 (12) + Final Season Part 2 (12). Manga complete at 196 chapters; anime adapts the full run. Arc boundaries from Beastars Wiki.",
   "mappings": [
-    { "episodes": [1, 5],    "chapters": [1, 17],     "arc": "Drama Club" },
-    { "episodes": [6, 12],   "chapters": [18, 49],    "arc": "Meteor Festival" },
-    { "episodes": [13, 24],  "chapters": [50, 98],    "arc": "Murder Incident Solution" },
-    { "episodes": [25, 29],  "chapters": [99, 123],   "arc": "Interspecies Relations" },
-    { "episodes": [30, 48],  "chapters": [124, 196],  "arc": "Revenge of the Love Failure (Final Arc)" }
+    { "episodes": [1, 5], "chapters": [1, 17], "arc": "Drama Club" },
+    { "episodes": [6, 12], "chapters": [18, 49], "arc": "Meteor Festival" },
+    {
+      "episodes": [13, 24],
+      "chapters": [50, 98],
+      "arc": "Murder Incident Solution"
+    },
+    {
+      "episodes": [25, 29],
+      "chapters": [99, 123],
+      "arc": "Interspecies Relations"
+    },
+    {
+      "episodes": [30, 48],
+      "chapters": [124, 196],
+      "arc": "Revenge of the Love Failure (Final Arc)"
+    }
   ]
 }

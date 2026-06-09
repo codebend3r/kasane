@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState } from "react";
 import {
   FlatList,
   type NativeScrollEvent,
@@ -6,8 +6,8 @@ import {
   StyleSheet,
   Text,
   View,
-} from 'react-native';
-import { FONT } from '@/theme';
+} from "react-native";
+import { FONT } from "@/theme";
 
 export const MOBILE_WIDTH_BREAKPOINT = 700;
 
@@ -36,12 +36,14 @@ export function CoverCarousel<T>({
   const [activeIndex, setActiveIndex] = useState(0);
 
   const snapInterval = itemWidth + gap;
-  const contentWidth = items.length * itemWidth + Math.max(0, items.length - 1) * gap;
+  const contentWidth =
+    items.length * itemWidth + Math.max(0, items.length - 1) * gap;
   const maxScroll = Math.max(0, contentWidth - containerWidth);
 
   const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const x = e.nativeEvent.contentOffset.x;
-    const next = x >= maxScroll - 1 ? items.length - 1 : Math.round(x / snapInterval);
+    const next =
+      x >= maxScroll - 1 ? items.length - 1 : Math.round(x / snapInterval);
     const clamped = Math.max(0, Math.min(items.length - 1, next));
     if (clamped !== activeIndex) setActiveIndex(clamped);
   };
@@ -78,7 +80,13 @@ export function CoverCarousel<T>({
   );
 }
 
-function CarouselIndicator({ total, active }: { total: number; active: number }) {
+function CarouselIndicator({
+  total,
+  active,
+}: {
+  total: number;
+  active: number;
+}) {
   if (total <= 1) return null;
   if (total > DOTS_MAX_ITEMS) {
     return (
@@ -92,10 +100,7 @@ function CarouselIndicator({ total, active }: { total: number; active: number })
   return (
     <View style={styles.dotsRow}>
       {Array.from({ length: total }).map((_, i) => (
-        <View
-          key={i}
-          style={[styles.dot, i === active && styles.dotActive]}
-        />
+        <View key={i} style={[styles.dot, i === active && styles.dotActive]} />
       ))}
     </View>
   );
@@ -104,24 +109,24 @@ function CarouselIndicator({ total, active }: { total: number; active: number })
 const styles = StyleSheet.create({
   root: { gap: 10 },
   dotsRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
     gap: 6,
   },
   dot: {
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: '#2a2a2a',
+    backgroundColor: "#2a2a2a",
   },
   dotActive: {
-    backgroundColor: '#7c5cff',
+    backgroundColor: "#7c5cff",
   },
   counterWrap: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   counterText: {
-    color: '#9aa0a6',
+    color: "#9aa0a6",
     fontSize: 11,
     letterSpacing: 1.4,
     fontFamily: FONT.bold,

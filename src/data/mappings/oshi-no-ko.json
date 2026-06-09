@@ -4,11 +4,27 @@
   "title": "[Oshi no Ko]",
   "sourceNotes": "Cumulative episodes across S1 (11) + S2 (13). Manga complete at 171 chapters; unadapted arcs included at the tail.",
   "mappings": [
-    { "episodes": [1, 1],   "chapters": [1, 9],     "arc": "Mother and Children (90-min Premiere)" },
-    { "episodes": [2, 4],   "chapters": [10, 21],   "arc": "Showbiz" },
-    { "episodes": [5, 7],   "chapters": [22, 33],   "arc": "First Concert / Dating Reality Show" },
-    { "episodes": [8, 11],  "chapters": [34, 53],   "arc": "Private (Stage Play)" },
-    { "episodes": [12, 24], "chapters": [54, 102],  "arc": "2.5D Stage Play / Movie Arc" },
+    {
+      "episodes": [1, 1],
+      "chapters": [1, 9],
+      "arc": "Mother and Children (90-min Premiere)"
+    },
+    { "episodes": [2, 4], "chapters": [10, 21], "arc": "Showbiz" },
+    {
+      "episodes": [5, 7],
+      "chapters": [22, 33],
+      "arc": "First Concert / Dating Reality Show"
+    },
+    {
+      "episodes": [8, 11],
+      "chapters": [34, 53],
+      "arc": "Private (Stage Play)"
+    },
+    {
+      "episodes": [12, 24],
+      "chapters": [54, 102],
+      "arc": "2.5D Stage Play / Movie Arc"
+    },
     { "chapters": [103, 132], "arc": "Scandal / Tokyo Blade Movie" },
     { "chapters": [133, 154], "arc": "15-Year Lie" },
     { "chapters": [155, 171], "arc": "Final Arc" }

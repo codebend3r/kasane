@@ -4,9 +4,21 @@
   "title": "Tokyo Ghoul",
   "sourceNotes": "Cumulative episodes across S1 (12, faithfully adapting ch 1-66) + √A (S2, 12 eps, cumulative 13-24; anime-original ending diverging from the manga). Manga complete at 144 chapters (Part 1 only). The Tokyo Ghoul:re sequel manga + 2018 anime are separate AniList entries and not covered here.",
   "mappings": [
-    { "episodes": [1, 7], "chapters": [1, 30], "arc": "Tragedy / Kaneki's Awakening" },
-    { "episodes": [8, 9], "chapters": [31, 46], "arc": "Doves' Emergence (CCG)" },
+    {
+      "episodes": [1, 7],
+      "chapters": [1, 30],
+      "arc": "Tragedy / Kaneki's Awakening"
+    },
+    {
+      "episodes": [8, 9],
+      "chapters": [31, 46],
+      "arc": "Doves' Emergence (CCG)"
+    },
     { "episodes": [10, 13], "chapters": [47, 79], "arc": "Aogiri Tree" },
-    { "episodes": [14, 24], "chapters": [80, 144], "arc": "Anteiku Raid (anime diverges in √A)" }
+    {
+      "episodes": [14, 24],
+      "chapters": [80, 144],
+      "arc": "Anteiku Raid (anime diverges in √A)"
+    }
   ]
 }

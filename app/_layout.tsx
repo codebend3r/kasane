@@ -1,20 +1,20 @@
-import { useEffect } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { Stack, useRouter, usePathname } from 'expo-router';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { StatusBar } from 'expo-status-bar';
-import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Stack, useRouter, usePathname } from "expo-router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
+import * as SplashScreen from "expo-splash-screen";
 import {
   useFonts,
   SpaceGrotesk_400Regular,
   SpaceGrotesk_500Medium,
   SpaceGrotesk_600SemiBold,
   SpaceGrotesk_700Bold,
-} from '@expo-google-fonts/space-grotesk';
-import { ZenTokyoZoo_400Regular } from '@expo-google-fonts/zen-tokyo-zoo';
-import { usePreferences } from '@/state/preferences';
-import { FONT } from '@/theme';
+} from "@expo-google-fonts/space-grotesk";
+import { ZenTokyoZoo_400Regular } from "@expo-google-fonts/zen-tokyo-zoo";
+import { usePreferences } from "@/state/preferences";
+import { FONT } from "@/theme";
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
 
@@ -27,7 +27,7 @@ const queryClient = new QueryClient({
 function GlobalHeader() {
   const router = useRouter();
   const pathname = usePathname();
-  const isHome = pathname === '/';
+  const isHome = pathname === "/";
   const japanese = usePreferences((s) => s.japanese);
   const toggleJapanese = usePreferences((s) => s.toggleJapanese);
 
@@ -46,7 +46,7 @@ function GlobalHeader() {
         </Pressable>
       )}
       <Pressable
-        onPress={() => router.replace('/')}
+        onPress={() => router.replace("/")}
         hitSlop={8}
         style={({ hovered, pressed }: any) => [
           headerStyles.wordmarkPressable,
@@ -67,7 +67,9 @@ function GlobalHeader() {
           { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
         ]}
       >
-        <Text style={headerStyles.langToggleText}>{japanese ? 'JP' : 'EN'}</Text>
+        <Text style={headerStyles.langToggleText}>
+          {japanese ? "JP" : "EN"}
+        </Text>
       </Pressable>
     </View>
   );
@@ -97,7 +99,7 @@ export default function RootLayout() {
           <Stack
             screenOptions={{
               headerShown: false,
-              contentStyle: { backgroundColor: '#0c0c0e' },
+              contentStyle: { backgroundColor: "#0c0c0e" },
             }}
           >
             <Stack.Screen name="index" />
@@ -114,10 +116,10 @@ export default function RootLayout() {
 }
 
 const headerStyles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: '#0c0c0e' },
+  root: { flex: 1, backgroundColor: "#0c0c0e" },
   bar: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 16,
     paddingHorizontal: 16,
     paddingTop: 24,
@@ -126,11 +128,11 @@ const headerStyles = StyleSheet.create({
   back: {
     width: 44,
     height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   backArrow: {
-    color: '#7c5cff',
+    color: "#7c5cff",
     fontSize: 32,
     fontFamily: FONT.bold,
     lineHeight: 32,
@@ -139,7 +141,7 @@ const headerStyles = StyleSheet.create({
     gap: 4,
   },
   wordmark: {
-    color: '#f5f5f5',
+    color: "#f5f5f5",
     fontSize: 64,
     lineHeight: 68,
     letterSpacing: -2,
@@ -147,32 +149,32 @@ const headerStyles = StyleSheet.create({
     paddingBottom: 2,
   },
   subheading: {
-    color: '#cfd2d6',
+    color: "#cfd2d6",
     fontSize: 13,
     letterSpacing: 6,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     fontFamily: FONT.bold,
     paddingBottom: 6,
   },
   subAccent: {
-    color: '#7c5cff',
+    color: "#7c5cff",
     fontFamily: FONT.bold,
   },
   rule: {
     height: 4,
     width: 64,
-    backgroundColor: '#7c5cff',
+    backgroundColor: "#7c5cff",
   },
   spacer: { flex: 1 },
   langToggle: {
     paddingHorizontal: 14,
     paddingTop: 12,
     paddingBottom: 8,
-    backgroundColor: '#7c5cff',
-    alignSelf: 'flex-start',
+    backgroundColor: "#7c5cff",
+    alignSelf: "flex-start",
   },
   langToggleText: {
-    color: '#0c0c0e',
+    color: "#0c0c0e",
     fontSize: 13,
     letterSpacing: 2,
     fontFamily: FONT.bold,

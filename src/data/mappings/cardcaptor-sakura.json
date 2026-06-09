@@ -4,8 +4,20 @@
   "title": "Cardcaptor Sakura",
   "sourceNotes": "Original 1998-2000 anime (70 eps) adapts the full Cardcaptor Sakura manga (50 ch / 12 vols) with significant episodic padding. The Clear Card sequel anime (id 97881) adapts the 'Clear Card-hen' sequel manga, a separate AniList entry.",
   "mappings": [
-    { "episodes": [1, 35], "chapters": [1, 24], "arc": "Clow Cards Arc (Capture)" },
-    { "episodes": [36, 46], "chapters": [25, 30], "arc": "Eriol Arrives / Card Transformation Begins" },
-    { "episodes": [47, 70], "chapters": [31, 50], "arc": "Sakura Cards / Eriol Reveal / Finale" }
+    {
+      "episodes": [1, 35],
+      "chapters": [1, 24],
+      "arc": "Clow Cards Arc (Capture)"
+    },
+    {
+      "episodes": [36, 46],
+      "chapters": [25, 30],
+      "arc": "Eriol Arrives / Card Transformation Begins"
+    },
+    {
+      "episodes": [47, 70],
+      "chapters": [31, 50],
+      "arc": "Sakura Cards / Eriol Reveal / Finale"
+    }
   ]
 }

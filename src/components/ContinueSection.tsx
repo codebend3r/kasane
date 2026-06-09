@@ -1,23 +1,23 @@
-import { useMemo } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { useQuery } from '@tanstack/react-query';
-import { getMediaByIds } from '@/api/anilist';
-import { pairResults } from '@/data';
-import { useInProgressEntries } from '@/state/progress';
-import { SeriesCard } from '@/components/SeriesCard';
-import type { AniListMedia, SeriesEntry } from '@/types';
-import { FONT } from '@/theme';
+import { useMemo } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { useQuery } from "@tanstack/react-query";
+import { getMediaByIds } from "@/api/anilist";
+import { pairResults } from "@/data";
+import { useInProgressEntries } from "@/state/progress";
+import { SeriesCard } from "@/components/SeriesCard";
+import type { AniListMedia, SeriesEntry } from "@/types";
+import { FONT } from "@/theme";
 
 const STALE_MS = 60 * 60 * 1000;
-const PARTNER_RELATIONS = new Set(['ADAPTATION', 'SOURCE']);
+const PARTNER_RELATIONS = new Set(["ADAPTATION", "SOURCE"]);
 
 export function ContinueSection() {
   const entries = useInProgressEntries();
   const ids = useMemo(() => entries.map((e) => e.routeId), [entries]);
-  const idsKey = ids.join(',');
+  const idsKey = ids.join(",");
 
   const { data: primary } = useQuery({
-    queryKey: ['continue-primary', idsKey],
+    queryKey: ["continue-primary", idsKey],
     queryFn: () => getMediaByIds(ids),
     enabled: ids.length > 0,
     staleTime: STALE_MS,
@@ -31,15 +31,15 @@ export function ContinueSection() {
         .filter(
           (e) =>
             PARTNER_RELATIONS.has(e.relationType) &&
-            (e.node.type === 'ANIME' || e.node.type === 'MANGA')
+            (e.node.type === "ANIME" || e.node.type === "MANGA"),
         )
-        .map((e) => e.node.id)
+        .map((e) => e.node.id),
     );
     return Array.from(new Set(collected)).filter((id) => !known.has(id));
   }, [primary, ids]);
 
   const { data: partners } = useQuery({
-    queryKey: ['continue-partners', partnerIds.join(',')],
+    queryKey: ["continue-partners", partnerIds.join(",")],
     queryFn: () => getMediaByIds(partnerIds),
     enabled: partnerIds.length > 0,
     staleTime: STALE_MS,
@@ -76,14 +76,14 @@ const styles = StyleSheet.create({
   section: { gap: 8 },
   header: { gap: 2 },
   eyebrow: {
-    color: '#5cff9d',
+    color: "#5cff9d",
     fontSize: 11,
     letterSpacing: 1.8,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
   title: {
-    color: '#f5f5f5',
+    color: "#f5f5f5",
     fontSize: 22,
     letterSpacing: -0.4,
     fontFamily: FONT.bold,

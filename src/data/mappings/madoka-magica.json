@@ -4,8 +4,16 @@
   "title": "Puella Magi Madoka Magica",
   "sourceNotes": "12-episode 2011 anime (SHAFT) is the original work. Paired with the Hanokage manga (12 chapters / 3 vols, 2011) which is a near-1:1 manga retelling of the anime. Multiple spinoff manga (Oriko Magica, Kazumi Magica, etc.) and the Rebellion movie are separate AniList entries.",
   "mappings": [
-    { "episodes": [1, 4], "chapters": [1, 4], "arc": "Wish & Witches' Introduction" },
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 4],
+      "arc": "Wish & Witches' Introduction"
+    },
     { "episodes": [5, 8], "chapters": [5, 8], "arc": "Sayaka's Fall" },
-    { "episodes": [9, 12], "chapters": [9, 12], "arc": "Walpurgisnacht / Madoka's Wish" }
+    {
+      "episodes": [9, 12],
+      "chapters": [9, 12],
+      "arc": "Walpurgisnacht / Madoka's Wish"
+    }
   ]
 }
