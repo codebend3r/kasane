@@ -23,5 +23,15 @@
       "chapters": [101, 122],
       "arc": "Wedding / Finale (covered by 2022 movie)"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 131520,
+      "title": "The Quintessential Quintuplets Movie",
+      "year": 2022,
+      "chapters": [101, 122],
+      "afterEpisode": 24,
+      "note": "Concludes the story (Wedding / Finale arcs)."
+    }
   ]
 }
