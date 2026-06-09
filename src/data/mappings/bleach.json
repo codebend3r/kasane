@@ -1,0 +1,18 @@
+{
+  "anilistAnimeId": 269,
+  "anilistMangaId": 30012,
+  "title": "Bleach",
+  "sourceNotes": "Original 2004-2012 anime (366 episodes) covering manga chapters 1-479. Filler arcs (Bount eps 64-109, Amagai eps 168-189, Zanpakutō Unknown Tales / Beast Swords eps 230-265, Gotei 13 Invading Army eps 317-342, Past Arc / Turn Back the Pendulum eps 206-212) omitted — they adapt no main-numbered chapters. Manga complete at 706 chapters; Thousand-Year Blood War (chapters 480-686) is covered by `bleach-tybw`.",
+  "mappings": [
+    { "episodes": [1, 20], "chapters": [1, 70], "arc": "Substitute Shinigami / Agent of the Shinigami" },
+    { "episodes": [21, 41], "chapters": [71, 117], "arc": "Soul Society: The Sneak Entry" },
+    { "episodes": [42, 63], "chapters": [118, 181], "arc": "Soul Society: The Rescue" },
+    { "episodes": [110, 131], "chapters": [182, 229], "arc": "Arrancar: The Arrival" },
+    { "episodes": [132, 151], "chapters": [230, 251], "arc": "Arrancar: The Hueco Mundo Sneak Entry" },
+    { "episodes": [152, 167], "chapters": [252, 286], "arc": "Arrancar: The Fierce Fight" },
+    { "episodes": [190, 205], "chapters": [287, 315], "arc": "Arrancar vs. Shinigami" },
+    { "episodes": [213, 229], "chapters": [316, 340], "arc": "Arrancar: Decisive Battle of Karakura" },
+    { "episodes": [266, 316], "chapters": [341, 423], "arc": "Arrancar: Downfall (Hueco Mundo Finale)" },
+    { "episodes": [343, 366], "chapters": [424, 479], "arc": "The Lost Substitute Shinigami / Fullbring" }
+  ]
+}
