@@ -15,5 +15,14 @@
       "chapters": [9, 12],
       "arc": "Walpurgisnacht / Madoka's Wish"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 11981,
+      "title": "Puella Magi Madoka Magica the Movie -Rebellion-",
+      "year": 2013,
+      "afterEpisode": 12,
+      "note": "Canon sequel film."
+    }
   ]
 }
