@@ -1,0 +1,11 @@
+{
+  "anilistAnimeId": 151807,
+  "anilistMangaId": 105398,
+  "title": "Solo Leveling",
+  "sourceNotes": "Cumulative episodes across S1 (12) + S2 (13, eps 13-25) = 25 total. Paired with the DUBU manhwa (201 chapters, finished). Both adapt the Chugong web novel. S3 announced. Per-arc chapter boundaries approximate.",
+  "mappings": [
+    { "episodes": [1, 12], "chapters": [1, 50], "arc": "E-Rank Hunter / Double Dungeon → Awakening (S1)" },
+    { "episodes": [13, 25], "chapters": [51, 110], "arc": "Job Change Quest / Jeju Island (S2)" },
+    { "chapters": [111, 201], "arc": "Monarchs War / Final Arc (unadapted)" }
+  ]
+}

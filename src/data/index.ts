@@ -96,6 +96,7 @@ import noGameNoLife from '@/data/mappings/no-game-no-life.json';
 import logHorizon from '@/data/mappings/log-horizon.json';
 import tanyaTheEvil from '@/data/mappings/tanya-the-evil.json';
 import eminenceInShadow from '@/data/mappings/eminence-in-shadow.json';
+import soloLeveling from '@/data/mappings/solo-leveling.json';
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -232,6 +233,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   logHorizon,
   tanyaTheEvil,
   eminenceInShadow,
+  soloLeveling,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
