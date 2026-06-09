@@ -1,0 +1,12 @@
+{
+  "anilistAnimeId": 99263,
+  "anilistMangaId": 85442,
+  "title": "The Rising of the Shield Hero",
+  "sourceNotes": "Cumulative episodes across S1 (25) + S2 (13, eps 26-38) + S3 (12, eps 39-50) = 50 total. Paired with the Aiya Kyū manga adaptation (ongoing, ~96 chapters). Per-arc chapter boundaries approximate.",
+  "mappings": [
+    { "episodes": [1, 13], "chapters": [1, 25], "arc": "Initial Wave / False Charges" },
+    { "episodes": [14, 25], "chapters": [26, 45], "arc": "Three Heroes Cooperation / Pope" },
+    { "episodes": [26, 38], "chapters": [46, 70], "arc": "Spirit Tortoise (S2)" },
+    { "episodes": [39, 50], "chapters": [71, 96], "arc": "Phoenix / Calamity (S3)" }
+  ]
+}
