@@ -85,6 +85,7 @@ import neonGenesisEvangelion from '@/data/mappings/neon-genesis-evangelion.json'
 import cowboyBebop from '@/data/mappings/cowboy-bebop.json';
 import samuraiChamploo from '@/data/mappings/samurai-champloo.json';
 import eightySix from '@/data/mappings/86-eighty-six.json';
+import madokaMagica from '@/data/mappings/madoka-magica.json';
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -210,6 +211,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   cowboyBebop,
   samuraiChamploo,
   eightySix,
+  madokaMagica,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
