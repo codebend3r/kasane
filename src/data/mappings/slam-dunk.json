@@ -23,5 +23,39 @@
       "chapters": [160, 276],
       "arc": "Inter-High Tournament: Toyotama / Sannoh / Aiwa (unadapted in TV; Sannoh covered by 2022 movie)"
     }
+  ],
+  "movies": [
+    {
+      "anilistId": 1764,
+      "title": "Slam Dunk: The Movie",
+      "year": 1994,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 1861,
+      "title": "Slam Dunk: National Domination! Sakuragi Hanamichi",
+      "year": 1994,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 2498,
+      "title": "Slam Dunk: Shohoku's Greatest Challenge! Burning Hanamichi Sakuragi",
+      "year": 1995,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 2499,
+      "title": "Slam Dunk: Howling Basketman Spirit!!",
+      "year": 1995,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 128207,
+      "title": "THE FIRST SLAM DUNK",
+      "year": 2022,
+      "chapters": [220, 276],
+      "afterEpisode": 101,
+      "note": "Adapts the Sannoh match from the unadapted Inter-High portion (range approximate)."
+    }
   ]
 }
