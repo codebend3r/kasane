@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
-import type { PressableState, SeriesMapping } from "@/types";
+import type { MovieEntry, PressableState, SeriesMapping } from "@/types";
 import { FONT } from "@/theme";
 import {
   useProgress,
@@ -22,6 +22,7 @@ const COLORS = [
 
 const BAR_HEIGHT = 44;
 const LONG_PRESS_MS = 320;
+const MOVIE_COLOR = "#5cdfff";
 
 export function EpisodeChapterRail({
   mapping,
@@ -70,6 +71,11 @@ export function EpisodeChapterRail({
   );
   const mangaTotal = showTail ? totalChapters! : maxCoveredChapter;
 
+  const movieMarkers = (mapping.movies ?? []).filter(
+    (movie): movie is MovieEntry & { afterEpisode: number } =>
+      typeof movie.afterEpisode === "number",
+  );
+
   const animeFrac =
     progress?.anime && animeTotal > 0
       ? Math.min(progress.anime.position, animeTotal) / animeTotal
@@ -117,6 +123,39 @@ export function EpisodeChapterRail({
         })}
         {animeFrac !== null && <ProgressOverlay frac={animeFrac} />}
       </View>
+      {movieMarkers.length > 0 && animeTotal > 0 && (
+        <View style={styles.movieLane}>
+          {movieMarkers.map((movie, idx) => {
+            const label = `${movie.title} (${movie.year})${
+              movie.chapters
+                ? ` · ch ${movie.chapters[0]}–${movie.chapters[1]}`
+                : ""
+            }`;
+            return (
+              <View
+                key={`mv-${idx}`}
+                style={[
+                  styles.movieAnchor,
+                  {
+                    left: `${Math.min(movie.afterEpisode / animeTotal, 1) * 100}%`,
+                  },
+                ]}
+              >
+                <Pressable
+                  onHoverOut={clearHover}
+                  // @ts-expect-error react-native-web forwards onMouseMove to the DOM
+                  onMouseMove={(e: MouseLike) =>
+                    moveTo({ label, color: MOVIE_COLOR, textColor: "#000" }, e)
+                  }
+                  style={styles.movieMarker}
+                >
+                  <Text style={styles.movieMarkerText}>◆</Text>
+                </Pressable>
+              </View>
+            );
+          })}
+        </View>
+      )}
 
       <Text style={styles.label}>Manga chapters →</Text>
       <View style={styles.rail}>
@@ -165,7 +204,10 @@ export function EpisodeChapterRail({
         {mangaFrac !== null && <ProgressOverlay frac={mangaFrac} />}
       </View>
 
-      <Text style={styles.hint}>Tap to mark · Long-press to open arc</Text>
+      <Text style={styles.hint}>
+        Tap to mark · Long-press to open arc
+        {movieMarkers.length > 0 ? " · ◆ movie premiere" : ""}
+      </Text>
 
       <HoverLabel hover={hover} />
     </View>
@@ -228,6 +270,29 @@ const styles = StyleSheet.create({
     color: "#9aa0a6",
     fontSize: 13,
     letterSpacing: -0.2,
+    fontFamily: FONT.bold,
+  },
+  movieLane: {
+    height: 18,
+    width: "100%",
+    position: "relative",
+  },
+  movieAnchor: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    width: 0,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  movieMarker: {
+    paddingHorizontal: 8,
+    justifyContent: "center",
+  },
+  movieMarkerText: {
+    color: MOVIE_COLOR,
+    fontSize: 11,
+    lineHeight: 18,
     fontFamily: FONT.bold,
   },
   unadaptedBarText: {
