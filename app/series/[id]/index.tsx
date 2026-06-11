@@ -26,6 +26,7 @@ import {
   type MarkEvent,
 } from "@/components/ProgressMarkBanner";
 import { SeasonCoverage } from "@/components/SeasonCoverage";
+import { SeriesMovies } from "@/components/SeriesMovies";
 import { VolumesGrid } from "@/components/VolumesGrid";
 import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
 import { Footer } from "@/components/Footer";
@@ -197,11 +198,13 @@ export default function SeriesDetail() {
     subParts.push(`${totalChapters ?? "?"} ch`);
     subParts.push(`${totalVolumes ?? "?"} vol`);
   }
+  const movies = curatedMapping?.movies ?? [];
   if (showAnimeStats) {
     subParts.push(`${totalEpisodes ?? "?"} eps`);
-    const totalMovies = curatedMapping?.movies?.length ?? 0;
-    if (totalMovies > 0) {
-      subParts.push(`${totalMovies} ${totalMovies === 1 ? "movie" : "movies"}`);
+    if (movies.length > 0) {
+      subParts.push(
+        `${movies.length} ${movies.length === 1 ? "movie" : "movies"}`,
+      );
     }
   }
   if (primary.format) subParts.push(primary.format);
@@ -342,6 +345,7 @@ export default function SeriesDetail() {
             />
           )}
           {curatedMapping ? <SeasonCoverage mapping={curatedMapping} /> : null}
+          {movies.length > 0 ? <SeriesMovies movies={movies} /> : null}
         </View>
       ) : badge === "anime-only" ? null : (
         <View style={styles.noMapping}>
