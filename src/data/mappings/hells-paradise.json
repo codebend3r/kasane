@@ -1,0 +1,17 @@
+{
+  "anilistAnimeId": 128893,
+  "anilistMangaId": 100994,
+  "title": "Hell's Paradise: Jigokuraku",
+  "sourceNotes": "Cumulative episodes across S1 (13, eps 1-13) + S2 (12, eps 14-25). Manga complete at 127 chapters / 13 volumes (4 arcs). S1 adapted through ~chapter 45 (mid-Lord Tensen); S2 resumed there and stopped at chapter 94 (officially chapters 60-89 plus ch 94 pulled forward), roughly two-thirds through the Horai Arc. Chapters ~95-127 (back half of Horai + the entire Departure Arc) are UNADAPTED, set up for a potential S3. MAPPA reordered chapters for pacing, so within-arc episode boundaries are approximate. No theatrical films (only stage plays).",
+  "mappings": [
+    { "episodes": [1, 5], "chapters": [1, 16], "arc": "Island" },
+    { "episodes": [6, 18], "chapters": [17, 59], "arc": "Lord Tensen" },
+    {
+      "episodes": [19, 25],
+      "chapters": [60, 94],
+      "arc": "Horai (partial; anime stops at ch 94)"
+    },
+    { "chapters": [95, 110], "arc": "Horai (unadapted remainder)" },
+    { "chapters": [111, 127], "arc": "Departure" }
+  ]
+}

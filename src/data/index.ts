@@ -120,6 +120,7 @@ import worldTrigger from "@/data/mappings/world-trigger.json";
 import shamanKing2021 from "@/data/mappings/shaman-king-2021.json";
 import katekyoHitmanReborn from "@/data/mappings/katekyo-hitman-reborn.json";
 import toriko from "@/data/mappings/toriko.json";
+import hellsParadise from "@/data/mappings/hells-paradise.json";
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -309,6 +310,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   shamanKing2021,
   katekyoHitmanReborn,
   toriko,
+  hellsParadise,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
