@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 21341,
+  "anilistMangaId": 79865,
+  "title": "Ajin: Demi-Human",
+  "sourceNotes": "Manga complete; AniList counts 99 chapters / 17 volumes because it includes every magazine installment (the '.5' split chapters and the untitled Final Chapter). The volume/fan integer numbering instead runs 1 through ~85 plus the Final Chapter, so cross-checks against Bato/Kodansha volumes will show a lower top chapter than 99 - both describe the same complete manga. Chapter ranges here use AniList's 99 scale, with 99 = the Final Chapter. Anime (Polygon Pictures CG): Season 1 = eps 1-13, Season 2 = eps 14-26 (cumulative), total 26 episodes. Season 1 faithfully adapts ~chapters 1-21; the manga's documented divergence point is chapter 22. Season 2 only loosely follows the manga (to roughly chapter 69) and its finale (ep 26) is an anime-original ending in which Sato is defeated - in the manga Sato is never beaten. Fans recommend resuming the manga at chapter 22. The unadapted tail (~ch 70-99) is the manga's true climax and resolution. The three theatrical films (Shoudou/-Compel-, Shoutotsu, Shougeki) are recap compilations re-cutting the TV anime and are EXCLUDED. A 3-episode OVA of side stories is also excluded. Internal boundaries (22 / 69 / 70) are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 13],
+      "chapters": [1, 21],
+      "arc": "Awakening & First Conflict (Season 1)"
+    },
+    {
+      "episodes": [14, 26],
+      "chapters": [22, 69],
+      "arc": "Sato's War (Season 2, anime-divergent; original finale)"
+    },
+    {
+      "chapters": [70, 99],
+      "arc": "Final Confrontation (unadapted manga climax)"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 98436,
+  "anilistMangaId": 85435,
+  "title": "The Ancient Magus' Bride",
+  "sourceNotes": "Maps the TV anime to the ongoing manga (RELEASING; latest collected chapters reach ~115 in vol 23, Oct 2025). TV Season 1 (id 98436, 24 eps) adapts roughly chapters 1-45 and resolves the pre-College story. TV Season 2 (ids 154364 + 166452, 12 + 12 = 24 eps, cumulative eps 25-48) adapts the College (Gakuin) arc, chapters 46-70. The 3-part OVA prequel 'Those Awaiting a Star' (id 21688) is a chronological prequel showing Chise's past and is not part of this episode numbering. No theatrical films. Chapter boundaries are approximate; the anime skips and reorders some short chapters.",
+  "mappings": [
+    {
+      "episodes": [1, 24],
+      "chapters": [1, 45],
+      "arc": "Slave / Bride (pre-College story)"
+    },
+    {
+      "episodes": [25, 48],
+      "chapters": [46, 70],
+      "arc": "College (Gakuin) arc"
+    },
+    {
+      "chapters": [71, 115],
+      "arc": "Post-College arc (unadapted, manga ongoing)"
+    }
+  ]
+}

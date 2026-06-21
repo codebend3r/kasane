@@ -1,0 +1,46 @@
+{
+  "anilistAnimeId": 9919,
+  "anilistMangaId": 43492,
+  "title": "Blue Exorcist",
+  "sourceNotes": "Cumulative episodes across five TV cours: Season 1 (2011, 25 eps) + Kyoto Saga (2017, eps 26-37) + Shimane Illuminati Saga (2024, eps 38-49) + Beyond the Snow Saga (2024, eps 50-61) + Blue Night / Yosuga Saga (2025, eps 62-73) = 73 total. Season 1 adapts the manga faithfully only through ~episode 17 (chapters 1-15); episodes 18-25 are an anime-original Satan/Gehenna Gate ending (no manga chapters). The 2017 Kyoto Saga rebooted continuity to follow the manga from the Impure King arc onward, so later cours track the manga closely. Manga ongoing in its final stretch: latest published chapter 166 (Vol. 34, May 2026), on hiatus with ch 167 resuming July 2026; the unadapted 'Of One Cloth' / Society arc (ch 121-166+) is listed chapters-only. Post-Illuminati arc names are fan/cour labels and per-episode chapter boundaries are approximate — refine via PR.",
+  "mappings": [
+    {
+      "episodes": [1, 17],
+      "chapters": [1, 15],
+      "arc": "True Cross Academy / Exwire Exam (Introduction)"
+    },
+    {
+      "episodes": [26, 37],
+      "chapters": [16, 34],
+      "arc": "Kyoto Impure King Arc (Kyoto Saga)"
+    },
+    {
+      "episodes": [38, 49],
+      "chapters": [38, 68],
+      "arc": "Shimane Illuminati Arc"
+    },
+    {
+      "episodes": [50, 61],
+      "chapters": [69, 99],
+      "arc": "Beyond the Snow Saga"
+    },
+    {
+      "episodes": [62, 73],
+      "chapters": [100, 120],
+      "arc": "Blue Night / Yosuga Saga"
+    },
+    {
+      "chapters": [121, 166],
+      "arc": "Of One Cloth / Society Arc (ongoing, current ch 166)"
+    }
+  ],
+  "movies": [
+    {
+      "anilistId": 11737,
+      "title": "Blue Exorcist: The Movie",
+      "year": 2012,
+      "afterEpisode": 25,
+      "note": "Anime-original side story expanding the Phantom Train omake (Vol. 6); self-contained and non-canon."
+    }
+  ]
+}

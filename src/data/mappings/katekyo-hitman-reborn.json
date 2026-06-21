@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 1604,
+  "anilistMangaId": 30047,
+  "title": "REBORN!",
+  "sourceNotes": "Single continuous 203-episode anime (2006-2010); episode numbers are not split by season. The anime ended at episode 203, adapting up to roughly manga chapter 282 (end of the Future / TYL arc); the Inheritance Ceremony (Shimon) and Curse of the Rainbow arcs were never animated and are listed here as chapters-only. Three anime-original filler arcs (Arcobaleno Trials eps 141-153, Inheritance Succession eps 178-189, plus assorted Daily-life interludes) adapt no main chapters and are omitted from the ranges. Manga complete: most chapter lists count 409 numbered chapters (Target 001-409); AniList reports 411 (likely counting post-series omake) — final mapping extends to 409. Early Daily Life / Kokuyo / Varia episode-to-chapter boundaries are approximate (heavy filler) — refine via PR.",
+  "mappings": [
+    { "episodes": [1, 33], "chapters": [1, 61], "arc": "Daily Life Arc" },
+    {
+      "episodes": [34, 65],
+      "chapters": [62, 82],
+      "arc": "Kokuyo Arc (Mukuro)"
+    },
+    {
+      "episodes": [66, 73],
+      "chapters": [83, 139],
+      "arc": "Varia Arc / Battle for the Rings"
+    },
+    {
+      "episodes": [74, 203],
+      "chapters": [140, 282],
+      "arc": "Future Arc / Future (TYL) Arc"
+    },
+    {
+      "chapters": [283, 330],
+      "arc": "Inheritance Ceremony Arc / Shimon Arc"
+    },
+    {
+      "chapters": [331, 409],
+      "arc": "Curse of the Rainbow / Representative Battle of the Rainbow Arc"
+    }
+  ]
+}
