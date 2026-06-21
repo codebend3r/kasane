@@ -111,6 +111,7 @@ import cardcaptorSakura from "@/data/mappings/cardcaptor-sakura.json";
 import yugiohDuelMonsters from "@/data/mappings/yugioh-duel-monsters.json";
 import digimonAdventure from "@/data/mappings/digimon-adventure.json";
 import blueLock from "@/data/mappings/blue-lock.json";
+import kurokosBasketball from "@/data/mappings/kurokos-basketball.json";
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -291,6 +292,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   yugiohDuelMonsters,
   digimonAdventure,
   blueLock,
+  kurokosBasketball,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
