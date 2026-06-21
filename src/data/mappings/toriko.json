@@ -1,0 +1,76 @@
+{
+  "anilistAnimeId": 10033,
+  "anilistMangaId": 37887,
+  "title": "Toriko",
+  "sourceNotes": "Single continuous 147-episode anime (2011-2014). The anime adapted the Human World portion of the manga but with substantial expansion, several anime-original interludes (e.g. the Golden Wheat / BB Corn detours and scattered filler episodes), and an anime-original ending: it stopped partway through the Cooking Festival arc (around chapter 230-253) and resolved with a non-canon battle instead of the manga's true Cooking Festival climax. Episode-to-chapter boundaries are therefore approximate; the per-arc cumulative episode ranges below are sensible groupings rather than exact frame-accurate cuts. Manga complete at 396 chapters; the entire Gourmet World Act (ch 264-396) and the back half of the Cooking Festival arc were never animated and are listed chapters-only. Refine boundaries via PR.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 18],
+      "arc": "Introduction (Galala Gator / Rainbow Fruit / Puffer Whale)"
+    },
+    {
+      "episodes": [13, 26],
+      "chapters": [19, 62],
+      "arc": "Regal Mammoth / BB Corn Arc"
+    },
+    {
+      "episodes": [27, 50],
+      "chapters": [63, 100],
+      "arc": "Century Soup Arc"
+    },
+    {
+      "episodes": [51, 78],
+      "chapters": [101, 143],
+      "arc": "Ozone Herb / Gourmet World Reality / Melk Stardust / Mellow Cola Arc"
+    },
+    {
+      "episodes": [79, 110],
+      "chapters": [144, 193],
+      "arc": "Training for Gourmet World (Gourami / Meteor Garlic / Bubble Fruit)"
+    },
+    {
+      "episodes": [111, 125],
+      "chapters": [194, 209],
+      "arc": "Four Beast Arc"
+    },
+    {
+      "episodes": [126, 147],
+      "chapters": [210, 230],
+      "arc": "Cooking Festival Arc (anime-original ending)"
+    },
+    {
+      "chapters": [231, 263],
+      "arc": "Cooking Festival Arc (manga conclusion, unadapted)"
+    },
+    {
+      "chapters": [264, 271],
+      "arc": "Billion Bird Arc (Gourmet World)"
+    },
+    {
+      "chapters": [272, 294],
+      "arc": "AIR Arc"
+    },
+    {
+      "chapters": [295, 323],
+      "arc": "PAIR Arc"
+    },
+    {
+      "chapters": [324, 368],
+      "arc": "ANOTHER Arc"
+    },
+    {
+      "chapters": [369, 396],
+      "arc": "GOD Arc (Final Arc)"
+    }
+  ],
+  "movies": [
+    {
+      "anilistId": 17699,
+      "title": "Toriko the Movie: Secret Recipe of Gourmet God!",
+      "year": 2013,
+      "afterEpisode": 110,
+      "note": "Anime-original side-story feature set between the anime's Golden Wheat and Four Beast arcs."
+    }
+  ]
+}

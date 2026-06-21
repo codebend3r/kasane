@@ -1,0 +1,27 @@
+{
+  "anilistAnimeId": 113717,
+  "anilistMangaId": 114388,
+  "title": "Ranking of Kings",
+  "sourceNotes": "TV Season 1 (id 113717, 23 eps) adapts the entirety of the manga's Part 1 (the Bosse Kingdom storyline), which is chapters 1-155 / volumes 1-12; Part 2 begins at chapter 156 and the manga remains ongoing (RELEASING; ~chapter 276 as of Dec 2025). The Ousama Ranking manga uses short, web-style chapters, so the per-arc chapter splits within Part 1 are approximate (~6-7 chapters per episode). The sequel TV 'Treasure Chest of Courage' (id 153452, 10 eps) adapts bonus / side-story gaiden chapters and is not mapped to the main-series numbering here, so it is omitted. The announced Ousama Ranking film (id 166457) is NOT_YET_RELEASED and is excluded.",
+  "mappings": [
+    {
+      "episodes": [1, 9],
+      "chapters": [1, 55],
+      "arc": "King Bosse's death & Bojji's journey"
+    },
+    {
+      "episodes": [10, 15],
+      "chapters": [56, 100],
+      "arc": "Underworld training (Despa) & Miranjo's plot"
+    },
+    {
+      "episodes": [16, 23],
+      "chapters": [101, 155],
+      "arc": "Battle for the Bosse Kingdom (Part 1 finale)"
+    },
+    {
+      "chapters": [156, 276],
+      "arc": "Part 2 (unadapted in main TV, manga ongoing)"
+    }
+  ]
+}

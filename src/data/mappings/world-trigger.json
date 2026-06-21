@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 20729,
+  "anilistMangaId": 78151,
+  "title": "World Trigger",
+  "sourceNotes": "Cumulative episodes across three cours: Season 1 (2014-2016, 73 eps) + Season 2 (2021, eps 74-85) + Season 3 (2021-2022, eps 86-99) = 99 total. Season 1 contains an anime-original Fugitive Arc (eps 48-63) that adapts no manga chapters; it is omitted, producing a gap in episode numbering. Per the animefillerguide episode-to-chapter conversion: S1 reaches ~chapter 124, S2 adapts ~ch 120-160 (light recap overlap at its start), and S3 covers ~ch 160-196 with episode 99 ending near ch 196. Manga ongoing: latest published chapter 262 (June 2026). The Away / Expedition Selection Test arc (ch 197-262+) is unadapted and listed chapters-only. Arc boundaries within S1 span several arcs continuously and are approximate — refine via PR.",
+  "mappings": [
+    {
+      "episodes": [1, 47],
+      "chapters": [1, 64],
+      "arc": "Introduction / Large-Scale Invasion (Aftokrator) Arc"
+    },
+    {
+      "episodes": [64, 73],
+      "chapters": [65, 124],
+      "arc": "Large-Scale Invasion finale into B-Rank Wars (start)"
+    },
+    {
+      "episodes": [74, 85],
+      "chapters": [125, 160],
+      "arc": "B-Rank Wars / Rank Wars Arc (Season 2)"
+    },
+    {
+      "episodes": [86, 99],
+      "chapters": [161, 196],
+      "arc": "B-Rank Wars / Rank Wars Arc (Season 3 finale)"
+    },
+    {
+      "chapters": [197, 262],
+      "arc": "Away / Expedition Selection Test Arc (ongoing, current ch 262)"
+    }
+  ]
+}

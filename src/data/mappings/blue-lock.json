@@ -1,0 +1,30 @@
+{
+  "anilistAnimeId": 137822,
+  "anilistMangaId": 106130,
+  "title": "BLUE LOCK",
+  "sourceNotes": "Cumulative episodes across S1 (24) + S2 'Blue Lock VS. U-20 Japan' (14) = 38 episodes. S1 ends mid-Third-Selection (~ch. 94); S2 finishes the U-20 arc (~ch. 151). Manga ongoing in Weekly Shonen Magazine (current ~ch. 350); the entire Neo Egoist League arc is unadapted. Arc/season chapter boundaries are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 5],
+      "chapters": [1, 38],
+      "arc": "Introduction / First Selection"
+    },
+    { "episodes": [6, 19], "chapters": [39, 86], "arc": "Second Selection" },
+    { "episodes": [20, 28], "chapters": [87, 108], "arc": "Third Selection" },
+    {
+      "episodes": [29, 38],
+      "chapters": [109, 151],
+      "arc": "U-20 Arc (vs U-20 Japan)"
+    },
+    { "chapters": [152, 350], "arc": "Neo Egoist League (unadapted, ongoing)" }
+  ],
+  "movies": [
+    {
+      "anilistId": 163147,
+      "title": "BLUE LOCK THE MOVIE -EPISODE NAGI-",
+      "year": 2024,
+      "afterEpisode": 24,
+      "note": "Retells the early Blue Lock selection arcs from Seishiro Nagi's POV plus his backstory; adapts the spin-off manga 'Blue Lock -Episode Nagi-' (parallel continuity to S1)."
+    }
+  ]
+}

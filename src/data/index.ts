@@ -110,6 +110,56 @@ import slamDunk from "@/data/mappings/slam-dunk.json";
 import cardcaptorSakura from "@/data/mappings/cardcaptor-sakura.json";
 import yugiohDuelMonsters from "@/data/mappings/yugioh-duel-monsters.json";
 import digimonAdventure from "@/data/mappings/digimon-adventure.json";
+import blueLock from "@/data/mappings/blue-lock.json";
+import kurokosBasketball from "@/data/mappings/kurokos-basketball.json";
+import aceOfDiamond from "@/data/mappings/ace-of-diamond.json";
+import yowamushiPedal from "@/data/mappings/yowamushi-pedal.json";
+import chihayafuru from "@/data/mappings/chihayafuru.json";
+import blueExorcist from "@/data/mappings/blue-exorcist.json";
+import worldTrigger from "@/data/mappings/world-trigger.json";
+import shamanKing2021 from "@/data/mappings/shaman-king-2021.json";
+import katekyoHitmanReborn from "@/data/mappings/katekyo-hitman-reborn.json";
+import toriko from "@/data/mappings/toriko.json";
+import hellsParadise from "@/data/mappings/hells-paradise.json";
+import undeadUnluck from "@/data/mappings/undead-unluck.json";
+import beelzebub from "@/data/mappings/beelzebub.json";
+import nuraRiseOfTheYokaiClan from "@/data/mappings/nura-rise-of-the-yokai-clan.json";
+import toiletBoundHanakoKun from "@/data/mappings/toilet-bound-hanako-kun.json";
+import fistOfTheNorthStar from "@/data/mappings/fist-of-the-north-star.json";
+import saintSeiya from "@/data/mappings/saint-seiya.json";
+import dororo from "@/data/mappings/dororo.json";
+import claymore from "@/data/mappings/claymore.json";
+import blackLagoon from "@/data/mappings/black-lagoon.json";
+import dorohedoro from "@/data/mappings/dorohedoro.json";
+import gantz from "@/data/mappings/gantz.json";
+import ajin from "@/data/mappings/ajin.json";
+import deadmanWonderland from "@/data/mappings/deadman-wonderland.json";
+import btooom from "@/data/mappings/btooom.json";
+import bananaFish from "@/data/mappings/banana-fish.json";
+import drifters from "@/data/mappings/drifters.json";
+import terraFormars from "@/data/mappings/terra-formars.json";
+import knightsOfSidonia from "@/data/mappings/knights-of-sidonia.json";
+import inuyashiki from "@/data/mappings/inuyashiki.json";
+import horimiya from "@/data/mappings/horimiya.json";
+import komiCantCommunicate from "@/data/mappings/komi-cant-communicate.json";
+import myDressUpDarling from "@/data/mappings/my-dress-up-darling.json";
+import nisekoi from "@/data/mappings/nisekoi.json";
+import ouranHighSchoolHostClub from "@/data/mappings/ouran-high-school-host-club.json";
+import yourLieInApril from "@/data/mappings/your-lie-in-april.json";
+import erased from "@/data/mappings/erased.json";
+import skipAndLoafer from "@/data/mappings/skip-and-loafer.json";
+import bluePeriod from "@/data/mappings/blue-period.json";
+import given from "@/data/mappings/given.json";
+import foodWars from "@/data/mappings/food-wars.json";
+import grandBlue from "@/data/mappings/grand-blue.json";
+import devilIsAPartTimer from "@/data/mappings/devil-is-a-part-timer.json";
+import yaBoyKongming from "@/data/mappings/ya-boy-kongming.json";
+import cellsAtWork from "@/data/mappings/cells-at-work.json";
+import ancientMagusBride from "@/data/mappings/ancient-magus-bride.json";
+import landOfTheLustrous from "@/data/mappings/land-of-the-lustrous.json";
+import rankingOfKings from "@/data/mappings/ranking-of-kings.json";
+import toYourEternity from "@/data/mappings/to-your-eternity.json";
+import callOfTheNight from "@/data/mappings/call-of-the-night.json";
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -289,6 +339,56 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   cardcaptorSakura,
   yugiohDuelMonsters,
   digimonAdventure,
+  blueLock,
+  kurokosBasketball,
+  aceOfDiamond,
+  yowamushiPedal,
+  chihayafuru,
+  blueExorcist,
+  worldTrigger,
+  shamanKing2021,
+  katekyoHitmanReborn,
+  toriko,
+  hellsParadise,
+  undeadUnluck,
+  beelzebub,
+  nuraRiseOfTheYokaiClan,
+  toiletBoundHanakoKun,
+  fistOfTheNorthStar,
+  saintSeiya,
+  dororo,
+  claymore,
+  blackLagoon,
+  dorohedoro,
+  gantz,
+  ajin,
+  deadmanWonderland,
+  btooom,
+  bananaFish,
+  drifters,
+  terraFormars,
+  knightsOfSidonia,
+  inuyashiki,
+  horimiya,
+  komiCantCommunicate,
+  myDressUpDarling,
+  nisekoi,
+  ouranHighSchoolHostClub,
+  yourLieInApril,
+  erased,
+  skipAndLoafer,
+  bluePeriod,
+  given,
+  foodWars,
+  grandBlue,
+  devilIsAPartTimer,
+  yaBoyKongming,
+  cellsAtWork,
+  ancientMagusBride,
+  landOfTheLustrous,
+  rankingOfKings,
+  toYourEternity,
+  callOfTheNight,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {

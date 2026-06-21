@@ -1,0 +1,50 @@
+{
+  "anilistAnimeId": 133965,
+  "anilistMangaId": 97852,
+  "title": "Komi Can't Communicate",
+  "sourceNotes": "Cumulative episodes across S1 (12, 2021) + S2 (12, 2022) = 24. Faithful, no-filler adaptation of manga chapters 1–129. Manga complete: the main Weekly Shōnen Sunday serialization ended at ch. 499, plus a bonus ch. 500 in the final Volume 37 (March 2025), so the canonical run is chapters 1–500 across 37 volumes. (AniList lists 537, which appears to over-count; 500 is the verified final chapter.) S2 finale (ep 24) ends at ch. 129; the unadapted tail (ch. 130–500) is included chapters-only. Slice-of-life with no formal arcs — groupings use seasonal/event sections and are approximate; S1 in particular reorders short skits.",
+  "mappings": [
+    {
+      "episodes": [1, 2],
+      "chapters": [1, 15],
+      "arc": "First Day / Making Friends"
+    },
+    {
+      "episodes": [3, 4],
+      "chapters": [16, 30],
+      "arc": "Stage Fright / Physical Exam"
+    },
+    { "episodes": [5, 6], "chapters": [31, 44], "arc": "Yamai / Early Summer" },
+    {
+      "episodes": [7, 8],
+      "chapters": [45, 57],
+      "arc": "Pool / Summer Festival"
+    },
+    {
+      "episodes": [9, 11],
+      "chapters": [58, 68],
+      "arc": "New Semester / Sports Day / Culture Festival Prep"
+    },
+    {
+      "episodes": [12, 12],
+      "chapters": [69, 73],
+      "arc": "Culture Festival (S1 finale)"
+    },
+    { "episodes": [13, 15], "chapters": [74, 91], "arc": "Winter / Cat Café" },
+    {
+      "episodes": [16, 18],
+      "chapters": [92, 106],
+      "arc": "Christmas / New Year"
+    },
+    { "episodes": [19, 21], "chapters": [107, 119], "arc": "Kyoto Field Trip" },
+    {
+      "episodes": [22, 24],
+      "chapters": [120, 129],
+      "arc": "Valentine's / White Day (S2 finale)"
+    },
+    {
+      "chapters": [130, 500],
+      "arc": "Unadapted Tail (second year through graduation)"
+    }
+  ]
+}

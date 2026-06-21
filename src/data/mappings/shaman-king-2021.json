@@ -1,0 +1,38 @@
+{
+  "anilistAnimeId": 119675,
+  "anilistMangaId": 30050,
+  "title": "SHAMAN KING (2021)",
+  "sourceNotes": "The 2021 reboot (52 eps, single run) faithfully re-adapts the ENTIRE manga, including the canonical true ending that the 2001 anime never reached. Numbering caveat: the reboot adapts the 35-volume Complete Edition (kanzenban), whose 'Reincarnation' chapters run 1-300; the original serialized print (referenced by AniList manga id 30050) was 285 chapters / 288 per AniList. This file uses the AniList 288-chapter count as its source of truth and scales the kanzenban arc seams into that numbering, so the final entry extends to chapter 288 (the manga's ending). There is NO unadapted tail and NO theatrical film in this continuity. Pacing is fast (~5-6 ch/ep) and per-episode boundaries are approximate — refine via PR.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 25],
+      "arc": "Coming to Tokyo (Introduction)"
+    },
+    {
+      "episodes": [5, 13],
+      "chapters": [26, 77],
+      "arc": "Shaman Fight in Tokyo (Preliminaries / Hao Introduced)"
+    },
+    {
+      "episodes": [14, 20],
+      "chapters": [78, 103],
+      "arc": "American Tour / Road to Patch Village"
+    },
+    {
+      "episodes": [21, 43],
+      "chapters": [104, 247],
+      "arc": "Shaman Fight Second Round (Patch Village / Gandhara)"
+    },
+    {
+      "episodes": [44, 51],
+      "chapters": [248, 275],
+      "arc": "Invading the Plants (Mu Continent / Great Spirit / Final Battle)"
+    },
+    {
+      "episodes": [52, 52],
+      "chapters": [276, 288],
+      "arc": "Epilogue (True Ending)"
+    }
+  ]
+}

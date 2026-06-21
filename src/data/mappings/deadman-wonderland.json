@@ -1,0 +1,25 @@
+{
+  "anilistAnimeId": 6880,
+  "anilistMangaId": 33986,
+  "title": "Deadman Wonderland",
+  "sourceNotes": "Manga complete at 58 chapters / 13 volumes (Monthly Shonen Ace, 2007-2013). Single-season anime (Manglobe, 2011) = 12 episodes, no filler, adapting only the first 21 chapters (~volumes 1-5). The anime ends mid-story and was never continued; readers resume at chapter 22. The unadapted tail (ch 22-58) covers the rest of the manga: the Scar Chain escape arc, the Forgeries / Mockingbird arc (artificial Deadmen engineered to wipe out the real ones), and the final confrontation with Shiro / the Wretched Egg. Tail chapter boundaries below are approximate, anchored to volume math (~4.5 chapters/volume; e.g. volume 6 = ch 22-26) and the fandom wiki's arc descriptions; exact arc cutoffs within the unadapted portion are not precisely documented. A non-canon OVA ('The Red Knife Wielder') exists but is excluded. No theatrical films.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 21],
+      "arc": "Deadman Wonderland Prison / Carnival Corpse (Season 1)"
+    },
+    {
+      "chapters": [22, 34],
+      "arc": "Scar Chain Escape (unadapted)"
+    },
+    {
+      "chapters": [35, 50],
+      "arc": "Forgeries / Return to Deadman Wonderland (unadapted)"
+    },
+    {
+      "chapters": [51, 58],
+      "arc": "Wretched Egg Finale (unadapted)"
+    }
+  ]
+}
