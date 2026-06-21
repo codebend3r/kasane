@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 100977,
+  "anilistMangaId": 86778,
+  "title": "Cells at Work!",
+  "sourceNotes": "Cumulative episodes across S1 'Cells at Work!' (13) + S2 'Cells at Work!!' (8) = 21 TV episodes (eps 14-21 are S2). The manga is complete: 29 numbered chapters across 6 volumes (AniList lists 30, which counts the Vol. 6 'Psoriasis' Special). The show is episodic and freely reorders/combines chapters, so the chapter map is approximate. Confirmed anchors: S1 ends on ch 18 (Hemorrhagic Shock Pt. 2); S2 draws mainly from Vol. 5 (ch 20-25) plus part of Vol. 6, finishing the core story around ch 28. The manga's final chapter 29 ('Novel Coronavirus' / COVID finale) and the Psoriasis Special were NOT adapted in the TV run. The 'Common Cold' special, the recap 'Specials' set, and the CODE BLACK spin-off are excluded.",
+  "mappings": [
+    {
+      "episodes": [1, 13],
+      "chapters": [1, 18],
+      "arc": "Season 1 (episodic; immune cells, scrape wound, influenza, allergy, cancer, heat stroke)"
+    },
+    {
+      "episodes": [14, 21],
+      "chapters": [19, 28],
+      "arc": "Cells at Work!! / Season 2 (episodic; acne, stomach ulcer, thymocytes, cancer cell return)"
+    },
+    {
+      "chapters": [29, 29],
+      "arc": "Novel Coronavirus (manga finale, unadapted) + Psoriasis Special"
+    }
+  ]
+}
