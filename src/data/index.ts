@@ -152,6 +152,7 @@ import bluePeriod from "@/data/mappings/blue-period.json";
 import given from "@/data/mappings/given.json";
 import foodWars from "@/data/mappings/food-wars.json";
 import grandBlue from "@/data/mappings/grand-blue.json";
+import devilIsAPartTimer from "@/data/mappings/devil-is-a-part-timer.json";
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -373,6 +374,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   given,
   foodWars,
   grandBlue,
+  devilIsAPartTimer,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
