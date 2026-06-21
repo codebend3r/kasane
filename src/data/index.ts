@@ -116,6 +116,7 @@ import aceOfDiamond from "@/data/mappings/ace-of-diamond.json";
 import yowamushiPedal from "@/data/mappings/yowamushi-pedal.json";
 import chihayafuru from "@/data/mappings/chihayafuru.json";
 import blueExorcist from "@/data/mappings/blue-exorcist.json";
+import worldTrigger from "@/data/mappings/world-trigger.json";
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -301,6 +302,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   yowamushiPedal,
   chihayafuru,
   blueExorcist,
+  worldTrigger,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
