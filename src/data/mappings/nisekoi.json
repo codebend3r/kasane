@@ -1,0 +1,54 @@
+{
+  "anilistAnimeId": 18897,
+  "anilistMangaId": 61499,
+  "title": "Nisekoi: False Love",
+  "sourceNotes": "Cumulative episodes across S1 \"Nisekoi\" (20, 2014) + S2 \"Nisekoi:\" (12, 2015) = 32. Manga complete at 240 chapters on AniList (229 numbered chapters ending with ch. 229 \"Promise\", plus 11 .5 omake chapters). The anime adapts loosely and reorders chapters within each season, so ranges are approximate arc groupings. S1 ends around ch. 50 (cultural-festival Romeo & Juliet play); the whole anime ends at ch. 106 (\"Investigation\"). The large unadapted tail (ch. 107–240) is included chapters-only. No canonical anime film exists (the only Nisekoi movie is the 2018 live-action film, which is excluded).",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 7],
+      "arc": "Pendant & Promise / Fake Relationship"
+    },
+    { "episodes": [4, 5], "chapters": [8, 13], "arc": "Onodera Focus" },
+    { "episodes": [6, 8], "chapters": [14, 20], "arc": "Tsugumi Introduction" },
+    {
+      "episodes": [9, 13],
+      "chapters": [21, 32],
+      "arc": "Hot Springs / Festival Beats"
+    },
+    {
+      "episodes": [14, 17],
+      "chapters": [33, 44],
+      "arc": "Marika Introduction"
+    },
+    {
+      "episodes": [18, 20],
+      "chapters": [45, 50],
+      "arc": "Cultural Festival / Romeo & Juliet (S1 finale)"
+    },
+    {
+      "episodes": [21, 22],
+      "chapters": [51, 57],
+      "arc": "Please Notice / Fate Showdown"
+    },
+    {
+      "episodes": [23, 26],
+      "chapters": [58, 75],
+      "arc": "Mother Arc / Summer"
+    },
+    {
+      "episodes": [27, 29],
+      "chapters": [76, 90],
+      "arc": "Haru & Paula / Little Sister"
+    },
+    {
+      "episodes": [30, 32],
+      "chapters": [91, 106],
+      "arc": "Toward the Finale / Investigation (S2 finale)"
+    },
+    {
+      "chapters": [107, 240],
+      "arc": "Unadapted Tail (key mystery resolution & ending)"
+    }
+  ]
+}
