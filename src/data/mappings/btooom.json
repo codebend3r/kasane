@@ -1,0 +1,21 @@
+{
+  "anilistAnimeId": 14345,
+  "anilistMangaId": 50593,
+  "title": "Btooom!",
+  "sourceNotes": "Manga complete at 125 chapters / 26 volumes (Comic Bunch, 2009-2018), ending with two alternate finales (a 'light' and a 'dark' ending published as separate versions of the final volume). Single-season anime (Madhouse, 2012) = 12 episodes, a faithful no-filler adaptation covering only the first 50 chapters (~volumes 1-9, the end of Phase 1 of the BTOOOM! survival game). The anime stops at a cliffhanger and was never continued; readers resume at chapter 51 (volume 10). The unadapted tail (ch 51-125) covers Phase 2 of the game (rules change: two-player teams, 14 chips instead of 8), Kira's backstory, the introduction of Kaname Date, the assault on Tyrannos Japan, and the final confrontation through the dual endings. Tail arc boundaries below are approximate (volume math ~4.8 chapters/volume); only the anime/manga split at chapter 50 and the overall ending at chapter 125 are firmly documented. No theatrical films.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 50],
+      "arc": "Survival Game / Phase 1 (Season 1)"
+    },
+    {
+      "chapters": [51, 90],
+      "arc": "Phase 2 (unadapted)"
+    },
+    {
+      "chapters": [91, 125],
+      "arc": "Tyrannos Japan Assault & Finale (unadapted)"
+    }
+  ]
+}
