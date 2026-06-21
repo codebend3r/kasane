@@ -1,0 +1,27 @@
+{
+  "anilistAnimeId": 114535,
+  "anilistMangaId": 97830,
+  "title": "To Your Eternity",
+  "sourceNotes": "Three TV seasons map to the now-complete manga (ended June 2025 at chapter 201 / 25 volumes; AniList's '202 chapters' counts split chapters). Cumulative episodes: S1 (id 114535, 20 eps) = eps 1-20; S2 (id 138565, 20 eps) = eps 21-40; S3 (id 162669, 22 eps) = eps 41-62. S1 adapts ch 1-54 (early Past Era through into Jananda Island). S2 adapts ch 55-116, finishing the Past Era at the close of the Renril/Nokker War. S3 adapts the Modern Era from ch 117 to roughly ch 165; the season endpoint is approximate (mid-160s). The Future Arc (ch ~166-201) is unadapted. No theatrical films ('The Roots of To Your Eternity' is a documentary special, not a movie).",
+  "mappings": [
+    {
+      "episodes": [1, 20],
+      "chapters": [1, 54],
+      "arc": "Past Era: awakening & early lives (into Jananda Island)"
+    },
+    {
+      "episodes": [21, 40],
+      "chapters": [55, 116],
+      "arc": "Jananda finale, Guardians & Renril / Nokker War"
+    },
+    {
+      "episodes": [41, 62],
+      "chapters": [117, 165],
+      "arc": "Modern Era (New World & Mimori arcs)"
+    },
+    {
+      "chapters": [166, 201],
+      "arc": "Future Arc & ending (unadapted)"
+    }
+  ]
+}
