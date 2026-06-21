@@ -128,6 +128,7 @@ import toiletBoundHanakoKun from "@/data/mappings/toilet-bound-hanako-kun.json";
 import fistOfTheNorthStar from "@/data/mappings/fist-of-the-north-star.json";
 import saintSeiya from "@/data/mappings/saint-seiya.json";
 import dororo from "@/data/mappings/dororo.json";
+import claymore from "@/data/mappings/claymore.json";
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -325,6 +326,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   fistOfTheNorthStar,
   saintSeiya,
   dororo,
+  claymore,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
