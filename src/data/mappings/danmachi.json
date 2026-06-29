@@ -1,0 +1,37 @@
+{
+  "anilistAnimeId": 20920,
+  "anilistMangaId": 85161,
+  "title": "Is It Wrong to Try to Pick Up Girls in a Dungeon?",
+  "sourceNotes": "Cumulative episodes across S1 (13) + S2 (12, eps 14-25) + S3 (12, eps 26-37) + S4 (22, eps 38-59) = 59 total, all adapting Fujino Omori's light novels. The only main-story manga is the Kunieda adaptation (id 85161, 89 ch / 10 vols, Young Gangan), which was discontinued in 2018 partway through the Apollo Familia / War Game arc (LN vol ~1-5) and therefore covers only roughly anime Season 1. Seasons 2-4 (eps 14-59, LN vol 6-14+: Ishtar, Xenos/Knossos, etc.) have no manga counterpart and are not mapped here. S1 arc-to-chapter boundaries are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 26],
+      "arc": "Hestia Familia: the Minotaur & meeting Lili"
+    },
+    {
+      "episodes": [5, 8],
+      "chapters": [27, 54],
+      "arc": "Soma Familia (Lili) & Bell's awakening"
+    },
+    {
+      "episodes": [9, 10],
+      "chapters": [55, 68],
+      "arc": "18th-Floor expedition (the black Goliath)"
+    },
+    {
+      "episodes": [11, 13],
+      "chapters": [69, 89],
+      "arc": "Apollo Familia & War Game (manga discontinued mid-arc)"
+    }
+  ],
+  "movies": [
+    {
+      "anilistId": 101166,
+      "title": "Is It Wrong to Try to Pick Up Girls in a Dungeon?: Arrow of the Orion",
+      "year": 2019,
+      "afterEpisode": 13,
+      "note": "Anime-original canon side-story film (later novelized by Omori); set after Season 1, before Season 2. Not part of the manga."
+    }
+  ]
+}

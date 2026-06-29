@@ -1,0 +1,18 @@
+{
+  "anilistAnimeId": 112301,
+  "anilistMangaId": 106601,
+  "title": "The Misfit of Demon King Academy",
+  "sourceNotes": "Cumulative episodes across S1 (13, eps 1-13) + S2 'II' Cour 1 (12, eps 14-25) + S2 'II' Cour 2 (12, eps 26-37) = 37 total. Source is the Shu light novel; the anime adapts roughly LN volumes 1-6 (S1 = vols 1-3, S2 Cour 1 = vol 4, S2 Cour 2 = vols 5-6). The Kayaharuka manga adaptation was CANCELLED at 16 chapters / 4 volumes when the artist died (July 2021); it reaches only ~anime episode 7 (LN vol 2, ending mid-duel in the Magic Sword Tournament). Episodes 8-37 (Hero Academy / Spirit-Human Exchange, Great Spirit, and Selection Judgment arcs; LN vols 3-6) have no manga coverage and must be continued in the light novel. Mapped entries cover only the manga's actual extent. No films.",
+  "mappings": [
+    {
+      "episodes": [1, 5],
+      "chapters": [1, 11],
+      "arc": "Demon King Academy / Resurrection (LN vol 1)"
+    },
+    {
+      "episodes": [6, 7],
+      "chapters": [12, 16],
+      "arc": "Magic Sword Tournament (LN vol 2; manga ends mid-arc)"
+    }
+  ]
+}

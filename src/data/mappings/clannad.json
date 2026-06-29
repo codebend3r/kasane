@@ -1,0 +1,63 @@
+{
+  "anilistAnimeId": 2167,
+  "anilistMangaId": 32598,
+  "title": "CLANNAD",
+  "sourceNotes": "Cumulative episodes span both seasons: CLANNAD S1 (23 broadcast eps) + CLANNAD: After Story (24 eps) = 47 total, so After Story E1 = episode 24 and the finale E24 = episode 47 (the BD/DVD OVAs 'Another World: Tomoyo Chapter' and 'Another World: Kyou Chapter' are alternate-timeline extras and are not counted). The anime adapts Key's visual novel and is organized by character routes: S1 covers the common/school-life intro plus the Fuko, Kotomi, Tomoyo/Sunohara side routes and Nagisa's Theater Club main route; After Story opens with the Sunohara/Mei, Misae and Yukine side arcs before the main After Story scenario (graduation, work, marriage, Nagisa's death, and the Tomoya/Ushio finale). Mapped to CLANNAD: Official Comic (manga by Juri Misaki), 45 chapters across 8 volumes, complete. IMPORTANT: this manga adaptation primarily follows the main Nagisa/Theater Club scenario and After Story and does NOT adapt the side character routes in the depth the anime does, so the chapter ranges aligned to the side-route episodes (Fuko, Kotomi, Tomoyo, Sunohara, Misae, Yukine) are APPROXIMATE; only the cumulative endpoints (last entry reaches ch. 45) are reliable. The 2007 theatrical film (AniList 1723) is an alternate-continuity retelling and is excluded, so no movies are listed.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 4],
+      "arc": "Common route / School life - meeting Nagisa & forming the Theater Club"
+    },
+    {
+      "episodes": [5, 9],
+      "chapters": [5, 7],
+      "arc": "Fuko Ibuki route (approximate - condensed in manga)"
+    },
+    {
+      "episodes": [10, 14],
+      "chapters": [8, 10],
+      "arc": "Kotomi Ichinose route (approximate - condensed in manga)"
+    },
+    {
+      "episodes": [15, 16],
+      "chapters": [11, 12],
+      "arc": "Tomoyo Sakagami & Sunohara - student council & 3-on-3 (approximate - condensed in manga)"
+    },
+    {
+      "episodes": [17, 23],
+      "chapters": [13, 20],
+      "arc": "Nagisa Furukawa main route - Theater Club & school festival"
+    },
+    {
+      "episodes": [24, 26],
+      "chapters": [21, 22],
+      "arc": "After Story: Youhei Sunohara & Mei (approximate - condensed in manga)"
+    },
+    {
+      "episodes": [27, 28],
+      "chapters": [23, 24],
+      "arc": "After Story: Misae Sagara (approximate - condensed in manga)"
+    },
+    {
+      "episodes": [29, 30],
+      "chapters": [25, 26],
+      "arc": "After Story: Yukine Miyazawa (approximate - condensed in manga)"
+    },
+    {
+      "episodes": [31, 38],
+      "chapters": [27, 34],
+      "arc": "After Story: graduation, work & marriage (Okazaki & Furukawa families)"
+    },
+    {
+      "episodes": [39, 44],
+      "chapters": [35, 42],
+      "arc": "After Story: Nagisa's death & the Tomoya/Ushio journey"
+    },
+    {
+      "episodes": [45, 47],
+      "chapters": [43, 45],
+      "arc": "After Story finale - the illusionary world & resolution"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "anilistAnimeId": 20458,
+  "anilistMangaId": 64127,
+  "title": "The Irregular at Magic High School",
+  "sourceNotes": "Cumulative episodes across S1 (26) + S2 'Visitor Arc' (13, eps 27-39) + S3 (13, eps 40-52) = 52 total. The manga adaptation is fragmented into many separate per-arc manga (Enrollment, Nine School Competition, Yokohama Disturbance, Visitor, Double Seven, Steeplechase, etc.) with no single unified entry, so this maps to the Tsutomu Sato light novel (32 main volumes, complete) and the 'chapters' ranges below are LIGHT-NOVEL VOLUME numbers. S1 adapts vols 1-4 and 6-7 (vol 5, a short-story interstitial, is skipped); S2 adapts vols 9-11; S3 adapts vols 12-15. LN vols 16-32 (Yotsuba Succession through Graduation) are unadapted. Vol 8 (Reminiscence) was adapted separately as the 2021 TV special, not the main series.",
+  "mappings": [
+    {
+      "episodes": [1, 7],
+      "chapters": [1, 2],
+      "arc": "Enrollment Arc (S1)"
+    },
+    {
+      "episodes": [8, 18],
+      "chapters": [3, 4],
+      "arc": "Nine School Competition Arc (S1)"
+    },
+    {
+      "episodes": [19, 26],
+      "chapters": [6, 7],
+      "arc": "Yokohama Disturbance Arc (S1)"
+    },
+    {
+      "episodes": [27, 39],
+      "chapters": [9, 11],
+      "arc": "Visitor Arc (S2)"
+    },
+    {
+      "episodes": [40, 43],
+      "chapters": [12, 12],
+      "arc": "Double Seven Arc (S3)"
+    },
+    {
+      "episodes": [44, 47],
+      "chapters": [13, 13],
+      "arc": "Steeplechase Arc (S3)"
+    },
+    {
+      "episodes": [48, 52],
+      "chapters": [14, 15],
+      "arc": "Ancient City Insurrection (Koto Nairan) Arc (S3)"
+    },
+    {
+      "chapters": [16, 32],
+      "arc": "Yotsuba Succession -> Master Clans Council -> Graduation (unadapted)"
+    }
+  ],
+  "movies": [
+    {
+      "anilistId": 21684,
+      "title": "The Irregular at Magic High School: The Movie - The Girl Who Summons the Stars",
+      "year": 2017,
+      "afterEpisode": 39,
+      "note": "Canon original side-story film written by Tsutomu Sato, set after LN vol 11 (the Visitor Arc). Released June 2017, between S1 and S2 in broadcast order."
+    }
+  ]
+}
