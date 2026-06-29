@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 116267,
+  "anilistMangaId": 101177,
+  "title": "TONIKAWA: Over The Moon For You",
+  "sourceNotes": "Cumulative episodes across S1 (12) + S2 (12, eps 13-24) = 24 total. Paired with Kenjiro Hata's manga 'Fly Me to the Moon' (Tonikaku Kawaii), ongoing (~ch. 351 / 36 vols as of mid-2026 per MangaDex). S1 adapts ch 1-46; S2 adapts ch 47-106, so a viewer resumes reading at ch 107. This slice-of-life romance is episodic, so groupings are coarse and boundaries approximate. The SNS OVA, Uniform special, and High School Days ONA are separate side entries; there are no theatrical films.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 46],
+      "arc": "Newlywed Life (Marriage & Arisugawa Bathhouse)"
+    },
+    {
+      "episodes": [13, 24],
+      "chapters": [47, 106],
+      "arc": "Family & School Life (incl. School Trip)"
+    },
+    {
+      "chapters": [107, 351],
+      "arc": "Married Life Continues (ongoing, unadapted)"
+    }
+  ]
+}
