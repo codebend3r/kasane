@@ -200,6 +200,7 @@ import bloodBlockadeBattlefront from "@/data/mappings/blood-blockade-battlefront
 import arifureta from "@/data/mappings/arifureta.json";
 import nozakiKun from "@/data/mappings/nozaki-kun.json";
 import deliciousInDungeon from "@/data/mappings/delicious-in-dungeon.json";
+import summerTimeRendering from "@/data/mappings/summer-time-rendering.json";
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -469,6 +470,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   arifureta,
   nozakiKun,
   deliciousInDungeon,
+  summerTimeRendering,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
