@@ -169,6 +169,7 @@ import chunibyo from "@/data/mappings/chunibyo.json";
 import towerOfGod from "@/data/mappings/tower-of-god.json";
 import dragonMaid from "@/data/mappings/dragon-maid.json";
 import seraphOfTheEnd from "@/data/mappings/seraph-of-the-end.json";
+import wotakoi from "@/data/mappings/wotakoi.json";
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -407,6 +408,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   towerOfGod,
   dragonMaid,
   seraphOfTheEnd,
+  wotakoi,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
