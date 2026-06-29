@@ -188,6 +188,7 @@ import futureDiary from "@/data/mappings/future-diary.json";
 import danmachi from "@/data/mappings/danmachi.json";
 import another from "@/data/mappings/another.json";
 import oregairu from "@/data/mappings/oregairu.json";
+import saikiK from "@/data/mappings/saiki-k.json";
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -445,6 +446,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   danmachi,
   another,
   oregairu,
+  saikiK,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
