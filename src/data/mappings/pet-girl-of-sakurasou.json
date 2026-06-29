@@ -1,0 +1,23 @@
+{
+  "anilistAnimeId": 13759,
+  "anilistMangaId": 58107,
+  "title": "The Pet Girl of Sakurasou",
+  "sourceNotes": "TV anime (24 eps, 2012-2013, J.C.Staff) adapts Hajime Kamoshida's light novel (13 vols). Paired with the Hoki Kusano manga adaptation (id 58107, 49 ch / 8 vols, ended 2015), which is an incomplete adaptation covering only roughly LN vols 1-4 -- about the anime's first cour (eps ~1-13). Anime eps 14-24 (LN vols 5-7: end-of-year exams, the student anime project, and the graduation finale) have no manga counterpart, so the mapping ends with the anime's first cour. Chapter boundaries are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 12],
+      "arc": "Mashiro Moves Into Sakura Hall (LN vol 1)"
+    },
+    {
+      "episodes": [5, 9],
+      "chapters": [13, 30],
+      "arc": "Game Project & Chasing Dreams (LN vols 2-3)"
+    },
+    {
+      "episodes": [10, 13],
+      "chapters": [31, 49],
+      "arc": "Sakura Hall Festival & Christmas (LN vols 3-4, first-cour climax)"
+    }
+  ]
+}
