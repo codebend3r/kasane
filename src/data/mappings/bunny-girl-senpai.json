@@ -1,0 +1,63 @@
+{
+  "anilistAnimeId": 101291,
+  "anilistMangaId": 91170,
+  "title": "Rascal Does Not Dream of Bunny Girl Senpai",
+  "sourceNotes": "Source is Hajime Kamoshida's light novel series, which AniList splits into one media entry per volume and which has no unified manga adaptation (only fragmentary per-arc manga). This mapping therefore uses LIGHT-NOVEL VOLUME NUMBERS as the 'chapters' axis; anilistMangaId 91170 is LN vol 1 ('Bunny Girl Senpai'), the representative source entry. The 2018 TV anime (13 eps) adapts LN vols 1-5: Mai (eps 1-3, vol 1), Tomoe (4-6, vol 2), Futaba (7-8, vol 3), Nodoka (9-10, vol 4), Kaede (11-13, vol 5). Three canon films continue the story (vols 6-9). 15 main LN volumes were published through July 2025; vols 10+ are unadapted by these works (later covered by the 2025 TV continuation).",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 1],
+      "arc": "Bunny Girl Senpai (Mai Sakurajima) — LN vol 1"
+    },
+    {
+      "episodes": [4, 6],
+      "chapters": [2, 2],
+      "arc": "Petite Devil Kohai (Tomoe Koga) — LN vol 2"
+    },
+    {
+      "episodes": [7, 8],
+      "chapters": [3, 3],
+      "arc": "Logical Witch (Rio Futaba) — LN vol 3"
+    },
+    {
+      "episodes": [9, 10],
+      "chapters": [4, 4],
+      "arc": "Siscon Idol (Nodoka Toyohama) — LN vol 4"
+    },
+    {
+      "episodes": [11, 13],
+      "chapters": [5, 5],
+      "arc": "Sister Home Alone (Kaede Azusagawa) — LN vol 5"
+    },
+    {
+      "chapters": [6, 15],
+      "arc": "Post-TV LN arcs (Dreaming Girl → ongoing; vols 6-9 adapted by the films, vols 10+ by the 2025 TV continuation)"
+    }
+  ],
+  "movies": [
+    {
+      "anilistId": 104157,
+      "title": "Rascal Does Not Dream of a Dreaming Girl",
+      "year": 2019,
+      "chapters": [6, 7],
+      "afterEpisode": 13,
+      "note": "Canon sequel film adapting the Dreaming Girl arc (LN vols 6-7), resolving the Shoko Makinohara / Mai storyline."
+    },
+    {
+      "anilistId": 154967,
+      "title": "Rascal Does Not Dream of a Sister Venturing Out",
+      "year": 2023,
+      "chapters": [8, 8],
+      "afterEpisode": 13,
+      "note": "Canon film of the University arc (LN vol 8: Odekake Sister)."
+    },
+    {
+      "anilistId": 161474,
+      "title": "Rascal Does Not Dream of a Knapsack Kid",
+      "year": 2023,
+      "chapters": [9, 9],
+      "afterEpisode": 13,
+      "note": "Canon film of the University arc (LN vol 9: Randoseru Girl)."
+    }
+  ]
+}
