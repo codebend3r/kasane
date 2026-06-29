@@ -1,0 +1,27 @@
+{
+  "anilistAnimeId": 159831,
+  "anilistMangaId": 104660,
+  "title": "Zom 100: Bucket List of the Dead",
+  "sourceNotes": "Single 12-episode TV season (2023). Manga by Haro Aso & Kotaro Takata (Monthly Sunday Gene-X) is ONGOING (roughly ch 88 / 22 volumes by mid-2026, with hiatuses). The anime adapts ch 1-22, concluding with the 'Hometown of the Dead' arc; everything after is an unadapted manga-only tail. Per-episode chapter boundaries are approximate (the anime's broadcast was heavily delayed). Only the 2023 live-action Netflix film exists — no animated film — so no movies are listed.",
+  "mappings": [
+    {
+      "episodes": [1, 5],
+      "chapters": [1, 7],
+      "arc": "Tokyo Outbreak (Bucket List begins / Flight Attendants / Hero, vols 1-2)"
+    },
+    {
+      "episodes": [6, 8],
+      "chapters": [8, 11],
+      "arc": "RV & Truck Stop (vol 3)"
+    },
+    {
+      "episodes": [9, 12],
+      "chapters": [12, 22],
+      "arc": "Hot Springs & Hometown of the Dead (vols 4-6)"
+    },
+    {
+      "chapters": [23, 88],
+      "arc": "Cross-Country journey onward (Spartathalon → Vaccine of the Dead) — manga only, ongoing"
+    }
+  ]
+}
