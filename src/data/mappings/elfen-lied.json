@@ -1,0 +1,27 @@
+{
+  "anilistAnimeId": 226,
+  "anilistMangaId": 30933,
+  "title": "Elfen Lied",
+  "sourceNotes": "TV anime (13 eps, 2004, Arms) adapts Lynn Okamoto's manga but compresses and heavily reorders the multi-chapter flashbacks, and by the finale diverges into an anime-original ending. It loosely covers roughly the first six volumes (through ch. ~61; readers are advised to continue the manga around ch. 62). The manga is complete: AniList lists 113 chapters (commonly cited as 107 numbered chapters plus extras) across 12 volumes. Per-arc chapter ranges are approximate due to the anime's reordering.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 15],
+      "arc": "Lucy's Escape & Maple House (Kouta, Yuka, Nyu)"
+    },
+    {
+      "episodes": [5, 9],
+      "chapters": [16, 40],
+      "arc": "Nana, Bando & Mayu's Past"
+    },
+    {
+      "episodes": [10, 13],
+      "chapters": [41, 61],
+      "arc": "Kakuzawa Conspiracy & Lucy's Origin (anime-original ending)"
+    },
+    {
+      "chapters": [62, 113],
+      "arc": "Unadapted (Diclonius War & the manga's true conclusion)"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "anilistAnimeId": 99578,
+  "anilistMangaId": 86717,
+  "title": "Wotakoi: Love is Hard for Otaku",
+  "sourceNotes": "Single-season anime (11 eps, 2018). Paired with Fujita's manga (AniList id 86717), complete at 11 volumes (Comic POOL, ended July 2021); AniList counts 115 short web 'chapters' (other sources cite ~82 main numbered chapters). The anime is episodic and adapts roughly volumes 1-3 (through ~chapter 28), so boundaries are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 11],
+      "chapters": [1, 28],
+      "arc": "Narumi & Hirotaka / Hanako & Kabakura (vols 1-3)"
+    },
+    {
+      "chapters": [29, 115],
+      "arc": "Later chapters (vols 4-11; manga complete, unadapted by TV)"
+    }
+  ]
+}

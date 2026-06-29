@@ -160,6 +160,52 @@ import landOfTheLustrous from "@/data/mappings/land-of-the-lustrous.json";
 import rankingOfKings from "@/data/mappings/ranking-of-kings.json";
 import toYourEternity from "@/data/mappings/to-your-eternity.json";
 import callOfTheNight from "@/data/mappings/call-of-the-night.json";
+import chivalryOfAFailedKnight from "@/data/mappings/chivalry-of-a-failed-knight.json";
+import masamuneKunRevenge from "@/data/mappings/masamune-kun-revenge.json";
+import nichijou from "@/data/mappings/nichijou.json";
+import gachiakuta from "@/data/mappings/gachiakuta.json";
+import zom100 from "@/data/mappings/zom-100.json";
+import chunibyo from "@/data/mappings/chunibyo.json";
+import towerOfGod from "@/data/mappings/tower-of-god.json";
+import dragonMaid from "@/data/mappings/dragon-maid.json";
+import seraphOfTheEnd from "@/data/mappings/seraph-of-the-end.json";
+import wotakoi from "@/data/mappings/wotakoi.json";
+import highSchoolDxd from "@/data/mappings/high-school-dxd.json";
+import rentAGirlfriend from "@/data/mappings/rent-a-girlfriend.json";
+import godOfHighSchool from "@/data/mappings/god-of-high-school.json";
+import clannad from "@/data/mappings/clannad.json";
+import maidSama from "@/data/mappings/maid-sama.json";
+import highschoolOfTheDead from "@/data/mappings/highschool-of-the-dead.json";
+import beyondTheBoundary from "@/data/mappings/beyond-the-boundary.json";
+import petGirlOfSakurasou from "@/data/mappings/pet-girl-of-sakurasou.json";
+import elfenLied from "@/data/mappings/elfen-lied.json";
+import nagatoro from "@/data/mappings/nagatoro.json";
+import bunnyGirlSenpai from "@/data/mappings/bunny-girl-senpai.json";
+import toradora from "@/data/mappings/toradora.json";
+import kakegurui from "@/data/mappings/kakegurui.json";
+import classroomOfTheElite from "@/data/mappings/classroom-of-the-elite.json";
+import futureDiary from "@/data/mappings/future-diary.json";
+import danmachi from "@/data/mappings/danmachi.json";
+import another from "@/data/mappings/another.json";
+import oregairu from "@/data/mappings/oregairu.json";
+import saikiK from "@/data/mappings/saiki-k.json";
+import hyouka from "@/data/mappings/hyouka.json";
+import misfitOfDemonKingAcademy from "@/data/mappings/misfit-of-demon-king-academy.json";
+import goldenTime from "@/data/mappings/golden-time.json";
+import myLittleMonster from "@/data/mappings/my-little-monster.json";
+import irregularAtMagicHighSchool from "@/data/mappings/irregular-at-magic-high-school.json";
+import relife from "@/data/mappings/relife.json";
+import orange from "@/data/mappings/orange.json";
+import bloodBlockadeBattlefront from "@/data/mappings/blood-blockade-battlefront.json";
+import arifureta from "@/data/mappings/arifureta.json";
+import nozakiKun from "@/data/mappings/nozaki-kun.json";
+import deliciousInDungeon from "@/data/mappings/delicious-in-dungeon.json";
+import summerTimeRendering from "@/data/mappings/summer-time-rendering.json";
+import kimiNiTodoke from "@/data/mappings/kimi-ni-todoke.json";
+import prisonSchool from "@/data/mappings/prison-school.json";
+import dateALive from "@/data/mappings/date-a-live.json";
+import aoHaruRide from "@/data/mappings/ao-haru-ride.json";
+import tonikawa from "@/data/mappings/tonikawa.json";
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -389,6 +435,52 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   rankingOfKings,
   toYourEternity,
   callOfTheNight,
+  chivalryOfAFailedKnight,
+  masamuneKunRevenge,
+  nichijou,
+  gachiakuta,
+  zom100,
+  chunibyo,
+  towerOfGod,
+  dragonMaid,
+  seraphOfTheEnd,
+  wotakoi,
+  highSchoolDxd,
+  rentAGirlfriend,
+  godOfHighSchool,
+  clannad,
+  maidSama,
+  highschoolOfTheDead,
+  beyondTheBoundary,
+  petGirlOfSakurasou,
+  elfenLied,
+  nagatoro,
+  bunnyGirlSenpai,
+  toradora,
+  kakegurui,
+  classroomOfTheElite,
+  futureDiary,
+  danmachi,
+  another,
+  oregairu,
+  saikiK,
+  hyouka,
+  misfitOfDemonKingAcademy,
+  goldenTime,
+  myLittleMonster,
+  irregularAtMagicHighSchool,
+  relife,
+  orange,
+  bloodBlockadeBattlefront,
+  arifureta,
+  nozakiKun,
+  deliciousInDungeon,
+  summerTimeRendering,
+  kimiNiTodoke,
+  prisonSchool,
+  dateALive,
+  aoHaruRide,
+  tonikawa,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {

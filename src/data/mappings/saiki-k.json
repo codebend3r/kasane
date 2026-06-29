@@ -1,0 +1,23 @@
+{
+  "anilistAnimeId": 21804,
+  "anilistMangaId": 67755,
+  "title": "The Disastrous Life of Saiki K.",
+  "sourceNotes": "Cumulative episodes across S1 (24) + S2 (24, eps 25-48) + the Netflix ONA 'Reawakened' (6, eps 49-54) = 54 total. AniList lists Season 1 (id 21804) as 120 short-form segments; this mapping uses the standard 24-episode half-hour edit. Shuichi Aso's gag manga is complete at 281 chapters (plus 2 epilogue chapters) / 26 vols (AniList counts 290, including extras). Because the series is an episodic gag comedy, each ~22-min episode adapts several short chapters and the seasons do not follow strict chapter order — 'Reawakened' in particular backfills previously skipped chapters and animates the finale plus the two epilogue chapters. Chapter boundaries are therefore coarse approximations.",
+  "mappings": [
+    {
+      "episodes": [1, 24],
+      "chapters": [1, 130],
+      "arc": "Season 1 — Saiki's daily psychic disasters (assorted early chapters)"
+    },
+    {
+      "episodes": [25, 48],
+      "chapters": [131, 245],
+      "arc": "Season 2 — continued misadventures"
+    },
+    {
+      "episodes": [49, 54],
+      "chapters": [246, 281],
+      "arc": "Reawakened — backfilled chapters, the finale & epilogues"
+    }
+  ]
+}

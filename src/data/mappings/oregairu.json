@@ -1,0 +1,23 @@
+{
+  "anilistAnimeId": 14813,
+  "anilistMangaId": 92954,
+  "title": "My Teen Romantic Comedy SNAFU",
+  "sourceNotes": "Cumulative episodes across S1 (13) + S2 'TOO' (13, eps 14-26) + S3 'Climax' (12, eps 27-38) = 38 total. Paired with the Naomichi Io manga adaptation 'My Youth Romantic Comedy Is Wrong, as I Expected @comic' (id 92954, 118 ch / 22 vols, completed Feb 2023) — a faithful, complete adaptation of Wataru Watari's 14-volume light novel. Anime season coverage by LN volume: S1 = vol 1-6, S2 = vol 7-9, S3 = vol 10-14. Manga chapter boundaries are aligned to that LN coverage and are approximate; endpoints are firm (ep 38 = ch 118, the manga's final chapter).",
+  "mappings": [
+    {
+      "episodes": [1, 13],
+      "chapters": [1, 48],
+      "arc": "Service Club formation through the culture festival (LN vol 1-6)"
+    },
+    {
+      "episodes": [14, 26],
+      "chapters": [49, 80],
+      "arc": "The 'genuine thing' through the Christmas event & student council (LN vol 7-9)"
+    },
+    {
+      "episodes": [27, 38],
+      "chapters": [81, 118],
+      "arc": "Prom arc & the conclusion (LN vol 10-14)"
+    }
+  ]
+}

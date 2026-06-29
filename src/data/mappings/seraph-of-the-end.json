@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 20829,
+  "anilistMangaId": 73661,
+  "title": "Seraph of the End: Vampire Reign",
+  "sourceNotes": "Cumulative episodes across S1 'Vampire Reign' (12) + S2 'Battle in Nagoya' (12, eps 13-24) = 24 total. Paired with the Takaya Kagami / Yamato Yamamoto manga (AniList id 73661, ongoing, ~37 volumes / latest collected ch. ~155 as of 2026, serialized in Jump SQ). The two anime seasons cover through the end of the Nagoya arc (~ch 41 / vol 11); everything from vol 12 onward is unadapted. The S1/S2 chapter cutoff is approximate due to anime reordering.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 15],
+      "arc": "Vampire Reign (S1: Prologue / Second Shibuya High / Shinjuku, vols 1-5)"
+    },
+    {
+      "episodes": [13, 24],
+      "chapters": [16, 41],
+      "arc": "Battle in Nagoya (S2: Post-Shinjuku → Nagoya arc, vols 5-11)"
+    },
+    {
+      "chapters": [42, 155],
+      "arc": "Post-Nagoya → Osaka → Shibuya → Akihabara → Mount Fuji & beyond (unadapted; manga ongoing)"
+    }
+  ]
+}

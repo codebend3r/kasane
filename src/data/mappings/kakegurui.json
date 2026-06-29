@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 98314,
+  "anilistMangaId": 85793,
+  "title": "Kakegurui",
+  "sourceNotes": "Cumulative episodes across S1 (12) + S2 'Kakegurui xx' (12, eps 13-24) = 24 total. Paired with the Homura Kawamoto / Toru Naomura manga 'Kakegurui - Compulsive Gambler -' (ongoing; ~121 chapters / 20+ volumes as of 2026). The anime skips some chapters: S1 covers roughly vols 1-5 (ch 1-27) and S2 the Student Council Election arc through vol 10 (ch 28-56), after which readers resume around ch 55-57. Per-arc chapter boundaries approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 27],
+      "arc": "S1: Student Council Gambles (Yumeko vs the council members)"
+    },
+    {
+      "episodes": [13, 24],
+      "chapters": [28, 56],
+      "arc": "S2 'Kakegurui xx': Student Council Election Arc"
+    },
+    {
+      "chapters": [57, 121],
+      "arc": "Election aftermath onward (unadapted in TV anime; manga ongoing)"
+    }
+  ]
+}

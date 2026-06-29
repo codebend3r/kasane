@@ -1,0 +1,17 @@
+{
+  "anilistAnimeId": 21092,
+  "anilistMangaId": 85370,
+  "title": "Chivalry of a Failed Knight",
+  "sourceNotes": "Single 12-episode TV season (2015). Source is Riku Misora's light novel; paired here with the Megumu Soramichi manga adaptation (id 85370, 48 ch on AniList, complete — ANN cites the finale as ch 45). The anime covers only the Selection Battle (LN vols 1-3, roughly manga ch 1-34); the manga runs a bit further into LN vol 4, so its tail (ch 35-48) is unadapted. Per-episode chapter boundaries are proportional estimates — no published 1:1 episode-to-chapter guide exists.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 34],
+      "arc": "Selection Battle (Hagun qualifiers / Sword Eater incident, LN vols 1-3)"
+    },
+    {
+      "chapters": [35, 48],
+      "arc": "Seven Stars Sword Art Festival (opening, LN vol 4) — manga only"
+    }
+  ]
+}

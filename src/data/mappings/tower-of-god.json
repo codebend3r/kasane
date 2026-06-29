@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 115230,
+  "anilistMangaId": 85143,
+  "title": "Tower of God",
+  "sourceNotes": "S1 anime (13 eps, 2020) adapts the entirety of webtoon Part 1 (episodes 1-78), heavily compressing the back half. Paired with SIU's webtoon 'Tower of God' (AniList id 85143, type MANGA); its 'chapters' are webtoon episodes. Numbering here uses the platform's cumulative episode index (Part 1 = 1-78); the webtoon reached its Season 3 finale at internal episode ~653 (Feb 2025, now on hiatus). Episode-to-arc boundaries within S1 are approximate. A 2024 anime Season 2 (26 eps, separate AniList id 153406) adapts early Part 2 (Workshop Battle) and is not mapped here.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 13],
+      "arc": "Headon's Floor → Yu Hansung's Examination (entrance tests)"
+    },
+    {
+      "episodes": [5, 9],
+      "chapters": [14, 27],
+      "arc": "Crown Game / The Rest"
+    },
+    {
+      "episodes": [10, 12],
+      "chapters": [28, 56],
+      "arc": "Position Test / Hide-and-Seek / The Submerged Fish"
+    },
+    {
+      "episodes": [13, 13],
+      "chapters": [57, 78],
+      "arc": "Last Examination & Rachel's Betrayal (Part 1 finale)"
+    },
+    {
+      "chapters": [79, 653],
+      "arc": "Part 2 & Part 3 (Workshop Battle → Hell Train → Season 3 finale; early Part 2 adapted by the 2024 anime S2)"
+    }
+  ]
+}
