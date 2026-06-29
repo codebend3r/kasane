@@ -1,0 +1,48 @@
+{
+  "anilistAnimeId": 4224,
+  "anilistMangaId": 34368,
+  "title": "Toradora!",
+  "sourceNotes": "Single 25-episode TV anime (2008) adapting Yuyuko Takemiya's 10-volume light novel. Paired with the Zekkyo manga adaptation (97 chapters across 11 published volumes; the manga runs slowly and reaches the story's conclusion at ch 97, with a final extras volume pending). Both anime and manga adapt the same light novel. Per-arc episode/chapter boundaries are approximate (Toradora is a continuous rom-com without formal arc names); chapter groupings follow the manga's volume structure.",
+  "mappings": [
+    {
+      "episodes": [1, 6],
+      "chapters": [1, 14],
+      "arc": "The Deal: Tiger & Dragon (intro, Kitamura & Minori, Ami arrives)"
+    },
+    {
+      "episodes": [7, 10],
+      "chapters": [15, 34],
+      "arc": "Ami Kawashima / the stalker & summer pool"
+    },
+    {
+      "episodes": [11, 13],
+      "chapters": [35, 46],
+      "arc": "Summer Vacation (Ami's beach villa, fireworks, test of courage)"
+    },
+    {
+      "episodes": [14, 16],
+      "chapters": [47, 55],
+      "arc": "Culture Festival (pro-wrestling play, Taiga's father)"
+    },
+    {
+      "episodes": [17, 19],
+      "chapters": [56, 64],
+      "arc": "Festival Pageant / Student Council (Mr. & Ms. Festival, Kitamura's crisis)"
+    },
+    {
+      "episodes": [20, 21],
+      "chapters": [65, 81],
+      "arc": "Christmas Eve"
+    },
+    {
+      "episodes": [22, 23],
+      "chapters": [82, 88],
+      "arc": "School Ski Trip"
+    },
+    {
+      "episodes": [24, 25],
+      "chapters": [89, 97],
+      "arc": "Confessions & Finale (Valentine's, the elopement)"
+    }
+  ]
+}
