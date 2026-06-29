@@ -1,0 +1,18 @@
+{
+  "anilistAnimeId": 20727,
+  "anilistMangaId": 42994,
+  "title": "Blood Blockade Battlefront",
+  "sourceNotes": "Cumulative episodes across S1 'Blood Blockade Battlefront' (12) + S2 'Kekkai Sensen & Beyond' (12, eps 13-24) = 24 total. Paired with Yasuhiro Nightow's original manga (AniList id 42994), complete at 10 volumes (AniList lists 33 chapters, including .5 interstitials; Wikipedia counts 30 numbered chapters). The anime adapts the episodic manga NON-LINEARLY and wraps it in heavy anime-original framing (the Black & White twins, Femt, and the Blood Breed / King of Despair throughline of the S1 finale are largely anime-original); per-arc chapter boundaries are therefore approximate. S2 is more faithful and ends on the manga's actual finale, 'Spectral Eyes, Phantom Vision' (vol 10).",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 14],
+      "arc": "Season 1 (Libra / Leonardo & the All-Seeing Eyes) — manga vols 1-6, non-linear + anime-original"
+    },
+    {
+      "episodes": [13, 24],
+      "chapters": [15, 33],
+      "arc": "Season 2 '& Beyond' (vols 6-10) incl. 'Spectral Eyes, Phantom Vision' finale"
+    }
+  ]
+}
