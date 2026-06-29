@@ -1,0 +1,33 @@
+{
+  "anilistAnimeId": 10620,
+  "anilistMangaId": 30584,
+  "title": "The Future Diary",
+  "sourceNotes": "Single 26-episode TV anime (2011) faithfully adapting Sakae Esuno's complete manga (59 chapters / 12 volumes). Episode-to-chapter boundaries follow the manga's volume groupings and are approximate (the anime runs ~2.3 chapters per episode). The 'Redial' OVA is a short coda and a separate AniList entry.",
+  "mappings": [
+    {
+      "episodes": [1, 6],
+      "chapters": [1, 13],
+      "arc": "The Survival Game Begins (Yuki & Yuno; 3rd Diary Holder)"
+    },
+    {
+      "episodes": [7, 10],
+      "chapters": [14, 23],
+      "arc": "6th & 9th Diary Holders (the cult, the bomber Minene) and escape"
+    },
+    {
+      "episodes": [11, 15],
+      "chapters": [24, 33],
+      "arc": "4th, 7th & 8th Diary Holders (detective, the couple, the orphanage)"
+    },
+    {
+      "episodes": [16, 20],
+      "chapters": [34, 43],
+      "arc": "Diary Holders Converge / Yuno's Truth"
+    },
+    {
+      "episodes": [21, 26],
+      "chapters": [44, 59],
+      "arc": "Endgame & Conclusion (Final Battle, 1st vs Yuno)"
+    }
+  ]
+}
