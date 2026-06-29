@@ -1,0 +1,33 @@
+{
+  "anilistAnimeId": 17895,
+  "anilistMangaId": 66873,
+  "title": "Golden Time",
+  "sourceNotes": "Single 24-episode 2013-2014 anime. Paired with the Umechazuke manga adaptation (complete, 52 ch across 9 volumes), which adapts the full Yuyuko Takemiya light novel (8 vols) from beginning to ending. Both cover the same story, though the manga follows the light novel's ending more faithfully than the anime's eps 22-24. No per-chapter concordance exists for this continuous college romance, so chapter boundaries are proportional estimates anchored to the LN-volume structure.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 9],
+      "arc": "Freshman Start (college entrance / meeting Koko, Mitsuo, Linda)"
+    },
+    {
+      "episodes": [5, 7],
+      "chapters": [10, 16],
+      "arc": "Becoming a Couple (ghost-Banri / Banri and Koko get together)"
+    },
+    {
+      "episodes": [8, 13],
+      "chapters": [17, 28],
+      "arc": "Festival Club & Summer"
+    },
+    {
+      "episodes": [14, 19],
+      "chapters": [29, 41],
+      "arc": "Linda's Past & Resurfacing Memories"
+    },
+    {
+      "episodes": [20, 24],
+      "chapters": [42, 52],
+      "arc": "Climax & Resolution"
+    }
+  ]
+}
