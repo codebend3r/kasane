@@ -1,0 +1,33 @@
+{
+  "anilistAnimeId": 98460,
+  "anilistMangaId": 31474,
+  "title": "Devilman Crybaby",
+  "sourceNotes": "10-episode Netflix ONA (2018, dir. Masaaki Yuasa) adapting Go Nagai's original 1972 Devilman manga, which is complete at 53 chapters across 5 tankobon volumes (AniList id 31474). Chapter ranges follow the five-volume structure (Vol 1 Sabbath/Amon, Vol 2 Sirene, Vol 3 Jinmen & demon hunts, Vol 4 the demon reveal/witch hunts/global war, Vol 5 Armageddon) and are approximate, because Crybaby heavily compresses and modernizes the source: it collapses the manga's lengthy demon-hunting middle and the entire apocalyptic finale (Ryo's televised demon reveal, the witch hunts, Miki's death, and Armageddon with the Satan reveal) into just the final two episodes. Boundaries drawn from the Devilman fandom episode guide and the Wikipedia volume list.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 11],
+      "arc": "The Sabbath & the Birth of Devilman (Amon)"
+    },
+    {
+      "episodes": [4, 5],
+      "chapters": [12, 22],
+      "arc": "Sirene the Demoness"
+    },
+    {
+      "episodes": [6, 8],
+      "chapters": [23, 32],
+      "arc": "Jinmen & the Demon Hunts"
+    },
+    {
+      "episodes": [9, 9],
+      "chapters": [33, 43],
+      "arc": "The Demon Reveal & the Witch Hunts (Miki's Death)"
+    },
+    {
+      "episodes": [10, 10],
+      "chapters": [44, 53],
+      "arc": "Armageddon (Satan's War)"
+    }
+  ]
+}
