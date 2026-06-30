@@ -1,0 +1,37 @@
+{
+  "anilistAnimeId": 21131,
+  "anilistMangaId": 81459,
+  "title": "The Asterisk War",
+  "sourceNotes": "Source is Yuu Miyazaki's light novel (AniList id 81459, type MANGA / format NOVEL, 139 chapters across 17 volumes). Mapped by LIGHT NOVEL volume rather than the manga adaptation (id 78369), which only ran 5 volumes / 37 chapters before stalling and never reaches the anime's endpoint. Cumulative episodes span the first TV cour (id 21131, 12 eps, 2015) plus the sequel 'Asterisk War 2' (id 21390, eps 13-24, 2016) = 24 total. Season 1 (eps 1-12) adapts LN vols 1-3; Season 2 (eps 13-24) adapts LN vols 4-6 — the entirety of the Phoenix Festa. Chapter ranges are proportional estimates converting LN volume boundaries onto AniList's 139-chapter count (~8 ch/vol), so they are approximate. LN vols 7-17 (the Gryps Festa and beyond) are unadapted.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 6],
+      "arc": "Introduction - Ayato transfers to Seidoukan, meets Julis-Alexia von Riessfeld (LN vol 1)"
+    },
+    {
+      "episodes": [4, 8],
+      "chapters": [7, 16],
+      "arc": "Kirin Toudou arc - Ayato befriends Kirin and frees her from her uncle's control (LN vols 1-2)"
+    },
+    {
+      "episodes": [9, 12],
+      "chapters": [17, 25],
+      "arc": "Phoenix Festa - qualifiers & early rounds (S1, LN vol 3)"
+    },
+    {
+      "episodes": [13, 20],
+      "chapters": [26, 41],
+      "arc": "Phoenix Festa - main tournament, Allekant puppets & Flora rescue subplot (S2, LN vols 4-5)"
+    },
+    {
+      "episodes": [21, 24],
+      "chapters": [42, 49],
+      "arc": "Phoenix Festa - finals & finale (S2, LN vol 6)"
+    },
+    {
+      "chapters": [50, 139],
+      "arc": "Gryps Festa onward (LN vols 7-17, unadapted)"
+    }
+  ]
+}
