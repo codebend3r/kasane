@@ -260,6 +260,7 @@ import angelNextDoor from "@/data/mappings/angel-next-door.json";
 import tomodachiGame from "@/data/mappings/tomodachi-game.json";
 import mierukoChan from "@/data/mappings/mieruko-chan.json";
 import testamentOfSisterNewDevil from "@/data/mappings/testament-of-sister-new-devil.json";
+import wayOfTheHousehusband from "@/data/mappings/way-of-the-househusband.json";
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -589,6 +590,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   tomodachiGame,
   mierukoChan,
   testamentOfSisterNewDevil,
+  wayOfTheHousehusband,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
