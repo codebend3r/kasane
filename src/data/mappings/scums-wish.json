@@ -1,0 +1,27 @@
+{
+  "anilistAnimeId": 21701,
+  "anilistMangaId": 74929,
+  "title": "Scum's Wish",
+  "sourceNotes": "The 2017 TV anime (12 eps) is a near-complete adaptation of Mengo Yokoyari's manga (53 chapters across 8 volumes, complete). It covers essentially the whole story; ep 12's ending lands very close to the manga's, so a viewer only needs the final few chapters (51-53) to finish. Episode-to-chapter boundaries are approximate. Yokoyari's 'Kuzu no Honkai Décor' (a separate 7-chapter side-story anthology) is excluded.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 18],
+      "arc": "Fake Lovers: Hanabi & Mugi's Arrangement (the love web; Ecchan & Moca introduced)"
+    },
+    {
+      "episodes": [5, 9],
+      "chapters": [19, 38],
+      "arc": "Akane Minagawa Arc (Mugi & Akane; Hanabi's jealousy & confrontation; Narumi)"
+    },
+    {
+      "episodes": [10, 12],
+      "chapters": [39, 50],
+      "arc": "Letting Go: Ending the Arrangement (resolutions; anime portion)"
+    },
+    {
+      "chapters": [51, 53],
+      "arc": "Manga Finale (post-anime resolution)"
+    }
+  ]
+}
