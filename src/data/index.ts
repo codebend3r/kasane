@@ -241,6 +241,7 @@ import wiseMansGrandchild from "@/data/mappings/wise-mans-grandchild.json";
 import grimgar from "@/data/mappings/grimgar.json";
 import snowWhiteWithTheRedHair from "@/data/mappings/snow-white-with-the-red-hair.json";
 import bofuri from "@/data/mappings/bofuri.json";
+import shangriLaFrontier from "@/data/mappings/shangri-la-frontier.json";
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -551,6 +552,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   grimgar,
   snowWhiteWithTheRedHair,
   bofuri,
+  shangriLaFrontier,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
