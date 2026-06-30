@@ -1,0 +1,27 @@
+{
+  "anilistAnimeId": 21428,
+  "anilistMangaId": 86367,
+  "title": "Grimgar of Fantasy and Ash",
+  "sourceNotes": "S1 anime (12 eps, 2016) adapts roughly LIGHT NOVEL volumes 1-2 of Ao Jumonji's series. The linked manga adaptation (AniList id 86367) is SHORT and incomplete — only 16 chapters / 3 volumes (FINISHED) covering a fraction of the story — so this mapping uses LIGHT-NOVEL VOLUME numbers as the 'chapters' unit instead of manga chapters. Vol 1 runs through Manato's death and the immediate aftermath; vol 2 covers Merry joining and the Cyrene Mines / Death Spot climax (Moguzo's death). Per-arc volume boundaries are APPROXIMATE (only two volumes span all 12 episodes, so groupings are coarse and the vol-1/vol-2 boundary falls inside the middle arc). The LN is ongoing (~20 volumes by 2026); resume reading at vol 3 — its upper bound below is approximate. The OVA 2.5 special is a separate side entry; there are no theatrical films.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 1],
+      "arc": "Party formation & first goblins / Manato's death (LN vol 1)"
+    },
+    {
+      "episodes": [5, 8],
+      "chapters": [1, 2],
+      "arc": "Grief & recruiting Merry the priest (LN vols 1-2)"
+    },
+    {
+      "episodes": [9, 12],
+      "chapters": [2, 2],
+      "arc": "Cyrene Mines / Death Spots — the Deathspot battle & Moguzo's death (LN vol 2)"
+    },
+    {
+      "chapters": [3, 20],
+      "arc": "Post-anime (LN vol 3 onward, ongoing & unadapted)"
+    }
+  ]
+}
