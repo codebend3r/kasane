@@ -1,0 +1,36 @@
+{
+  "anilistAnimeId": 99468,
+  "anilistMangaId": 85533,
+  "title": "Teasing Master Takagi-san",
+  "sourceNotes": "Cumulative episodes across S1 (12, 2018) + S2 (12, eps 13-24, 2019) + S3 (12, eps 25-36, 2022) = 36 total; all use the S1 anime id 99468 as the entry point. Paired with Soichiro Yamamoto's manga 'Karakai Jouzu no Takagi-san' (AniList id 85533, FINISHED, 20 volumes). AniList lists 190 chapters; the main serialized run is closer to ~166 numbered chapters, with the remainder being bonus/extra chapters, so the chapter count is source-dependent. This is an episodic gag romcom of short chapters (each episode adapts roughly 4-5 chapters, not strictly in order), so all chapter boundaries are coarse and approximate. The canon theatrical film follows S3.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 48],
+      "arc": "Season 1 (approx. vols 1-4 — first-year teasing battles)"
+    },
+    {
+      "episodes": [13, 24],
+      "chapters": [49, 96],
+      "arc": "Season 2 (approx. vols 5-9 — deepening rivalry & affection)"
+    },
+    {
+      "episodes": [25, 36],
+      "chapters": [97, 144],
+      "arc": "Season 3 (approx. vols 10-14 — second-year onward)"
+    },
+    {
+      "chapters": [145, 190],
+      "arc": "Final chapters (later/unadapted manga, incl. material drawn on by the film)"
+    }
+  ],
+  "movies": [
+    {
+      "anilistId": 138425,
+      "title": "Teasing Master Takagi-san: The Movie",
+      "year": 2022,
+      "afterEpisode": 36,
+      "note": "Canon film set after S3 (ep 36), adapting later manga chapters toward the series' culmination."
+    }
+  ]
+}
