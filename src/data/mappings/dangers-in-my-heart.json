@@ -1,0 +1,48 @@
+{
+  "anilistAnimeId": 153152,
+  "anilistMangaId": 101557,
+  "title": "The Dangers in My Heart",
+  "sourceNotes": "Cumulative episodes across S1 (12 ep, 2023) + S2 (13 ep, 2024) = 25 total; S2 is a direct sequel so episode 13 is its premiere. Uses the S1 anime id (153152). Paired with Norio Sakurai's manga 'Boku no Kokoro no Yabai Yatsu' (Tonari no Young Jump), ending with its 14th volume (announced Jan 2026); latest available chapter is ~193 per MangaDex, so the unadapted tail covers ch 114–193. Firm anchors from reading guides + MangaDex tankobon boundaries: S1 ends at ch 57 (end of vol 4), S2 ends at ch 113 (end of vol 8) with the library confession/first kiss — a viewer resumes reading at ch 114. The work-study trip to Akita Shoten is ch 24–27; Valentine's lands in S2 ep 4 (overall ep 16). Internal per-episode boundaries are approximate (~4.3–4.75 ch/ep); the S1/S2 endpoints are exact.",
+  "mappings": [
+    {
+      "season": 1,
+      "episodes": [1, 4],
+      "chapters": [1, 23],
+      "arc": "S1 · Library Encounters (Meeting Yamada)"
+    },
+    {
+      "season": 1,
+      "episodes": [5, 8],
+      "chapters": [24, 40],
+      "arc": "S1 · Work-Study Trip & Growing Closer"
+    },
+    {
+      "season": 1,
+      "episodes": [9, 12],
+      "chapters": [41, 57],
+      "arc": "S1 · Winter Break & New Year"
+    },
+    {
+      "season": 2,
+      "episodes": [13, 16],
+      "chapters": [58, 75],
+      "arc": "S2 · New Term & Valentine's"
+    },
+    {
+      "season": 2,
+      "episodes": [17, 20],
+      "chapters": [76, 94],
+      "arc": "S2 · White Day & Class Trip"
+    },
+    {
+      "season": 2,
+      "episodes": [21, 25],
+      "chapters": [95, 113],
+      "arc": "S2 · Photoshoot & Library Confession (Kana arc)"
+    },
+    {
+      "chapters": [114, 193],
+      "arc": "Coupledom & Final Volume (ongoing, unadapted)"
+    }
+  ]
+}
