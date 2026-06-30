@@ -1,0 +1,52 @@
+{
+  "anilistAnimeId": 106479,
+  "anilistMangaId": 103852,
+  "title": "BOFURI: I Don't Want to Get Hurt, so I'll Max Out My Defense.",
+  "sourceNotes": "Cumulative episodes across S1 (12, 2020) + S2 (12, 2023, eps 13-24) = 24 total; use the S1 anime id 106479. Source is Yuumikan's light novel (AniList id 103852, 19 volumes; web novel concluded Feb 2025). The Jiro Oimoto manga (AniList id 103853) is far behind the anime -- only ~ch 38 / vol 7 as of mid-2026, covering through roughly S1 ep 11 -- so it cannot anchor a 24-episode mapping. This therefore maps by LIGHT NOVEL VOLUME: the `chapters` tuples are LN volume numbers (1-19), NOT manga chapters. S1 adapts LN vols 1-4 and S2 adapts LN vols 5-8, so a reader resumes at vol 9 after the anime; vols 9-19 are unadapted. Arcs are named by NewWorld Online in-game events per the episode titles. Volume-to-episode boundaries are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 1],
+      "arc": "Beginnings & First Event (1st-2nd Stratum)"
+    },
+    {
+      "episodes": [4, 5],
+      "chapters": [2, 2],
+      "arc": "Second Event (Underwater / Silverwing)"
+    },
+    {
+      "episodes": [6, 8],
+      "chapters": [3, 3],
+      "arc": "Maple Tree Formation & Third Event"
+    },
+    {
+      "episodes": [9, 12],
+      "chapters": [4, 4],
+      "arc": "Fourth Event (Guild War)"
+    },
+    {
+      "episodes": [13, 14],
+      "chapters": [5, 5],
+      "arc": "Christmas Event & Strata 4-6 Exploration"
+    },
+    {
+      "episodes": [15, 16],
+      "chapters": [6, 6],
+      "arc": "Seventh Event (Tower Conquest)"
+    },
+    {
+      "episodes": [17, 18],
+      "chapters": [7, 7],
+      "arc": "Stratum 7 Exploration & Monster Taming"
+    },
+    {
+      "episodes": [19, 24],
+      "chapters": [8, 8],
+      "arc": "Eighth Event (Final Guild Battle)"
+    },
+    {
+      "chapters": [9, 19],
+      "arc": "Post-Eighth Event (LN vols 9-19, unadapted)"
+    }
+  ]
+}
