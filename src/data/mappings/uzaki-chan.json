@@ -1,0 +1,37 @@
+{
+  "anilistAnimeId": 115113,
+  "anilistMangaId": 101724,
+  "title": "Uzaki-chan Wants to Hang Out!",
+  "sourceNotes": "Cumulative episodes across S1 (12 eps, 2020) + S2 'ω' (13 eps, 2022, eps 13-25) = 25 total. Paired with Take's manga 'Uzaki-chan wa Asobitai!', still ongoing (~ch. 137 / 14 volumes as of mid-2026, serialized on Niconico Seiga's Dra Dra Sharp since Dec 2017). This is an episodic slice-of-life romcom and the anime adapts chapters out of order with anime-original beats, so groupings are coarse and chapter boundaries are approximate. S1 ends around the start of Volume 4 (~ch 30); S2 ends around Volume 6, so a viewer resumes reading roughly ch 62 (sources vary between ch 61 and ch 69). No theatrical films exist.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 10],
+      "arc": "Meeting Up: First Hangouts (Café, Games, Movies)"
+    },
+    {
+      "episodes": [5, 8],
+      "chapters": [11, 20],
+      "arc": "Summer: The Beach, Fireworks & the Cat Café"
+    },
+    {
+      "episodes": [9, 12],
+      "chapters": [21, 30],
+      "arc": "Tottori Trip, the Holidays & the Uzaki Family"
+    },
+    {
+      "episodes": [13, 19],
+      "chapters": [31, 46],
+      "arc": "Daily Life: New Faces, Valentine's & Outings"
+    },
+    {
+      "episodes": [20, 25],
+      "chapters": [47, 61],
+      "arc": "Sakurai & Uzaki Grow Closer (Festivals, New Year)"
+    },
+    {
+      "chapters": [62, 137],
+      "arc": "Relationship Deepens (ongoing, unadapted)"
+    }
+  ]
+}
