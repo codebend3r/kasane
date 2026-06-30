@@ -1,0 +1,36 @@
+{
+  "anilistAnimeId": 101573,
+  "anilistMangaId": 86218,
+  "title": "Bloom Into You",
+  "sourceNotes": "Single-cour TV anime (13 episodes, 2018) by Nakatani Nio's yuri manga, complete at 45 chapters across 8 volumes. The anime adapts chapters 1-24 (volumes 1-4) faithfully, ending around the student council play preparations; a reader resumes at chapter 25, which begins the manga-exclusive second half (the play performance and the Yuu-Touko resolution). AniList reports 53 chapters because it counts the per-volume bonus/interlude chapters; the canonical main-story numbering ends at 45, which this mapping uses. Episode-to-chapter boundaries are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 7],
+      "arc": "Yuu & Touko / Student Council"
+    },
+    {
+      "episodes": [5, 8],
+      "chapters": [8, 15],
+      "arc": "Sayaka & the Play Proposal"
+    },
+    {
+      "episodes": [9, 11],
+      "chapters": [16, 22],
+      "arc": "Play Preparations / Rising Feelings"
+    },
+    {
+      "episodes": [12, 13],
+      "chapters": [23, 24],
+      "arc": "Suddenly Suffocating (Anime Finale)"
+    },
+    {
+      "chapters": [25, 34],
+      "arc": "The Student Council Play (unadapted)"
+    },
+    {
+      "chapters": [35, 45],
+      "arc": "After the Play / Resolution (unadapted)"
+    }
+  ]
+}
