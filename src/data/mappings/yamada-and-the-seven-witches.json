@@ -1,0 +1,21 @@
+{
+  "anilistAnimeId": 20966,
+  "anilistMangaId": 65003,
+  "title": "Yamada-kun and the Seven Witches",
+  "sourceNotes": "S1 anime (12 eps, 2015, LIDEN FILMS) adapts manga chapters 1-90 — the first 'Seven Witches' saga, ending with all seven original witches losing their powers (Witch Hunting arc concludes ~ch 89); resume reading at ch 91. The anime covers 5 of Volume 11's 9 chapters (86-90). Paired with Miki Yoshikawa's complete manga: 243 numbered story chapters across 28 volumes (Jun 2012 - Apr 2017); AniList counts 246 because it lists ~3 bonus/omake chapters separately, so the final tail extends to 246. The 'Student Council election' belongs to the unadapted tail, not the anime: the Student Council Formation arc begins ch 91 and the election between Tamaki and Ichijo (Second Witch War) is ~ch 169. OVA/ONA shorts and the live-action drama/film are excluded. Tail arc boundaries are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 90],
+      "arc": "Supernatural Studies Club Restoration → Witch Hunting (First Witch War; anime portion)"
+    },
+    {
+      "chapters": [91, 164],
+      "arc": "Student Council Formation → Seven New Witches → Winter Break"
+    },
+    {
+      "chapters": [165, 246],
+      "arc": "Second Witch War (student council election) → Stolen Notes → Graduation finale (ch 244-246 are bonus chapters)"
+    }
+  ]
+}
