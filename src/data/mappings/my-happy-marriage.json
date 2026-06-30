@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 147103,
+  "anilistMangaId": 125444,
+  "title": "My Happy Marriage",
+  "sourceNotes": "Source is Akumi Agitogi's light novel (AniList id 125444, type MANGA / format NOVEL, ongoing — 10 volumes as of early 2026). The numeric ranges below are LIGHT NOVEL VOLUME numbers, not manga chapters: the Rito Kohsaka manga adaptation (AniList id 106531) exists but lags far behind the anime (~6 tankobon covering only early content), so episode->manga-chapter mapping is impossible for the later seasons and a light-novel-volume mapping is cleaner. Cumulative episodes across the two TV seasons: S1 (12 eps, 2023, id 147103) + S2 (13 eps, 2025, id 169441, a sequel) = eps 1-25. S1 adapts LN vols 1-2 (read on from vol 3 after S1); S2 adapts LN vols 3-6 (read on from vol 7 after S2), at a faster pace. The standalone OVA 'My Happy Marriage: The Shape of My Happiness' (id 167486), sometimes labelled 'Episode 13', sits between the seasons and is NOT counted in the cumulative TV numbering. Volume boundaries are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 7],
+      "chapters": [1, 1],
+      "arc": "Arranged Marriage & Saimori Family Conflict (LN vol 1)"
+    },
+    {
+      "episodes": [8, 12],
+      "chapters": [2, 2],
+      "arc": "Usuba Family / Dream-Sight Awakening & the Grotesquerie (S1, LN vol 2)"
+    },
+    {
+      "episodes": [13, 19],
+      "chapters": [3, 4],
+      "arc": "Gifted Communion Cult Rises — Naoshi Usui (S2, LN vols 3-4)"
+    },
+    {
+      "episodes": [20, 25],
+      "chapters": [5, 6],
+      "arc": "Grotesquerie Bearer / Usui's Defeat & Official Engagement (S2, LN vols 5-6)"
+    },
+    {
+      "chapters": [7, 10],
+      "arc": "Post-engagement, unadapted (LN vols 7-10)"
+    }
+  ]
+}
