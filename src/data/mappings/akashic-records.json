@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 21700,
+  "anilistMangaId": 86432,
+  "title": "Akashic Records of Bastard Magic Instructor",
+  "sourceNotes": "Source is Taro Hitsuji's light novel (24 vols, ended 2023). Mapped against Aosa Tsunemi's MANGA adaptation (AniList 86432), which finished in June 2021 at 16 volumes / 78 chapters and covers roughly LN vols 1-10. The 2017 TV anime (12 eps, single cour) is a heavily abridged take on LN vols 1-5; the manga adapts that same span across vols 1-10 (ch 1-44), so a viewer resumes reading at ch 45. Episode-to-volume groupings: eps 1-3 = LN1, eps 4-6 = LN2, eps 7-9 = LN3, eps 10-12 = LN4-5. Manga chapter boundaries from MangaDex volume aggregate; LN-to-arc alignment approximate. No theatrical films.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 9],
+      "arc": "The Foolish Magic Instructor (Academy Debut & Terrorist Incident)"
+    },
+    {
+      "episodes": [4, 6],
+      "chapters": [10, 18],
+      "arc": "The Magic Competition"
+    },
+    {
+      "episodes": [7, 9],
+      "chapters": [19, 28],
+      "arc": "Re=L and the Sea of Falling Stars"
+    },
+    {
+      "episodes": [10, 12],
+      "chapters": [29, 44],
+      "arc": "The Imperial Court Mage Corps Battle"
+    },
+    {
+      "chapters": [45, 78],
+      "arc": "Beyond the Anime (Unadapted)"
+    }
+  ]
+}
