@@ -226,6 +226,7 @@ import blackBullet from "@/data/mappings/black-bullet.json";
 import tsuredureChildren from "@/data/mappings/tsuredure-children.json";
 import gate from "@/data/mappings/gate.json";
 import fragrantFlower from "@/data/mappings/fragrant-flower.json";
+import alyaSometimesHides from "@/data/mappings/alya-sometimes-hides.json";
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -521,6 +522,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   tsuredureChildren,
   gate,
   fragrantFlower,
+  alyaSometimesHides,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
