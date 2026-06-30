@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 20987,
+  "anilistMangaId": 80133,
+  "title": "Himouto! Umaru-chan",
+  "sourceNotes": "Cumulative episodes across S1 (12 eps, 2015) + S2 'R' (12 eps, 2017, eps 13-24) = 24 total. Use the S1 id; R is a sequel. Paired with Sankaku Head's complete manga: 231 chapters across 12 volumes (FINISHED per AniList). 4-koma episodic slice-of-life with no real story arcs, so groupings are coarse and chapter ranges are approximate (roughly several chapters per episode); the anime also reorders gags rather than adapting strictly in order. The OVA and the 'S'/'R'/'N'/'G' spin-offs are separate side entries; there are no theatrical films.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 90],
+      "arc": "Season 1 (eps 1-12) — Umaru's double life (approximate)"
+    },
+    {
+      "episodes": [13, 24],
+      "chapters": [91, 180],
+      "arc": "Season 2 R (eps 13-24) — friends & family slice-of-life (approximate)"
+    },
+    {
+      "chapters": [181, 231],
+      "arc": "Unadapted tail — final chapters through the manga's end"
+    }
+  ]
+}
