@@ -1,0 +1,37 @@
+{
+  "anilistAnimeId": 170942,
+  "anilistMangaId": 132182,
+  "title": "Blue Box",
+  "sourceNotes": "S1 (25 eps across 2 cours, 2024-25) is a faithful ~3-chapters-per-episode adaptation of Kouji Miura's ongoing Weekly Shonen Jump manga, covering ch 1 through ch 80 (the finale adapts ch 77-80, with ch 80's content brought slightly forward). A viewer resumes reading at ch 81. Episode-to-chapter boundaries follow published episode guides; arc groupings are an approximate segmentation of this sports-romance. The manga is ongoing (ch 247 as of June 2026, 25 volumes); the unadapted tail is chapters-only. A Season 2 (AniList id 189123, Electric Circus) is announced but unreleased, so episode numbering is not yet cumulative.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 12],
+      "arc": "Chinatsu Moves In: Taiki, Badminton & the Road to Nationals"
+    },
+    {
+      "episodes": [5, 9],
+      "chapters": [13, 26],
+      "arc": "Summer Inter-High: The Aquarium Date & the Tournament"
+    },
+    {
+      "episodes": [10, 13],
+      "chapters": [27, 41],
+      "arc": "Second Term: Hina & Shifting Feelings"
+    },
+    {
+      "episodes": [14, 19],
+      "chapters": [42, 62],
+      "arc": "Summer Training Camp"
+    },
+    {
+      "episodes": [20, 25],
+      "chapters": [63, 80],
+      "arc": "Sports Festival, the Amusement Park & Hina's Confession (S1 Finale)"
+    },
+    {
+      "chapters": [81, 247],
+      "arc": "Beyond the Anime (manga-only, ongoing)"
+    }
+  ]
+}
