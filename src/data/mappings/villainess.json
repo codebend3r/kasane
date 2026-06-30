@@ -1,0 +1,41 @@
+{
+  "anilistAnimeId": 104647,
+  "anilistMangaId": 100559,
+  "title": "My Next Life as a Villainess: All Routes Lead to Doom!",
+  "sourceNotes": "Mapped by LIGHT NOVEL VOLUME, not chapter. The source is Satoru Yamaguchi's light novel (Otome Game no Hametsu Flag shika Nai Akuyaku Reijou ni Tensei shiteshimatta...), which the anime adapts faithfully. The standalone manga adaptation (AniList id 100560) is a separate, much slower retelling that does not track the anime, so the `chapters` tuples below hold LN VOLUME numbers and `anilistMangaId` points to the light novel itself (AniList id 100559), the work these volumes index. Cumulative episodes: Season 1 (id 104647, 12 eps) + sequel 'X' (id 120209, 12 eps = eps 13-24). Confirmed endpoints: S1 ep 12 ends at the close of LN Vol 2; S2 ep 24 ends at the close of LN Vol 4 — a viewer continues reading at Vol 5 (a side-story volume) or Vol 6 (story proper). The internal per-episode volume splits (Vol 1/2 boundary ~ep 6/7, Vol 3/4 boundary ~ep 18/19) are approximate; the season endpoints are firm. The main light novel is ongoing (~15 volumes as of 2025), so Vols 5-15 are the unadapted tail. The 2023 film is an all-new canon original story by Yamaguchi (not a recap) and does not correspond to a specific LN volume, so it carries no volume range. Side entries (the 'On the Verge of Doom!' / 'Girls Patch' spin-off manga, the 'Katarina's Inner Council' ONA shorts, and the 'X - I Met My Destined One...' OVA) are excluded.",
+  "mappings": [
+    {
+      "episodes": [1, 6],
+      "chapters": [1, 1],
+      "arc": "Childhood & doom-flag countermeasures (LN Vol 1): Catarina recalls she is the villainess of the otome game Fortune Lover, then befriends every love interest and rival; time-skip into the Academy of Magic"
+    },
+    {
+      "episodes": [7, 12],
+      "chapters": [2, 2],
+      "arc": "Academy / Fortune Lover arc (LN Vol 2): Maria Campbell, the student council, and the dark-magic incident with Sirius (Raphael) — the original game's doom flags resolved"
+    },
+    {
+      "episodes": [13, 18],
+      "chapters": [3, 3],
+      "arc": "Post-game daily life (LN Vol 3): the second-game (Fortune Lover II) characters appear; lead-in toward the Ministry of Magic"
+    },
+    {
+      "episodes": [19, 24],
+      "chapters": [4, 4],
+      "arc": "Magical ministry / kidnapping arc (LN Vol 4): Catarina is taken to the dark-magic island, Raphael's past, and the 'X' finale"
+    },
+    {
+      "chapters": [5, 15],
+      "arc": "Unadapted tail (LN Vols 5-15, ongoing): resume at Vol 5 (side stories) or Vol 6 (story proper)"
+    }
+  ],
+  "movies": [
+    {
+      "anilistId": 139359,
+      "title": "My Next Life as a Villainess: All Routes Lead to Doom! The Movie",
+      "year": 2023,
+      "afterEpisode": 24,
+      "note": "Released Dec 8, 2023 (Japan). An all-new canon story written by original author Satoru Yamaguchi — not a recap. Catarina meets a mysterious boy from the visiting Mutrac circus caravan. Anime-original, so it maps to no specific LN volume; watch after the 'X' season."
+    }
+  ]
+}
