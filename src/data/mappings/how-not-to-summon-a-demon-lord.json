@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 101004,
+  "anilistMangaId": 86338,
+  "title": "How NOT to Summon a Demon Lord",
+  "sourceNotes": "Source is a light novel by Yukiya Murasaki (AniList id 93368, on hiatus since 2022). anilistAnimeId is the 2018 TV season 1 (id 101004, 12 eps); season 2 'Ω/Omega' (id 117448, 10 eps) is a sequel, so episodes are cumulative (eps 13-22). Mapped to the ongoing manga adaptation (AniList id 86338, chapters null on AniList) using its main tankoubon chapter numbering, ~135 chapters as of June 2026. Per anime-to-manga guides, season 1 ends around Vol 9 Ch 41 and season 2 Ω ends around Vol 15 Ch 72.2; chapters 73+ are unadapted. Boundaries are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 41],
+      "arc": "Faltra City & the Demon Lord's Soul (Season 1)"
+    },
+    {
+      "episodes": [13, 22],
+      "chapters": [42, 72],
+      "arc": "The Holy Knights & Horn (Season 2 Ω)"
+    },
+    {
+      "chapters": [73, 135],
+      "arc": "Royal Capital and beyond (unadapted)"
+    }
+  ]
+}
