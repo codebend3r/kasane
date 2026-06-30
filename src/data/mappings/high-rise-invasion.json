@@ -1,0 +1,37 @@
+{
+  "anilistAnimeId": 125428,
+  "anilistMangaId": 85388,
+  "title": "High-Rise Invasion",
+  "sourceNotes": "The 2021 Netflix ONA (Tenkuu Shinpan, id 125428) is a single 12-episode season that adapts roughly volumes 1-8 of Tsuina Miura (story) & Takahiro Oba (art)'s complete manga (id 85388). AniList counts the manga at 258 chapters across 21 volumes; fan/scanlation sources often cite ~169 'main' chapters, but ranges here follow AniList's 258-chapter count for consistency. Chapter ranges are proportional estimates converting volume boundaries onto that count (vols 1-8 ~= ch 1-98), so they are approximate; resume reading at ch 99. The separate 'Tenkuu Shinpan Arrive' spin-off (id 111034) is excluded, and there are no theatrical films.",
+  "mappings": [
+    {
+      "episodes": [1, 1],
+      "chapters": [1, 12],
+      "arc": "Yuri Honjo's Arrival: Survival & Masks"
+    },
+    {
+      "episodes": [2, 4],
+      "chapters": [13, 40],
+      "arc": "Mayuko Nise Alliance"
+    },
+    {
+      "episodes": [5, 7],
+      "chapters": [41, 64],
+      "arc": "Sniper Mask & Forming Alliances"
+    },
+    {
+      "episodes": [8, 9],
+      "chapters": [65, 82],
+      "arc": "Kuon Shinzaki & the God's Candidate"
+    },
+    {
+      "episodes": [10, 12],
+      "chapters": [83, 98],
+      "arc": "Angels & Administrators (Anime Finale)"
+    },
+    {
+      "chapters": [99, 258],
+      "arc": "Resolving the Tower (unadapted)"
+    }
+  ]
+}
