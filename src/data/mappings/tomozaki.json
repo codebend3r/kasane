@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 112443,
+  "anilistMangaId": 100807,
+  "title": "Bottom-Tier Character Tomozaki",
+  "sourceNotes": "Cumulative episodes across S1 (12) + S2 '2nd STAGE' (13, eps 13-25) = 25 total. Source is Yuki Yaku's light novel ('life is a god-tier game' premise). The Yuki Aonuma manga adaptation (AniList id 100807, 30 ch / 6 vols, finished Feb 2021) only adapts the early arcs (~LN vols 1-3) and ends far short of the two-season anime, so this mapping uses LIGHT-NOVEL VOLUME NUMBERS as the 'chapters' axis instead. Anime coverage by LN volume: S1 = vols 1-3 (a viewer resumes at vol 4), S2 = vols 4-7 (resume at vol 8). The main LN entered its 'Last Stage' at vol 11; 11 main volumes plus short-story side volumes were published through early 2024, leaving vols 8-11 unadapted. Per-volume arc boundaries are approximate. No theatrical films.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 3],
+      "arc": "Hinami's life-as-a-game coaching; friend group & Tama-chan; student council election & sports festival (S1; LN vols 1-3)"
+    },
+    {
+      "episodes": [13, 25],
+      "chapters": [4, 7],
+      "arc": "Dating goal with Kikuchi-san & the culture-festival play arc; field trip (S2 '2nd STAGE'; LN vols 4-7)"
+    },
+    {
+      "chapters": [8, 11],
+      "arc": "Career survey through the 'Last Stage' finale (LN vols 8-11, unadapted)"
+    }
+  ]
+}

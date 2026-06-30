@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 112609,
+  "anilistMangaId": 105913,
+  "title": "Wandering Witch: The Journey of Elaina",
+  "sourceNotes": "Source is Jougi Shiraishi's light novel, a series of standalone short stories (25+ volumes). anilistMangaId points to the manga adaptation (AniList 105913, 24 chapters / 6 volumes), which retells largely the same short stories the anime draws from. The 2020 TV anime is an EPISODIC ANTHOLOGY: its 12 episodes cherry-pick self-contained short stories from LN volumes 1-5 OUT OF ORDER, drawing mostly from vols 1, 3 and 5 while skipping most of vols 2 and 4. Because the anime reorders and compresses stories, there is no clean one-to-one episode-to-chapter mapping; the chapter ranges below are APPROXIMATE, aligned to the sequential manga (manga vols 1-4 / chapters ~1-16 cover most of what the 12 episodes adapt), and arc labels describe the short stories each block covers.",
+  "mappings": [
+    {
+      "episodes": [1, 2],
+      "chapters": [1, 3],
+      "arc": "Origin & The Land of Mages - Elaina's apprenticeship under Fran, then the country where all use magic (LN Vol. 1)"
+    },
+    {
+      "episodes": [3, 5],
+      "chapters": [4, 7],
+      "arc": "Bottled Happiness / The Girl as Pretty as a Flower / The Princess Without Subjects / Royal Celesteria (LN Vol. 1-2, anthology, approx.)"
+    },
+    {
+      "episodes": [6, 8],
+      "chapters": [8, 11],
+      "arc": "The Land of Truth Tellers / The Wall Etched by Travelers / The Grape-Stomping Girl / The Ripper (LN Vol. 1, 3, anthology, approx.)"
+    },
+    {
+      "episodes": [9, 12],
+      "chapters": [12, 16],
+      "arc": "A Deep Sorrow from the Past / The Two Teachers / The Two Apprentices / The Everyday Tale of Every Ashen Witch (LN Vol. 3, 5, anthology, approx.)"
+    },
+    {
+      "chapters": [17, 24],
+      "arc": "Further short stories (manga Vol. 5-6 / later LN tales) not covered by the 12-episode anime"
+    }
+  ]
+}

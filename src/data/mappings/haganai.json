@@ -1,0 +1,25 @@
+{
+  "anilistAnimeId": 10719,
+  "anilistMangaId": 49087,
+  "title": "Haganai: I Don't Have Many Friends",
+  "sourceNotes": "Cumulative episodes across S1 'Haganai' (2011, 12 eps) + S2 'Haganai NEXT' (2013, eps 13-24) = 24 total; anilistAnimeId 10719 is the S1 TV anime. The franchise's true source is Yomi Hirasaka's LIGHT NOVEL (11 vols, 2009-2015), which the anime adapts directly. anilistMangaId 49087 is Itachi's manga adaptation (FINISHED, 109 ch / 20 vols, 2010-2021) -- an independent, parallel adaptation of the same LN, so its pacing and chapter boundaries do not line up exactly with the anime, and the manga's ending diverges from the LN. Season 1 adapts LN vol 1 through vol 4 ch 2; Season 2 NEXT adapts LN vol 4 through about three-quarters of vol 8. In manga terms, the two seasons together cover roughly chapters 1-64; the documented manga resume point after the anime is Vol 15, ch 65 (manga vol anchors: v1=ch1-5, v2=ch6-10, v3=ch11-15, v4=ch16-20, v5=ch21-24). The intra-anime S1/S2 chapter split (~ch 32) is approximate. No theatrical films.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 32],
+      "arc": "Season 1: Neighbors Club Formation & First Summer (through Yozora 'Sora' reveal)",
+      "note": "Adapts LN vol 1 to vol 4 ch 2. Manga chapter split is approximate."
+    },
+    {
+      "episodes": [13, 24],
+      "chapters": [33, 64],
+      "arc": "Season 2 (NEXT): Sena Engagement, Yukimura's Secret & Mayoi Neko Overheat Film",
+      "note": "Adapts LN vol 4 to ~vol 8 (3/4). Manga chapter split is approximate."
+    },
+    {
+      "chapters": [65, 109],
+      "arc": "Post-anime (resume at manga Vol 15) -- unadapted",
+      "note": "LN vol 8 (~3/4) onward through vol 11. Manga ending diverges from the LN."
+    }
+  ]
+}

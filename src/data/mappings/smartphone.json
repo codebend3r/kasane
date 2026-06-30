@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 98491,
+  "anilistMangaId": 87174,
+  "title": "In Another World With My Smartphone",
+  "sourceNotes": "Cumulative episodes across S1 (12) + S2 (12, eps 13-24) = 24 total. The anime adapts Patora Fuyuhara's LIGHT NOVEL, not Soto's slower parallel manga adaptation (id 99465, ~18 vols, whose chapter pacing does not line up with the anime), so this maps to the light novel (AniList id 87174, type MANGA / format NOVEL, ongoing at 31 volumes as of May 2025). AniList tracks no chapter count for the LN, so the numbers in the `chapters` field are LIGHT NOVEL VOLUMES, not chapters. Both seasons combined cover roughly LN vols 1-6: S1 ~vols 1-3, S2 ~vols 4-6, with readers advised to continue at vol 7 afterward. The TV adaptation is heavily abridged and non-linear (it reorders and skips chapters), so the per-season volume boundaries are approximate. Vols 7-31 are unadapted.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 3],
+      "arc": "Reincarnation, Fiancees & the Babylon Discovery (S1, LN vols 1-3)"
+    },
+    {
+      "episodes": [13, 24],
+      "chapters": [4, 6],
+      "arc": "Brunhild Dukedom, Frame Gears & the Phrase (S2, LN vols 4-6)"
+    },
+    {
+      "chapters": [7, 31],
+      "arc": "Unadapted (LN vols 7-31)"
+    }
+  ]
+}

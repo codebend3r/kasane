@@ -1,0 +1,27 @@
+{
+  "anilistAnimeId": 108241,
+  "anilistMangaId": 86607,
+  "title": "Gleipnir",
+  "sourceNotes": "S1 anime (13 eps, 2020) adapts roughly the first five volumes (about ch 1-36); episode 13 ('We Two Are One') is an anime-original ending, so a viewer resumes reading at ch 37. Paired with Sun Takeda's complete manga: 88 chapters across 14 volumes (serialization ended April 2023), and AniList confirms 88 ch / 14 vols, so the final arc extends to 88. Per-episode chapter boundaries are approximate (the adaptation is loose), as is the pact/coin-hunt/Elena split. The live-action material is excluded; there are no films.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 9],
+      "arc": "The Pact: Shuichi & Clair (Monster Secret; Elena & the Coins Revealed)"
+    },
+    {
+      "episodes": [4, 9],
+      "chapters": [10, 27],
+      "arc": "The Coin Hunt (Gatherers & the War for the Wish)"
+    },
+    {
+      "episodes": [10, 13],
+      "chapters": [28, 36],
+      "arc": "Elena Confrontation (anime-original ending)"
+    },
+    {
+      "chapters": [37, 88],
+      "arc": "Post-Anime: The Spaceship & Final Arc (unadapted)"
+    }
+  ]
+}

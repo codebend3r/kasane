@@ -1,0 +1,72 @@
+{
+  "anilistAnimeId": 114124,
+  "anilistMangaId": 98544,
+  "title": "Moriarty the Patriot",
+  "sourceNotes": "Cumulative episodes across S1 (11) + 'Part 2' (13, eps 12-24) = 24 total. Paired with the manga by Ryosuke Takeuchi (story) and Hikaru Miyoshi (art), serialized in Jump Square; Part 1 ran 76 chapters across 19 volumes (concluded Dec 2022). The anime ends at chapter 56 (end of 'The Final Problem' arc), so a viewer resumes reading at chapter 57. The adaptation reorders several early one-shot cases and omits chapters: ch 4 (Albert's backstory), ch 10-14 (the 'Hunting of the Baskervilles' and 'Golden Army' arcs), and ch 31. Arc-to-episode boundaries are therefore approximate. The 2-episode OVA, the light novels, and the 'The Remains' spin-off are separate entries, and manga Part 2 (began Dec 2024) is ongoing and unadapted; there are no theatrical films.",
+  "mappings": [
+    {
+      "episodes": [1, 5],
+      "chapters": [1, 3],
+      "arc": "The Earl's Crime / The Scarlet Eyes (origins & early cases)"
+    },
+    {
+      "episodes": [6, 7],
+      "chapters": [5, 6],
+      "arc": "The 'Noahtic'"
+    },
+    {
+      "episodes": [8, 9],
+      "chapters": [7, 9],
+      "arc": "A Study in 'S'"
+    },
+    {
+      "episodes": [10, 11],
+      "chapters": [15, 16],
+      "arc": "The Two Detectives (anime skips ch 10-14)"
+    },
+    {
+      "episodes": [12, 14],
+      "chapters": [17, 23],
+      "arc": "A Scandal in the British Empire"
+    },
+    {
+      "episodes": [15, 16],
+      "chapters": [24, 28],
+      "arc": "The Phantom of Whitechapel"
+    },
+    {
+      "episodes": [17, 17],
+      "chapters": [29, 30],
+      "arc": "The Riot in New Scotland Yard"
+    },
+    {
+      "episodes": [18, 18],
+      "chapters": [32, 34],
+      "arc": "The Merchant of London"
+    },
+    {
+      "episodes": [19, 20],
+      "chapters": [35, 39],
+      "arc": "The White Knight of London"
+    },
+    {
+      "episodes": [21, 21],
+      "chapters": [40, 43],
+      "arc": "The Sign of Mary"
+    },
+    {
+      "episodes": [22, 22],
+      "chapters": [44, 47],
+      "arc": "The Two Criminals"
+    },
+    {
+      "episodes": [23, 24],
+      "chapters": [48, 56],
+      "arc": "The Final Problem"
+    },
+    {
+      "chapters": [57, 76],
+      "arc": "The Adventure of Empty Hearts & The Valley of Fellows (rest of Part 1, unadapted)"
+    }
+  ]
+}

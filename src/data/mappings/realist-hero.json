@@ -1,0 +1,37 @@
+{
+  "anilistAnimeId": 117612,
+  "anilistMangaId": 98171,
+  "title": "How a Realist Hero Rebuilt the Kingdom",
+  "sourceNotes": "Source is Dojyomaru's light novel (Genjitsu Shugi Yuusha no Oukoku Saikenki, 20 volumes, completed Dec 2024). The 2021-22 TV anime (J.C.Staff) aired as 2 cours: Part 1 (eps 1-13, AniList id 117612) and Part 2 (eps 14-26, AniList id 139648). This mapping uses the first id with CUMULATIVE episode numbering 1-26. The linked manga adaptation (AniList id 98171, art by Satoshi Ueda, serialized in Comic Gardo since 2017) lags FAR behind the anime - only ~15 tankobon / ~ch 76 as of mid-2026, not yet reaching the anime's endpoint, and AniList lists no chapter count - so this mapping uses LIGHT-NOVEL VOLUME numbers as the 'chapters' unit instead (same approach as cheat-skill.json and netoge.json). The anime adapts LN vols 1 through roughly the first half of vol 5; a viewer resumes reading at LN vol 5. Per-volume episode boundaries are approximate. No theatrical films.",
+  "mappings": [
+    {
+      "episodes": [1, 6],
+      "chapters": [1, 1],
+      "arc": "Kingdom Reform - Elfrieden (Souma is crowned, gathers talented retainers, and pushes fiscal & food reforms) (LN vol 1)"
+    },
+    {
+      "episodes": [7, 13],
+      "chapters": [2, 2],
+      "arc": "The Three Dukedoms Civil War (the dukes' rebellion, the Amidonian invasion, and the capture of Van) (LN vol 2)"
+    },
+    {
+      "episodes": [14, 18],
+      "chapters": [3, 3],
+      "arc": "Occupation of Van & Amidonia (governing the conquered city, the food festival broadcast, Roroa) (LN vol 3)"
+    },
+    {
+      "episodes": [19, 23],
+      "chapters": [4, 4],
+      "arc": "The Mankind Declaration & the Gran Chaos Empire (Jeanne's negotiation, returning Van, the engagement) (LN vol 4)"
+    },
+    {
+      "episodes": [24, 26],
+      "chapters": [5, 5],
+      "arc": "Into the Next Reign (LN vol 5, first half - the anime stops partway through this volume)"
+    },
+    {
+      "chapters": [5, 20],
+      "arc": "Beyond the anime - the rest of LN vol 5 onward (vols 5-20, unadapted; resume reading at vol 5)"
+    }
+  ]
+}

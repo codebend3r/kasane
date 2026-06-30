@@ -1,0 +1,27 @@
+{
+  "anilistAnimeId": 162804,
+  "anilistMangaId": 152404,
+  "title": "Alya Sometimes Hides Her Feelings in Russian",
+  "sourceNotes": "Source is Sunsunsun's light novel (Roshidere); paired here with the ongoing manga adaptation (AniList 152404, ~9 volumes / ch 83 as of mid-2026). The 2024 TV anime (AniList 162804) is a single cour of 12 episodes adapting light-novel volumes 1-3 (vol 1 prologue through vol 3 epilogue, the student-council election speeches). This is a slow-burn romcom with loose, episodic arcs, so arcs are grouped by light-novel volume and the manga-chapter boundaries are approximate. Manga pacing anchors: the manga had reached ~ch 45 (end of LN vol 2) around the time the anime aired, and manga vol 9 (ch ~67+) covers the student-council election *competition* (LN vol 4+, beyond the anime), which places the anime's endpoint near manga ch 66. Chapters 67-83 are the unadapted tail (resume reading there after the anime). A second TV season (AniList 181641) was announced but had not aired. No theatrical films.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 23],
+      "arc": "The Aloof Princess and Her Neighbor (Daily School Life)"
+    },
+    {
+      "episodes": [5, 8],
+      "chapters": [24, 45],
+      "arc": "Student Council & Cultural Festival (Family Revelations)"
+    },
+    {
+      "episodes": [9, 12],
+      "chapters": [46, 66],
+      "arc": "Student Council President Election Campaign"
+    },
+    {
+      "chapters": [67, 83],
+      "arc": "Election Competition & Beyond (ongoing, unadapted)"
+    }
+  ]
+}

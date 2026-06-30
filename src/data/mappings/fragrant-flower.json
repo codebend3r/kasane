@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 181444,
+  "anilistMangaId": 140475,
+  "title": "The Fragrant Flower Blooms With Dignity",
+  "sourceNotes": "Single-cour TV anime by CloverWorks (13 episodes, Jul 6 - Sep 28 2025) adapting Saka Mikami's ongoing manga (Kaoru Hana wa Rin to Saku), serialized in Magazine Pocket. AniList lists chapters as null; per fan episode-to-chapter guides the anime covers manga ch 1-39 (ep 13 also touches ch 40), so a viewer resumes reading at ch 40. As of June 2026 the manga is at ~ch 193 across 23 tankobon volumes (vol 23 = ch 173-179; ch 180+ uncollected), used here as the unadapted-tail endpoint. This is a slow-burn romance with loose arcs, so the groupings below are approximate and built by clustering the episode-to-chapter mapping into story phases.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 7],
+      "arc": "Meeting Across the Divide (Rintaro & Kaoruko at the Waguri bakery; Chidori vs Kikyo)"
+    },
+    {
+      "episodes": [5, 8],
+      "chapters": [8, 19],
+      "arc": "Merging Worlds (Subaru's feelings; friend groups intertwine; Rintaro's circle finds out)"
+    },
+    {
+      "episodes": [9, 12],
+      "chapters": [20, 36],
+      "arc": "Awakening Feelings (Rintaro grapples with his growing feelings amid school events & outings)"
+    },
+    {
+      "episodes": [13, 13],
+      "chapters": [37, 39],
+      "arc": "Confession at the Festival (the two become a couple)"
+    },
+    {
+      "chapters": [40, 193],
+      "arc": "Dating Life & Beyond (unadapted, ongoing; ch 40 is where to resume reading)"
+    }
+  ]
+}

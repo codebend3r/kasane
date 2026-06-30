@@ -206,6 +206,106 @@ import prisonSchool from "@/data/mappings/prison-school.json";
 import dateALive from "@/data/mappings/date-a-live.json";
 import aoHaruRide from "@/data/mappings/ao-haru-ride.json";
 import tonikawa from "@/data/mappings/tonikawa.json";
+import violetEvergarden from "@/data/mappings/violet-evergarden.json";
+import devilmanCrybaby from "@/data/mappings/devilman-crybaby.json";
+import kOn from "@/data/mappings/k-on.json";
+import domesticGirlfriend from "@/data/mappings/domestic-girlfriend.json";
+import shikimorisNotJustACutie from "@/data/mappings/shikimoris-not-just-a-cutie.json";
+import heavenlyDelusion from "@/data/mappings/heavenly-delusion.json";
+import caseStudyOfVanitas from "@/data/mappings/case-study-of-vanitas.json";
+import shimoneta from "@/data/mappings/shimoneta.json";
+import howNotToSummonADemonLord from "@/data/mappings/how-not-to-summon-a-demon-lord.json";
+import haruhiSuzumiya from "@/data/mappings/haruhi-suzumiya.json";
+import welcomeToTheNhk from "@/data/mappings/welcome-to-the-nhk.json";
+import worldsFinestAssassin from "@/data/mappings/worlds-finest-assassin.json";
+import myLoveStoryWithYamadaKun from "@/data/mappings/my-love-story-with-yamada-kun.json";
+import akashicRecords from "@/data/mappings/akashic-records.json";
+import cautiousHero from "@/data/mappings/cautious-hero.json";
+import trinitySeven from "@/data/mappings/trinity-seven.json";
+import blackBullet from "@/data/mappings/black-bullet.json";
+import tsuredureChildren from "@/data/mappings/tsuredure-children.json";
+import gate from "@/data/mappings/gate.json";
+import fragrantFlower from "@/data/mappings/fragrant-flower.json";
+import alyaSometimesHides from "@/data/mappings/alya-sometimes-hides.json";
+import dailyLivesOfHighSchoolBoys from "@/data/mappings/daily-lives-of-high-school-boys.json";
+import kokoroConnect from "@/data/mappings/kokoro-connect.json";
+import imSakamoto from "@/data/mappings/im-sakamoto.json";
+import baccano from "@/data/mappings/baccano.json";
+import yamadaAndTheSevenWitches from "@/data/mappings/yamada-and-the-seven-witches.json";
+import higehiro from "@/data/mappings/higehiro.json";
+import eromangaSensei from "@/data/mappings/eromanga-sensei.json";
+import windBreaker from "@/data/mappings/wind-breaker.json";
+import blendS from "@/data/mappings/blend-s.json";
+import scumsWish from "@/data/mappings/scums-wish.json";
+import wiseMansGrandchild from "@/data/mappings/wise-mans-grandchild.json";
+import grimgar from "@/data/mappings/grimgar.json";
+import snowWhiteWithTheRedHair from "@/data/mappings/snow-white-with-the-red-hair.json";
+import bofuri from "@/data/mappings/bofuri.json";
+import shangriLaFrontier from "@/data/mappings/shangri-la-frontier.json";
+import saekano from "@/data/mappings/saekano.json";
+import greatTeacherOnizuka from "@/data/mappings/great-teacher-onizuka.json";
+import gamers from "@/data/mappings/gamers.json";
+import darwinsGame from "@/data/mappings/darwins-game.json";
+import umaruChan from "@/data/mappings/umaru-chan.json";
+import tomoChanIsAGirl from "@/data/mappings/tomo-chan-is-a-girl.json";
+import monsterMusume from "@/data/mappings/monster-musume.json";
+import teasingMasterTakagiSan from "@/data/mappings/teasing-master-takagi-san.json";
+import tsukimichi from "@/data/mappings/tsukimichi.json";
+import kamisamaKiss from "@/data/mappings/kamisama-kiss.json";
+import laidBackCamp from "@/data/mappings/laid-back-camp.json";
+import haganai from "@/data/mappings/haganai.json";
+import irumaKun from "@/data/mappings/iruma-kun.json";
+import amagiBrilliantPark from "@/data/mappings/amagi-brilliant-park.json";
+import angelNextDoor from "@/data/mappings/angel-next-door.json";
+import tomodachiGame from "@/data/mappings/tomodachi-game.json";
+import mierukoChan from "@/data/mappings/mieruko-chan.json";
+import testamentOfSisterNewDevil from "@/data/mappings/testament-of-sister-new-devil.json";
+import wayOfTheHousehusband from "@/data/mappings/way-of-the-househusband.json";
+import moreThanAMarriedCouple from "@/data/mappings/more-than-a-married-couple.json";
+import myLoveStory from "@/data/mappings/my-love-story.json";
+import asteriskWar from "@/data/mappings/asterisk-war.json";
+import moriartyThePatriot from "@/data/mappings/moriarty-the-patriot.json";
+import familiarOfZero from "@/data/mappings/familiar-of-zero.json";
+import dangersInMyHeart from "@/data/mappings/dangers-in-my-heart.json";
+import sayILoveYou from "@/data/mappings/say-i-love-you.json";
+import smartphone from "@/data/mappings/smartphone.json";
+import barakamon from "@/data/mappings/barakamon.json";
+import watamote from "@/data/mappings/watamote.json";
+import soImASpider from "@/data/mappings/so-im-a-spider.json";
+import gleipnir from "@/data/mappings/gleipnir.json";
+import wanderingWitch from "@/data/mappings/wandering-witch.json";
+import hinamatsuri from "@/data/mappings/hinamatsuri.json";
+import uzakiChan from "@/data/mappings/uzaki-chan.json";
+import asobiAsobase from "@/data/mappings/asobi-asobase.json";
+import redoOfHealer from "@/data/mappings/redo-of-healer.json";
+import oreimo from "@/data/mappings/oreimo.json";
+import villainess from "@/data/mappings/villainess.json";
+import myFirstGirlfriendIsAGal from "@/data/mappings/my-first-girlfriend-is-a-gal.json";
+import cheatSkill from "@/data/mappings/cheat-skill.json";
+import luckyStar from "@/data/mappings/lucky-star.json";
+import citrus from "@/data/mappings/citrus.json";
+import netoge from "@/data/mappings/netoge.json";
+import tomozaki from "@/data/mappings/tomozaki.json";
+import blueBox from "@/data/mappings/blue-box.json";
+import toLoveRu from "@/data/mappings/to-love-ru.json";
+import bloodLad from "@/data/mappings/blood-lad.json";
+import myHappyMarriage from "@/data/mappings/my-happy-marriage.json";
+import plunderer from "@/data/mappings/plunderer.json";
+import oresuki from "@/data/mappings/oresuki.json";
+import phantomWorld from "@/data/mappings/phantom-world.json";
+import killingSlimes300Years from "@/data/mappings/killing-slimes-300-years.json";
+import bloomIntoYou from "@/data/mappings/bloom-into-you.json";
+import realistHero from "@/data/mappings/realist-hero.json";
+import gangsta from "@/data/mappings/gangsta.json";
+import seireiGensouki from "@/data/mappings/seirei-gensouki.json";
+import girlsLastTour from "@/data/mappings/girls-last-tour.json";
+import mmoJunkie from "@/data/mappings/mmo-junkie.json";
+import signOfAffection from "@/data/mappings/sign-of-affection.json";
+import deathMarch from "@/data/mappings/death-march.json";
+import highRiseInvasion from "@/data/mappings/high-rise-invasion.json";
+import katanagatari from "@/data/mappings/katanagatari.json";
+import worldGodOnlyKnows from "@/data/mappings/world-god-only-knows.json";
+import recordOfRagnarok from "@/data/mappings/record-of-ragnarok.json";
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -481,6 +581,106 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   dateALive,
   aoHaruRide,
   tonikawa,
+  violetEvergarden,
+  devilmanCrybaby,
+  kOn,
+  domesticGirlfriend,
+  shikimorisNotJustACutie,
+  heavenlyDelusion,
+  caseStudyOfVanitas,
+  shimoneta,
+  howNotToSummonADemonLord,
+  haruhiSuzumiya,
+  welcomeToTheNhk,
+  worldsFinestAssassin,
+  myLoveStoryWithYamadaKun,
+  akashicRecords,
+  cautiousHero,
+  trinitySeven,
+  blackBullet,
+  tsuredureChildren,
+  gate,
+  fragrantFlower,
+  alyaSometimesHides,
+  dailyLivesOfHighSchoolBoys,
+  kokoroConnect,
+  imSakamoto,
+  baccano,
+  yamadaAndTheSevenWitches,
+  higehiro,
+  eromangaSensei,
+  windBreaker,
+  blendS,
+  scumsWish,
+  wiseMansGrandchild,
+  grimgar,
+  snowWhiteWithTheRedHair,
+  bofuri,
+  shangriLaFrontier,
+  saekano,
+  greatTeacherOnizuka,
+  gamers,
+  darwinsGame,
+  umaruChan,
+  tomoChanIsAGirl,
+  monsterMusume,
+  teasingMasterTakagiSan,
+  tsukimichi,
+  kamisamaKiss,
+  laidBackCamp,
+  haganai,
+  irumaKun,
+  amagiBrilliantPark,
+  angelNextDoor,
+  tomodachiGame,
+  mierukoChan,
+  testamentOfSisterNewDevil,
+  wayOfTheHousehusband,
+  moreThanAMarriedCouple,
+  myLoveStory,
+  asteriskWar,
+  moriartyThePatriot,
+  familiarOfZero,
+  dangersInMyHeart,
+  sayILoveYou,
+  smartphone,
+  barakamon,
+  watamote,
+  soImASpider,
+  gleipnir,
+  wanderingWitch,
+  hinamatsuri,
+  uzakiChan,
+  asobiAsobase,
+  redoOfHealer,
+  oreimo,
+  villainess,
+  myFirstGirlfriendIsAGal,
+  cheatSkill,
+  luckyStar,
+  citrus,
+  netoge,
+  tomozaki,
+  blueBox,
+  toLoveRu,
+  bloodLad,
+  myHappyMarriage,
+  plunderer,
+  oresuki,
+  phantomWorld,
+  killingSlimes300Years,
+  bloomIntoYou,
+  realistHero,
+  gangsta,
+  seireiGensouki,
+  girlsLastTour,
+  mmoJunkie,
+  signOfAffection,
+  deathMarch,
+  highRiseInvasion,
+  katanagatari,
+  worldGodOnlyKnows,
+  recordOfRagnarok,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {

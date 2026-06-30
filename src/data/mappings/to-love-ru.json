@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 3455,
+  "anilistMangaId": 30671,
+  "title": "To Love-Ru",
+  "sourceNotes": "Cumulative episodes across 4 TV seasons: To Love-Ru S1 (26, 2008) + Motto To Love-Ru (12, 2010) + To Love-Ru Darkness (12, 2012) + To Love-Ru Darkness 2nd (12, 2015) = 62 eps. anilistMangaId is the ORIGINAL To Love-Ru manga by Saki Hasemi & Kentaro Yabuki, complete at 162 chapters / 18 volumes (~9 ch per volume). S1 is largely anime-original and pulls scattered chapters from vols 1-6; Motto adapts vols 7-11 faithfully in a 3-skit-per-episode format; the original manga's final arcs (vols 12-18, ch 100-162) were never adapted on TV (chapters-only tail, lead-in to Darkness). The two Darkness TV seasons adapt a SEPARATE sequel manga, To Love-Ru Darkness (AniList id 52519; ~77 numbered chapters / 18 volumes, AniList counts 100 incl. extras) — so their chapter ranges use the Darkness manga's OWN numbering, not the original 162-ch axis: Darkness covers Darkness ch 1-19, Darkness 2nd covers Darkness ch 20-47 (the remainder, Darkness ch 48-77, is unadapted). Episodic harem comedy, so all chapter boundaries are approximate (refine via PR). OVAs/specials are not theatrical and are omitted; no qualifying theatrical films.",
+  "mappings": [
+    {
+      "episodes": [1, 26],
+      "chapters": [1, 54],
+      "arc": "To Love-Ru (Season 1, 2008) — original manga vols 1-6, mostly anime-original / scattered chapters"
+    },
+    {
+      "episodes": [27, 38],
+      "chapters": [55, 99],
+      "arc": "Motto To Love-Ru (Season 2, 2010) — original manga vols 7-11, faithful 3-skit adaptation"
+    },
+    {
+      "chapters": [100, 162],
+      "arc": "Original manga vols 12-18 — final arcs, unadapted on TV (lead-in to To Love-Ru Darkness)"
+    },
+    {
+      "episodes": [39, 50],
+      "chapters": [1, 19],
+      "arc": "To Love-Ru Darkness (Season 3, 2012) — Darkness manga ch 1-19 (SEPARATE manga, AniList id 52519)"
+    },
+    {
+      "episodes": [51, 62],
+      "chapters": [20, 47],
+      "arc": "To Love-Ru Darkness 2nd (Season 4, 2015) — Darkness manga ch 20-47 (SEPARATE numbering)"
+    }
+  ]
+}

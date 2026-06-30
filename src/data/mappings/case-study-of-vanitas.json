@@ -1,0 +1,37 @@
+{
+  "anilistAnimeId": 131646,
+  "anilistMangaId": 86568,
+  "title": "The Case Study of Vanitas",
+  "sourceNotes": "Cumulative episodes across Part 1 (12) + Part 2 'The Case Study of Vanitas Part 2' (12, eps 13-24) = 24 total. Studio Bones adapts Jun Mochizuki's 'Vanitas no Carte' (Monthly Gangan Joker) chapters (mémoires) 1-55; the anime ends on Mémoire 55 'Après la pluie: His Wish', so a viewer resumes reading at ch 56 ('Faire un gâteau: Bittersweet', Vol 10). Manga is ongoing — it returned from a 2024-25 hiatus and the latest published chapter is 68 (released Jun 23, 2026). Arc boundaries are approximate, anchored to chapter titles vs. volume boundaries and to the reported Part-2 split (eps 13-19 ≈ ch 21-43). No theatrical films exist.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 5],
+      "arc": "Parisian Excursion (Vampire of the Blue Moon)"
+    },
+    {
+      "episodes": [4, 7],
+      "chapters": [6, 13],
+      "arc": "Bal Masqué"
+    },
+    {
+      "episodes": [8, 12],
+      "chapters": [14, 20],
+      "arc": "Hunters of the Dark (Catacombs)"
+    },
+    {
+      "episodes": [13, 19],
+      "chapters": [21, 42],
+      "arc": "Beast of Gévaudan"
+    },
+    {
+      "episodes": [20, 24],
+      "chapters": [43, 55],
+      "arc": "Beast of Gévaudan: Chloé's Resolution"
+    },
+    {
+      "chapters": [56, 68],
+      "arc": "Post-Gévaudan (ongoing, unadapted)"
+    }
+  ]
+}

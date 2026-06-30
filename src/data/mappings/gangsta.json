@@ -1,0 +1,27 @@
+{
+  "anilistAnimeId": 20773,
+  "anilistMangaId": 54903,
+  "title": "Gangsta.",
+  "sourceNotes": "S1 anime (12 eps, 2015) adapts roughly manga ch 1-28 (through about vol 5); the finale (ep 12) covers ch 26-28, so a viewer resumes reading at ch 29 (vol 6). Paired with Kohske's manga, which is on a long hiatus due to the author's health: the latest published chapter is 56 (Dec 2020) across 8 volumes; AniList does not track a chapter count for this series. Serialization is announced to resume with ch 57 in July 2026. Internal episode/chapter splits are approximate; the Gangsta:Cursed. spin-off and the 'Postman' one-shot are excluded.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 9],
+      "arc": "Ergastulum & the Handymen (Worick, Nicolas & Alex; Twilight underworld intro)"
+    },
+    {
+      "episodes": [5, 8],
+      "chapters": [10, 19],
+      "arc": "Worick & Nicolas' Past (Twilight law, the Corsica family & the four families)"
+    },
+    {
+      "episodes": [9, 12],
+      "chapters": [20, 28],
+      "arc": "The Guild & the Twilight Hunt (anime finale)"
+    },
+    {
+      "chapters": [29, 56],
+      "arc": "The Twilight Massacre & Aftermath (unadapted tail; latest ch 56, on hiatus)"
+    }
+  ]
+}

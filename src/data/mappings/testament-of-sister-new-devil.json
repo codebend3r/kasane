@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 20678,
+  "anilistMangaId": 79305,
+  "title": "The Testament of Sister New Devil",
+  "sourceNotes": "Cumulative episodes across S1 (12) + S2 'BURST' (10, eps 13-22) = 22 total. The series is sourced from Tetsuto Uesu's light novel (AniList id 79305, type NOVEL, 75 chapters across 13 volumes); the parallel manga adaptation (id 81755) is a separate, incomplete continuity (only 9 volumes / 46 chapters) that diverges from the anime, so this maps by LN volume instead. S1 adapts LN vols 1-2 and S2 BURST adapts LN vols 3-4, leaving vols 5-13 unadapted. Chapter ranges are proportional estimates converting those volume boundaries onto AniList's 75-chapter count, so they are approximate. The DEPARTURES OVA and other specials are side entries; there are no theatrical films.",
+  "mappings": [
+    {
+      "episodes": [1, 6],
+      "chapters": [1, 6],
+      "arc": "Master-Servant Pact (new step-sisters & family forms, LN vol 1)"
+    },
+    {
+      "episodes": [7, 12],
+      "chapters": [7, 12],
+      "arc": "Zolgia Arc (Mio kidnapped & rescued, Zest joins, LN vol 2)"
+    },
+    {
+      "episodes": [13, 18],
+      "chapters": [13, 17],
+      "arc": "Zest's Contract & the Hero Village summons Basara (LN vol 3)"
+    },
+    {
+      "episodes": [19, 22],
+      "chapters": [18, 23],
+      "arc": "Takigawa/Lars Reveal & Hero-Faction Clash (LN vol 4)"
+    },
+    {
+      "chapters": [24, 75],
+      "arc": "Demon-Lord Faction War (LN vols 5-13, unadapted)"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "anilistAnimeId": 20994,
+  "anilistMangaId": 71733,
+  "title": "Gate",
+  "sourceNotes": "Cumulative episode numbering spans both TV cours: S1 'Gate' eps 1-12 (2015) + S2 'Gate Part 2' eps 13-24 (2016), both A-1 Pictures; the anime id is S1's. Ranges map onto Satoru Sao's manga adaptation (AniList: FINISHED, 143 chapters across 28 volumes; the main run ends with a ch 143 finale plus a 143.2 epilogue). The manga reorders and expands the light-novel material relative to the anime, so episode-to-chapter ranges are approximate. The 24-episode anime covers roughly ch 1-66 (through the Rondel / Oprichnina confrontation); ch 67-143 (the full-scale Japan-Empire civil war, Zorzal's downfall, and conclusion) are unadapted.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 8],
+      "arc": "Ginza Incident & the Special Region (Battle of Alnus, first Flame Dragon)"
+    },
+    {
+      "episodes": [5, 7],
+      "chapters": [9, 15],
+      "arc": "Battle of Italica"
+    },
+    {
+      "episodes": [8, 10],
+      "chapters": [16, 24],
+      "arc": "Japan Beyond the Gate (Diet hearing & the Ginza counterattack)"
+    },
+    {
+      "episodes": [11, 14],
+      "chapters": [25, 34],
+      "arc": "Coda Village & Imperial Capital diplomacy (Yao, Zorzal, the earthquake)"
+    },
+    {
+      "episodes": [15, 17],
+      "chapters": [35, 47],
+      "arc": "Tuka's grief & the Flame Dragon decisive battle (Dark Elves)"
+    },
+    {
+      "episodes": [18, 24],
+      "chapters": [48, 66],
+      "arc": "Magic City of Rondel & the Imperial coup / Oprichnina (anime finale)"
+    },
+    {
+      "chapters": [67, 143],
+      "arc": "Japan-Empire civil war, Zorzal's downfall & conclusion (unadapted)"
+    }
+  ]
+}

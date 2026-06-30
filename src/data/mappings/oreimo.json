@@ -1,0 +1,38 @@
+{
+  "anilistAnimeId": 8769,
+  "anilistMangaId": 43667,
+  "title": "Oreimo",
+  "sourceNotes": "Cumulative broadcast episodes across S1 (12, eps 1-12) + S2 'Oreimo 2' (13, eps 13-25) = 25 total. Broadcast counts only: the original S1 also shipped 4 web-only 'True Route' episodes (AniList ONA id 10020) and S2 added a 3-episode ONA 'True End'; both alternate-route extras are excluded. Paired with Tsukasa Fushimi's light novel (AniList id 43667, type MANGA / format NOVEL, 56 chapters across 12 volumes) rather than the standalone manga adaptation (id 45317), which covers only the first 4 LN volumes (26 ch); the anime adapts the complete 12-volume LN, so mapping by LN volume is cleaner and fully covers the series. Chapter ranges are proportional estimates converting LN volume boundaries onto AniList's 56-chapter count, and the per-arc episode splits within each season are approximate. No unadapted tail (the LN is fully adapted) and no films.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 5],
+      "arc": "Kirino's Hidden Hobby / Life Counseling (S1, LN vol 1)"
+    },
+    {
+      "episodes": [5, 8],
+      "chapters": [6, 9],
+      "arc": "Comiket & the Eroge Conflict (S1, LN vol 2)"
+    },
+    {
+      "episodes": [9, 12],
+      "chapters": [10, 19],
+      "arc": "America Arc / Kuroneko's Confession (S1, LN vols 3-4)"
+    },
+    {
+      "episodes": [13, 16],
+      "chapters": [20, 28],
+      "arc": "New School Year / Ayase & Kanako (S2, LN vols 5-6)"
+    },
+    {
+      "episodes": [17, 20],
+      "chapters": [29, 42],
+      "arc": "Kirino's Game Dev & Saori's Past (S2, LN vols 7-9)"
+    },
+    {
+      "episodes": [21, 25],
+      "chapters": [43, 56],
+      "arc": "Kyousuke & Kirino Finale (S2, LN vols 10-12)"
+    }
+  ]
+}

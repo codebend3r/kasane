@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 21685,
+  "anilistMangaId": 85471,
+  "title": "Eromanga Sensei",
+  "sourceNotes": "Source is Tsukasa Fushimi's light novel (13 vols, AniList 85166). Paired here with the manga adaptation by Rin (AniList 85471): 79 chapters / 12 vols, serialized May 2014 - May 2021 (FINISHED). The 2017 TV anime (12 eps) adapts roughly LN vols 1-5, so a viewer can resume the manga at ch. 34. A 2-ep OVA exists (AniList 100523) but is omitted; there are no theatrical films. Episode-to-chapter boundaries are APPROXIMATE because the anime reorders and condenses material relative to both the LN and the manga; treat the chapter ranges as coarse guides rather than exact cut points.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 8],
+      "arc": "Eromanga-sensei Revealed (Sagiri & Masamune become a team)"
+    },
+    {
+      "episodes": [4, 6],
+      "chapters": [9, 16],
+      "arc": "Elf Yamada (rival author & illustration showdown)"
+    },
+    {
+      "episodes": [7, 9],
+      "chapters": [17, 25],
+      "arc": "Muramasa Senju (the genius novelist)"
+    },
+    {
+      "episodes": [10, 12],
+      "chapters": [26, 33],
+      "arc": "Stepping Outside (Sagiri's resolve & family backstory)"
+    },
+    {
+      "chapters": [34, 79],
+      "arc": "Beyond the Anime (unadapted manga continuation through the finale)"
+    }
+  ]
+}

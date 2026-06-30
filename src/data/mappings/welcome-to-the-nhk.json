@@ -1,0 +1,38 @@
+{
+  "anilistAnimeId": 1210,
+  "anilistMangaId": 30463,
+  "title": "Welcome to the NHK",
+  "sourceNotes": "Single 24-episode TV season (2006). Source is Tatsuhiko Takimoto's light novel, but this pairs the 40-chapter / 8-volume manga adaptation (AniList 30463, complete) since it tracks the anime far more closely than the novel. The anime heavily reorders and condenses the manga, so chapter ranges below are coarse phase approximations, not literal per-episode boundaries. The ending also diverges: in the anime Misaki's abusive-childhood backstory is genuine and the island rescue succeeds, whereas in the manga she admits she fabricated the story and Yamazaki diverts the rescue to Comiket. Anchors: ep 1 = ch 1 (Project), ep 13 'Heaven' = ch 10 (the suicide pact), ep 24 'Welcome to the N.H.K.!' = ch 40.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 3],
+      "arc": "Hikikomori & the Moe Game Project"
+    },
+    {
+      "episodes": [5, 9],
+      "chapters": [4, 8],
+      "arc": "Counseling & the Mother's Visit"
+    },
+    {
+      "episodes": [10, 13],
+      "chapters": [9, 10],
+      "arc": "The Offline Suicide Pact"
+    },
+    {
+      "episodes": [14, 17],
+      "chapters": [11, 21],
+      "arc": "Online Game Addiction"
+    },
+    {
+      "episodes": [18, 20],
+      "chapters": [22, 30],
+      "arc": "Pyramid Scheme & Despair"
+    },
+    {
+      "episodes": [21, 24],
+      "chapters": [31, 40],
+      "arc": "Misaki's Past & the N.H.K. (anime-original ending)"
+    }
+  ]
+}

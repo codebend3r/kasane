@@ -1,0 +1,42 @@
+{
+  "anilistAnimeId": 141949,
+  "anilistMangaId": 105011,
+  "title": "More than a Married Couple, but Not Lovers",
+  "sourceNotes": "Single-cour 2022 TV anime (12 eps) by Studio Mother, adapting Yuki Kanamaru's seinen manga (Young Ace, 2018-). The school's 'marriage practical' pairs Jirou Yakuin with Akari Watanabe though each pines for someone else. The anime covers roughly chapters 1-29 (a reader resumes at ch 30). Per-episode boundaries are approximate, anchored to known marks: ep 5 ~ch 10, ep 7 ~ch 16, ep 11 ~ch 26, ep 12 finale ~ch 29. Manga is on indefinite hiatus (since April 2025) preparing its final part; latest is ch 79 / 13 volumes, used as the unadapted-tail endpoint. No theatrical films exist.",
+  "mappings": [
+    {
+      "episodes": [1, 2],
+      "chapters": [1, 5],
+      "arc": "The Marriage Practical Begins"
+    },
+    {
+      "episodes": [3, 5],
+      "chapters": [6, 10],
+      "arc": "Adjusting to Married Life"
+    },
+    {
+      "episodes": [6, 7],
+      "chapters": [11, 16],
+      "arc": "Summer Festival & Fireworks"
+    },
+    {
+      "episodes": [8, 9],
+      "chapters": [17, 21],
+      "arc": "Childhood Friends & Old Feelings"
+    },
+    {
+      "episodes": [10, 11],
+      "chapters": [22, 26],
+      "arc": "Tangled Hearts"
+    },
+    {
+      "episodes": [12, 12],
+      "chapters": [27, 29],
+      "arc": "The Practical's Conclusion (season finale)"
+    },
+    {
+      "chapters": [30, 79],
+      "arc": "Beyond the Anime (ongoing, unadapted)"
+    }
+  ]
+}

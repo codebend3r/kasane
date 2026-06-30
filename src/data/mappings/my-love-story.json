@@ -1,0 +1,47 @@
+{
+  "anilistAnimeId": 20946,
+  "anilistMangaId": 66933,
+  "title": "My Love Story!!",
+  "sourceNotes": "Single 2-cour TV anime (24 eps, 2015, Madhouse) adapting Kazune Kawahara & Aruko's complete manga (AniList id 66933: 56 chapters / 14 volumes). The anime is a faithful but condensed adaptation of roughly the first nine volumes, ending at about chapter 34 (the Kouki Ichinose pâtissier rival arc), so a viewer resumes reading around ch 35. Some side stories are cut/rearranged, so chapter boundaries are approximate. The 2015 live-action film is excluded.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 6],
+      "arc": "Takeo & Yamato (train rescue, misunderstanding, confession)"
+    },
+    {
+      "episodes": [4, 7],
+      "chapters": [7, 12],
+      "arc": "A New Couple (fire rescue, Yamato's friends, early dating)"
+    },
+    {
+      "episodes": [8, 12],
+      "chapters": [13, 19],
+      "arc": "Summer with Suna (mountain & ocean trip, Ai introduced)"
+    },
+    {
+      "episodes": [13, 14],
+      "chapters": [20, 22],
+      "arc": "Summer Festival (Ai's unrequited feelings resolve)"
+    },
+    {
+      "episodes": [15, 18],
+      "chapters": [23, 27],
+      "arc": "Autumn & Winter (Christmas, New Year's first kiss)"
+    },
+    {
+      "episodes": [19, 22],
+      "chapters": [28, 32],
+      "arc": "Takeo's Mom, Valentine's & the Love Letter"
+    },
+    {
+      "episodes": [23, 24],
+      "chapters": [33, 34],
+      "arc": "Kouki Ichinose (pâtissier rival arc)"
+    },
+    {
+      "chapters": [35, 56],
+      "arc": "Post-anime story (unadapted)"
+    }
+  ]
+}

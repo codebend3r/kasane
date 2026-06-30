@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 16742,
+  "anilistMangaId": 58533,
+  "title": "WataMote: No Matter How I Look at It, It's You Guys' Fault I'm Not Popular!",
+  "sourceNotes": "Single-season 2013 TV anime by Silver Link (12 eps) adapts roughly the first four volumes / chapters 1-34 of Nico Tanigawa's ongoing manga, covering Tomoko's solo-misery first year of high school (before the later ensemble cast). The anime is episodic and non-linear: each episode bundles two or three thematically similar but chronologically separate chapters, and it skips/rearranges some (e.g. ch 30 marathon, ch 33 birthday), so the per-episode chapter ranges below are approximate. New unadapted content begins at ch 35. Manga is ongoing (~ch 238 as of Jan 2026; AniList chapter count null). The anime-original OVA (ep 13, id 20453) adapts no specific chapters and is omitted. No theatrical films.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 9],
+      "arc": "First Days of High School (Failed Popularity Schemes) — approx."
+    },
+    {
+      "episodes": [4, 6],
+      "chapters": [10, 17],
+      "arc": "Summer Break Misery — approx."
+    },
+    {
+      "episodes": [7, 9],
+      "chapters": [18, 26],
+      "arc": "Second Semester & Cultural Festival — approx."
+    },
+    {
+      "episodes": [10, 12],
+      "chapters": [27, 34],
+      "arc": "Winter & End of First Year — approx."
+    },
+    {
+      "chapters": [35, 238],
+      "arc": "Solo Misery to Ensemble Cast (ongoing, unadapted)"
+    }
+  ]
+}

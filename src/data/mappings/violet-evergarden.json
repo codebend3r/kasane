@@ -1,0 +1,30 @@
+{
+  "anilistAnimeId": 21827,
+  "anilistMangaId": 97298,
+  "title": "Violet Evergarden",
+  "sourceNotes": "Source is Kana Akatsuki's original 2-volume light novel (complete, 13 chapters: Vol 1 = ch 1-6, Vol 2 = ch 7-13); AniList lists no manga adaptation, so the novel entry (id 97298) is used. The single 13-episode TV season (KyoAni, 2018) needs no cumulative offset. The anime is an episodic anthology that adapts Volume 1's standalone 'Auto Memory Doll' vignettes out of order, wrapping them in anime-original framing and an anime-original ending, so the episode->chapter mapping is approximate (~one vignette per adapting episode); confirmed beats are ep7=ch1 (Oscar the playwright), ep6=ch4 (Leon the astronomer), and ep10=ch2 (Ann). Volume 2's conclusion (ch 7-13, Violet and Gilbert) is instead adapted by 'Violet Evergarden: the Movie' (2020), while 'Eternity and the Auto Memory Doll' (2019) adapts the separate Gaiden side novel rather than the main book.",
+  "mappings": [
+    {
+      "episodes": [1, 13],
+      "chapters": [1, 6],
+      "arc": "Auto Memory Doll (Volume 1 vignettes)"
+    }
+  ],
+  "movies": [
+    {
+      "anilistId": 109190,
+      "title": "Violet Evergarden: Eternity and the Auto Memory Doll",
+      "year": 2019,
+      "afterEpisode": 13,
+      "note": "Canon side-story film adapting the separate 'Violet Evergarden Gaiden' side novel (Isabella/Amy and her sister Taylor); not part of the main 13-chapter book."
+    },
+    {
+      "anilistId": 103047,
+      "title": "Violet Evergarden: the Movie",
+      "year": 2020,
+      "afterEpisode": 13,
+      "chapters": [7, 13],
+      "note": "Canon sequel film adapting Volume 2 — the novel's conclusion, Violet learning Gilbert's fate and their reunion; the ending the TV series left open."
+    }
+  ]
+}

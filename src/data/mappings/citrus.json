@@ -1,0 +1,42 @@
+{
+  "anilistAnimeId": 97832,
+  "anilistMangaId": 80145,
+  "title": "Citrus",
+  "sourceNotes": "The 2018 TV anime (12 eps, single season) adapts Saburouta's complete yuri manga (50 chapters across 10 volumes; AniList id 80145, FINISHED) covering roughly volumes 1-6. Mapped against the original Citrus manga, not the Citrus+ sequel (id 103884). At ~5 chapters per volume the anime ends partway through volume 6, leaving chapters 31-50 (the rest of the Aihara family / engagement resolution through the wedding) unadapted. Internal episode-to-chapter boundaries are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 2],
+      "chapters": [1, 4],
+      "arc": "Transfer & Step-Sisters (Yuzu meets council president Mei, learns they're new step-sisters)"
+    },
+    {
+      "episodes": [3, 4],
+      "chapters": [5, 9],
+      "arc": "Harumin & the Chairman (growing tension; Mei's grandfather and the Aihara household)"
+    },
+    {
+      "episodes": [5, 6],
+      "chapters": [10, 14],
+      "arc": "Matsuri (Yuzu's manipulative childhood friend tests the sisters' bond)"
+    },
+    {
+      "episodes": [7, 8],
+      "chapters": [15, 18],
+      "arc": "Aftermath & Deepening Feelings"
+    },
+    {
+      "episodes": [9, 10],
+      "chapters": [19, 22],
+      "arc": "Sara & Nina (the twins; school trip)"
+    },
+    {
+      "episodes": [11, 12],
+      "chapters": [23, 30],
+      "arc": "Engagement Crisis (Mei's arranged marriage; finale)"
+    },
+    {
+      "chapters": [31, 50],
+      "arc": "Aihara Resolution & Wedding (unadapted manga tail, vols 7-10)"
+    }
+  ]
+}

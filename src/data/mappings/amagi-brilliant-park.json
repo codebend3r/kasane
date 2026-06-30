@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 20602,
+  "anilistMangaId": 85217,
+  "title": "Amagi Brilliant Park",
+  "sourceNotes": "Source is Shoji Gatoh's LIGHT NOVEL (illustrated by Yuka Nakajima; AniList id 85200), of which Fujimi Shobo published 8 volumes before the series went on hiatus in 2016. The 2014 Kyoto Animation TV anime (13 eps; the OVA 'No Time to Take It Easy!' ep 14 is excluded) adapts roughly LN VOLUMES 1-2 (with a touch of vol 3) — the park-revival-by-deadline plot, racing to 250,000 guests by the July 31 deadline — and wraps up with an ANIME-ORIGINAL ending, so a viewer resumes reading at LN vol 3. The linked manga adaptation (AniList id 85217; 32 chapters / 6 volumes, FINISHED) is a separate parallel retelling whose chapters don't cleanly anchor the anime, so this mapping uses LIGHT-NOVEL VOLUME numbers as the 'chapters' unit, NOT manga chapters. With only ~2 volumes spanning 13 episodes the groupings are coarse and volume-to-episode boundaries are APPROXIMATE. Vols 3-8 are unadapted (LN on hiatus). No theatrical films.",
+  "mappings": [
+    {
+      "episodes": [1, 2],
+      "chapters": [1, 1],
+      "arc": "Seiya's Recruitment & the 250,000-Visitor Deadline (LN vol 1)"
+    },
+    {
+      "episodes": [3, 7],
+      "chapters": [1, 2],
+      "arc": "Rebuilding the Park — Marketing, Money, Staff & Pool (LN vols 1-2)"
+    },
+    {
+      "episodes": [8, 10],
+      "chapters": [2, 2],
+      "arc": "Side Stories & Mounting Crisis (Love Appeal / Teamwork) (LN vol 2)"
+    },
+    {
+      "episodes": [11, 13],
+      "chapters": [2, 2],
+      "arc": "The Final Deadline Push (anime-original ending) (LN vol 2)"
+    },
+    {
+      "chapters": [3, 8],
+      "arc": "Post-anime (LN vols 3-8, on hiatus & unadapted)"
+    }
+  ]
+}

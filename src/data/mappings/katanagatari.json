@@ -1,0 +1,68 @@
+{
+  "anilistAnimeId": 6594,
+  "anilistMangaId": 48161,
+  "title": "Katanagatari",
+  "sourceNotes": "Source is NisiOisin's 12-volume light novel (one volume released per month across 2007); the AniList entry used as anilistMangaId (id 48161, format NOVEL) is that light novel, so the 'chapters' axis here is LIGHT NOVEL VOLUME numbers 1-12, not manga chapters. The 2010 TV anime (id 6594) is a single 12-episode season of double-length episodes, and each episode adapts exactly one LN volume = one of the twelve Deviant Blades. This is a clean 1:1 mapping (episode N -> volume N), and the anime adapts the entire 12-volume LN, so there is no unadapted tail.",
+  "mappings": [
+    {
+      "episodes": [1, 1],
+      "chapters": [1, 1],
+      "arc": "Zettou \"Kanna\" (Absolute Sword)"
+    },
+    {
+      "episodes": [2, 2],
+      "chapters": [2, 2],
+      "arc": "Zantou \"Namakura\" (Slash Sword)"
+    },
+    {
+      "episodes": [3, 3],
+      "chapters": [3, 3],
+      "arc": "Sentou \"Tsurugi\" (Thousand Sword)"
+    },
+    {
+      "episodes": [4, 4],
+      "chapters": [4, 4],
+      "arc": "Hakutou \"Hari\" (Thin Sword)"
+    },
+    {
+      "episodes": [5, 5],
+      "chapters": [5, 5],
+      "arc": "Zokutou \"Yoroi\" (Thief Sword)"
+    },
+    {
+      "episodes": [6, 6],
+      "chapters": [6, 6],
+      "arc": "Soutou \"Tsui\" (Twin Sword)"
+    },
+    {
+      "episodes": [7, 7],
+      "chapters": [7, 7],
+      "arc": "Akutou \"Bita\" (Evil Sword)"
+    },
+    {
+      "episodes": [8, 8],
+      "chapters": [8, 8],
+      "arc": "Bitou \"Kanzashi\" (Tiny Sword)"
+    },
+    {
+      "episodes": [9, 9],
+      "chapters": [9, 9],
+      "arc": "Outou \"Nokogiri\" (King Sword)"
+    },
+    {
+      "episodes": [10, 10],
+      "chapters": [10, 10],
+      "arc": "Seitou \"Hakari\" (Honest Sword)"
+    },
+    {
+      "episodes": [11, 11],
+      "chapters": [11, 11],
+      "arc": "Dokutou \"Mekki\" (Poison Sword)"
+    },
+    {
+      "episodes": [12, 12],
+      "chapters": [12, 12],
+      "arc": "Entou \"Juu\" (Flame Sword)"
+    }
+  ]
+}

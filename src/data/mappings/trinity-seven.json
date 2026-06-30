@@ -1,0 +1,50 @@
+{
+  "anilistAnimeId": 20631,
+  "anilistMangaId": 54822,
+  "title": "Trinity Seven",
+  "sourceNotes": "TV anime (12 eps, 2014, Seven Arcs Pictures) adapts Kenji Saito & Akinari Nao's manga 'Trinity Seven: The Seven Magicians', serialized in Monthly Dragon Age since 2010 and still ongoing (34 volumes / ~chapter 173 as of April 2026 per Wikipedia's chapter list, NOT complete). Volume 1 opens with a prologue chapter 0; ranges below start at chapter 1 for clarity. The anime covers roughly volumes 1-8, whose final chapter is 35 ('Judecca & World System'); arc-to-episode boundaries are approximate (~3 chapters per episode). A reader resumes at chapter 36. The two canon theatrical films continue after episode 12 and loosely adapt later manga arcs; their exact chapter ranges are not officially documented, so the values given are approximate. The single-episode OVA and the various spin-off manga are excluded.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 9],
+      "arc": "Selection Arc (Royal Biblia Academy)"
+    },
+    {
+      "episodes": [4, 6],
+      "chapters": [10, 18],
+      "arc": "Superbia & Iscariot Arcs"
+    },
+    {
+      "episodes": [7, 9],
+      "chapters": [19, 27],
+      "arc": "Liber Arcanum Arc"
+    },
+    {
+      "episodes": [10, 12],
+      "chapters": [28, 35],
+      "arc": "Sword Arc (Hijiri & World System)"
+    },
+    {
+      "chapters": [36, 173],
+      "arc": "Eternal Library, Heavens Library & beyond (post-anime; films adapt early portions, rest unadapted, ongoing)"
+    }
+  ],
+  "movies": [
+    {
+      "anilistId": 21874,
+      "title": "Trinity Seven: Eternity Library and Alchemic Girl",
+      "year": 2017,
+      "chapters": [36, 43],
+      "afterEpisode": 12,
+      "note": "Canon film following the TV series. Awakening of the Eternal Library and the grimoire-girl Lilim, leading into the alchemist arc (approx. vols 9-10); chapter range approximate."
+    },
+    {
+      "anilistId": 103631,
+      "title": "Trinity Seven: Heavens Library & Crimson Lord",
+      "year": 2019,
+      "chapters": [44, 54],
+      "afterEpisode": 12,
+      "note": "Sequel to the first film. Arata and the Trinity Seven face the Crimson Demon Lord, Lilith's father (approx. vols 11-12); chapter range approximate."
+    }
+  ]
+}

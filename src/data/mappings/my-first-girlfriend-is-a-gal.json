@@ -1,0 +1,27 @@
+{
+  "anilistAnimeId": 97863,
+  "anilistMangaId": 87315,
+  "title": "My First Girlfriend is a Gal",
+  "sourceNotes": "S1 anime (10 eps, 2017, NAZ; AniList id 97863) adapts roughly the first 37 chapters of Meguru Ueno's manga; a viewer resumes reading around ch 38. The anime reorders some gags, so the per-episode chapter boundaries below are approximate. Paired with the manga (AniList id 87315, which lists no chapter/volume count and is still marked RELEASING): it is a long-running romcom that had reached ch 200 across 21 tankobon volumes by late 2025/early 2026, and the latest chapters ('Our First Climax' ch 199, 'My First Time With You' ch 200) read like the finale, so the unadapted tail is extended to 200 (this endpoint is the latest known chapter, not a confirmed series end). The 'Hajimete no Bunkasai' OVA (cultural-festival side story, ~ch 70-73) and the live-action film are excluded.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 11],
+      "arc": "Junichi & Yukana Start Dating (Meeting the Gal Girlfriend)"
+    },
+    {
+      "episodes": [4, 7],
+      "chapters": [12, 26],
+      "arc": "The Love Rivals Arrive (Yui, Ranko, Nene & Part-Time Jobs)"
+    },
+    {
+      "episodes": [8, 10],
+      "chapters": [27, 37],
+      "arc": "Summer Trip, First Fight & Confession"
+    },
+    {
+      "chapters": [38, 200],
+      "arc": "After the Confession (ongoing, unadapted by this anime)"
+    }
+  ]
+}

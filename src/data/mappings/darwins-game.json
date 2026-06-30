@@ -1,0 +1,27 @@
+{
+  "anilistAnimeId": 105190,
+  "anilistMangaId": 78881,
+  "title": "Darwin's Game",
+  "sourceNotes": "Single-cour TV anime (11 episodes, 2020) adapting FLIPFLOPs' manga (completed 2024 at 125 chapters / 30 volumes). The anime covers chapters 1-31, ending partway through volume 8; a viewer should resume reading at chapter 31 (around page 23). The adaptation compresses and skips material, so episode-to-chapter boundaries are approximate. No theatrical films exist.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 8],
+      "arc": "Introduction / First Game (Shibuya)"
+    },
+    {
+      "episodes": [4, 6],
+      "chapters": [9, 20],
+      "arc": "Hunting Game (Shibuya Treasure Hunt)"
+    },
+    {
+      "episodes": [7, 11],
+      "chapters": [21, 31],
+      "arc": "Sunset Ravens vs Eighth"
+    },
+    {
+      "chapters": [32, 125],
+      "arc": "Post-Eighth War & Final Arcs (unadapted)"
+    }
+  ]
+}

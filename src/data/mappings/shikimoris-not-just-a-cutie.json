@@ -1,0 +1,27 @@
+{
+  "anilistAnimeId": 127911,
+  "anilistMangaId": 107282,
+  "title": "Shikimori's Not Just a Cutie",
+  "sourceNotes": "Single 12-episode TV season (2022). Keigo Maki's manga (AniList id 107282) is complete at 203 chapters / 20 volumes (concluded 2024), not ongoing. The anime adapts roughly the first four volumes (~ch 1-40), so a viewer resumes around ch 41. Episodic romcom with no strong arcs — chapter ranges are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 13],
+      "arc": "Meeting Shikimori & the Friend Group"
+    },
+    {
+      "episodes": [5, 8],
+      "chapters": [14, 27],
+      "arc": "Sports Festival & Summer Days"
+    },
+    {
+      "episodes": [9, 12],
+      "chapters": [28, 40],
+      "arc": "Festivals & Growing Closer"
+    },
+    {
+      "chapters": [41, 203],
+      "arc": "Remaining manga (unadapted)"
+    }
+  ]
+}

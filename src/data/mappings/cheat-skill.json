@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 153845,
+  "anilistMangaId": 116062,
+  "title": "I Got a Cheat Skill in Another World and Became Unrivaled in The Real World, Too",
+  "sourceNotes": "Source is Miku's light novel (20 volumes as of March 2026, ongoing). The linked manga adaptation (AniList id 116062, art by Kazuomi Minatogawa, serialized since Dec 2019) lags FAR behind the anime — only ~ch 37 / 7 volumes as of mid-2026, not yet reaching the anime's endpoint, and AniList lists no chapter count — so this mapping uses LIGHT-NOVEL VOLUME numbers as the 'chapters' unit instead (same approach as arifureta.json). The single-cour 13-episode 2023 TV anime adapts LN vols 1-4 (it rearranges events heavily and closes at the end of vol 4; a viewer resumes reading at vol 5). Per-volume episode boundaries are approximate. A 2024 TV special ('The Legendary Dragon Awakens') and an announced Season 2 are separate and not mapped here. No theatrical films.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 1],
+      "arc": "The Great Devil's Nest & Ōsei Academy — Yūya gains the leveling Cheat skill, transforms, and starts his dual real-world / isekai life (LN vol 1)"
+    },
+    {
+      "episodes": [5, 6],
+      "chapters": [2, 2],
+      "arc": "New Family & the Sage — Night the fenrir, magic training, and academy life (LN vol 2)"
+    },
+    {
+      "episodes": [7, 10],
+      "chapters": [3, 3],
+      "arc": "Princess Lexia & Luna the Assassin — the woods, study trip, and Owen's tutelage (LN vol 3)"
+    },
+    {
+      "episodes": [11, 13],
+      "chapters": [4, 4],
+      "arc": "To the Royal Capital — the Evil God's demon assailant and the Yūya & Kaori finale (LN vol 4)"
+    },
+    {
+      "chapters": [5, 20],
+      "arc": "Beyond the Anime (unadapted LN vols 5-20)"
+    }
+  ]
+}

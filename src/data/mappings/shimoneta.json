@@ -1,0 +1,28 @@
+{
+  "anilistAnimeId": 20910,
+  "anilistMangaId": 86320,
+  "title": "Shimoneta",
+  "sourceNotes": "Single 12-episode TV season (2015). The source is Hirotaka Akagi's light novel (AniList 86319, 11 vols / 64 ch, finished); the anime adapts roughly LN vols 1-4. anilistMangaId points at the finished manga adaptation 'Manmaru-hen' (AniList 86320, 23 ch / 4 vols), which covers the same early LN material. Episode-to-chapter ranges are approximate (LN-based): both the anime and manga independently adapt the novels, so boundaries are reasonable segment splits across the manga's 23 chapters rather than exact correspondences. A reader who finishes the manga continues in the light novel.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 6],
+      "arc": "Joining SOX (Lewd Terrorism Begins)"
+    },
+    {
+      "episodes": [4, 6],
+      "chapters": [7, 12],
+      "arc": "Anna's Awakening & SOX Operations"
+    },
+    {
+      "episodes": [7, 9],
+      "chapters": [13, 18],
+      "arc": "Gathered Fabric & White Source Incident"
+    },
+    {
+      "episodes": [10, 12],
+      "chapters": [19, 23],
+      "arc": "Anna's Obsession & Decensorship Finale"
+    }
+  ]
+}

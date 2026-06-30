@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 20657,
+  "anilistMangaId": 79567,
+  "title": "Saekano: How to Raise a Boring Girlfriend",
+  "sourceNotes": "Source is Fumiaki Maruto's light novel 'Saenai Heroine no Sodatekata' (13 main volumes, completed Nov 2017). This mapping uses LIGHT-NOVEL VOLUME NUMBERS as the 'chapters' axis because it is cleaner and covers the whole story: the manga adaptation by Takeshi Moriki (AniList 81309) runs only ~42 chapters / 7 vols and stops around the TV anime's end, never reaching the finale. anilistMangaId 79567 is the canonical LN entry. anilistAnimeId 20657 is the 2015 TV anime; AniList lists 13 eps (incl. episode 0), but the broadcast had 12 numbered eps. Season 2 '♭ (Flat)' (2017, 11 eps) is a sequel, so episodes are numbered cumulatively here (S1 = 1-12, S2 = 13-23). The 2019 film 'Saekano the Movie: Finale' adapts the remaining volumes and concludes the story. Volume boundaries are APPROXIMATE — the anime condenses and reorders material around the doujin-game ('cherry blessing') production milestones.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 3],
+      "arc": "Forming blessing software (Season 1) — Tomoya recruits artist Eriri, scenario writer Utaha, and his 'boring' muse Megumi to build the doujin game 'cherry blessing' (LN vols 1-3)"
+    },
+    {
+      "episodes": [13, 23],
+      "chapters": [4, 6],
+      "arc": "Making 'cherry blessing' (Season 2 ♭) — development crunch, team friction, and the game's Winter Comiket release (LN vols 4-6)"
+    },
+    {
+      "chapters": [7, 13],
+      "arc": "The Finale — Eriri & Utaha leave for a rival circle, blessing software's second game, and the Megumi/Tomoya resolution; adapted by the Finale film (LN vols 7-13)"
+    }
+  ],
+  "movies": [
+    {
+      "anilistId": 100675,
+      "title": "Saekano the Movie: Finale",
+      "year": 2019,
+      "chapters": [7, 13],
+      "afterEpisode": 23,
+      "note": "Canon finale film adapting the final LN volumes; concludes the story after the cumulative TV run (eps 1-23)."
+    }
+  ]
+}
