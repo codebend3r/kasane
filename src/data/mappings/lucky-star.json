@@ -1,0 +1,17 @@
+{
+  "anilistAnimeId": 1887,
+  "anilistMangaId": 30587,
+  "title": "Lucky☆Star",
+  "sourceNotes": "Single 24-episode TV season (2007, Kyoto Animation). Paired with Kagami Yoshimizu's original Lucky☆Star 4-koma manga (id 30587), a slice-of-life gag comic serialized in Comptiq since December 2003. The manga ran to 10 tankōbon volumes (2005-2013), went on hiatus in 2014, and was revived in Kadokawa's Mitaina! magazine in November 2022 — it is ONGOING and the post-revival chapters are not yet compiled, so AniList lists no chapter count. As a 4-koma gag series there are no story arcs, just episodic vignettes; the anime loosely adapts and reorders strips from across the early volumes and pads with anime-original segments, so episode-to-chapter boundaries are coarse. 4-koma source — chapter ranges are approximate. The Lucky☆Star OVA (id 4472) is an OVA, not a theatrical film, so no movies are listed.",
+  "mappings": [
+    {
+      "episodes": [1, 24],
+      "chapters": [1, 56],
+      "arc": "Everyday school-life vignettes (Konata, the Hiiragi twins, Miyuki) — loosely adapted & reordered from early vols ~1-4 with anime-original segments"
+    },
+    {
+      "chapters": [57, 140],
+      "arc": "Later vignettes (vols ~5-10) + ongoing Mitaina! revival — manga only, unadapted"
+    }
+  ]
+}
