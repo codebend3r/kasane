@@ -1,0 +1,37 @@
+{
+  "anilistAnimeId": 104464,
+  "anilistMangaId": 98648,
+  "title": "ORESUKI: Are you the only one who loves me?",
+  "sourceNotes": "Source is Rakuda's light novel (17 volumes, completed Jan 2022) — a harem rom-com 'deconstruction' where protagonist Joro keeps getting set up only to discover the girls love someone else. The Yu Ijima manga adaptation (AniList id 98648, 43 ch / 6 vols, Shounen Jump+ 2017-2020) diverges from the novel and reaches its own early conclusion, so its chapters do not line up with the anime; this mapping therefore uses LIGHT-NOVEL VOLUME NUMBERS as the 'chapters' axis instead. The 2019 TV anime (12 eps) adapts LN vols 1-4 (the finale already dips into vol 5), and the 'Oretachi no Game Set' OVA — counted here as ep 13 — adapts vol 5. Per-volume episode boundaries are approximate (the anime reorders some material). LN vols 6-17 are unadapted. No theatrical films.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 1],
+      "arc": "Confession arc — Cosmos & Himawari both confess to Joro yet pine for Sun-chan, then plain library girl Pansy reveals she loves Joro (harem-deconstruction setup; LN vol 1)"
+    },
+    {
+      "episodes": [4, 6],
+      "chapters": [2, 2],
+      "arc": "Joro branded the school villain and his recovery; Tsubaki's debut and the Hundred Flower Festival dance (LN vol 2)"
+    },
+    {
+      "episodes": [7, 9],
+      "chapters": [3, 3],
+      "arc": "Cheerful Skewers part-time work arc and Tsubaki's transfer; resolving Sun-chan's feelings (LN vol 3)"
+    },
+    {
+      "episodes": [10, 12],
+      "chapters": [4, 4],
+      "arc": "Library Crisis and the Hose rival love-quadrangle — the scheme to save the school library (TV finale; LN vol 4)"
+    },
+    {
+      "episodes": [13, 13],
+      "chapters": [5, 5],
+      "arc": "'Oretachi no Game Set' OVA — the festival showdown that closes out the anime (LN vol 5)"
+    },
+    {
+      "chapters": [6, 17],
+      "arc": "Post-anime volumes through the series finale (LN vols 6-17, unadapted)"
+    }
+  ]
+}
