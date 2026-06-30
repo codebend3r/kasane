@@ -228,6 +228,7 @@ import gate from "@/data/mappings/gate.json";
 import fragrantFlower from "@/data/mappings/fragrant-flower.json";
 import alyaSometimesHides from "@/data/mappings/alya-sometimes-hides.json";
 import dailyLivesOfHighSchoolBoys from "@/data/mappings/daily-lives-of-high-school-boys.json";
+import kokoroConnect from "@/data/mappings/kokoro-connect.json";
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -525,6 +526,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   fragrantFlower,
   alyaSometimesHides,
   dailyLivesOfHighSchoolBoys,
+  kokoroConnect,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
