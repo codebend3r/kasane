@@ -1,0 +1,37 @@
+{
+  "anilistAnimeId": 97766,
+  "anilistMangaId": 94309,
+  "title": "Gamers!",
+  "sourceNotes": "Single 12-episode TV anime by Pine Jam (Summer 2017). The separate manga adaptation (AniList id 98786) is a slower, self-contained 7-volume / 33-chapter retelling that only covers the early light novel and does not span the anime's range, so this maps to Sekina Aoi's source light novel instead (AniList id 94309, type MANGA, 66 chapters across 12 volumes). The anime adapts LN volumes 1-5; volumes 6-12 are unadapted. This is a romcom built almost entirely on overlapping misunderstandings, so the love web threads through every episode and arc boundaries are coarse. Chapter ranges are proportional estimates mapping the LN volume boundaries onto AniList's 66-chapter count (about 5.5 ch/vol), and the episode-to-volume splits are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 2],
+      "chapters": [1, 6],
+      "arc": "Game Club Invitation (Amano declines Tendou; Uehara introduced, LN vol 1)"
+    },
+    {
+      "episodes": [3, 5],
+      "chapters": [7, 11],
+      "arc": "Crossed Flags (Chiaki rivalry, Tendou's slump, Aguri appears, LN vol 2)"
+    },
+    {
+      "episodes": [6, 8],
+      "chapters": [12, 17],
+      "arc": "Game Over Misunderstanding Spiral (the love web tangles, LN vol 3)"
+    },
+    {
+      "episodes": [9, 10],
+      "chapters": [18, 22],
+      "arc": "Account Hack & Next Stage (Chiaki's secret, LN vol 4)"
+    },
+    {
+      "episodes": [11, 12],
+      "chapters": [23, 28],
+      "arc": "Youth Continues (climax and partial resolution, LN vol 5)"
+    },
+    {
+      "chapters": [29, 66],
+      "arc": "Post-anime romance (LN vols 6-12, unadapted)"
+    }
+  ]
+}
