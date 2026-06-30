@@ -1,0 +1,27 @@
+{
+  "anilistAnimeId": 20722,
+  "anilistMangaId": 47051,
+  "title": "Barakamon",
+  "sourceNotes": "Single-season TV anime (12 eps, 2014, Kinema Citrus) adapts Satsuki Yoshino's manga through the end of Volume 6 / Act 52, so a viewer resumes reading at Act 53. The main story concluded at Act 134 across 18 volumes (Dec 2018); AniList counts 146 chapters / 19 volumes because it also includes the 2023 limited-revival 'Barakamon 18+1' (Vol 19) and the interstitial '.5' bonus acts, so the unadapted tail extends to 146. The Handa-kun prequel spin-off and the Mijikamon ONA shorts are separate entries and are excluded. There are no theatrical films. This is pure slice-of-life with no named arcs, and the anime reorders/condenses chapters, so episode-to-chapter groupings are coarse and approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 16],
+      "arc": "Exiled to Gotō Island (Handa Arrives & Meets Naru)"
+    },
+    {
+      "episodes": [4, 7],
+      "chapters": [17, 34],
+      "arc": "Island Summer (Beach, Tokyo Visitors & Fishing)"
+    },
+    {
+      "episodes": [8, 12],
+      "chapters": [35, 52],
+      "arc": "Festivals, the Tokyo Exhibition & Coming Home (anime portion)"
+    },
+    {
+      "chapters": [53, 146],
+      "arc": "Continued Island Life → Conclusion (unadapted tail; ch 135-146 are the 2023 '18+1' revival)"
+    }
+  ]
+}
