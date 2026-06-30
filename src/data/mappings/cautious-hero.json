@@ -1,0 +1,38 @@
+{
+  "anilistAnimeId": 105156,
+  "anilistMangaId": 105724,
+  "title": "Cautious Hero: The Hero Is Overpowered but Overly Cautious",
+  "sourceNotes": "Source is Light Hiraga's light novel (AniList id 105723, ongoing), but chapter counts here track the completed manga adaptation by Koyuki (AniList id 105724, 36 chapters / 6 volumes, FINISHED 2018-2022). The single-cour 12-episode 2019 TV anime and the manga both adapt the complete Gaeabrande Salvation arc (LN vols 1-3), so the manga ends exactly where the anime ends and there is no unadapted manga tail. The light novel itself continues past Gaeabrande into the Ixphoria arc and beyond, but neither the manga nor the anime covers it. Episodes are mapped proportionally across the 36 chapters (~3 chapters/episode); sub-arc boundaries are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 2],
+      "chapters": [1, 6],
+      "arc": "Gaeabrande: Summoning & Cautious Preparation"
+    },
+    {
+      "episodes": [3, 4],
+      "chapters": [7, 12],
+      "arc": "Dragonkin Village & Chaos Machina (1st Heavenly King)"
+    },
+    {
+      "episodes": [5, 6],
+      "chapters": [13, 18],
+      "arc": "Divine Realm Training (Great Dragon God)"
+    },
+    {
+      "episodes": [7, 8],
+      "chapters": [19, 24],
+      "arc": "Mseiltinge / Mseroute, the Nymphomaniac Heavenly King"
+    },
+    {
+      "episodes": [9, 10],
+      "chapters": [25, 30],
+      "arc": "Death Magla & Kilkapul (Heavenly Kings)"
+    },
+    {
+      "episodes": [11, 12],
+      "chapters": [31, 36],
+      "arc": "The Truth & Demon Lord Finale"
+    }
+  ]
+}
