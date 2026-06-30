@@ -1,0 +1,33 @@
+{
+  "anilistAnimeId": 114232,
+  "anilistMangaId": 105791,
+  "title": "Higehiro: After Being Rejected, I Shaved and Took in a High School Runaway",
+  "sourceNotes": "Source is Shimesaba's light novel (AniList 104505, 5 vols / completed). Paired here with the completed manga adaptation 'Hige wo Soru. Soshite Joshikousei wo Hirou.' (AniList 105791, 67 ch / 13 vols, FINISHED). The single-cour 2021 TV anime (13 eps) adapts essentially the entire main story (LN vols 1-5), so the manga's 67 chapters and the anime's run end at the same story point and there is no unadapted tail. Episode-to-volume splits follow the LN structure (~vol 1: eps 1-3, vol 2: eps 4-6, vol 3: eps 7-9, vol 4: eps 10-11, vol 5: eps 12-13); chapter ranges are mapped proportionally across the manga and are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 14],
+      "arc": "Taking In Sayu (A New Life Together)"
+    },
+    {
+      "episodes": [4, 6],
+      "chapters": [15, 28],
+      "arc": "Daily Life & Mishima's Feelings"
+    },
+    {
+      "episodes": [7, 9],
+      "chapters": [29, 42],
+      "arc": "Friendships & Sayu's Past Resurfaces"
+    },
+    {
+      "episodes": [10, 11],
+      "chapters": [43, 54],
+      "arc": "Her Brother Issa (The Truth Comes Out)"
+    },
+    {
+      "episodes": [12, 13],
+      "chapters": [55, 67],
+      "arc": "Return to Hokkaido (Resolution)"
+    }
+  ]
+}
