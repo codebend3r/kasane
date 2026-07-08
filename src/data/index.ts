@@ -345,6 +345,7 @@ import banishedFromTheHerosParty from "@/data/mappings/banished-from-the-heros-p
 import wrongWayToUseHealingMagic from "@/data/mappings/wrong-way-to-use-healing-magic.json";
 import problemChildren from "@/data/mappings/problem-children.json";
 import combatantsWillBeDispatched from "@/data/mappings/combatants-will-be-dispatched.json";
+import bakuman from "@/data/mappings/bakuman.json";
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -759,6 +760,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   wrongWayToUseHealingMagic,
   problemChildren,
   combatantsWillBeDispatched,
+  bakuman,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
