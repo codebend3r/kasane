@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 146493,
+  "anilistMangaId": 99065,
+  "title": "Ragna Crimson",
+  "sourceNotes": "Single 24-episode TV anime (two consecutive cours, Oct 2023-Mar 2024); episodes are non-cumulative since there is only one season. The anime adapts manga chapters 1-56. Arc names and chapter/episode boundaries are the fan/community divisions from the Ragna Crimson Fandom wiki (the wiki notes these are unofficial). Boundary chapters and episodes overlap at arc edges (e.g. ch. 7 and ep. 4 straddle the first two arcs) because the adaptation splits chapters across arcs. Manga is ongoing (current ch. ~94 as of June 2026); chapters 57 onward are unadapted.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 7],
+      "arc": "Birth of the Reaper"
+    },
+    {
+      "episodes": [4, 8],
+      "chapters": [7, 16],
+      "arc": "Royal Capital"
+    },
+    {
+      "episodes": [8, 17],
+      "chapters": [17, 40],
+      "arc": "Argentum Corps"
+    },
+    {
+      "episodes": [18, 24],
+      "chapters": [41, 56],
+      "arc": "Winged Bloodline"
+    },
+    {
+      "chapters": [57, 94],
+      "arc": "Post-Winged Bloodline (unadapted)"
+    }
+  ]
+}
