@@ -1,0 +1,37 @@
+{
+  "anilistAnimeId": 184951,
+  "anilistMangaId": 147997,
+  "title": "You and I Are Polar Opposites",
+  "sourceNotes": "Season 1 (12 eps, Winter 2026, Lapin Track) is a faithful, zero-filler adaptation of Kocha Agasawa's Shonen Jump+ romance manga at roughly 2.5 chapters per episode, covering ch 1-31 (a viewer resumes reading at ch 32). The manga is complete: AniList lists 76 chapters across 8 volumes (the main story ran to ch 65, with the remainder being bonus/extra chapters). Season 2 (AniList id 210031, 13 eps, Summer 2026) adapts ch 32 onward, but its per-episode chapter boundaries are not yet documented, so the ch 32-76 remainder is listed as a chapters-only tail. Episode ranges are cumulative; S2 would begin at episode 13. Arc names are editorial groupings of this episodic slice-of-life romance, which has no official arc titles; the per-episode chapter mapping follows published episode guides.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 5],
+      "arc": "Opposites Attract: Suzuki & Tani Start Dating"
+    },
+    {
+      "episodes": [4, 5],
+      "chapters": [6, 11],
+      "arc": "Summer Nights & the Friend Group"
+    },
+    {
+      "episodes": [6, 6],
+      "chapters": [12, 14],
+      "arc": "Cultural Festival"
+    },
+    {
+      "episodes": [7, 9],
+      "chapters": [15, 22],
+      "arc": "Autumn Feelings"
+    },
+    {
+      "episodes": [10, 12],
+      "chapters": [23, 31],
+      "arc": "Class Trip (S1 Finale)"
+    },
+    {
+      "chapters": [32, 76],
+      "arc": "Beyond the Anime (Season 2 onward)"
+    }
+  ]
+}
