@@ -1,0 +1,58 @@
+{
+  "anilistAnimeId": 8425,
+  "anilistMangaId": 31313,
+  "title": "Gosick",
+  "sourceNotes": "Source is Kazuki Sakuraba's LIGHT NOVEL (AniList id 31313, format NOVEL); the minor 29-chapter manga adaptation (id 36248) is deliberately ignored. IMPORTANT: the units below are LN VOLUME numbers, not chapters - AniList exposes no count for the novel. The main series is 9 volumes (I-VII plus VIII split into VIII(1) and VIII(2), counted here as vols 8-9); four additional \"GosickS\" short-story collections sit between the main volumes. The single 24-episode Bones anime (2011) adapts main volumes 1-8 in near-linear order and weaves GosickS side stories into the interstitial episodes (eps 4-5 Cuiaran/false Avril; eps 11-12 Jacqueline's past and Kujo's flashback). LN complete at 9 main volumes (VIII(2), Jul 2011); the anime covers the whole main story through the \"Twilight of the Gods\" finale, so there is no meaningful unadapted tail. Per-arc boundaries are approximate, sourced from Wikipedia's episode list and fandom guides. No theatrical films exist.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 1],
+      "arc": "The Queen Berry (LN vol 1)"
+    },
+    {
+      "episodes": [4, 5],
+      "chapters": [1, 1],
+      "arc": "Cuiaran / the false Avril (GosickS side-story material, woven in)"
+    },
+    {
+      "episodes": [6, 8],
+      "chapters": [2, 2],
+      "arc": "The Crime That Has No Name / Village of the Grey Wolves (LN vol 2)"
+    },
+    {
+      "episodes": [9, 10],
+      "chapters": [3, 3],
+      "arc": "Beneath the Blue Rose (LN vol 3)"
+    },
+    {
+      "episodes": [11, 12],
+      "chapters": [4, 4],
+      "arc": "GosickS interludes - Jacqueline's past & Kujo's flashback (side stories, woven in)"
+    },
+    {
+      "episodes": [13, 15],
+      "chapters": [4, 4],
+      "arc": "A Fool Represents the Case / Leviathan (LN vol 4)"
+    },
+    {
+      "episodes": [16, 17],
+      "chapters": [5, 5],
+      "arc": "Beelzebub's Skull (LN vol 5)"
+    },
+    {
+      "episodes": [18, 18],
+      "chapters": [6, 6],
+      "arc": "Night of the Masquerade / the return train (LN vol 6)"
+    },
+    {
+      "episodes": [19, 21],
+      "chapters": [7, 7],
+      "arc": "The Rose-coloured Life / Coco Rose (LN vol 7)"
+    },
+    {
+      "episodes": [22, 24],
+      "chapters": [8, 9],
+      "arc": "Twilight of the Gods (LN vol 8, published as VIII(1) & VIII(2))"
+    }
+  ]
+}
