@@ -1,0 +1,23 @@
+{
+  "anilistAnimeId": 127401,
+  "anilistMangaId": 86526,
+  "title": "Platinum End",
+  "sourceNotes": "Single-cour 24-episode TV anime (no season split) that adapts the complete manga by Tsugumi Ohba and Takeshi Obata. Manga is complete at 58 chapters across 14 volumes; the anime covers all of it (roughly 2 chapters/episode in the first half, then ~3.4 chapters/episode as the second half is compressed). Cumulative episodes are simply 1-24 since there is only one season. Chapter boundaries follow the tankobon volumes: the Metropoliman arc concludes with Kanade Uryu's defeat at the end of volume 8 (ch 27, ~episode 15), Professor Gaku Yoneda (the final antagonist) formally debuts in volume 10 (ch 32). Arc-to-episode boundaries in the compressed second half are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 15],
+      "chapters": [1, 27],
+      "arc": "Metropoliman Arc"
+    },
+    {
+      "episodes": [16, 17],
+      "chapters": [28, 31],
+      "arc": "New God Candidates Arc"
+    },
+    {
+      "episodes": [18, 24],
+      "chapters": [32, 58],
+      "arc": "Professor Yoneda Arc"
+    }
+  ]
+}
