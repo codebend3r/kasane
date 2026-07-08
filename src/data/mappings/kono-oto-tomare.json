@@ -1,0 +1,27 @@
+{
+  "anilistAnimeId": 103302,
+  "anilistMangaId": 75143,
+  "title": "Kono Oto Tomare!: Sounds of Life",
+  "sourceNotes": "Cumulative episodes across S1 (13) + S2 (13) = 26 episodes, adapting manga chapters 1-54 at roughly 2 chapters per episode with no filler. S1 (ep 1-13) covers ch 1-26, ending on \"Kuon\" at the Kantou regional festival; S2 (ep 14-26) covers ch 27-54, ending on the Tokise koto club's performance of \"Tenkyuu\" at the Kanagawa prefectural qualifiers (ch 52). Manga is ongoing in Shueisha's Jump SQ (current ch. ~152 as of May 2026, 33+ volumes); everything from ch 55 onward is unadapted. No theatrical films exist.",
+  "mappings": [
+    {
+      "episodes": [1, 6],
+      "chapters": [1, 13],
+      "arc": "Club Formation Arc"
+    },
+    {
+      "episodes": [7, 13],
+      "chapters": [14, 26],
+      "arc": "Kantou Regional Festival Arc"
+    },
+    {
+      "episodes": [14, 26],
+      "chapters": [27, 54],
+      "arc": "Kanagawa Preliminaries Arc"
+    },
+    {
+      "chapters": [55, 152],
+      "arc": "Nationals Arc (unadapted)"
+    }
+  ]
+}
