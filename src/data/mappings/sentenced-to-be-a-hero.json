@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 167152,
+  "anilistMangaId": 142687,
+  "title": "Sentenced to Be a Hero",
+  "sourceNotes": "Source is Rocket Shokai's light novel \"Sentenced to Be a Hero: The Prison Records of Penal Hero Unit 9004\" (AniList id 142687, format NOVEL); AniList lists no chapter count for the novel, and the separate manga adaptation (id 164543) lags far behind (it had only reached ch. 14, ~episode 5, at the anime's end), so this mapping uses LIGHT-NOVEL VOLUME numbers as the \"chapters\" unit. Studio Kai's 12-episode Season 1 (Jan-Mar 2026) adapts LN volumes 1-2; readers are advised to continue at volume 3. The LN is ongoing at 8 volumes (as of Jan 2026). The episode 1-6 / 7-12 split between vols 1 and 2 is approximate (vol 1's Mureed Fortress defense reached ~episode 5-6 per manga-chapter cross-check). Season 2 was announced March 2026. No theatrical films.",
+  "mappings": [
+    {
+      "episodes": [1, 6],
+      "chapters": [1, 1],
+      "arc": "Defense of Mureed Fortress — Xylo's pact with Teoritta, the Holy Sword, defeat of demon lord Iblis (LN vol 1)"
+    },
+    {
+      "episodes": [7, 12],
+      "chapters": [2, 2],
+      "arc": "Port City of Ioff / Loff Port Cheg — assassins targeting Teoritta, new Penal Hero recruits, Rhyno revealed as a Demon Lord (LN vol 2)"
+    },
+    {
+      "chapters": [3, 8],
+      "arc": "Reclaiming captured territories & military/temple conspiracy arcs (LN vols 3-8), unadapted"
+    }
+  ]
+}
