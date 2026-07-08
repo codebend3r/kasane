@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 6347,
+  "anilistMangaId": 42295,
+  "title": "Baka and Test - Summon the Beasts",
+  "sourceNotes": "LN-based; mapped to the Baka to Test to Shoukanjuu light novel (AniList id 42295), complete at 18 volumes — 12 main-story volumes plus 6 side-story/short-story volumes (3.5, 6.5, 7.5, 9.5, 10.5, 12.5). Chapter numbering here follows the main-story \"Question\" sequence (Vol 1 = ch 1-10, Vol 2 = 11-18, Vol 3 = 19-26, Vol 4 = 27-33, Vol 5 = 34-41, Vol 6 = 42-48, per the fandom volume pages). AniList's 143-chapter total additionally counts the interleaved side-story volumes, which the anime does not adapt — the unadapted tail entry extends to 143 to cover Vols 7-12 plus those side volumes. Cumulative episodes across S1 (13) + S2 \"Ni!\" (13) = 26. Ranges are APPROXIMATE: the Silver Link adaptation is non-linear and heavily filler-laden (community guides note \"much of season 1 was filler\" and advise reading the novels from the start rather than continuing from a fixed point); the two seasons together cover roughly LN volumes 1-6, with season 2 ending around the summer Test of Courage / haunted-house battle (~Vol 6). No theatrical films exist (only an OVA, \"Matsuri,\" and TV specials).",
+  "mappings": [
+    {
+      "episodes": [1, 13],
+      "chapters": [1, 26],
+      "arc": "Exam Summoning Battles — Season 1 (Vols 1-3)"
+    },
+    {
+      "episodes": [14, 26],
+      "chapters": [27, 48],
+      "arc": "Summer & Test of Courage — Season 2 \"Ni!\" (Vols 4-6)"
+    },
+    {
+      "chapters": [49, 143],
+      "arc": "Unadapted light-novel arcs (Vols 7-12 + side-story volumes)"
+    }
+  ]
+}
