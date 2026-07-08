@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 21639,
+  "anilistMangaId": 85929,
+  "title": "Keijo!!!!!!!!",
+  "sourceNotes": "Single 12-episode season (2016), no sequel. Source is Daichi Sorayomi's manga \"Keijo!!!!!!!! Hip Whip Girl\" (Weekly Shonen Sunday, complete at 177 chapters / 18 volumes). The anime skips the first ~34 chapters: episode 1 condenses chapters 22-34 into an opening flashback and begins its main narrative on page 4 of chapter 35. From there it adapts roughly 4-5 chapters per episode (with some skipped chapters and page-level splits) up through chapter 90 in the finale, ending mid-East-West War as the Debut War Arc opens. Chapter ranges follow the Keijo Fandom per-episode \"chapters\" fields. Because the anime was cut short, everything from ~chapter 91 to the manga's end (ch 177) is unadapted; a viewer resumes reading around chapter 88-91.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [22, 44],
+      "arc": "Second Exam & Sweet Room Arc"
+    },
+    {
+      "episodes": [4, 5],
+      "chapters": [45, 55],
+      "arc": "Class Exchange Arc"
+    },
+    {
+      "episodes": [6, 7],
+      "chapters": [56, 61],
+      "arc": "Training Camp (Kyoto) Arc"
+    },
+    {
+      "episodes": [8, 12],
+      "chapters": [62, 90],
+      "arc": "The East-West War Arc"
+    },
+    {
+      "chapters": [91, 177],
+      "arc": "The Debut War Arc & Finale (unadapted)"
+    }
+  ]
+}
