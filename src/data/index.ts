@@ -320,6 +320,7 @@ import accelWorld from "@/data/mappings/accel-world.json";
 import infiniteStratos from "@/data/mappings/infinite-stratos.json";
 import fateApocrypha from "@/data/mappings/fate-apocrypha.json";
 import oreshura from "@/data/mappings/oreshura.json";
+import uncleFromAnotherWorld from "@/data/mappings/uncle-from-another-world.json";
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -709,6 +710,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   infiniteStratos,
   fateApocrypha,
   oreshura,
+  uncleFromAnotherWorld,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
