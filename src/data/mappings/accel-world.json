@@ -1,0 +1,42 @@
+{
+  "anilistAnimeId": 11759,
+  "anilistMangaId": 53116,
+  "title": "Accel World",
+  "sourceNotes": "LN-based mapping: AniList has no manga source, so ranges use the light-novel VOLUME numbering (AniList novel id 53116, chapters/volumes null there). The 24-episode Sunrise TV series (single cour-pair, only season) adapts LN volumes 1-4 in chronological order and interleaves two short stories from the Vol 10 \"Elements\" collection: eps 6-7 (Aqua Current) and eps 18-19 (Snow Fairy / Okinawa trip). Volume-to-episode splits: Vol 1 = eps 1-5, Vol 10 short = eps 6-7, Vol 2 = eps 8-12, Vol 3 = eps 13-17, Vol 10 short = eps 18-19, Vol 4 = eps 20-24. The two OVA episodes (Accel World EX) are anime-original and not mapped. Light novel is ongoing at 28 volumes (Vol 28 \"Goddess of the Night\", Aug 2025; Vol 29 due Dec 2026). \"chapters\" ranges here denote VOLUME numbers, not chapter numbers.",
+  "mappings": [
+    {
+      "episodes": [1, 5],
+      "chapters": [1, 1],
+      "arc": "Kuroyukihime's Return (Vol 1)"
+    },
+    {
+      "episodes": [6, 7],
+      "chapters": [10, 10],
+      "arc": "Aqua Current (Elements side story, Vol 10)"
+    },
+    {
+      "episodes": [8, 12],
+      "chapters": [2, 2],
+      "arc": "The Red Storm Princess (Vol 2)"
+    },
+    {
+      "episodes": [13, 17],
+      "chapters": [3, 3],
+      "arc": "The Twilight Marauder (Vol 3)"
+    },
+    {
+      "episodes": [18, 19],
+      "chapters": [10, 10],
+      "arc": "Snow Fairy / Okinawa (Elements side story, Vol 10)"
+    },
+    {
+      "episodes": [20, 24],
+      "chapters": [4, 4],
+      "arc": "Flight Toward a Blue Sky (Vol 4)"
+    },
+    {
+      "chapters": [5, 28],
+      "arc": "The Floating Starlight Bridge onward (unadapted, Vol 5-28)"
+    }
+  ]
+}
