@@ -1,0 +1,18 @@
+{
+  "anilistAnimeId": 14075,
+  "anilistMangaId": 45205,
+  "title": "Blast of Tempest",
+  "sourceNotes": "Single continuous 24-episode run (Bones, 2012-2013) that adapted the complete manga and concluded roughly alongside it, so no anime-original ending. Manga complete at 50 chapters / 10 volumes on AniList (some sources count ~44 numbered chapters plus side/extra chapters). Pacing is roughly 2 chapters per episode. Episode 13 (\"Philosophy of Dreams\") is largely a recap/bridge told from Mahiro's POV. The story has a clear two-part structure homaging Shakespeare: the first cour (eps 1-12) is \"The Tempest\" (Hakaze and the Kusaribe clan's conflict over the Tree of Exodus), and the second cour (eps 13-24) is \"Hamlet\" (the mystery of who killed Aika). Chapter boundaries within each half are approximate; the split follows the ep 12/13 cour break.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 25],
+      "arc": "The Tempest (Tree of Exodus)"
+    },
+    {
+      "episodes": [13, 24],
+      "chapters": [26, 50],
+      "arc": "Hamlet (Aika's Death)"
+    }
+  ]
+}
