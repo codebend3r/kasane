@@ -1,0 +1,52 @@
+{
+  "anilistAnimeId": 107067,
+  "anilistMangaId": 87377,
+  "title": "Science Fell in Love, So I Tried to Prove It",
+  "sourceNotes": "Cumulative episodes across S1 (12) + the sequel S2 \"r=1-sinθ\" (12) = 24 episodes, adapting manga chapters 1-61 (anime ends at ch. 61; continue reading at ch. 62). Manga ongoing (latest ch. 106, vol. 21 as of 2026). Episodic romcom source — each episode adapts 2-3 self-contained \"proof\" chapters and the anime reorders a few (the S1 finale kiss is pulled from a later chapter), so chapter ranges are approximate and grouped by episode-title beats / volume clusters rather than strict 1:1 boundaries. S2 resumes around Vol. 6 / ch. 32.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 10],
+      "arc": "Analyzing Love / Experiments"
+    },
+    {
+      "episodes": [4, 6],
+      "chapters": [11, 19],
+      "arc": "First Date & First Kiss"
+    },
+    {
+      "episodes": [7, 9],
+      "chapters": [20, 26],
+      "arc": "Drinking Party & Okinawa Training Camp"
+    },
+    {
+      "episodes": [10, 12],
+      "chapters": [27, 31],
+      "arc": "Presentations & Proof of Love (S1 Finale)"
+    },
+    {
+      "episodes": [13, 15],
+      "chapters": [32, 40],
+      "arc": "Comparing Couples & New Theories"
+    },
+    {
+      "episodes": [16, 18],
+      "chapters": [41, 48],
+      "arc": "Live Concert & Analyzing the Proof"
+    },
+    {
+      "episodes": [19, 21],
+      "chapters": [49, 55],
+      "arc": "Group Date & Campus Festival Prep"
+    },
+    {
+      "episodes": [22, 24],
+      "chapters": [56, 61],
+      "arc": "Campus Festival & Marriage (S2 Finale)"
+    },
+    {
+      "chapters": [62, 106],
+      "arc": "Post-Anime Chapters (Unadapted)"
+    }
+  ]
+}
