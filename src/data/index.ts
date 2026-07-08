@@ -317,6 +317,7 @@ import lovelyComplex from "@/data/mappings/lovely-complex.json";
 import rokkaBravesOfTheSixFlowers from "@/data/mappings/rokka-braves-of-the-six-flowers.json";
 import sankarea from "@/data/mappings/sankarea.json";
 import accelWorld from "@/data/mappings/accel-world.json";
+import infiniteStratos from "@/data/mappings/infinite-stratos.json";
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -703,6 +704,7 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   rokkaBravesOfTheSixFlowers,
   sankarea,
   accelWorld,
+  infiniteStratos,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {
