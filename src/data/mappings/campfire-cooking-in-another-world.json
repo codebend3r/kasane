@@ -1,0 +1,37 @@
+{
+  "anilistAnimeId": 156067,
+  "anilistMangaId": 99049,
+  "title": "Campfire Cooking in Another World with my Absurd Skill",
+  "sourceNotes": "LN-based mapping (AniList source is the light novel, id 99049, by Ren Eguchi). Because the LN's chapters reset per volume, the chapters[] ranges here are LN VOLUME numbers, not sequential chapter numbers; within-season episode splits are approximate since the LN is episodic (cooking/travel) with no formal arc names — the dish-themed volume subtitles stand in as arc names. Cumulative episodes across S1 (12) + S2 (12) = 24. Community episode-to-source guides anchor the adaptation: Season 1 (ep 1-12) ends partway through Volume 2 (continue at Vol 2 Ch 8), and Season 2 (ep 13-24) ends at the close of Volume 5 (continue at Volume 6), so Vol 2 straddles the S1/S2 boundary. Light novel is ongoing (17 volumes as of late 2025). No theatrical films or OVAs.",
+  "mappings": [
+    {
+      "episodes": [1, 7],
+      "chapters": [1, 1],
+      "arc": "Ginger-Fried Pork and the Legendary Beast (Vol. 1)"
+    },
+    {
+      "episodes": [8, 14],
+      "chapters": [2, 2],
+      "arc": "Winged Gyoza and the Phantom Dragon (Vol. 2)"
+    },
+    {
+      "episodes": [15, 17],
+      "chapters": [3, 3],
+      "arc": "Beef Stew and the Unexplored Labyrinth (Vol. 3)"
+    },
+    {
+      "episodes": [18, 20],
+      "chapters": [4, 4],
+      "arc": "Barbeque and God's Blessings (Vol. 4)"
+    },
+    {
+      "episodes": [21, 24],
+      "chapters": [5, 5],
+      "arc": "Mixed Tempura and the Sea Monster (Vol. 5)"
+    },
+    {
+      "chapters": [6, 17],
+      "arc": "Meat Soboro Rice Bowls and the Holy Seal onward (Vol. 6+, unadapted)"
+    }
+  ]
+}
