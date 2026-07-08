@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 21499,
+  "anilistMangaId": 85247,
+  "title": "Twin Star Exorcists",
+  "sourceNotes": "Single 50-episode TV series (2016-2017), so episodes are not cumulative across seasons. The anime only adapts manga chapters 1-15 (roughly volumes 1-5) and does so loosely across episodes 1-20, with heavy anime-original padding interspersed (episodes 5 and 10-16 are filler); per the community canon guide episodes 1-9 cover chapters 1-10 and episodes 17-20 cover chapters 10-15. From episode 21 onward (eps 21-50) the anime abandons the manga entirely and tells a wholly original story, so it cannot be mapped to chapters. The manga is complete: AniList lists 142 chapters, while Wikipedia counts 134 numbered chapters across 35 tankobon volumes (Jump Square, 2013-2024). Everything from chapter 16 to the end is unadapted by the anime; a precise per-arc chapter breakdown of that unadapted remainder is not reliably documented, so it is given as a single chapters-only tail entry.",
+  "mappings": [
+    {
+      "episodes": [1, 9],
+      "chapters": [1, 10],
+      "arc": "Meeting & the Hiinatsuki Tragedy"
+    },
+    {
+      "episodes": [17, 20],
+      "chapters": [11, 15],
+      "arc": "Yuto & Basara Confrontation"
+    },
+    {
+      "chapters": [16, 142],
+      "arc": "Unadapted manga (post-anime divergence)"
+    }
+  ]
+}
