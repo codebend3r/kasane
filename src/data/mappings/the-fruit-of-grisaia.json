@@ -1,0 +1,33 @@
+{
+  "anilistAnimeId": 17729,
+  "anilistMangaId": 79051,
+  "title": "The Fruit of Grisaia",
+  "sourceNotes": "The 13-episode 2014 anime adapts Front Wing's visual novel Grisaia no Kajitsu, organized by heroine routes: a common-route/Yumiko intro, then the Michiru, Sachi, Makina and Amane routes as the climax. Paired here with the Grisaia no Kajitsu: Sanctuary Fellows manga (AniList 79051, 24 chapters / 4 volumes, 2013-2014, complete), which retells the same common route plus the five heroines. Because the manga compresses the individual routes differently than the anime, the per-route chapter ranges are APPROXIMATE; only the cumulative endpoint (last entry reaching ch. 24) is reliable. Scope is limited to this first installment: The Labyrinth of Grisaia (2015, 47-min TV special) and The Eden of Grisaia (2015, 10-ep TV) adapt the later VNs Meikyuu and Rakuen and have their own AniList entries; the Grisaia: Phantom Trigger films are a separate spin-off franchise and are excluded, so no movies are listed.",
+  "mappings": [
+    {
+      "episodes": [1, 2],
+      "chapters": [1, 6],
+      "arc": "Common route - Yuuji arrives at Mihama Academy & Yumiko intro"
+    },
+    {
+      "episodes": [3, 4],
+      "chapters": [7, 10],
+      "arc": "Michiru Matsushima route (approximate - condensed in manga)"
+    },
+    {
+      "episodes": [5, 7],
+      "chapters": [11, 15],
+      "arc": "Sachi Komine route (approximate - condensed in manga)"
+    },
+    {
+      "episodes": [8, 9],
+      "chapters": [16, 19],
+      "arc": "Makina Irisu route (approximate - condensed in manga)"
+    },
+    {
+      "episodes": [10, 13],
+      "chapters": [20, 24],
+      "arc": "Amane Suou route - backstory & climax"
+    }
+  ]
+}
