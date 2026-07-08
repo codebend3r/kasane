@@ -1,0 +1,17 @@
+{
+  "anilistAnimeId": 98251,
+  "anilistMangaId": 77102,
+  "title": "AHO-GIRL",
+  "sourceNotes": "Single-cour 12-episode TV_SHORT (Diomedéa, 2017), ~15 min episodes; anilistAnimeId 98251 is the only season. Sourced from the completed 4-koma-style gag manga (AniList 77102), collected in 12 tankobon; AniList counts 155 chapters (split/extra chapters), while Wikipedia lists the run ending at ch. 130 — chapter numbering is fuzzy on this title. This is episodic gag comedy with no real story arcs, and the anime adapts chapters NON-sequentially as a \"best-of\": it pulls scattered gags from roughly ch. 1-85 (furthest adapted is ch. 85.5, Dog's walk in ep. 11), so per-episode chapter ranges cannot be pinned down. Continue-reading guides tell anime finishers to start at Vol. 6 / ch. 86. Chapter ranges below are approximate. No theatrical films exist.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 85],
+      "arc": "Yoshiko & A-kun (episodic gags)"
+    },
+    {
+      "chapters": [86, 155],
+      "arc": "Remaining manga chapters (unadapted)"
+    }
+  ]
+}
