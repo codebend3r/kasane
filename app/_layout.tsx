@@ -14,6 +14,8 @@ import {
 } from "@expo-google-fonts/space-grotesk";
 import { ZenTokyoZoo_400Regular } from "@expo-google-fonts/zen-tokyo-zoo";
 import { usePreferences } from "@/state/preferences";
+import { useAuthEmail } from "@/state/auth";
+import type { PressableState } from "@/types";
 import { FONT } from "@/theme";
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
@@ -30,6 +32,7 @@ function GlobalHeader() {
   const isHome = pathname === "/";
   const japanese = usePreferences((s) => s.japanese);
   const toggleJapanese = usePreferences((s) => s.toggleJapanese);
+  const email = useAuthEmail();
 
   return (
     <View style={headerStyles.bar}>
@@ -69,6 +72,17 @@ function GlobalHeader() {
       >
         <Text style={headerStyles.langToggleText}>
           {japanese ? "JP" : "EN"}
+        </Text>
+      </Pressable>
+      <Pressable
+        onPress={() => router.push("/login")}
+        style={({ hovered, pressed }: PressableState) => [
+          headerStyles.accountPill,
+          { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
+        ]}
+      >
+        <Text style={headerStyles.accountPillText}>
+          {email ? email.charAt(0).toUpperCase() : "Sign in"}
         </Text>
       </Pressable>
     </View>
@@ -178,6 +192,22 @@ const headerStyles = StyleSheet.create({
     color: "#0c0c0e",
     fontSize: 13,
     letterSpacing: 2,
+    fontFamily: FONT.bold,
+  },
+  accountPill: {
+    paddingHorizontal: 14,
+    paddingTop: 12,
+    paddingBottom: 8,
+    backgroundColor: "#17181b",
+    borderLeftWidth: 2,
+    borderLeftColor: "#7c5cff",
+    alignSelf: "flex-start",
+  },
+  accountPillText: {
+    color: "#7c5cff",
+    fontSize: 13,
+    letterSpacing: 2,
+    textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
 });
