@@ -68,7 +68,8 @@
   "jest": {
     "preset": "jest-expo",
     "moduleNameMapper": {
-      "^ansi-styles$": "<rootDir>/node_modules/pretty-format/node_modules/ansi-styles"
+      "^ansi-styles$": "<rootDir>/node_modules/pretty-format/node_modules/ansi-styles",
+      "^@/(.*)$": "<rootDir>/src/$1"
     }
   }
 }
