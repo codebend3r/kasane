@@ -1,0 +1,33 @@
+{
+  "anilistAnimeId": 20607,
+  "anilistMangaId": 35744,
+  "title": "Ping Pong the Animation",
+  "sourceNotes": "Single-cour 11-episode Masaaki Yuasa adaptation of Taiyo Matsumoto's Ping Pong manga (complete at 55 chapters across 5 volumes, exactly 11 chapters per volume). The anime is a faithful, near-complete adaptation of the entire manga, so ranges track the source's 5 volumes at roughly one volume per two episodes; chapter boundaries are approximate since the show reorders some beats within its continuous single-story narrative (no named shounen-style arcs — divisions follow the two Inter-High tournaments). No animated theatrical films exist (the 2002 live-action film is excluded).",
+  "mappings": [
+    {
+      "episodes": [1, 2],
+      "chapters": [1, 11],
+      "arc": "Introduction / Kong Wenge Arrives"
+    },
+    {
+      "episodes": [3, 4],
+      "chapters": [12, 22],
+      "arc": "First Inter-High Preliminaries"
+    },
+    {
+      "episodes": [5, 6],
+      "chapters": [23, 33],
+      "arc": "Aftermath / Peco's Fall, Smile's Rise"
+    },
+    {
+      "episodes": [7, 8],
+      "chapters": [34, 44],
+      "arc": "Peco's Return / Training"
+    },
+    {
+      "episodes": [9, 11],
+      "chapters": [45, 55],
+      "arc": "Second Inter-High Tournament / Final"
+    }
+  ]
+}

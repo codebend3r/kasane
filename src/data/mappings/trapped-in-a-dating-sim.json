@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 142074,
+  "anilistMangaId": 104503,
+  "title": "Trapped in a Dating Sim: The World of Otome Games Is Tough for Mobs",
+  "sourceNotes": "Single 12-episode TV season (ENGI, 2022); the 2026 Season 2 is not yet released. Officially light-novel-sourced (LN complete at 13 volumes; AniList novel id 104504), but every community episode-to-source guide anchors the anime to the MANGA adaptation, so chapter ranges here use the manga's continuous numbering (AniList manga id 104503). The anime adapts LN volumes 1-2 = roughly manga chapters 1-38; guides tell readers to continue in the manga at Vol. 8, Ch. 39 (equivalently LN Vol. 3), which picks up right where the finale leaves off after Leon overcomes the Principality of Fanoss. The internal split between the academy/duel arc (LN vol 1) and the Fanoss war arc (LN vol 2) is approximate because the anime compressed vol 2's pacing. Manga was ongoing past the AniList snapshot of 72 chapters (13 tankobon by late 2024). No theatrical films exist.",
+  "mappings": [
+    {
+      "episodes": [1, 6],
+      "chapters": [1, 19],
+      "arc": "Academy Arc"
+    },
+    {
+      "episodes": [7, 12],
+      "chapters": [20, 38],
+      "arc": "Principality of Fanoss Arc"
+    },
+    {
+      "chapters": [39, 72],
+      "arc": "Alzer Republic Arc (unadapted in S1)"
+    }
+  ]
+}

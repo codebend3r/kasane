@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 14833,
+  "anilistMangaId": 58125,
+  "title": "Maoyu: Archenemy & Hero",
+  "sourceNotes": "Single 12-episode 2013 anime by Arms (plus a 9.5 recap special, not counted in the sequence); no later seasons, so anilistAnimeId is 14833. Light-novel sourced: mapped to the AniList novel entry (id 58125), which is complete at 5 main volumes + 3 side-story volumes and lists 63 chapters. The novel numbers its content as \"scrolls\" (Vol. 1 = 11 scrolls, Vol. 2 = 10 scrolls). The anime is a diligent adaptation covering Vol. 1 in full and Vol. 2 through roughly scroll 5 — community episode-to-source guides advise resuming reading at \"Novel 2, Chapter 5.\" Chapter ranges are by volume/scroll and episode boundaries are approximate; the final entry extends to the source's 63-chapter total. No theatrical films or OVAs exist.",
+  "mappings": [
+    {
+      "episodes": [1, 9],
+      "chapters": [1, 11],
+      "arc": "The Alliance and the Southern Reforms (Vol. 1)"
+    },
+    {
+      "episodes": [10, 12],
+      "chapters": [12, 16],
+      "arc": "Conspiracy of the Kurultai — anime portion (Vol. 2)"
+    },
+    {
+      "chapters": [17, 63],
+      "arc": "The War's End (Vols. 2-5, unadapted)"
+    }
+  ]
+}

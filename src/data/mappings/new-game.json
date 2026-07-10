@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 21455,
+  "anilistMangaId": 85697,
+  "title": "NEW GAME!",
+  "sourceNotes": "Cumulative episodes across S1 'NEW GAME!' (12) + S2 'NEW GAME!!' (eps 13-24, 12) = 24 total, paired with Shotaro Tokuno's original 4-koma manga (id 85697), complete at 13 volumes / 181 chapters (AniList count; serialized in Manga Time Kirara Carat, ended 2021). 4-koma source, so chapter ranges are approximate and assigned by volume (~14 ch/volume). S1 adapts roughly volumes 1-3 (Aoba Suzukaze joins Eagle Jump and works on the game 'Fairies Story 3' through release). S2 adapts volumes 4, 6 and 7 (new-project/new-hire era with Tsubame and Momiji) and deliberately SKIPS volume 5, a prequel side-story collection; the anime therefore ends around the close of volume 7 (community guides say resume at 'chapter 65' in the tankobon-arc numbering). Volumes 8-13 (mapped here as chapters 99-181) are unadapted. A single BD-bundled OVA (id 97637, a company trip) exists but is not theatrical.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 42],
+      "arc": "Fairies Story 3 (Aoba's first year at Eagle Jump) — vols 1-3"
+    },
+    {
+      "episodes": [13, 24],
+      "chapters": [43, 98],
+      "arc": "New project & new hires (Tsubame, Momiji) — vols 4, 6-7 (vol 5 prequel side stories skipped)"
+    },
+    {
+      "chapters": [99, 181],
+      "arc": "Post-anime continuation — vols 8-13 (unadapted)"
+    }
+  ]
+}

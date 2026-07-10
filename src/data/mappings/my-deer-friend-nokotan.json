@@ -1,0 +1,17 @@
+{
+  "anilistAnimeId": 175977,
+  "anilistMangaId": 125555,
+  "title": "My Deer Friend Nokotan",
+  "sourceNotes": "Single-cour ONA, 12 episodes (no prequel/sequel seasons, so episodes are non-cumulative). Source is Oshioshio's gag manga \"Shikanoko Nokonoko Koshitantan\" (AniList 125555), ongoing since 2019 — 8 tankobon volumes / roughly chapter 49 published as of late 2025 (AniList lists no chapter count). This is an episodic comedy with NO named story arcs; each episode bundles ~3 unrelated gag chapters and the adaptation reorders chapters freely without skipping any, so clean per-episode chapter boundaries do not exist. The anime covers chapters 1-31 (through Vol. 5) across episodes 1-11, with episode 12 containing largely anime-original content. Chapter ranges here are coarse/approximate given the 4-koma-style, non-linear gag source. The remaining published chapters (32 onward) are unadapted.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 31],
+      "arc": "Nokotan and the Hijiridani Deer Club"
+    },
+    {
+      "chapters": [32, 49],
+      "arc": "Unadapted Chapters"
+    }
+  ]
+}

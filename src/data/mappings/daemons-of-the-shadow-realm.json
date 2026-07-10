@@ -1,0 +1,36 @@
+{
+  "anilistAnimeId": 195600,
+  "anilistMangaId": 136899,
+  "title": "Daemons of the Shadow Realm",
+  "sourceNotes": "Source is the Yomi no Tsugai manga by Hiromu Arakawa (AniList 136899), ongoing since 2021; 12 volumes / latest chapter 54 as of mid-2026. The 2026 TV anime by Bones Film is a single continuous 24-episode run billed as two cours, so episode numbers are already cumulative (no season split). Arc names come from the Yomi no Tsugai fandom wiki and are unofficial. The anime lightly condenses/reorders chapters (e.g. it drops ch. 4 \"Ai and Makoto\" and compresses the 8-chapter Kagemori arc into ~5 episodes). Episode-to-chapter alignment is confirmed on the wiki only through episode 14 (= chapter 18); the Fujimurayama Warehouse arc episode range (ep 12-24) is estimated to fill the remaining episodes, taking the arc's final chapter (31) as the projected season endpoint. The Nishino Village Investigation arc (ch. 32-50) and the current Okinawa arc (ch. 51-54) are unadapted.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 3],
+      "arc": "Higashi Village Raid"
+    },
+    {
+      "episodes": [4, 8],
+      "chapters": [4, 11],
+      "arc": "Kagemori Mansion"
+    },
+    {
+      "episodes": [9, 11],
+      "chapters": [12, 15],
+      "arc": "Tadera's Mayoiga"
+    },
+    {
+      "episodes": [12, 24],
+      "chapters": [16, 31],
+      "arc": "Fujimurayama Warehouse"
+    },
+    {
+      "chapters": [32, 50],
+      "arc": "Nishino Village Investigation"
+    },
+    {
+      "chapters": [51, 54],
+      "arc": "Okinawa"
+    }
+  ]
+}

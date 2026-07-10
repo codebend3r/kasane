@@ -1,0 +1,26 @@
+{
+  "anilistAnimeId": 20754,
+  "anilistMangaId": 85235,
+  "title": "SCHOOL-LIVE!",
+  "sourceNotes": "Single 12-episode TV season (2015, Lerche) adapting Norimitsu Kaihou & Sadoru Chiba's School-Live! manga (AniList id 85235), which is complete at 78 chapters across 12 volumes. The anime covers only the school-set portion — the manga's volumes 1-5 (chapters 1-31), ending precisely at Volume 5's final chapter \"Graduation\" (ch 31) as the School Living Club leaves Megurigaoka High for the university on Megumi's map. IMPORTANT CAVEAT: the anime heavily REORDERS the manga's non-linear, flashback-driven chapters into a more chronological mystery-reveal structure (e.g., ch 19 \"Scar\" surfaces late as ep 11, and Miki/Kurumi backstories are redistributed), so per-episode chapter boundaries are approximate — the two anime entries below reflect overall volume coverage, not a 1:1 chapter order. Volume boundaries: v1 ch1-6, v2 7-12, v3 13-18, v4 19-25, v5 26-31, v6 32-37, v7 38-43, v8 44-49, v9 50-55, v10 56-63, v11 64-70, v12 71-78. Everything from ch 32 onward (the journey to and survival at the Randall Corporation university, then the final arc) is unadapted. The only feature film is a 2019 live-action adaptation (alternate continuity, non-animation) and is excluded; no theatrical anime films exist, so no movies are listed.",
+  "mappings": [
+    {
+      "episodes": [1, 6],
+      "chapters": [1, 18],
+      "arc": "School Living Club — daily life and the truth (Miki joins; Megu-nee revealed as delusion) — vols 1-3, anime reorders these chapters"
+    },
+    {
+      "episodes": [7, 12],
+      "chapters": [19, 31],
+      "arc": "The hidden shelter, the infection crisis, and Graduation — vols 4-5, anime reorders these chapters"
+    },
+    {
+      "chapters": [32, 49],
+      "arc": "Randall Corporation university — setting off and the campus survivors (manga only) — vols 6-8"
+    },
+    {
+      "chapters": [50, 78],
+      "arc": "Final arc — the outbreak's origin, the cure, and the club's last days (manga only) — vols 9-12"
+    }
+  ]
+}

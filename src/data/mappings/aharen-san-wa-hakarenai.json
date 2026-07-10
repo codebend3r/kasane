@@ -1,0 +1,18 @@
+{
+  "anilistAnimeId": 137281,
+  "anilistMangaId": 98686,
+  "title": "Aharen-san wa Hakarenai",
+  "sourceNotes": "Source is Asato Mizu's manga (AniList 98686), complete at 167 chapters across 17 volumes. Cumulative episodes across S1 (12) + S2 (12) = 24. This is an episodic gag/romantic-comedy manga with no canonical named story arcs, so ranges are grouped by season/cumulative-chapter blocks rather than plot arcs. Season 1 (ep 1-12) adapted ch 1-67 (through vol 7); Season 2 (ep 13-24) adapted ch 68-167, running through the manga's finale (which covers the flash-forward marriage epilogue). Roughly 5-6 chapters per episode in S1 and ~8 per episode in S2; per-episode boundaries are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 67],
+      "arc": "Season 1"
+    },
+    {
+      "episodes": [13, 24],
+      "chapters": [68, 167],
+      "arc": "Season 2"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "anilistAnimeId": 6213,
+  "anilistMangaId": 37776,
+  "title": "A Certain Scientific Railgun",
+  "sourceNotes": "Cumulative episodes across 3 TV seasons: Railgun S1 (24, 2009) + Railgun S (24, 2013) + Railgun T (25, 2020) = 73 eps. anilistMangaId 37776 is Kazuma Kamachi & Motoi Fuyukawa's Toaru Kagaku no Railgun manga (AniList lists 180 chapters; manga is actually still ongoing, ~180+ chapters / 20+ volumes as of 2025 — last entry extends to AniList's 180). Roughly half the anime is adaptation and half is anime-original: S1 adapts the Level Upper arc (eps 1-14) then invents the Poltergeist arc (eps 15-24, Big Spider woven in); Railgun S adapts the Sisters arc (eps 1-16) then invents the Silent Party arc (eps 17-24); Railgun T adapts the Daihaseisai/Daihasei Festival arc (eps 1-15) and the Dream Ranker arc (eps 16-25, covering the Indian Poker/Dream Ranker and Doppelganger/Kuriba Ryouko manga chapters with anime-original Scavenger/Kihara additions). Per-arc chapter boundaries are approximate (sources disagree by a chapter or two at arc seams). Anime-original arcs are anchored to their surrounding chapter as a placeholder and adapt no source. Unadapted manga tail: Jailbreaker arc (ch 97-127) and later school-life storylines (ch 128-180). Railgun has no theatrical film (the franchise's Endymion movie belongs to the sister series A Certain Magical Index).",
+  "mappings": [
+    {
+      "episodes": [1, 14],
+      "chapters": [1, 17],
+      "arc": "Level Upper Arc"
+    },
+    {
+      "episodes": [15, 24],
+      "chapters": [17, 17],
+      "arc": "Poltergeist Arc (anime-original; Big Spider woven in)"
+    },
+    {
+      "episodes": [25, 40],
+      "chapters": [18, 39],
+      "arc": "Sisters Arc"
+    },
+    {
+      "episodes": [41, 48],
+      "chapters": [39, 39],
+      "arc": "Silent Party Arc (anime-original)"
+    },
+    {
+      "episodes": [49, 63],
+      "chapters": [40, 70],
+      "arc": "Daihaseisai (Daihasei Festival) Arc"
+    },
+    {
+      "episodes": [64, 73],
+      "chapters": [71, 96],
+      "arc": "Dream Ranker Arc (Indian Poker + Doppelganger; anime-original Scavenger/Kihara additions)"
+    },
+    {
+      "chapters": [97, 127],
+      "arc": "Jailbreaker Arc (unadapted)"
+    },
+    {
+      "chapters": [128, 180],
+      "arc": "Post-Jailbreaker school-life storylines (unadapted; manga ongoing)"
+    }
+  ]
+}

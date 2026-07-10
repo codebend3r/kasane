@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 2993,
+  "anilistMangaId": 30894,
+  "title": "Rosario + Vampire",
+  "sourceNotes": "Source is the first Rosario+Vampire manga (\"Season I\", AniList 30894), complete at 40 chapters / 10 volumes; the story then continues in a separate sequel manga, Rosario+Vampire: Season II (AniList 33403, 67 more chapters, completed 2014), which the anime never reaches. The Gonzo TV adaptation is only 26 episodes across two 13-episode cours (S1: Rosario+Vampire, 2008; S2: Capu2, 2008). S1 loosely adapts roughly chapters 1-20 of the manga but freely REORDERS the arcs and inserts original filler, so chapter ranges here reflect the arc each episode block draws from, not strict linear progression (e.g. Mizore ch19-20 airs before the Witch's Knoll and Kuyo arcs). Episode 8 (\"Mathematics\") is largely anime-original. Capu2 (cumulative episodes 14-26) is almost entirely anime-original / non-canon and adapts essentially no manga chapters, so it is not mapped; the manga's ghoul crisis and the whole of Season II remain unadapted. No theatrical films exist.",
+  "mappings": [
+    {
+      "episodes": [1, 6],
+      "chapters": [1, 8],
+      "arc": "Enrollment: Moka, Kurumu, Swim Club, Newspaper Club & Yukari"
+    },
+    {
+      "episodes": [7, 8],
+      "chapters": [19, 20],
+      "arc": "Mizore the Snow Woman"
+    },
+    {
+      "episodes": [9, 11],
+      "chapters": [13, 18],
+      "arc": "Summer & Witch's Knoll (Ruby)"
+    },
+    {
+      "episodes": [12, 13],
+      "chapters": [9, 12],
+      "arc": "Public Safety Commission (Kuyo)"
+    },
+    {
+      "chapters": [21, 40],
+      "arc": "Ghoul Crisis & Anti-Thesis onward (unadapted; continues in Season II manga)"
+    }
+  ]
+}

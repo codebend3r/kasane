@@ -1,0 +1,103 @@
+{
+  "anilistAnimeId": 18277,
+  "anilistMangaId": 71021,
+  "title": "Strike the Blood",
+  "sourceNotes": "Source is Gakuto Mikumo's light novel (AniList id 71021, format NOVEL, 157 parts across 22 main volumes; series complete, ended 2020 with vol 22). Chapter ranges are proportional volume estimates mapped onto AniList's 157-part count (~7 parts/vol), so they are approximate. Cumulative episodes span the full sequel/OVA chain: TV Season 1 (id 18277, 24 eps) + Kingdom of the Valkyria side-story OVA (id 21098, 2 eps) + Strike the Blood II (id 21815, 8 eps) + Strike the Blood III (10 eps) + Strike the Blood IV (12 eps) + Strike the Blood Final (4 eps) = 60 episodes. The adaptation is deliberately OUT of volume order, so chapter ranges are non-monotonic: S1 adapts vols 1-6, with eps 23-24 an anime-original finale loosely based on vol 17; the Kingdom of the Valkyria OVA covers side-story vol 18; STB II adapts vols 9, 11, 12 (skipping vol 10); STB III adapts vols 13-15; STB IV adapts vols 16, 19, 20, 21; STB Final adapts vol 22. LN vols 7, 8, and 10 were never adapted. Within-OVA per-volume episode splits are evenly estimated. No theatrical films exist.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 7],
+      "arc": "The Right Arm of the Saint (LN vol 1)"
+    },
+    {
+      "episodes": [5, 8],
+      "chapters": [8, 14],
+      "arc": "From the Warlord's Empire (LN vol 2)"
+    },
+    {
+      "episodes": [9, 12],
+      "chapters": [15, 21],
+      "arc": "The Amphisbaena (LN vol 3)"
+    },
+    {
+      "episodes": [13, 15],
+      "chapters": [22, 29],
+      "arc": "Labyrinth of the Blue Witch (LN vol 4)"
+    },
+    {
+      "episodes": [16, 19],
+      "chapters": [30, 36],
+      "arc": "Fiesta for the Observers (LN vol 5)"
+    },
+    {
+      "episodes": [20, 22],
+      "chapters": [37, 43],
+      "arc": "Return of the Alchemist (LN vol 6)"
+    },
+    {
+      "episodes": [23, 24],
+      "chapters": [115, 121],
+      "arc": "Empire of the Dawn (S1 anime-original finale, loosely LN vol 17)"
+    },
+    {
+      "episodes": [25, 26],
+      "chapters": [122, 128],
+      "arc": "Kingdom of the Valkyria OVA (side story, LN vol 18)"
+    },
+    {
+      "episodes": [27, 29],
+      "chapters": [58, 64],
+      "arc": "Strike the Blood II - Third Progenitor arc (LN vol 9)"
+    },
+    {
+      "episodes": [30, 32],
+      "chapters": [72, 79],
+      "arc": "Strike the Blood II (LN vol 11, skips vol 10)"
+    },
+    {
+      "episodes": [33, 34],
+      "chapters": [80, 86],
+      "arc": "Strike the Blood II (LN vol 12)"
+    },
+    {
+      "episodes": [35, 38],
+      "chapters": [87, 93],
+      "arc": "Strike the Blood III (LN vol 13)"
+    },
+    {
+      "episodes": [39, 41],
+      "chapters": [94, 100],
+      "arc": "Strike the Blood III (LN vol 14)"
+    },
+    {
+      "episodes": [42, 44],
+      "chapters": [101, 107],
+      "arc": "Strike the Blood III (LN vol 15)"
+    },
+    {
+      "episodes": [45, 47],
+      "chapters": [108, 114],
+      "arc": "Strike the Blood IV (LN vol 16)"
+    },
+    {
+      "episodes": [48, 50],
+      "chapters": [129, 136],
+      "arc": "Strike the Blood IV (LN vol 19)"
+    },
+    {
+      "episodes": [51, 53],
+      "chapters": [137, 143],
+      "arc": "Strike the Blood IV (LN vol 20)"
+    },
+    {
+      "episodes": [54, 56],
+      "chapters": [144, 150],
+      "arc": "Strike the Blood IV (LN vol 21)"
+    },
+    {
+      "episodes": [57, 60],
+      "chapters": [151, 157],
+      "arc": "Strike the Blood Final (LN vol 22)"
+    }
+  ]
+}

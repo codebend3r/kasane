@@ -1,0 +1,44 @@
+{
+  "anilistAnimeId": 100183,
+  "anilistMangaId": 100858,
+  "title": "Sword Art Online Alternative: Gun Gale Online",
+  "sourceNotes": "LN-based spin-off; ranges are by light novel VOLUME (Keiichi Sigsawa's \"GGO Alternative\" novels, AniList id 100858, chapters null there), not chapter numbers — the community maps this series volume-to-episode. GGO Alternative is its own franchise, so episode numbering starts at S1E1 (the SAO II \"parent\" relation is franchise-level only). Cumulative episodes across S1 (12, studio 3Hz, 2018; a mid-season recap ep 5.5 is not counted) + S2 \"GGO Alternative II\" (12, A-1 Pictures, 2024) = 24. S1 adapts Vol 1-3 (First & Second Squad Jam); S2 adapts Vol 4-5 (Third Squad Jam, ~8 eps) plus Vol 6 \"One Summer Day / Test Play\" (~4 eps). Source novels ongoing at 14 volumes (Vol 14 \"Invitation from Vivi\", Oct 2024); Vol 7-14 remain unadapted.",
+  "mappings": [
+    {
+      "episodes": [1, 5],
+      "chapters": [1, 1],
+      "arc": "First Squad Jam"
+    },
+    {
+      "episodes": [6, 12],
+      "chapters": [2, 3],
+      "arc": "Second Squad Jam"
+    },
+    {
+      "episodes": [13, 20],
+      "chapters": [4, 5],
+      "arc": "Third Squad Jam (Betrayers' Choice)"
+    },
+    {
+      "episodes": [21, 24],
+      "chapters": [6, 6],
+      "arc": "One Summer Day / Test Play"
+    },
+    {
+      "chapters": [7, 9],
+      "arc": "Fourth Squad Jam"
+    },
+    {
+      "chapters": [10, 10],
+      "arc": "Five Ordeals"
+    },
+    {
+      "chapters": [11, 13],
+      "arc": "Fifth Squad Jam"
+    },
+    {
+      "chapters": [14, 14],
+      "arc": "Invitation from Vivi"
+    }
+  ]
+}

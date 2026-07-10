@@ -1,0 +1,68 @@
+{
+  "anilistAnimeId": 113311,
+  "anilistMangaId": 97603,
+  "title": "Kakushigoto",
+  "sourceNotes": "Single 12-episode TV season (2020) adapting Koji Kumeta's manga \"Kakushigoto: My Dad's Secret Ambition.\" Manga complete at 232 short chapters across 12 tankobon volumes (2015-2020, AniList manga id 97603). This is an episodic gag comedy with NO named story arcs and no published per-episode chapter guide; the anime does not follow strict publication order but interweaves the past (Hime age 10) with a present-day frame (Hime age 18 opening the storehouse), broadly progressing through the manga and reaching its conclusion in the finale. Mappings use the actual ANN episode titles as labels, aligned one-episode-per-volume across the manga's 12 volumes; chapter ranges are APPROXIMATE (even split of 232 chapters into 12 volume-sized blocks). The 2021 \"Kakushigoto Theatrical Edition\" is a recap re-edit of the TV footage (AniList SUMMARY) and is excluded.",
+  "mappings": [
+    {
+      "episodes": [1, 1],
+      "chapters": [1, 20],
+      "arc": "Secrets"
+    },
+    {
+      "episodes": [2, 2],
+      "chapters": [21, 40],
+      "arc": "Beach Sandals and B4"
+    },
+    {
+      "episodes": [3, 3],
+      "chapters": [41, 59],
+      "arc": "Makeshift Circus"
+    },
+    {
+      "episodes": [4, 4],
+      "chapters": [60, 78],
+      "arc": "Normale Namae"
+    },
+    {
+      "episodes": [5, 5],
+      "chapters": [79, 97],
+      "arc": "And Yet Everyone Gets Their Turn in the End"
+    },
+    {
+      "episodes": [6, 6],
+      "chapters": [98, 116],
+      "arc": "School Rucksack"
+    },
+    {
+      "episodes": [7, 7],
+      "chapters": [117, 136],
+      "arc": "Inuhoshiki: Dog Wanted"
+    },
+    {
+      "episodes": [8, 8],
+      "chapters": [137, 155],
+      "arc": "Our Rough Draft"
+    },
+    {
+      "episodes": [9, 9],
+      "chapters": [156, 174],
+      "arc": "Your Lie in December"
+    },
+    {
+      "episodes": [10, 10],
+      "chapters": [175, 193],
+      "arc": "I\"S (Izu)"
+    },
+    {
+      "episodes": [11, 11],
+      "chapters": [194, 213],
+      "arc": "Saishukai: The Last Chapter Doesn't Bother Her"
+    },
+    {
+      "episodes": [12, 12],
+      "chapters": [214, 232],
+      "arc": "Hidden Truths"
+    }
+  ]
+}

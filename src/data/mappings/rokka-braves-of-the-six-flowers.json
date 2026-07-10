@@ -1,0 +1,17 @@
+{
+  "anilistAnimeId": 20955,
+  "anilistMangaId": 86037,
+  "title": "Rokka -Braves of the Six Flowers-",
+  "sourceNotes": "Source is Ishio Yamagata's light novel (AniList id 86037, format NOVEL; AniList lists no chapter count), so this mapping uses LIGHT-NOVEL VOLUME numbers as the \"chapters\" unit. The linked manga (id 86038, 16 chapters / 4 tankobon, finished 2015) is a minor side-adaptation of volume 1 only, not the primary source. The single 12-episode TV series (id 20955, 2015) adapts the ENTIRETY of LN volume 1 as one continuous locked-room mystery — the six chosen Braves discover a seventh among them and Adlet must expose the impostor (vol 1 = Prologue, chapters 1-5, Epilogue). The LN ran 6 volumes (final volume released July 2015) and has been on indefinite hiatus since; volumes 2-6 (the march through the Howling Vilelands — the second fake, Tgurneu, Chamo's parasite, the Dead Host, and the Black Barrenbloom) are entirely unadapted. No theatrical films (a 3-episode \"Picture Drama\" short exists but is not a feature).",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 1],
+      "arc": "The Search for the Seventh / The Fake Brave - the six Braves of the Six Flowers gather, find a seventh impostor among them, and Adlet is accused; he must uncover the true fake (LN vol 1, the entire anime)"
+    },
+    {
+      "chapters": [2, 6],
+      "arc": "March through the Howling Vilelands - the second fake, Tgurneu and the fiend commanders, Chamo's parasite, the Dead Host, and the Black Barrenbloom (LN vols 2-6, unadapted; series on hiatus)"
+    }
+  ]
+}

@@ -306,6 +306,106 @@ import highRiseInvasion from "@/data/mappings/high-rise-invasion.json";
 import katanagatari from "@/data/mappings/katanagatari.json";
 import worldGodOnlyKnows from "@/data/mappings/world-god-only-knows.json";
 import recordOfRagnarok from "@/data/mappings/record-of-ragnarok.json";
+import gunGaleOnlineAlternative from "@/data/mappings/gun-gale-online-alternative.json";
+import aCertainScientificRailgun from "@/data/mappings/a-certain-scientific-railgun.json";
+import sentencedToBeAHero from "@/data/mappings/sentenced-to-be-a-hero.json";
+import theFruitOfGrisaia from "@/data/mappings/the-fruit-of-grisaia.json";
+import hellsing2001 from "@/data/mappings/hellsing-2001.json";
+import theSummerHikaruDied from "@/data/mappings/the-summer-hikaru-died.json";
+import takopisOriginalSin from "@/data/mappings/takopis-original-sin.json";
+import lovelyComplex from "@/data/mappings/lovely-complex.json";
+import rokkaBravesOfTheSixFlowers from "@/data/mappings/rokka-braves-of-the-six-flowers.json";
+import sankarea from "@/data/mappings/sankarea.json";
+import accelWorld from "@/data/mappings/accel-world.json";
+import infiniteStratos from "@/data/mappings/infinite-stratos.json";
+import fateApocrypha from "@/data/mappings/fate-apocrypha.json";
+import oreshura from "@/data/mappings/oreshura.json";
+import uncleFromAnotherWorld from "@/data/mappings/uncle-from-another-world.json";
+import girlfriendGirlfriend from "@/data/mappings/girlfriend-girlfriend.json";
+import weNeverLearn from "@/data/mappings/we-never-learn.json";
+import gabrielDropout from "@/data/mappings/gabriel-dropout.json";
+import platinumEnd from "@/data/mappings/platinum-end.json";
+import strikeTheBlood from "@/data/mappings/strike-the-blood.json";
+import natsumeYuujinchou from "@/data/mappings/natsume-yuujinchou.json";
+import makeineTooManyLosingHeroines from "@/data/mappings/makeine-too-many-losing-heroines.json";
+import theDetectiveIsAlreadyDead from "@/data/mappings/the-detective-is-already-dead.json";
+import ahoGirl from "@/data/mappings/aho-girl.json";
+import hiddenDungeon from "@/data/mappings/hidden-dungeon.json";
+import hundredGirlfriends from "@/data/mappings/100-girlfriends.json";
+import kemonoJihen from "@/data/mappings/kemono-jihen.json";
+import aharenSanWaHakarenai from "@/data/mappings/aharen-san-wa-hakarenai.json";
+import tanakaKunIsAlwaysListless from "@/data/mappings/tanaka-kun-is-always-listless.json";
+import howHeavyDumbbells from "@/data/mappings/how-heavy-dumbbells.json";
+import rosarioVampire from "@/data/mappings/rosario-vampire.json";
+import schoolLive from "@/data/mappings/school-live.json";
+import pingPongTheAnimation from "@/data/mappings/ping-pong-the-animation.json";
+import gosick from "@/data/mappings/gosick.json";
+import twinStarExorcists from "@/data/mappings/twin-star-exorcists.json";
+import banishedFromTheHerosParty from "@/data/mappings/banished-from-the-heros-party.json";
+import wrongWayToUseHealingMagic from "@/data/mappings/wrong-way-to-use-healing-magic.json";
+import problemChildren from "@/data/mappings/problem-children.json";
+import combatantsWillBeDispatched from "@/data/mappings/combatants-will-be-dispatched.json";
+import bakuman from "@/data/mappings/bakuman.json";
+import konosubaExplosion from "@/data/mappings/konosuba-explosion.json";
+import talentlessNana from "@/data/mappings/talentless-nana.json";
+import newGame from "@/data/mappings/new-game.json";
+import absoluteDuo from "@/data/mappings/absolute-duo.json";
+import scienceFellInLove from "@/data/mappings/science-fell-in-love.json";
+import trappedInADatingSim from "@/data/mappings/trapped-in-a-dating-sim.json";
+import nonNonBiyori from "@/data/mappings/non-non-biyori.json";
+import magiAdventureOfSinbad from "@/data/mappings/magi-adventure-of-sinbad.json";
+import bakaAndTest from "@/data/mappings/baka-and-test.json";
+import dagashiKashi from "@/data/mappings/dagashi-kashi.json";
+import worldendSukasuka from "@/data/mappings/worldend-sukasuka.json";
+import ascendanceOfABookworm from "@/data/mappings/ascendance-of-a-bookworm.json";
+import keepYourHandsOffEizouken from "@/data/mappings/keep-your-hands-off-eizouken.json";
+import campfireCookingInAnotherWorld from "@/data/mappings/campfire-cooking-in-another-world.json";
+import daemonsOfTheShadowRealm from "@/data/mappings/daemons-of-the-shadow-realm.json";
+import initialD from "@/data/mappings/initial-d.json";
+import isThisAZombie from "@/data/mappings/is-this-a-zombie.json";
+import blastOfTempest from "@/data/mappings/blast-of-tempest.json";
+import loveAndLies from "@/data/mappings/love-and-lies.json";
+import boardingSchoolJuliet from "@/data/mappings/boarding-school-juliet.json";
+import skeletonKnightInAnotherWorld from "@/data/mappings/skeleton-knight-in-another-world.json";
+import mySenpaiIsAnnoying from "@/data/mappings/my-senpai-is-annoying.json";
+import reincarnatedAsASword from "@/data/mappings/reincarnated-as-a-sword.json";
+import aCoupleOfCuckoos from "@/data/mappings/a-couple-of-cuckoos.json";
+import remakeOurLife from "@/data/mappings/remake-our-life.json";
+import chainedSoldier from "@/data/mappings/chained-soldier.json";
+import assassinsPride from "@/data/mappings/assassins-pride.json";
+import greatestDemonLordRebornTypicalNobody from "@/data/mappings/greatest-demon-lord-reborn-typical-nobody.json";
+import oMaidensInYourSavageSeason from "@/data/mappings/o-maidens-in-your-savage-season.json";
+import ourLastCrusade from "@/data/mappings/our-last-crusade.json";
+import ragnaCrimson from "@/data/mappings/ragna-crimson.json";
+import seitokaiYakuindomo from "@/data/mappings/seitokai-yakuindomo.json";
+import whyTheHellAreYouHereTeacher from "@/data/mappings/why-the-hell-are-you-here-teacher.json";
+import maoyu from "@/data/mappings/maoyu.json";
+import azumangaDaioh from "@/data/mappings/azumanga-daioh.json";
+import senkoSan from "@/data/mappings/senko-san.json";
+import interspeciesReviewers from "@/data/mappings/interspecies-reviewers.json";
+import keijo from "@/data/mappings/keijo.json";
+import vermeilInGold from "@/data/mappings/vermeil-in-gold.json";
+import geniusPrincesGuideRaisingNationDebt from "@/data/mappings/genius-princes-guide-raising-nation-debt.json";
+import imQuittingHeroing from "@/data/mappings/im-quitting-heroing.json";
+import farmingLifeInAnotherWorld from "@/data/mappings/farming-life-in-another-world.json";
+import insomniacsAfterSchool from "@/data/mappings/insomniacs-after-school.json";
+import kakushigoto from "@/data/mappings/kakushigoto.json";
+import youAndIArePolarOpposites from "@/data/mappings/you-and-i-are-polar-opposites.json";
+import farawayPaladin from "@/data/mappings/faraway-paladin.json";
+import myStepmomsDaughterIsMyEx from "@/data/mappings/my-stepmoms-daughter-is-my-ex.json";
+import whenSupernaturalBattlesBecameCommonplace from "@/data/mappings/when-supernatural-battles-became-commonplace.json";
+import myDeerFriendNokotan from "@/data/mappings/my-deer-friend-nokotan.json";
+import kissXSis from "@/data/mappings/kiss-x-sis.json";
+import romanticKiller from "@/data/mappings/romantic-killer.json";
+import kissHimNotMe from "@/data/mappings/kiss-him-not-me.json";
+import sailorMoon from "@/data/mappings/sailor-moon.json";
+import astraLostInSpace from "@/data/mappings/astra-lost-in-space.json";
+import konoOtoTomare from "@/data/mappings/kono-oto-tomare.json";
+import interviewsWithMonsterGirls from "@/data/mappings/interviews-with-monster-girls.json";
+import aSistersAllYouNeed from "@/data/mappings/a-sisters-all-you-need.json";
+import yosugaNoSora from "@/data/mappings/yosuga-no-sora.json";
+import schoolBabysitters from "@/data/mappings/school-babysitters.json";
+import pluto from "@/data/mappings/pluto.json";
 
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
@@ -681,6 +781,106 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   katanagatari,
   worldGodOnlyKnows,
   recordOfRagnarok,
+  gunGaleOnlineAlternative,
+  aCertainScientificRailgun,
+  sentencedToBeAHero,
+  theFruitOfGrisaia,
+  hellsing2001,
+  theSummerHikaruDied,
+  takopisOriginalSin,
+  lovelyComplex,
+  rokkaBravesOfTheSixFlowers,
+  sankarea,
+  accelWorld,
+  infiniteStratos,
+  fateApocrypha,
+  oreshura,
+  uncleFromAnotherWorld,
+  girlfriendGirlfriend,
+  weNeverLearn,
+  gabrielDropout,
+  platinumEnd,
+  strikeTheBlood,
+  natsumeYuujinchou,
+  makeineTooManyLosingHeroines,
+  theDetectiveIsAlreadyDead,
+  ahoGirl,
+  hiddenDungeon,
+  hundredGirlfriends,
+  kemonoJihen,
+  aharenSanWaHakarenai,
+  tanakaKunIsAlwaysListless,
+  howHeavyDumbbells,
+  rosarioVampire,
+  schoolLive,
+  pingPongTheAnimation,
+  gosick,
+  twinStarExorcists,
+  banishedFromTheHerosParty,
+  wrongWayToUseHealingMagic,
+  problemChildren,
+  combatantsWillBeDispatched,
+  bakuman,
+  konosubaExplosion,
+  talentlessNana,
+  newGame,
+  absoluteDuo,
+  scienceFellInLove,
+  trappedInADatingSim,
+  nonNonBiyori,
+  magiAdventureOfSinbad,
+  bakaAndTest,
+  dagashiKashi,
+  worldendSukasuka,
+  ascendanceOfABookworm,
+  keepYourHandsOffEizouken,
+  campfireCookingInAnotherWorld,
+  daemonsOfTheShadowRealm,
+  initialD,
+  isThisAZombie,
+  blastOfTempest,
+  loveAndLies,
+  boardingSchoolJuliet,
+  skeletonKnightInAnotherWorld,
+  mySenpaiIsAnnoying,
+  reincarnatedAsASword,
+  aCoupleOfCuckoos,
+  remakeOurLife,
+  chainedSoldier,
+  assassinsPride,
+  greatestDemonLordRebornTypicalNobody,
+  oMaidensInYourSavageSeason,
+  ourLastCrusade,
+  ragnaCrimson,
+  seitokaiYakuindomo,
+  whyTheHellAreYouHereTeacher,
+  maoyu,
+  azumangaDaioh,
+  senkoSan,
+  interspeciesReviewers,
+  keijo,
+  vermeilInGold,
+  geniusPrincesGuideRaisingNationDebt,
+  imQuittingHeroing,
+  farmingLifeInAnotherWorld,
+  insomniacsAfterSchool,
+  kakushigoto,
+  youAndIArePolarOpposites,
+  farawayPaladin,
+  myStepmomsDaughterIsMyEx,
+  whenSupernaturalBattlesBecameCommonplace,
+  myDeerFriendNokotan,
+  kissXSis,
+  romanticKiller,
+  kissHimNotMe,
+  sailorMoon,
+  astraLostInSpace,
+  konoOtoTomare,
+  interviewsWithMonsterGirls,
+  aSistersAllYouNeed,
+  yosugaNoSora,
+  schoolBabysitters,
+  pluto,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {

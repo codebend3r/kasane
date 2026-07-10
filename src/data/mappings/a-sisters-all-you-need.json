@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 98596,
+  "anilistMangaId": 97894,
+  "title": "A Sister's All You Need.",
+  "sourceNotes": "Single-cour 2017 TV anime (Silver Link, 12 episodes; no additional seasons, so episode numbers are non-cumulative). Source is Yomi Hirasaka's light novel (AniList id 97894, type MANGA / format NOVEL), 14 main volumes complete March 2015 - February 2020. AniList reports 206 \"chapters\" for the novel but gives no clean per-volume chapter boundaries, and the official @comic manga adaptation lags far behind, so this maps by LIGHT NOVEL VOLUME instead. IMPORTANT: the `chapters` tuples below hold LN VOLUME numbers, NOT chapter numbers. The anime adapts LN vols 1-4 (this is the community consensus). Episode-to-volume groupings are even ~3-episodes-per-volume estimates: the show is a low-arc slice-of-life comedy about light novelists that also reorders and adds original material, so boundaries are approximate. The unadapted tail is vols 5-14. No theatrical films (a related 6-episode ONA side story and TV specials exist but are separate entries and not films).",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 1],
+      "arc": "Meeting Itsuki, Nayuta & the gang (LN vol 1)"
+    },
+    {
+      "episodes": [4, 6],
+      "chapters": [2, 2],
+      "arc": "Work, research & rivalries (LN vol 2)"
+    },
+    {
+      "episodes": [7, 9],
+      "chapters": [3, 3],
+      "arc": "Adventure, love & friendship (LN vol 3)"
+    },
+    {
+      "episodes": [10, 12],
+      "chapters": [4, 4],
+      "arc": "Becoming the protagonist (LN vol 4)"
+    },
+    {
+      "chapters": [5, 14],
+      "arc": "Post-anime volumes (LN vols 5-14, unadapted)"
+    }
+  ]
+}

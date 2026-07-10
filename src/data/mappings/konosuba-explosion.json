@@ -1,0 +1,23 @@
+{
+  "anilistAnimeId": 150075,
+  "anilistMangaId": 100147,
+  "title": "KONOSUBA -An Explosion on This Wonderful World!",
+  "sourceNotes": "Standalone Megumin-focused spin-off: a single 12-episode 2023 anime by studio Drive that adapts the complete 3-volume \"An Explosion on This Wonderful World!\" light novel trilogy by Natsume Akatsuki. Mapped to the light novel source (AniList NOVEL entry, 20 chapters, trilogy complete); ranges are by volume since the LN uses per-volume prologue/chapter/epilogue numbering, so chapter numbers are approximate. Vol 1 = eps 1-5 (ends on \"Prelude to Explosion Madness\"), Vol 2 = eps 6-9 (ep 9 covers Vol 2's final chapter, the Destroyer), Vol 3 = eps 10-12. Distinct from the main Konosuba TV series (mapped separately as konosuba); the Legend of Crimson movie belongs to that main series, not this spin-off.",
+  "mappings": [
+    {
+      "episodes": [1, 5],
+      "chapters": [1, 7],
+      "arc": "Light Novel Volume 1 (Crimson Demon Village / Magic Academy)"
+    },
+    {
+      "episodes": [6, 9],
+      "chapters": [8, 14],
+      "arc": "Light Novel Volume 2 (City of Water / The Destroyer)"
+    },
+    {
+      "episodes": [10, 12],
+      "chapters": [15, 20],
+      "arc": "Light Novel Volume 3 (Town for Beginners / Explosion)"
+    }
+  ]
+}

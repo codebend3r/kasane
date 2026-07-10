@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 270,
+  "anilistMangaId": 30267,
+  "title": "Hellsing",
+  "sourceNotes": "The 2001 Gonzo TV series (13 episodes) only loosely adapts Kouta Hirano's manga through roughly episode 6, then diverges into a wholly anime-original storyline (the vampire Incognito) with no manga basis — episodes 7-13 (Duel, Kill House, Red Rose Vertigo, Master of Monster, Transcend Force, Total Destruction, Hellfire) are original and are not mapped to chapters here. The early episodes compress Volume 1 material (Cheddar incident and Seras being turned, the Murder Club vampire pair, and Alexander Anderson's Sword Dancer introduction) plus the Valentine Brothers' assault on Hellsing HQ (Dead Zone), diverging around chapter 12. Chapter ranges are approximate because the adaptation reorders and abridges the source. Manga complete at 92 chapters / 10 volumes (per AniList). The faithful full-manga adaptation is Hellsing Ultimate (OVA, id 777), mapped separately as hellsing-ultimate.",
+  "mappings": [
+    {
+      "episodes": [1, 1],
+      "chapters": [1, 2],
+      "arc": "The Undead (Cheddar Incident)"
+    },
+    {
+      "episodes": [2, 2],
+      "chapters": [3, 3],
+      "arc": "Murder Club (Club M)"
+    },
+    {
+      "episodes": [3, 4],
+      "chapters": [4, 6],
+      "arc": "Sword Dancer (Anderson & Iscariot)"
+    },
+    {
+      "episodes": [5, 6],
+      "chapters": [7, 12],
+      "arc": "Dead Zone (Valentine Brothers' Attack)"
+    },
+    {
+      "chapters": [13, 92],
+      "arc": "Millennium War & Final Battle (unadapted — 2001 anime goes original with Incognito; see Hellsing Ultimate)"
+    }
+  ]
+}

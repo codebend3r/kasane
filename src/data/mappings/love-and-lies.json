@@ -1,0 +1,36 @@
+{
+  "anilistAnimeId": 98320,
+  "anilistMangaId": 85566,
+  "title": "LOVE and LIES",
+  "sourceNotes": "Single 12-episode season (2017), the only TV anime. Source is the manga Koi to Uso, serialized in the Manga Box app in short installments; community guides use a fine chapter numbering (~287 chapters) in which the anime ends at chapter 118, while AniList lists 301 chapters (including bonus/extra installments). Manga complete. Per-episode chapter boundaries are approximate (proportional across the ~118 adapted chapters, aligned to episode narrative beats). A 2-episode OVA exists but is home-video (excluded). Unadapted tail extended to AniList's final count of 301.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 30],
+      "arc": "Confession & Assignment"
+    },
+    {
+      "episodes": [4, 6],
+      "chapters": [31, 60],
+      "arc": "Family Camp & Ministry Seminar"
+    },
+    {
+      "episodes": [7, 9],
+      "chapters": [61, 90],
+      "arc": "School Festival"
+    },
+    {
+      "episodes": [10, 12],
+      "chapters": [91, 118],
+      "arc": "Wedding Trip & Ririna's Strategy"
+    },
+    {
+      "chapters": [119, 220],
+      "arc": "Deepening Love Triangle"
+    },
+    {
+      "chapters": [221, 301],
+      "arc": "Choosing an Ending"
+    }
+  ]
+}

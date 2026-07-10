@@ -1,0 +1,42 @@
+{
+  "anilistAnimeId": 9041,
+  "anilistMangaId": 53881,
+  "title": "Infinite Stratos",
+  "sourceNotes": "LN-based; ranges are by light novel volume (Izuru Yumizuru's novels; AniList lists the source as a NOVEL with null chapter counts, so \"chapters\" here are volume numbers). Cumulative episodes across S1 (12 eps, 2011) + S2/Infinite Stratos 2 (12 eps, 2013) = 24. Season 1 adapts volumes 1-3 (plus a little of 4); Season 2 adapts volumes 5-8 (the short-story vol 4 is largely skipped). The novel finished at 13 volumes (final volume Oct 2018), so volumes 9-13 are unadapted by the TV anime. Volume boundaries are approximate; the community episode↔source guide aligns roughly one story volume per ~4 episodes.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 1],
+      "arc": "IS Academy / Class Representative (Vol 1)"
+    },
+    {
+      "episodes": [5, 8],
+      "chapters": [2, 2],
+      "arc": "Transfer Students / Interhigh (Vol 2)"
+    },
+    {
+      "episodes": [9, 12],
+      "chapters": [3, 3],
+      "arc": "Silver Gospel (Vol 3)"
+    },
+    {
+      "episodes": [13, 16],
+      "chapters": [5, 5],
+      "arc": "Phantom Task Awakens (Vol 5)"
+    },
+    {
+      "episodes": [17, 20],
+      "chapters": [6, 7],
+      "arc": "School Festival / Tag Tournament (Vols 6-7)"
+    },
+    {
+      "episodes": [21, 24],
+      "chapters": [8, 8],
+      "arc": "Kyoto Field Trip / World Purge (Vol 8)"
+    },
+    {
+      "chapters": [9, 13],
+      "arc": "Post-anime Volumes (Unadapted)"
+    }
+  ]
+}

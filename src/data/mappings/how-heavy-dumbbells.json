@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 107226,
+  "anilistMangaId": 97626,
+  "title": "How Heavy Are the Dumbbells You Lift?",
+  "sourceNotes": "Single 12-episode TV season (2019, Doga Kobo). Source is Yabako Sandrovich & MAAM's ongoing fitness-comedy manga (id 97626), serialized on Ura Sunday / MangaONE since 2016 and still RELEASING (AniList lists no chapter/volume totals; the Japanese serial is past ch. 189 as of late 2024, ~200 and counting). The show is an episodic gag/how-to-train comedy with no continuous story arcs — each episode strings together several short chapters and ends on a workout-instruction segment — so it adapts the early manga roughly in publication order. Per multiple episode guides the anime covers up to chapter 54 (episode 12 = chapters 52-54); readers are told to continue from chapter 55. Chapter ranges below are coarse ~4-5-chapters-per-episode approximations. No theatrical films exist (only a 2-episode \"Silverman Gym Intense Training Course\" special), so no movies are listed.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 13],
+      "arc": "Hibiki joins Silverman Gym & meets trainer Machio (approx.)"
+    },
+    {
+      "episodes": [4, 6],
+      "chapters": [14, 27],
+      "arc": "Building the cast — Gina, boxing, and gym regulars (approx.)"
+    },
+    {
+      "episodes": [7, 9],
+      "chapters": [28, 40],
+      "arc": "Summer, sports and escalating training antics (approx.)"
+    },
+    {
+      "episodes": [10, 12],
+      "chapters": [41, 54],
+      "arc": "Muscle Beach finale & full-body workout send-off (approx.)"
+    },
+    {
+      "chapters": [55, 200],
+      "arc": "Later gym vignettes — manga only, ongoing (approx.)"
+    }
+  ]
+}

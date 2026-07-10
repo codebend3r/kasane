@@ -1,0 +1,42 @@
+{
+  "anilistAnimeId": 103900,
+  "anilistMangaId": 98235,
+  "title": "We Never Learn: BOKUBEN",
+  "sourceNotes": "Cumulative episodes across S1 (13) + S2 (13) = 26 TV episodes. The anime adapts roughly manga Questions 1-69 (through Volume 8's Cultural Festival arc), but Silver/Arvo reorder chapters non-linearly across episodes to feature all heroines evenly, so per-episode boundaries are approximate — ranges are given at the season-block level. Manga complete at 187 chapters / 21 volumes (Taishi Tsutsui, Weekly Shonen Jump). Volumes 9-16 (Questions ~70-141) continue the unadapted common route building to the fireworks confession. The final five volumes (17-21, Questions 142-187) form the famous \"Route:if\" branch — five parallel alternate endings, one per heroine, presented here in publication order: Uruka (Mermaid Princess), Rizu (Thumbelina), Fumino (Sleeping Beauty of the Literary Forest), Asumi (Pixie), and Mafuyu Kirisu (Queen of Thin Ice), the last also containing a harem omake. Two OVAs (side stories adapting beach/wedding chapters, bundled with manga volumes) are not part of the TV episode count. No theatrical films.",
+  "mappings": [
+    {
+      "episodes": [1, 13],
+      "chapters": [1, 43],
+      "arc": "Season 1: The Genius Tutees (Fumino, Rizu, Uruka)"
+    },
+    {
+      "episodes": [14, 26],
+      "chapters": [44, 69],
+      "arc": "Season 2: Deepening Bonds (Hot Spring & Cultural Festival)"
+    },
+    {
+      "chapters": [70, 141],
+      "arc": "Common Route: The Path to the Fireworks (unadapted)"
+    },
+    {
+      "chapters": [142, 150],
+      "arc": "Route:if — Uruka (Mermaid Princess)"
+    },
+    {
+      "chapters": [151, 159],
+      "arc": "Route:if — Rizu (Thumbelina)"
+    },
+    {
+      "chapters": [160, 168],
+      "arc": "Route:if — Fumino (Sleeping Beauty of the Literary Forest)"
+    },
+    {
+      "chapters": [169, 177],
+      "arc": "Route:if — Asumi (Pixie)"
+    },
+    {
+      "chapters": [178, 187],
+      "arc": "Route:if — Mafuyu Kirisu (Queen of Thin Ice) & Harem Ending"
+    }
+  ]
+}

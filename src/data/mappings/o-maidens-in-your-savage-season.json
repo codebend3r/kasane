@@ -1,0 +1,28 @@
+{
+  "anilistAnimeId": 105932,
+  "anilistMangaId": 101719,
+  "title": "O Maidens in Your Savage Season",
+  "sourceNotes": "Single-cour TV anime (12 episodes, 2019, Lay-duce) adapting Mari Okada & Nao Emoto's ensemble literature-club drama. The manga is complete at 32 numbered chapters across 8 volumes (V1: ch1-4, V2: 5-8, V3: 9-12, V4: 13-16, V5: 17-20, V6: 21-23, V7: 24-27, V8: 28-32); AniList reports 33 chapters because it counts a bonus/final extra, so the last entry extends to 33. The manga and anime concluded the same season (July-Sept 2019) and the anime faithfully adapts the full story, condensing roughly 2.7 chapters per episode with a slightly restructured but complete ending — a reader who finishes the anime has effectively finished the manga. This show has no canonical arc names; the segment titles below are descriptive narrative phases and the episode-to-chapter boundaries are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 8],
+      "arc": "The Literature Club & Awakening Desire"
+    },
+    {
+      "episodes": [4, 6],
+      "chapters": [9, 16],
+      "arc": "Kazusa & Izumi / Niina's Past"
+    },
+    {
+      "episodes": [7, 9],
+      "chapters": [17, 24],
+      "arc": "Momoko, Sonezaki & Tangled Feelings"
+    },
+    {
+      "episodes": [10, 12],
+      "chapters": [25, 33],
+      "arc": "Summer Camp & Resolution (Finale)"
+    }
+  ]
+}

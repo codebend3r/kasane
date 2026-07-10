@@ -1,0 +1,72 @@
+{
+  "anilistAnimeId": 21495,
+  "anilistMangaId": 85898,
+  "title": "Tanaka-kun is Always Listless",
+  "sourceNotes": "Single 12-episode TV season (2016) adapting the manga by Nozomi Uda. Manga complete at 140 chapters (13 volumes plus a 13.5 supplement), serialized 2013-2019 on Gangan Online. This is a plotless, episodic slice-of-life comedy with NO named story arcs; the anime cherry-picks and partially adapts chapters, jumping around and skipping heavily, but overall draws from roughly chapters 1-40. Chapter ranges below are approximate, using the official episode titles as segment labels and dividing the adapted material proportionally (~3 chapters/episode) rather than as exact boundaries. The final entry is a chapters-only tail covering the large unadapted remainder of the manga.",
+  "mappings": [
+    {
+      "episodes": [1, 1],
+      "chapters": [1, 4],
+      "arc": "Tanaka-kun and Ohta-kun"
+    },
+    {
+      "episodes": [2, 2],
+      "chapters": [5, 7],
+      "arc": "Apprenticeship Application"
+    },
+    {
+      "episodes": [3, 3],
+      "chapters": [8, 11],
+      "arc": "Girl of Contrast, Echizen-san"
+    },
+    {
+      "episodes": [4, 4],
+      "chapters": [12, 14],
+      "arc": "Shiraishi-san's Secret"
+    },
+    {
+      "episodes": [5, 5],
+      "chapters": [15, 17],
+      "arc": "Tanaka-kun's Day"
+    },
+    {
+      "episodes": [6, 6],
+      "chapters": [18, 20],
+      "arc": "The Sick Tanaka-kun"
+    },
+    {
+      "episodes": [7, 7],
+      "chapters": [21, 24],
+      "arc": "Tanaka-kun's Valentine"
+    },
+    {
+      "episodes": [8, 8],
+      "chapters": [25, 27],
+      "arc": "Ohta-kun's Ordeal"
+    },
+    {
+      "episodes": [9, 9],
+      "chapters": [28, 31],
+      "arc": "Welcome to Wac"
+    },
+    {
+      "episodes": [10, 10],
+      "chapters": [32, 34],
+      "arc": "Tanaka-kun's Summer"
+    },
+    {
+      "episodes": [11, 11],
+      "chapters": [35, 37],
+      "arc": "Tanaka-kun's Culture Festival"
+    },
+    {
+      "episodes": [12, 12],
+      "chapters": [38, 40],
+      "arc": "Tanaka-kun's Happiness"
+    },
+    {
+      "chapters": [41, 140],
+      "arc": "Unadapted manga chapters"
+    }
+  ]
+}
