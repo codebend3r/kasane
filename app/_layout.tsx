@@ -103,6 +103,7 @@ export default function RootLayout() {
             }}
           >
             <Stack.Screen name="index" />
+            <Stack.Screen name="login" />
             <Stack.Screen name="anime/[id]/index" />
             <Stack.Screen name="anime/[id]/arc/[arcIdx]" />
             <Stack.Screen name="manga/[id]/index" />
