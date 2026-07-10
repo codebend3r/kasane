@@ -99,6 +99,22 @@ export type MangaDexTitle = {
   value: string;
 };
 
+export type FranchiseSeason = {
+  id: number;
+  title: string;
+  romajiTitle: string;
+  format: string | null;
+  episodes: number | null;
+  year: number | null;
+};
+
+export type AnimeFranchise = {
+  rootId: number;
+  seasons: FranchiseSeason[];
+  totalTvEpisodes: number;
+  tvSeasonCount: number;
+};
+
 export type MangaDexInfo = {
   id: string;
   primaryTitle: string;

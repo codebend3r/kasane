@@ -48,6 +48,8 @@ src-tauri/Cargo.lock
 .vscode/
 .idea/
 
-# Claude Code local state
-.claude/
+# Claude Code per-machine state (keep skills/agents/settings tracked)
+.claude/scheduled_tasks.lock
+.claude/*.lock
+.claude/settings.local.json
 

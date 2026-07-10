@@ -1,8 +1,10 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Link } from "expo-router";
+import { useQuery } from "@tanstack/react-query";
 import type { SeriesBadge, SeriesEntry } from "@/types";
 import { FONT } from "@/theme";
 import { findMappingByMediaId } from "@/data";
+import { getAnimeFranchise, hasAnimeSequels } from "@/api/anilist";
 import { usePreferences } from "@/state/preferences";
 import { useSeriesProgress } from "@/state/progress";
 
@@ -52,10 +54,25 @@ export function SeriesCard({ entry }: { entry: SeriesEntry }) {
   const showProgressBar =
     (hasAnime && animeFrac !== null) || (hasManga && mangaFrac !== null);
 
+  const sequels = !!anime && hasAnimeSequels(anime);
+  const { data: franchise } = useQuery({
+    queryKey: ["franchise", anime?.id ?? 0],
+    queryFn: () => getAnimeFranchise(anime?.id ?? 0),
+    enabled: sequels,
+    staleTime: 24 * 60 * 60 * 1000,
+  });
+  const franchiseLabel =
+    mappedEpisodeCount == null &&
+    franchise &&
+    franchise.tvSeasonCount > 1 &&
+    franchise.totalTvEpisodes > 0
+      ? `${franchise.totalTvEpisodes} eps · ${franchise.tvSeasonCount} seasons`
+      : null;
+
   const parts: string[] = [];
   if (anime || badge === "anime-only") {
     const eps = mappedEpisodeCount ?? anime?.episodes ?? null;
-    parts.push(eps ? `${eps} eps` : "Anime ongoing");
+    parts.push(franchiseLabel ?? (eps ? `${eps} eps` : "Anime ongoing"));
   }
   if (manga || badge === "manga-only") {
     parts.push(manga?.chapters ? `${manga.chapters} ch` : "Manga ongoing");
