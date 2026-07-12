@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 196187,
+  "anilistMangaId": 147149,
+  "title": "Smoking Behind the Supermarket with You",
+  "sourceNotes": "The anime is currently RELEASING (Summer 2026 season, 12 planned episodes at ~24 min each). The first 6 episodes were released early as twelve ~10-minute mini-episodes on ABEMA/Crunchyroll ahead of the standard TV broadcast, adapting manga chapters 1-20. Manga (by Jinushi) is ongoing, at roughly chapter 58 as of early 2026 per Anime-Planet. Episodes 7-12 had not yet aired at the time this mapping was drafted, so their chapter coverage is left as an unadapted tail; revisit once the season completes and per-episode chapter data becomes available.",
+  "mappings": [
+    {
+      "episodes": [1, 6],
+      "chapters": [1, 20],
+      "arc": "Season 1 (Early Mini-Episode Release)"
+    },
+    { "chapters": [21, 58], "arc": "Unadapted (Episodes 7-12 not yet aired)" }
+  ]
+}

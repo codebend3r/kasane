@@ -1,0 +1,34 @@
+{
+  "anilistAnimeId": 156039,
+  "anilistMangaId": 101625,
+  "title": "Berserk of Gluttony",
+  "sourceNotes": "Single 12-episode season, adapted at a clean pace of 2 episodes per manga volume (5 chapters each). Adapts manga (THE COMIC) volumes 1-6, chapters 1-30; viewers are pointed to pick the manga back up at ch. 31. Manga ongoing (current ch. 79 as of July 2026, ~15 volumes released). Note: AniList's direct 'ADAPTATION' edge from the anime points to Isshiki Ichika's original light novel (id 100687), with the manga marked as an 'ALTERNATIVE' adaptation of that same novel — the manga is used here as the source of truth for chapters/arcs since it is the visual medium this repo's chapter-based navigation is built around. A second season has been announced but not yet released.",
+  "mappings": [
+    { "episodes": [1, 2], "chapters": [1, 5], "arc": "Awakening of Gluttony" },
+    {
+      "episodes": [3, 4],
+      "chapters": [6, 10],
+      "arc": "Hart Estate & the Crowned Beast"
+    },
+    {
+      "episodes": [5, 6],
+      "chapters": [11, 15],
+      "arc": "Journey to Galia / The Girl of Wrath"
+    },
+    {
+      "episodes": [7, 8],
+      "chapters": [16, 20],
+      "arc": "The Twilight Swordsman / Village of Lost Memories"
+    },
+    {
+      "episodes": [9, 10],
+      "chapters": [21, 25],
+      "arc": "The Guardian of Lust"
+    },
+    {
+      "episodes": [11, 12],
+      "chapters": [26, 30],
+      "arc": "Domain of E / Death March"
+    }
+  ]
+}

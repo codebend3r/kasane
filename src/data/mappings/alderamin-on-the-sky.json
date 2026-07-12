@@ -1,0 +1,28 @@
+{
+  "anilistAnimeId": 21410,
+  "anilistMangaId": 85885,
+  "title": "Alderamin on the Sky",
+  "sourceNotes": "13-episode 2016 anime adapts roughly the first 3 of Bokuto Uno's 14 light-novel volumes (eps 1-4 = LN vol.1's academy enrollment, ep5 = interlude/side material, eps 6-9 = LN vol.2's Katjvarna Civil War, eps 10-13 = LN vol.3's climactic Battle of Alderamin Fortress). Chapters here map to Taiki Kawakami's manga adaptation (7 vols, 32 ch, FINISHED 2017), which closely parallels this same span and concludes at the same story point as the anime. Exact per-episode chapter boundaries are not documented in available sources and are proportionally APPROXIMATED. LN vols 4-14 continue the story well past the anime/manga and are unadapted by either.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 10],
+      "arc": "Enrollment at the Officers' Academy (LN Vol. 1)"
+    },
+    {
+      "episodes": [5, 5],
+      "chapters": [10, 11],
+      "arc": "Interlude"
+    },
+    {
+      "episodes": [6, 9],
+      "chapters": [12, 20],
+      "arc": "The Katjvarna Rebellion / Civil War (LN Vol. 2)"
+    },
+    {
+      "episodes": [10, 13],
+      "chapters": [21, 32],
+      "arc": "The Kioka War & Battle of Alderamin Fortress (LN Vol. 3)"
+    }
+  ]
+}

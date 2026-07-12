@@ -407,7 +407,184 @@ import yosugaNoSora from "@/data/mappings/yosuga-no-sora.json";
 import schoolBabysitters from "@/data/mappings/school-babysitters.json";
 import pluto from "@/data/mappings/pluto.json";
 import ghostInTheShell from "@/data/mappings/ghost-in-the-shell.json";
+import mapping7thPrince from "@/data/mappings/7th-prince.json";
+import mapping7thTimeLoop from "@/data/mappings/7th-time-loop.json";
+import mapping8thSonAreYouKiddingMe from "@/data/mappings/8th-son-are-you-kidding-me.json";
+import mappingALullInTheSea from "@/data/mappings/a-lull-in-the-sea.json";
+import mappingAPlaceFurtherThanTheUniverse from "@/data/mappings/a-place-further-than-the-universe.json";
+import mappingAdachiAndShimamura from "@/data/mappings/adachi-and-shimamura.json";
+import mappingAestheticaOfARogueHero from "@/data/mappings/aesthetica-of-a-rogue-hero.json";
+import mappingAfroSamurai from "@/data/mappings/afro-samurai.json";
+import mappingAfterTheRain from "@/data/mappings/after-the-rain.json";
+import mappingAkudamaDrive from "@/data/mappings/akudama-drive.json";
+import mappingAlderaminOnTheSky from "@/data/mappings/alderamin-on-the-sky.json";
+import mappingAldnoahZero from "@/data/mappings/aldnoah-zero.json";
+import mappingAmIActuallyTheStrongest from "@/data/mappings/am-i-actually-the-strongest.json";
+import mappingAnArchdemonsDilemma from "@/data/mappings/an-archdemons-dilemma.json";
+import mappingAnohana from "@/data/mappings/anohana.json";
+import mappingAoChanCantStudy from "@/data/mappings/ao-chan-cant-study.json";
+import mappingAoashi from "@/data/mappings/aoashi.json";
+import mappingArmedGirlsMachiavellism from "@/data/mappings/armed-girls-machiavellism.json";
+import mappingBeckMongolianChopSquad from "@/data/mappings/beck-mongolian-chop-squad.json";
+import mappingBerserkOfGluttony from "@/data/mappings/berserk-of-gluttony.json";
+import mappingBlackSummoner from "@/data/mappings/black-summoner.json";
+import mappingBladeDanceOfTheElementalers from "@/data/mappings/blade-dance-of-the-elementalers.json";
+import mappingBloodC from "@/data/mappings/blood-c.json";
+import mappingBna from "@/data/mappings/bna.json";
+import mappingBubble from "@/data/mappings/bubble.json";
+import mappingBunnyDrop from "@/data/mappings/bunny-drop.json";
+import mappingBurnTheWitch from "@/data/mappings/burn-the-witch.json";
+import mappingByTheGraceOfTheGods from "@/data/mappings/by-the-grace-of-the-gods.json";
+import mappingCampione from "@/data/mappings/campione.json";
+import mappingCaroleTuesday from "@/data/mappings/carole-tuesday.json";
+import mappingChaikaTheCoffinPrincess from "@/data/mappings/chaika-the-coffin-princess.json";
+import mappingCharlotte from "@/data/mappings/charlotte.json";
+import mappingChillinInAnotherWorld from "@/data/mappings/chillin-in-another-world.json";
+import mappingChobits from "@/data/mappings/chobits.json";
+import mappingClevatess from "@/data/mappings/clevatess.json";
+import mappingDFrag from "@/data/mappings/d-frag.json";
+import mappingDanganronpaTheAnimation from "@/data/mappings/danganronpa-the-animation.json";
+import mappingDarlingInTheFranxx from "@/data/mappings/darling-in-the-franxx.json";
+import mappingDaysWithMyStepsister from "@/data/mappings/days-with-my-stepsister.json";
+import mappingDeadMountDeathPlay from "@/data/mappings/dead-mount-death-play.json";
+import mappingDemonKingDaimao from "@/data/mappings/demon-king-daimao.json";
+import mappingDemonLordRetry from "@/data/mappings/demon-lord-retry.json";
+import mappingDetectiveConan from "@/data/mappings/detective-conan.json";
+import mappingDevilsLine from "@/data/mappings/devils-line.json";
+import mappingDoYouLoveYourMomAndHerTwoHitMultiTargetAttacks from "@/data/mappings/do-you-love-your-mom-and-her-two-hit-multi-target-attacks.json";
+import mappingDukeOfDeathAndHisMaid from "@/data/mappings/duke-of-death-and-his-maid.json";
+import mappingDuskMaidenOfAmnesia from "@/data/mappings/dusk-maiden-of-amnesia.json";
+import mappingEdensZero from "@/data/mappings/edens-zero.json";
+import mappingEngagedToTheUnidentified from "@/data/mappings/engaged-to-the-unidentified.json";
+import mappingFailureFrame from "@/data/mappings/failure-frame.json";
+import mappingFateStrangeFake from "@/data/mappings/fate-strange-fake.json";
+import mappingFlyingWitch from "@/data/mappings/flying-witch.json";
+import mappingFromOldCountryBumpkinToMasterSwordsman from "@/data/mappings/from-old-country-bumpkin-to-master-swordsman.json";
+import mappingFullDive from "@/data/mappings/full-dive.json";
+import mappingFullMetalPanic from "@/data/mappings/full-metal-panic.json";
+import mappingGargantiaOnTheVerdurousPlanet from "@/data/mappings/gargantia-on-the-verdurous-planet.json";
+import mappingGirlsUndPanzer from "@/data/mappings/girls-und-panzer.json";
+import mappingGoGoLoserRanger from "@/data/mappings/go-go-loser-ranger.json";
+import mappingGoldenBoy from "@/data/mappings/golden-boy.json";
+import mappingGuiltyCrown from "@/data/mappings/guilty-crown.json";
+import mappingGurrenLagann from "@/data/mappings/gurren-lagann.json";
+import mappingGushingOverMagicalGirls from "@/data/mappings/gushing-over-magical-girls.json";
+import mappingHanasakuIroha from "@/data/mappings/hanasaku-iroha.json";
+import mappingHappySugarLife from "@/data/mappings/happy-sugar-life.json";
+import mappingHaremInTheLabyrinthOfAnotherWorld from "@/data/mappings/harem-in-the-labyrinth-of-another-world.json";
+import mappingHeavensLostProperty from "@/data/mappings/heavens-lost-property.json";
+import mappingHensuki from "@/data/mappings/hensuki.json";
+import mappingHentaiPrinceAndTheStonyCat from "@/data/mappings/hentai-prince-and-the-stony-cat.json";
+import mappingHighSchoolProdigiesHaveItEasyEvenInAnotherWorld from "@/data/mappings/high-school-prodigies-have-it-easy-even-in-another-world.json";
+import mappingHokkaidoGalsAreSuperAdorable from "@/data/mappings/hokkaido-gals-are-super-adorable.json";
+import mappingHundred from "@/data/mappings/hundred.json";
+import mappingICantUnderstandWhatMyHusbandIsSaying from "@/data/mappings/i-cant-understand-what-my-husband-is-saying.json";
+import mappingIParryEverything from "@/data/mappings/i-parry-everything.json";
+import mappingIcebladeSorcerer from "@/data/mappings/iceblade-sorcerer.json";
+import mappingImStandingOnAMillionLives from "@/data/mappings/im-standing-on-a-million-lives.json";
+import mappingInuXBokuSecretService from "@/data/mappings/inu-x-boku-secret-service.json";
+import mappingIsekaiCheatMagician from "@/data/mappings/isekai-cheat-magician.json";
+import mappingJormungand from "@/data/mappings/jormungand.json";
+import mappingK from "@/data/mappings/k.json";
+import mappingKabaneriOfTheIronFortress from "@/data/mappings/kabaneri-of-the-iron-fortress.json";
+import mappingKaijiUltimateSurvivor from "@/data/mappings/kaiji-ultimate-survivor.json";
+import mappingKamikatsu from "@/data/mappings/kamikatsu.json";
+import mappingKawaiComplex from "@/data/mappings/kawai-complex.json";
+import mappingKazeNoStigma from "@/data/mappings/kaze-no-stigma.json";
+import mappingKidsOnTheSlope from "@/data/mappings/kids-on-the-slope.json";
+import mappingKillLaKill from "@/data/mappings/kill-la-kill.json";
+import mappingKiznaiver from "@/data/mappings/kiznaiver.json";
+import mappingKotouraSan from "@/data/mappings/kotoura-san.json";
+import mappingKuboWontLetMeBeInvisible from "@/data/mappings/kubo-wont-let-me-be-invisible.json";
+import mappingLifeLessonsWithUramichiOniisan from "@/data/mappings/life-lessons-with-uramichi-oniisan.json";
+import mappingLordMarksmanAndVanadis from "@/data/mappings/lord-marksman-and-vanadis.json";
+import mappingLoveAfterWorldDomination from "@/data/mappings/love-after-world-domination.json";
+import mappingLoveTyrant from "@/data/mappings/love-tyrant.json";
+import mappingLycorisRecoil from "@/data/mappings/lycoris-recoil.json";
+import mappingMagicalSempai from "@/data/mappings/magical-sempai.json";
+import mappingMarriagetoxin from "@/data/mappings/marriagetoxin.json";
+import mappingMayoChiki from "@/data/mappings/mayo-chiki.json";
+import mappingMyGirlfriendIsShobitch from "@/data/mappings/my-girlfriend-is-shobitch.json";
+import mappingMyIsekaiLife from "@/data/mappings/my-isekai-life.json";
+import mappingMyMentalChoices from "@/data/mappings/my-mental-choices.json";
+import mappingMyStatusAsAnAssassin from "@/data/mappings/my-status-as-an-assassin.json";
+import mappingMysteriousGirlfriendX from "@/data/mappings/mysterious-girlfriend-x.json";
+import mappingNanbaka from "@/data/mappings/nanbaka.json";
+import mappingNoLongerAllowedInAnotherWorld from "@/data/mappings/no-longer-allowed-in-another-world.json";
+import mappingNoblesse from "@/data/mappings/noblesse.json";
+import mappingNyaruko from "@/data/mappings/nyaruko.json";
+import mappingOddtaxi from "@/data/mappings/oddtaxi.json";
+import mappingOsamake from "@/data/mappings/osamake.json";
+import mappingOssanNewbieAdventurer from "@/data/mappings/ossan-newbie-adventurer.json";
+import mappingOurDatingStory from "@/data/mappings/our-dating-story.json";
+import mappingOutbreakCompany from "@/data/mappings/outbreak-company.json";
+import mappingParallelWorldPharmacy from "@/data/mappings/parallel-world-pharmacy.json";
+import mappingPenguindrum from "@/data/mappings/penguindrum.json";
+import mappingPlasticMemories from "@/data/mappings/plastic-memories.json";
+import mappingPseudoHarem from "@/data/mappings/pseudo-harem.json";
+import mappingRainbow from "@/data/mappings/rainbow.json";
+import mappingReCreators from "@/data/mappings/re-creators.json";
+import mappingRealGirl from "@/data/mappings/real-girl.json";
+import mappingRecordOfGrancrestWar from "@/data/mappings/record-of-grancrest-war.json";
+import mappingReincarnationOfTheStrongestExorcist from "@/data/mappings/reincarnation-of-the-strongest-exorcist.json";
+import mappingRestaurantToAnotherWorld from "@/data/mappings/restaurant-to-another-world.json";
+import mappingSabikuiBisco from "@/data/mappings/sabikui-bisco.json";
+import mappingSaintsMagicPowerIsOmnipotent from "@/data/mappings/saints-magic-power-is-omnipotent.json";
+import mappingSasakiAndMiyano from "@/data/mappings/sasaki-and-miyano.json";
+import mappingSayonaraZetsubouSensei from "@/data/mappings/sayonara-zetsubou-sensei.json";
+import mappingSecondPrettiestGirlInMyClass from "@/data/mappings/second-prettiest-girl-in-my-class.json";
+import mappingSecretsOfTheSilentWitch from "@/data/mappings/secrets-of-the-silent-witch.json";
+import mappingShadowsHouse from "@/data/mappings/shadows-house.json";
+import mappingShakuganNoShana from "@/data/mappings/shakugan-no-shana.json";
+import mappingShowaGenrokuRakugoShinju from "@/data/mappings/showa-genroku-rakugo-shinju.json";
+import mappingSingYesterdayForMe from "@/data/mappings/sing-yesterday-for-me.json";
+import mappingSleepyPrincessInTheDemonCastle from "@/data/mappings/sleepy-princess-in-the-demon-castle.json";
+import mappingSmokingBehindTheSupermarketWithYou from "@/data/mappings/smoking-behind-the-supermarket-with-you.json";
+import mappingSoICantPlayH from "@/data/mappings/so-i-cant-play-h.json";
+import mappingSomaliAndTheForestSpirit from "@/data/mappings/somali-and-the-forest-spirit.json";
+import mappingSpaceDandy from "@/data/mappings/space-dandy.json";
+import mappingSsssGridman from "@/data/mappings/ssss-gridman.json";
+import mappingSupposeAKidFromTheLastDungeonBooniesMovedToAStarterTown from "@/data/mappings/suppose-a-kid-from-the-last-dungeon-boonies-moved-to-a-starter-town.json";
+import mappingSweetnessAndLightning from "@/data/mappings/sweetness-and-lightning.json";
+import mappingTaktOpDestiny from "@/data/mappings/takt-op-destiny.json";
+import mappingTamakoMarket from "@/data/mappings/tamako-market.json";
+import mappingTheAristocratsOtherworldlyAdventure from "@/data/mappings/the-aristocrats-otherworldly-adventure.json";
+import mappingTheDayIBecameAGod from "@/data/mappings/the-day-i-became-a-god.json";
+import mappingTheDreamingBoyIsARealist from "@/data/mappings/the-dreaming-boy-is-a-realist.json";
+import mappingTheElusiveSamurai from "@/data/mappings/the-elusive-samurai.json";
+import mappingTheGirlILikeForgotHerGlasses from "@/data/mappings/the-girl-i-like-forgot-her-glasses.json";
+import mappingTheGreatJahyWillNotBeDefeated from "@/data/mappings/the-great-jahy-will-not-be-defeated.json";
+import mappingTheIceGuyAndHisCoolFemaleColleague from "@/data/mappings/the-ice-guy-and-his-cool-female-colleague.json";
+import mappingTheKingdomsOfRuin from "@/data/mappings/the-kingdoms-of-ruin.json";
+import mappingTheMagicalRevolutionOfTheReincarnatedPrincessAndTheGeniusYoungLady from "@/data/mappings/the-magical-revolution-of-the-reincarnated-princess-and-the-genius-young-lady.json";
+import mappingTheStrongestSageWithTheWeakestCrest from "@/data/mappings/the-strongest-sage-with-the-weakest-crest.json";
+import mappingTheWaterMagician from "@/data/mappings/the-water-magician.json";
+import mappingThisArtClubHasAProblem from "@/data/mappings/this-art-club-has-a-problem.json";
+import mappingTokyoRavens from "@/data/mappings/tokyo-ravens.json";
+import mappingUndefeatedBahamutChronicle from "@/data/mappings/undefeated-bahamut-chronicle.json";
+import mappingUnwantedUndeadAdventurer from "@/data/mappings/unwanted-undead-adventurer.json";
+import mappingUzumaki from "@/data/mappings/uzumaki.json";
+import mappingVampireKnight from "@/data/mappings/vampire-knight.json";
+import mappingVillainessLevel99 from "@/data/mappings/villainess-level-99.json";
+import mappingVivyFluoriteEyesSong from "@/data/mappings/vivy-fluorite-eyes-song.json";
+import mappingWagnaria from "@/data/mappings/wagnaria.json";
+import mappingWaitingInTheSummer from "@/data/mappings/waiting-in-the-summer.json";
+import mappingWelcomeToTheBallroom from "@/data/mappings/welcome-to-the-ballroom.json";
+import mappingWitchCraftWorks from "@/data/mappings/witch-craft-works.json";
+import mappingWitchWatch from "@/data/mappings/witch-watch.json";
+import mappingWolfGirlAndBlackPrince from "@/data/mappings/wolf-girl-and-black-prince.json";
+import mappingWorldsEndHarem from "@/data/mappings/worlds-end-harem.json";
+import mappingYakuzasGuideToBabysitting from "@/data/mappings/yakuzas-guide-to-babysitting.json";
+import mappingYuruYuri from "@/data/mappings/yuru-yuri.json";
+import mappingYuunaAndTheHauntedHotSprings from "@/data/mappings/yuuna-and-the-haunted-hot-springs.json";
+import mappingZombieLandSaga from "@/data/mappings/zombie-land-saga.json";
 
+import mappingBeastTamer from "@/data/mappings/beast-tamer.json";
+import mappingSekirei from "@/data/mappings/sekirei.json";
+import mappingArakawaUnderTheBridge from "@/data/mappings/arakawa-under-the-bridge.json";
+import mappingBrynhildrInTheDarkness from "@/data/mappings/brynhildr-in-the-darkness.json";
+import mappingMagicalGirlSite from "@/data/mappings/magical-girl-site.json";
+import mappingTheHeroicLegendOfArslan from "@/data/mappings/the-heroic-legend-of-arslan.json";
 // JSON imports lose tuple types — `[1, 100]` becomes `number[]` instead of
 // `[number, number]`. `normalizeMapping` rebuilds tuples literally.
 type RawEntry = {
@@ -883,6 +1060,183 @@ const ALL_MAPPINGS: SeriesMapping[] = [
   schoolBabysitters,
   pluto,
   ghostInTheShell,
+  mapping7thPrince,
+  mapping7thTimeLoop,
+  mapping8thSonAreYouKiddingMe,
+  mappingALullInTheSea,
+  mappingAPlaceFurtherThanTheUniverse,
+  mappingAdachiAndShimamura,
+  mappingAestheticaOfARogueHero,
+  mappingAfroSamurai,
+  mappingAfterTheRain,
+  mappingAkudamaDrive,
+  mappingAlderaminOnTheSky,
+  mappingAldnoahZero,
+  mappingAmIActuallyTheStrongest,
+  mappingAnArchdemonsDilemma,
+  mappingAnohana,
+  mappingAoChanCantStudy,
+  mappingAoashi,
+  mappingArmedGirlsMachiavellism,
+  mappingBeckMongolianChopSquad,
+  mappingBerserkOfGluttony,
+  mappingBlackSummoner,
+  mappingBladeDanceOfTheElementalers,
+  mappingBloodC,
+  mappingBna,
+  mappingBubble,
+  mappingBunnyDrop,
+  mappingBurnTheWitch,
+  mappingByTheGraceOfTheGods,
+  mappingCampione,
+  mappingCaroleTuesday,
+  mappingChaikaTheCoffinPrincess,
+  mappingCharlotte,
+  mappingChillinInAnotherWorld,
+  mappingChobits,
+  mappingClevatess,
+  mappingDFrag,
+  mappingDanganronpaTheAnimation,
+  mappingDarlingInTheFranxx,
+  mappingDaysWithMyStepsister,
+  mappingDeadMountDeathPlay,
+  mappingDemonKingDaimao,
+  mappingDemonLordRetry,
+  mappingDetectiveConan,
+  mappingDevilsLine,
+  mappingDoYouLoveYourMomAndHerTwoHitMultiTargetAttacks,
+  mappingDukeOfDeathAndHisMaid,
+  mappingDuskMaidenOfAmnesia,
+  mappingEdensZero,
+  mappingEngagedToTheUnidentified,
+  mappingFailureFrame,
+  mappingFateStrangeFake,
+  mappingFlyingWitch,
+  mappingFromOldCountryBumpkinToMasterSwordsman,
+  mappingFullDive,
+  mappingFullMetalPanic,
+  mappingGargantiaOnTheVerdurousPlanet,
+  mappingGirlsUndPanzer,
+  mappingGoGoLoserRanger,
+  mappingGoldenBoy,
+  mappingGuiltyCrown,
+  mappingGurrenLagann,
+  mappingGushingOverMagicalGirls,
+  mappingHanasakuIroha,
+  mappingHappySugarLife,
+  mappingHaremInTheLabyrinthOfAnotherWorld,
+  mappingHeavensLostProperty,
+  mappingHensuki,
+  mappingHentaiPrinceAndTheStonyCat,
+  mappingHighSchoolProdigiesHaveItEasyEvenInAnotherWorld,
+  mappingHokkaidoGalsAreSuperAdorable,
+  mappingHundred,
+  mappingICantUnderstandWhatMyHusbandIsSaying,
+  mappingIParryEverything,
+  mappingIcebladeSorcerer,
+  mappingImStandingOnAMillionLives,
+  mappingInuXBokuSecretService,
+  mappingIsekaiCheatMagician,
+  mappingJormungand,
+  mappingK,
+  mappingKabaneriOfTheIronFortress,
+  mappingKaijiUltimateSurvivor,
+  mappingKamikatsu,
+  mappingKawaiComplex,
+  mappingKazeNoStigma,
+  mappingKidsOnTheSlope,
+  mappingKillLaKill,
+  mappingKiznaiver,
+  mappingKotouraSan,
+  mappingKuboWontLetMeBeInvisible,
+  mappingLifeLessonsWithUramichiOniisan,
+  mappingLordMarksmanAndVanadis,
+  mappingLoveAfterWorldDomination,
+  mappingLoveTyrant,
+  mappingLycorisRecoil,
+  mappingMagicalSempai,
+  mappingMarriagetoxin,
+  mappingMayoChiki,
+  mappingMyGirlfriendIsShobitch,
+  mappingMyIsekaiLife,
+  mappingMyMentalChoices,
+  mappingMyStatusAsAnAssassin,
+  mappingMysteriousGirlfriendX,
+  mappingNanbaka,
+  mappingNoLongerAllowedInAnotherWorld,
+  mappingNoblesse,
+  mappingNyaruko,
+  mappingOddtaxi,
+  mappingOsamake,
+  mappingOssanNewbieAdventurer,
+  mappingOurDatingStory,
+  mappingOutbreakCompany,
+  mappingParallelWorldPharmacy,
+  mappingPenguindrum,
+  mappingPlasticMemories,
+  mappingPseudoHarem,
+  mappingRainbow,
+  mappingReCreators,
+  mappingRealGirl,
+  mappingRecordOfGrancrestWar,
+  mappingReincarnationOfTheStrongestExorcist,
+  mappingRestaurantToAnotherWorld,
+  mappingSabikuiBisco,
+  mappingSaintsMagicPowerIsOmnipotent,
+  mappingSasakiAndMiyano,
+  mappingSayonaraZetsubouSensei,
+  mappingSecondPrettiestGirlInMyClass,
+  mappingSecretsOfTheSilentWitch,
+  mappingShadowsHouse,
+  mappingShakuganNoShana,
+  mappingShowaGenrokuRakugoShinju,
+  mappingSingYesterdayForMe,
+  mappingSleepyPrincessInTheDemonCastle,
+  mappingSmokingBehindTheSupermarketWithYou,
+  mappingSoICantPlayH,
+  mappingSomaliAndTheForestSpirit,
+  mappingSpaceDandy,
+  mappingSsssGridman,
+  mappingSupposeAKidFromTheLastDungeonBooniesMovedToAStarterTown,
+  mappingSweetnessAndLightning,
+  mappingTaktOpDestiny,
+  mappingTamakoMarket,
+  mappingTheAristocratsOtherworldlyAdventure,
+  mappingTheDayIBecameAGod,
+  mappingTheDreamingBoyIsARealist,
+  mappingTheElusiveSamurai,
+  mappingTheGirlILikeForgotHerGlasses,
+  mappingTheGreatJahyWillNotBeDefeated,
+  mappingTheIceGuyAndHisCoolFemaleColleague,
+  mappingTheKingdomsOfRuin,
+  mappingTheMagicalRevolutionOfTheReincarnatedPrincessAndTheGeniusYoungLady,
+  mappingTheStrongestSageWithTheWeakestCrest,
+  mappingTheWaterMagician,
+  mappingThisArtClubHasAProblem,
+  mappingTokyoRavens,
+  mappingUndefeatedBahamutChronicle,
+  mappingUnwantedUndeadAdventurer,
+  mappingUzumaki,
+  mappingVampireKnight,
+  mappingVillainessLevel99,
+  mappingVivyFluoriteEyesSong,
+  mappingWagnaria,
+  mappingWaitingInTheSummer,
+  mappingWelcomeToTheBallroom,
+  mappingWitchCraftWorks,
+  mappingWitchWatch,
+  mappingWolfGirlAndBlackPrince,
+  mappingWorldsEndHarem,
+  mappingYakuzasGuideToBabysitting,
+  mappingYuruYuri,
+  mappingYuunaAndTheHauntedHotSprings,
+  mappingZombieLandSaga,
+  mappingBeastTamer,
+  mappingSekirei,
+  mappingArakawaUnderTheBridge,
+  mappingBrynhildrInTheDarkness,
+  mappingMagicalGirlSite,
+  mappingTheHeroicLegendOfArslan,
 ].map(normalizeMapping);
 
 export function findMappingByMediaId(mediaId: number): SeriesMapping | null {

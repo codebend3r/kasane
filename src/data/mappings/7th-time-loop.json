@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 168374,
+  "anilistMangaId": 127008,
+  "title": "7th Time Loop: The Villainess Enjoys a Carefree Life Married to Her Worst Enemy!",
+  "sourceNotes": "Single season, 12 episodes, adapting Amamiya Touya's light novel (Kimi wa Bokuno...). AniList tracks neither the manga (id 127008) nor the light novel (id 129152) with a chapter count since both are still RELEASING; figures here are sourced from Seven Seas volume solicitations and a fan chapter-guide (epicstream.com, 'Where to Start Reading 7th Time Loop After the Anime'). The anime covers the light novel's first two volumes, ending partway into manga chapter 31. Manga ongoing (current ch. 42 as of late June 2026); unadapted continuation included at the tail.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 30],
+      "arc": "Season 1: Seventh Loop / Marriage to Arnold"
+    },
+    { "chapters": [31, 42], "arc": "Unadapted continuation (ongoing)" }
+  ]
+}

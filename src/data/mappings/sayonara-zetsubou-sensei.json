@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 2605,
+  "anilistMangaId": 30661,
+  "title": "Sayonara, Zetsubou-Sensei",
+  "sourceNotes": "Cumulative episodes across S1 (12) + Zoku/S2 (13) + Goku OVA (3) + Zan/S3 (13) + Zan Bangaichi OVA (2) + a 2012 Blu-ray bonus episode (1) = 44. Manga by Koji Kumeta complete at 301 serialized chapters (ch. 268 was never collected in tankobon). Satirical gag/anthology manga — Shaft's adaptation (dir. Akiyuki Shinbo) heavily shuffles and skips chapters rather than adapting in reading order, with most episodes splicing together two to four unrelated chapter-length gags pulled from across the run, so per-season chapter ranges are not cleanly separable; the single adapted range below is a coarse approximation of the chapter span touched across the whole TV+OVA run, not a strict sequence. The manga's true, never-animated finale begins at chapter 290.",
+  "mappings": [
+    {
+      "episodes": [1, 44],
+      "chapters": [1, 289],
+      "arc": "TV Series + OVAs (non-linear anthology adaptation)"
+    },
+    { "chapters": [290, 301], "arc": "Finale (never adapted)" }
+  ]
+}

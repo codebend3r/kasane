@@ -1,0 +1,17 @@
+{
+  "anilistAnimeId": 163292,
+  "anilistMangaId": 114048,
+  "title": "The Ossan Newbie Adventurer, Trained to Death by the Most Powerful Party, Became Invincible",
+  "sourceNotes": "Single season, 12 episodes. Adapted from Kiraku Kishima's light novel; the manga (Ken Ogino, id 114048) is used as the chapter source. Manga ongoing (13 volumes as of May 2026, approx. ch. 75 as of mid-2026). The anime adapts through roughly manga Vol. 6 Ch. 35 (Rookie Examiner / Fist King Tournament arcs), with remaining chapters unadapted continuation.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 35],
+      "arc": "Rookie Examiner / Fist King Tournament Arc"
+    },
+    {
+      "chapters": [36, 75],
+      "arc": "Unadapted continuation (ongoing)"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "anilistAnimeId": 128547,
+  "anilistMangaId": 128564,
+  "title": "ODDTAXI",
+  "sourceNotes": "Original anime (13 episodes, written by Kazuya Konomoto); the manga adaptation by Konomoto and artist Takeichi Abaraya began serialization before the anime aired and ran roughly a year past it, closely tracking the same story chapter-for-chapter. Manga complete at 37 chapters (5 volumes); the fandom wiki's chapter list marks which chapter each episode's material starts at, used directly below. The final 2 chapters (36-37) are manga-only bonus/epilogue content with no TV counterpart.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 9],
+      "arc": "Odokawa's fares & the missing girl"
+    },
+    {
+      "episodes": [4, 6],
+      "chapters": [10, 16],
+      "arc": "The investigation widens"
+    },
+    { "episodes": [7, 9], "chapters": [17, 24], "arc": "Threads converge" },
+    {
+      "episodes": [10, 13],
+      "chapters": [25, 35],
+      "arc": "Endgame & Odokawa's secret"
+    },
+    { "chapters": [36, 37], "arc": "Bonus epilogue (manga-only)" }
+  ],
+  "movies": [
+    {
+      "anilistId": 143080,
+      "title": "ODDTAXI In The Woods",
+      "year": 2022,
+      "afterEpisode": 13,
+      "note": "Documentary-style 'reconstruction' of the TV series' events with new epilogue content set after the finale."
+    }
+  ]
+}

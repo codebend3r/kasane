@@ -1,0 +1,24 @@
+{
+  "anilistAnimeId": 3002,
+  "anilistMangaId": 33572,
+  "title": "Kaiji - Ultimate Survivor",
+  "sourceNotes": "Single 26-episode season adapting the complete first manga series, Gambling Apocalypse: Kaiji (Tobaku Mokushiroku Kaiji) — 158 chapters, complete. Arc boundaries follow the manga's well-known gambling arcs, cross-checked against Denpa's English omnibus subtitles (Survival of the Fittest/Machiavellianism = Espoir, Human Derby, Multistoried Funambulism = Brave Men's Road, Invincible Emperor/Counterattacking Slave = E-Card). The E-Card/Tissue Box Raffle split (ch. 144/145) is approximate since no precise chapter-level source was found; refine via PR if a definitive source turns up. The sequel anime/manga (Hakairoku-hen) draws on a wholly separate manga and is not covered by this mapping.",
+  "mappings": [
+    {
+      "episodes": [1, 9],
+      "chapters": [1, 54],
+      "arc": "Espoir Arc (Restricted Rock-Paper-Scissors)"
+    },
+    {
+      "episodes": [10, 14],
+      "chapters": [55, 93],
+      "arc": "Castle of Despair: Human Derby & Brave Men's Road"
+    },
+    { "episodes": [15, 21], "chapters": [94, 144], "arc": "E-Card" },
+    {
+      "episodes": [22, 26],
+      "chapters": [145, 158],
+      "arc": "Tissue Box Raffle (Finale)"
+    }
+  ]
+}

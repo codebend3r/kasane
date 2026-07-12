@@ -1,0 +1,23 @@
+{
+  "anilistAnimeId": 6956,
+  "anilistMangaId": 33044,
+  "title": "Wagnaria!!",
+  "sourceNotes": "Cumulative episodes across 3 TV seasons sharing the same source manga: Wagnaria!! S1 (13, 2010) + Wagnaria!!2 / Working'!! (13, 2011) + Wagnaria!!3 / Working!!! (13, 2015) = 39 eps. (The 2016 spinoff WWW.Wagnaria!! is excluded — it adapts a different, unrelated web-manga continuity, not Karino Takatsu's Young Gangan series.) Manga complete at 252 chapters (13 volumes, 2005-2014, plus a short run of Extra Chapters). Working!! is a 4-koma-style gag/slice-of-life comedy with no continuous story arcs, and fan sources note the anime pulls chapters out of publication order rather than adapting them sequentially — so the per-season chapter ranges below are approximate proportional estimates (roughly a third of the manga per season), not a precise sequential mapping.",
+  "mappings": [
+    {
+      "episodes": [1, 13],
+      "chapters": [1, 84],
+      "arc": "Season 1 (Wagnaria!!)"
+    },
+    {
+      "episodes": [14, 26],
+      "chapters": [85, 168],
+      "arc": "Season 2 (Wagnaria!!2 / Working'!!)"
+    },
+    {
+      "episodes": [27, 39],
+      "chapters": [169, 252],
+      "arc": "Season 3 (Wagnaria!!3 / Working!!!)"
+    }
+  ]
+}

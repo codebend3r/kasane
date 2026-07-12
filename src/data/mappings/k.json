@@ -1,0 +1,27 @@
+{
+  "anilistAnimeId": 14467,
+  "anilistMangaId": 85261,
+  "title": "K",
+  "sourceNotes": "Single-cour anime, 13 episodes. Anime-original story; \"K: THE FIRST\" is a manga reconstruction of the same TV series storyline, complete at 16 chapters. No official episode-to-chapter guide was found, so the split follows the anime's well-documented two-part structure (murder-mystery setup, then the Colorless/Silver King revelation) with chapter boundaries estimated proportionally — treat as approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 6],
+      "chapters": [1, 7],
+      "arc": "Homra and Scepter 4 / The Shiro Murder Case"
+    },
+    {
+      "episodes": [7, 13],
+      "chapters": [8, 16],
+      "arc": "Colorless King / Silver King Revelation"
+    }
+  ],
+  "movies": [
+    {
+      "anilistId": 16904,
+      "title": "K: Missing Kings",
+      "year": 2014,
+      "afterEpisode": 13,
+      "note": "Canon direct sequel film bridging Season 1 to Season 2 (K: Return of Kings)."
+    }
+  ]
+}

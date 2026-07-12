@@ -1,0 +1,15 @@
+{
+  "anilistAnimeId": 4063,
+  "anilistMangaId": 30873,
+  "title": "Sekirei",
+  "sourceNotes": "Cumulative episodes across S1 (12) + Pure Engagement S2 (13). Manga complete at 187 chapters (18 volumes). S2's back half and finale are largely anime-original and diverge from the manga (notably skipping canon material in ch. 70-73), so the S2 chapter range is an approximation; the manga continues well beyond both seasons.",
+  "mappings": [
+    { "episodes": [1, 12], "chapters": [1, 55], "arc": "Season 1" },
+    {
+      "episodes": [13, 25],
+      "chapters": [56, 74],
+      "arc": "Pure Engagement (Season 2)"
+    },
+    { "chapters": [75, 187], "arc": "Post-Anime Story (Unadapted)" }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "anilistAnimeId": 115740,
+  "anilistMangaId": 101793,
+  "title": "By the Grace of the Gods",
+  "sourceNotes": "Cumulative episodes across S1 (12) + S2 (12). Manga ongoing (current ch. 71 as of mid-2026, art by Ranran, serialized on Manga UP! since 2017); AniList does not track a live chapter count for this series, so the figures here are sourced from publisher chapter listings. Season 1 corresponds to roughly the manga's first 40 chapters (the manga only caught up to the Season 1 anime content around ch. 40); Season 2's precise endpoint within the manga is less well documented online and is approximated here as the current published chapter.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 40],
+      "arc": "Arrival & Laundry Business (Season 1)"
+    },
+    {
+      "episodes": [13, 24],
+      "chapters": [41, 71],
+      "arc": "Expanding Business (Season 2)"
+    }
+  ]
+}

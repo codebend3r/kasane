@@ -1,0 +1,19 @@
+{
+  "anilistAnimeId": 143270,
+  "anilistMangaId": 151808,
+  "title": "Lycoris Recoil",
+  "sourceNotes": "13-episode anime (2022). Original anime; manga tie-in by Yasunori Bizen is ongoing (current ch. 40 across 8 volumes as of Jan 2026), retelling the anime at roughly 3 chapters per episode. The TV story wraps around ch. 39, with ch. 40+ moving into new original material beyond the anime's ending. Arc split follows the series' well-documented structural turn at episode 6/7 from episodic slice-of-life to the Majima/DA conspiracy plot.",
+  "mappings": [
+    {
+      "episodes": [1, 6],
+      "chapters": [1, 18],
+      "arc": "Direct Attack Missions / Cafe LycoReco (Episodic)"
+    },
+    {
+      "episodes": [7, 13],
+      "chapters": [19, 39],
+      "arc": "Alan Institute Conspiracy / Chisato's Past"
+    },
+    { "chapters": [40, 40], "arc": "Original Continuation (Post-Anime)" }
+  ]
+}

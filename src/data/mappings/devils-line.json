@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 99531,
+  "anilistMangaId": 86648,
+  "title": "Devils' Line",
+  "sourceNotes": "Single-cour, 12-episode anime adapting roughly the first six of fourteen manga volumes. Manga (Ryo Hanada, Morning Two) is complete at 80 chapters ('Lines'); no named-arc breakdown was found for this series (chapters are numbered, not titled by arc), so broad volume-range entries are used per episode-to-chapter sync guides, which place the anime's ending around chapter 38. A separate 2018 OVA, 'Anytime Anywhere,' bundled with manga volume 12, retells a parents' backstory side-story rather than continuing the main chapter sequence, so it is not folded into the cumulative episode numbering here.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 38],
+      "arc": "TV Anime Adaptation (Vols. 1-6)"
+    },
+    { "chapters": [39, 80], "arc": "Unadapted (Vols. 7-14)" }
+  ]
+}

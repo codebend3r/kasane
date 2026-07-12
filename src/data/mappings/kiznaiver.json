@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 21421,
+  "anilistMangaId": 87447,
+  "title": "Kiznaiver",
+  "sourceNotes": "12-episode original anime (Studio Trigger, written by Mari Okada, 2016) paired with a concurrent 9-chapter (2-volume, complete) tie-in manga by Roji Karegishi that retells the same story; a published chapter-to-episode guide was not found, so chapter ranges are proportioned across the anime's two halves.",
+  "mappings": [
+    {
+      "episodes": [1, 6],
+      "chapters": [1, 5],
+      "arc": "The Kizna Program Begins"
+    },
+    { "episodes": [7, 12], "chapters": [6, 9], "arc": "Bonds and Resolution" }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "anilistAnimeId": 148116,
+  "anilistMangaId": 123093,
+  "title": "The Iceblade Sorcerer Shall Rule the World",
+  "sourceNotes": "Season 1 is 12 episodes. Manga complete at 132 chapters (16 volumes); it is the first of two manga adaptations of Nana Mikoshiba's light novel and covers the same three story arcs as anime Season 1 (Sword Sorcerer, Magic Chevalier, Sorcerer's Eyes / LN Vols 1-3) before ending in Jan 2024 — a separate 'reboot' manga (Hyouken no Majutsushi ga Sekai o Suberu II) began serialization in 2026 starting directly at the Magicks War arc (LN Vol 4), which Season 2 (announced for Oct 2026, not yet aired) will adapt, so it is out of scope here. No confirmed per-chapter arc breakdown was published for the first manga; chapter boundaries below are apportioned across the complete 132-chapter run in the same ratio as the episode counts of each arc (per the show's fandom wiki per-episode arc tags) and should be treated as approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 5],
+      "chapters": [1, 55],
+      "arc": "The Sword Sorcerer Arc"
+    },
+    {
+      "episodes": [6, 9],
+      "chapters": [56, 99],
+      "arc": "The Magic Chevalier Arc"
+    },
+    {
+      "episodes": [10, 12],
+      "chapters": [100, 132],
+      "arc": "Sorcerer's Eyes Arc"
+    }
+  ]
+}

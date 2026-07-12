@@ -1,0 +1,18 @@
+{
+  "anilistAnimeId": 20972,
+  "anilistMangaId": 56704,
+  "title": "Showa Genroku Rakugo Shinju",
+  "sourceNotes": "Cumulative episodes across S1 (13) + S2/Sukeroku Futatabi-hen (12) = 25. Manga by Haruko Kumota complete at 10 volumes; AniList lists 32 chapters (the fandom wiki's chapter list runs 1-31, with AniList's count likely including a bonus/epilogue chapter). S1 covers volumes 1-5 (chapters 1-16), spanning the \"Yotaro's Odyssey\" present-day frame and the \"Yakumo and Sukeroku\" flashback arc; S2 covers volumes 6-10 (chapters 17-32), the \"Sukeroku Again\" arc following Yotaro in the present day. A 2-episode OVA (\"Yotaro Hourou-hen\", 2015) predates and was later re-adapted into S1's extended 48-minute premiere, so it is not counted separately in this mapping's episode numbering.",
+  "mappings": [
+    {
+      "episodes": [1, 13],
+      "chapters": [1, 16],
+      "arc": "Yakumo to Sukeroku-hen (Kikuhiko & Sukeroku's Youth)"
+    },
+    {
+      "episodes": [14, 25],
+      "chapters": [17, 32],
+      "arc": "Sukeroku Futatabi-hen (Yotaro's Present Day)"
+    }
+  ]
+}

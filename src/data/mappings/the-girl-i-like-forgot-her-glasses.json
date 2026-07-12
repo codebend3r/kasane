@@ -1,0 +1,17 @@
+{
+  "anilistAnimeId": 160188,
+  "anilistMangaId": 105641,
+  "title": "The Girl I Like Forgot Her Glasses",
+  "sourceNotes": "Single-season, 13-episode TV anime (GoHands, 2023) adapts manga ch. 1-68 (~through vol. 7). Manga complete at 120 chapters (12 vols). Slice-of-life romance/comedy source with no formally named arcs — roughly 5 chapters per episode.",
+  "mappings": [
+    {
+      "episodes": [1, 13],
+      "chapters": [1, 68],
+      "arc": "Anime-Adapted Chapters"
+    },
+    {
+      "chapters": [69, 120],
+      "arc": "Unadapted (manga continues past the anime)"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 111314,
+  "anilistMangaId": 30436,
+  "title": "Uzumaki",
+  "sourceNotes": "Single season, 4 episodes (Adult Swim, 2024), adapting Junji Ito's complete 19-chapter, 3-volume horror manga (serialized 1998-1999) at roughly 5 chapters per 23-minute episode. Chapter boundaries are approximate, sourced from the manga's per-volume chapter-title breakdown and episode-airdate synopses (Wikipedia, CBR) rather than a dedicated fan sync guide. Manga complete at 19 core chapters; AniList's chapters count of 20 also includes the standalone bonus story 'Uzumaki Tokubetsu-hen: Ginga' (Lost Chapter: Galaxies), which the anime does not adapt and is listed here as an unadapted tail entry.",
+  "mappings": [
+    {
+      "episodes": [1, 1],
+      "chapters": [1, 5],
+      "arc": "The Spiral Obsession / The Scar / The Firing Effect / Twisted Souls"
+    },
+    {
+      "episodes": [2, 2],
+      "chapters": [6, 9],
+      "arc": "Medusa / Jack-in-the-Box / The Snail / The Black Lighthouse"
+    },
+    {
+      "episodes": [3, 3],
+      "chapters": [10, 13],
+      "arc": "Mosquitoes / The Umbilical Cord / The Storm / The House"
+    },
+    {
+      "episodes": [4, 4],
+      "chapters": [14, 19],
+      "arc": "Butterflies / Chaos / Erosion / Escape / The Labyrinth / Completion"
+    },
+    {
+      "chapters": [20, 20],
+      "arc": "Lost Chapter: Galaxies (unadapted bonus story)"
+    }
+  ]
+}

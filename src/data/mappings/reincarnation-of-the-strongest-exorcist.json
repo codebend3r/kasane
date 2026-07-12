@@ -1,0 +1,10 @@
+{
+  "anilistAnimeId": 144553,
+  "anilistMangaId": 123544,
+  "title": "The Reincarnation of the Strongest Exorcist in Another World",
+  "sourceNotes": "Single 13-episode season. Manga ongoing (current ch. 52); the anime fast-paces through the light novel's early volumes, concluding at manga chapter 30, with skipped worldbuilding/character depth noted by fans. Unadapted continuation included at the tail.",
+  "mappings": [
+    { "episodes": [1, 13], "chapters": [1, 30], "arc": "Anime Adaptation" },
+    { "chapters": [31, 52], "arc": "Manga-Only Continuation" }
+  ]
+}

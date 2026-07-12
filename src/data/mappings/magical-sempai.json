@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 105074,
+  "anilistMangaId": 87056,
+  "title": "Magical Sempai",
+  "sourceNotes": "12-episode single-cour anime (Liden Films, 2019); each ~12-minute episode strings together 3-5 short skits drawn non-sequentially from the manga (the finale alone pulls from ch. 78, 24, 10, and 15). Manga complete at 134 chapters (8 volumes, Weekly Young Magazine, 2016-2021). The anime's material is drawn from up through roughly ch. 78; chs. 79-134 (the manga's final two volumes) are unadapted. Chapter ranges are approximate given the non-linear episode-to-chapter drawing.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 78],
+      "arc": "Magic Club Antics (Season 1 material)"
+    },
+    { "chapters": [79, 134], "arc": "Post-anime (unadapted)" }
+  ]
+}

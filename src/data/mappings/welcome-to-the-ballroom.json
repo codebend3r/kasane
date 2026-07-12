@@ -1,0 +1,27 @@
+{
+  "anilistAnimeId": 98005,
+  "anilistMangaId": 78347,
+  "title": "Welcome to the Ballroom",
+  "sourceNotes": "Single 24-episode season (Production I.G, 2017). Manga ongoing (current ch. 72, ~12 volumes). The anime adapts through ch. 54 (roughly volume 7), with its final two episodes running slightly ahead of the manga's pace at the time (anime-original beats covering content the manga hadn't yet drawn). Arc names and chapter ranges from the fandom wiki's Story Arcs / Chapters and Volumes pages; per-episode boundaries beyond the confirmed anchor points (ep. 7 opens the Tenpei Cup at ch. 8, ep. 11 closes it, ep. 18 opens the Metropolitan Tournament at ch. 35) are approximate reconstructions.",
+  "mappings": [
+    { "episodes": [1, 2], "chapters": [1, 2], "arc": "Introduction" },
+    {
+      "episodes": [3, 6],
+      "chapters": [3, 7],
+      "arc": "Mikasa Cup / Regional Qualifiers"
+    },
+    { "episodes": [7, 11], "chapters": [8, 17], "arc": "Tenpei Cup" },
+    { "episodes": [12, 14], "chapters": [18, 27], "arc": "Meeting Arc" },
+    { "episodes": [15, 16], "chapters": [28, 30], "arc": "Grand Prix" },
+    { "episodes": [17, 17], "chapters": [31, 34], "arc": "Camp Arc" },
+    {
+      "episodes": [18, 24],
+      "chapters": [35, 54],
+      "arc": "Metropolitan Tournament"
+    },
+    {
+      "chapters": [55, 72],
+      "arc": "Unadapted (manga continuation, incl. the eye-disease storyline)"
+    }
+  ]
+}

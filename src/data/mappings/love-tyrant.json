@@ -1,0 +1,17 @@
+{
+  "anilistAnimeId": 21517,
+  "anilistMangaId": 71949,
+  "title": "Love Tyrant",
+  "sourceNotes": "Single 12-episode TV season (2017). Manga (Renai Boukun) complete at 61 chapters (14 volumes, 2013-2018) — only ~11 volumes (ch 1-44) were published by the time the anime finished airing. The anime adapts the manga's opening arc faithfully through ch 32 across its 12 episodes, condensing/omitting some minor manga chapters and side characters along the way; chapters 33-61 (the manga's back half, including characters and plotlines never introduced in the anime) remain unadapted.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 32],
+      "arc": "Cupid's Contract / Harem Formation Arc"
+    },
+    {
+      "chapters": [33, 61],
+      "arc": "Later chapters (unadapted; anime does not continue)"
+    }
+  ]
+}

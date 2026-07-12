@@ -1,0 +1,17 @@
+{
+  "anilistAnimeId": 163076,
+  "anilistMangaId": 122786,
+  "title": "Villainess Level 99: I May Be the Hidden Boss but I'm Not the Demon Lord",
+  "sourceNotes": "Mapped by LIGHT NOVEL VOLUME, not chapter. Satori Tanabata's light novel is the anime's actual source; the illustrated manga by Nokomi (AniList id 118519) is a separate, much slower retelling — by the time the 12-episode anime finished airing in March 2024 the manga had only reached chapter 19 (roughly episode 9's content), and it was still at chapter ~25 as of mid-2026 — so it cannot supply a usable chapter mapping. The `chapters` tuples below hold LN VOLUME numbers and `anilistMangaId` points to the light novel itself (AniList id 122786), the work these volumes index. The single-cour anime (12 eps) adapts all of LN Volume 1 but diverges into an anime-original finale not found in the source. The light novel is ongoing at 6 published Japanese volumes (as of late 2024, unchanged through mid-2026); Volumes 2-6 are the unadapted tail.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 1],
+      "arc": "Volume 1: Yumiella's academy life as the game's secret final boss, ending with an anime-original finale"
+    },
+    {
+      "chapters": [2, 6],
+      "arc": "Volumes 2-6: unadapted continuation of the light novel"
+    }
+  ]
+}

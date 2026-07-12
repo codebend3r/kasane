@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 21051,
+  "anilistMangaId": 86693,
+  "title": "NANBAKA",
+  "sourceNotes": "Cumulative episodes across S1 (13) + 'NANBAKA - Part Two' ONA (12) = 25. Manga complete at 423 chapters (short, densely paced comico webcomic chapters, collected into 8 volumes). Arc boundaries follow the fandom wiki's 'Part One'-'Part Five' story groupings; S1 covers all of Part One (New Year's Cooperation Tournament and its aftermath). S2 covers only the first portion of Part Two, ending mid-arc around ch. 94 per community consensus on where to resume reading — the remainder of Part Two plus Parts Three-Five are unadapted.",
+  "mappings": [
+    {
+      "episodes": [1, 13],
+      "chapters": [1, 37],
+      "arc": "Part One — New Year's Cooperation Tournament"
+    },
+    {
+      "episodes": [14, 25],
+      "chapters": [38, 94],
+      "arc": "Part Two — Receiving Rewards / Building 5 (partial)"
+    },
+    {
+      "chapters": [95, 423],
+      "arc": "Unadapted (rest of Part Two through Part Five)"
+    }
+  ]
+}

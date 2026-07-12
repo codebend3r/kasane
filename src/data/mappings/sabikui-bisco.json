@@ -1,0 +1,13 @@
+{
+  "anilistAnimeId": 130591,
+  "anilistMangaId": 111620,
+  "title": "Sabikui Bisco",
+  "sourceNotes": "Season 1, 12 episodes. Source is a 10-volume light novel series (AniList does not track its chapter count), so this mapping uses the 'Rust-Eater Bisco' manga adaptation instead — complete at 22 chapters across 4 volumes, covering the same content as the anime (both adapt only Light Novel Volume 1). A separately-numbered sequel manga ('Rust-Eater Bisco 2', drawn by a new artist) covers the Sabikui Bisco 2nd Season anime and is out of scope for this file.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 22],
+      "arc": "Imihama (Novel Volume 1)"
+    }
+  ]
+}

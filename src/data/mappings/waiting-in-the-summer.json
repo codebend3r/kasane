@@ -1,0 +1,18 @@
+{
+  "anilistAnimeId": 11433,
+  "anilistMangaId": 65713,
+  "title": "Waiting in the Summer",
+  "sourceNotes": "Single season, 12 episodes. The 12-episode 2012 TV anime is an anime-original story; the 3-volume, 11-chapter manga by Pepako Dokuta (serialized in Dengeki Daioh, Mar. 2012-Feb. 2013) is a close tie-in adaptation that ran concurrently with the TV broadcast, compressing roughly one chapter per episode. Manga complete at 11 chapters. A separate light-novel adaptation (AniList id 84597, 30 chapters/2 volumes) also exists but is not used here. No distinct named story arcs; the show is a single continuous slice-of-life romance plot.",
+  "mappings": [
+    {
+      "episodes": [1, 6],
+      "chapters": [1, 5],
+      "arc": "Ichika's Arrival / Filmmaking Club Forms"
+    },
+    {
+      "episodes": [7, 12],
+      "chapters": [6, 11],
+      "arc": "Confessions / Ichika's Secret Revealed"
+    }
+  ]
+}

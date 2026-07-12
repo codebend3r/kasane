@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 20701,
+  "anilistMangaId": 58825,
+  "title": "Wolf Girl and Black Prince",
+  "sourceNotes": "Single season, 12 episodes. Manga complete; AniList lists 69 chapters (16 volumes, including bonus/extra stories woven into the main numbering used by most fan guides, which top out around ch. 58). The anime adapts the early relationship through roughly the main-numbering equivalent of Chapter 21-22 (end of Volume 6); the remainder of the romance plays out manga-only.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 25],
+      "arc": "Fake Boyfriend / Early Relationship"
+    },
+    { "chapters": [26, 69], "arc": "Manga-Only Continuation" }
+  ]
+}

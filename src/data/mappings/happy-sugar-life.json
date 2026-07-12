@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 101351,
+  "anilistMangaId": 86655,
+  "title": "Happy Sugar Life",
+  "sourceNotes": "Single season, 12 episodes. Manga complete at 62 chapters. The anime follows the manga closely but compresses pacing (roughly 1 chapter per episode early on, 3-4 chapters per episode by the finale) and skips Chapters 28-31 (Shio's parents backstory); ep. 12 ends at Chapter 48, leaving the manga's ending (Chapters 49-62) unadapted.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 48],
+      "arc": "Satou & Shio (TV Adaptation)"
+    },
+    { "chapters": [49, 62], "arc": "Manga-Only Ending" }
+  ]
+}

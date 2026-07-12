@@ -1,0 +1,15 @@
+{
+  "anilistAnimeId": 20809,
+  "anilistMangaId": 73391,
+  "title": "Lord Marksman and Vanadis",
+  "sourceNotes": "Single-cour, 13-episode anime adapting the first five light novel volumes in full. Manga (Nobuhiko Yanai, Comic Flapper) is complete at 51 chapters covering the same span as the anime, so the whole manga is adapted with no unadapted tail. Arc names come from the fandom wiki's 'Arc One' breakdown (Archer and Vanadis / Two Vanadis / Roland); exact chapter boundaries are approximated from the wiki's episode synopses since no chapter-precise guide was found, so treat them as approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 12],
+      "arc": "Archer and Vanadis Arc"
+    },
+    { "episodes": [4, 5], "chapters": [13, 20], "arc": "Two Vanadis Arc" },
+    { "episodes": [6, 13], "chapters": [21, 51], "arc": "Roland Arc" }
+  ]
+}

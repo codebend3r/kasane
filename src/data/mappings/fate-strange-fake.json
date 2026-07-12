@@ -1,0 +1,17 @@
+{
+  "anilistAnimeId": 166617,
+  "anilistMangaId": 50006,
+  "title": "Fate/strange Fake",
+  "sourceNotes": "S1 anime is 13 episodes (2024-2026), adapting the Snowfield false Holy Grail War from Ryohgo Narita's light novel through roughly volume 6 (ep. 13 draws from ch. 20 of vol. 6). The Shidzuki Morii manga adaptation is far behind the anime (5 volumes published, only reaching early-series content), so this mapping uses LIGHT-NOVEL VOLUME NUMBERS as the 'chapters' axis instead, following the Ascendance of a Bookworm / Bottom-Tier Character Tomozaki convention. The light novel is ongoing at 9 published volumes (through March 2024) with a 10th and final volume expected in 2026; volume boundaries within S1 are approximate. No qualifying theatrical films — the 'Whispers of Dawn' special (July 2023) was a TV/con-screening prequel, not a Japanese theatrical release.",
+  "mappings": [
+    {
+      "episodes": [1, 13],
+      "chapters": [1, 6],
+      "arc": "Snowfield False Holy Grail War (LN vols 1-6)"
+    },
+    {
+      "chapters": [7, 9],
+      "arc": "War's climax, unadapted by the anime (LN vols 7-9)"
+    }
+  ]
+}

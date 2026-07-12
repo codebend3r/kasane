@@ -1,0 +1,10 @@
+{
+  "anilistAnimeId": 21284,
+  "anilistMangaId": 76258,
+  "title": "Flying Witch",
+  "sourceNotes": "12-episode anime is a slow, faithful slice-of-life adaptation with no distinct named arcs; it covers manga chapters 1-21 (through part of volume 4), skipping very little. Manga ongoing (current ch. ~90 as of early 2026).",
+  "mappings": [
+    { "episodes": [1, 12], "chapters": [1, 21], "arc": "Anime Adaptation" },
+    { "chapters": [22, 90], "arc": "Manga-only Continuation" }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "anilistAnimeId": 7647,
+  "anilistMangaId": 44154,
+  "title": "Arakawa Under the Bridge",
+  "sourceNotes": "Cumulative episodes across S1 (13) + S2 'x Bridge' (13) = 26, both by Shaft (2010). Manga complete at 410 chapters / 15 volumes; it is a gag/slice-of-life series told in short, loosely connected chapters. The anime does not adapt straight through — it skips around non-sequentially, picking the funniest/most plot-relevant bits — but by the end of S2 it has worked through roughly the first 267 chapters per fan chapter-guides, so the S1/S2 split below is an approximate midpoint rather than an official boundary. Chapters 268-410 are unadapted tail. A 2012 live-action film exists but is excluded (non-animated, not part of this anime/manga tracker).",
+  "mappings": [
+    {
+      "episodes": [1, 13],
+      "chapters": [1, 135],
+      "arc": "Life Under the Bridge (Season 1)"
+    },
+    {
+      "episodes": [14, 26],
+      "chapters": [136, 267],
+      "arc": "Life Under the Bridge (Season 2 / x Bridge)"
+    },
+    { "chapters": [268, 410], "arc": "Unadapted continuation" }
+  ]
+}

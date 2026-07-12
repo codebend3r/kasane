@@ -1,0 +1,28 @@
+{
+  "anilistAnimeId": 16011,
+  "anilistMangaId": 54037,
+  "title": "Tokyo Ravens",
+  "sourceNotes": "Single-cour 24-episode TV anime (2013-14) adapting the first 9 volumes of Kōhei Azano's light novel; paired here with Atsushi Suzumi's manga adaptation, which follows the same story at roughly 5 chapters per volume (complete at 82 chapters across 15 volumes). Anime episode groupings mirror the light novel's volume subtitles (SHAMAN*CLAN, RAVEN'S NEST, etc.); some minor side-story content from volumes 4-5 is skipped in the TV adaptation, so that boundary is approximate. Manga volumes 10-15 (ch 47-82) cover the light novel's second story arc and were never animated.",
+  "mappings": [
+    { "episodes": [1, 3], "chapters": [1, 5], "arc": "SHAMAN*CLAN" },
+    { "episodes": [4, 6], "chapters": [6, 10], "arc": "RAVEN'S NEST" },
+    { "episodes": [7, 9], "chapters": [11, 15], "arc": "cHImAirA DanCE" },
+    {
+      "episodes": [10, 14],
+      "chapters": [16, 25],
+      "arc": "GIRL RETURN / days in nest"
+    },
+    {
+      "episodes": [15, 17],
+      "chapters": [26, 30],
+      "arc": "Black Shaman ASSAULT"
+    },
+    { "episodes": [18, 19], "chapters": [31, 35], "arc": "_DARKNESS_EMERGE_" },
+    { "episodes": [20, 21], "chapters": [36, 41], "arc": "over-cry" },
+    { "episodes": [22, 24], "chapters": [42, 46], "arc": "to The DarkSky" },
+    {
+      "chapters": [47, 82],
+      "arc": "Second Arc (Volumes 10-15, unadapted in the TV anime)"
+    }
+  ]
+}

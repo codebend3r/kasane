@@ -1,0 +1,9 @@
+{
+  "anilistAnimeId": 12549,
+  "anilistMangaId": 55547,
+  "title": "So, I Can't Play H!",
+  "sourceNotes": "Anime is 12 TV episodes (2012); a 13th episode aired separately as an OVA in 2013 continuing the story and is not counted in the cumulative range. Manga (Shou Okagiri, complete at 28 chapters / 5 volumes) is a parallel adaptation of the same Pan Tachibana light novels rather than a direct novelization of the anime, but covers the same overall plot through its swimsuit-competition climax. Continuous romantic comedy with no distinct named arcs.",
+  "mappings": [
+    { "episodes": [1, 12], "chapters": [1, 28], "arc": "Main Story" }
+  ]
+}

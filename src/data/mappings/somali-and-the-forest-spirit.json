@@ -1,0 +1,17 @@
+{
+  "anilistAnimeId": 108617,
+  "anilistMangaId": 86788,
+  "title": "Somali and the Forest Spirit",
+  "sourceNotes": "Single 12-episode season. Manga cut short at 39 chapters (6 volumes) — serialization ended in 2019, then officially concluded in December 2020 after author Yako Gureishi's worsening health forced an early wrap-up. The anime notably adapts chapters out of chronological order to suit its own pacing (e.g. episode 7 draws from chapters 6-11 while episode 6 draws from chapters 20-21), so a precise per-episode chapter correspondence isn't meaningful; this mapping instead spans the overall range of chapters the anime draws from (ch. 1-31, matching episode 12's use of ch. 31) with the unadapted final chapters (32-39) at the tail. Episode 12's ending is anime-original and not present in the manga.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 31],
+      "arc": "Somali & Golem's Journey (anime run; chapters adapted out of order)"
+    },
+    {
+      "chapters": [32, 39],
+      "arc": "Final Chapters (unadapted manga-only epilogue)"
+    }
+  ]
+}

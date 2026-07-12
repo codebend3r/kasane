@@ -1,0 +1,15 @@
+{
+  "anilistAnimeId": 59,
+  "anilistMangaId": 30107,
+  "title": "Chobits",
+  "sourceNotes": "Single-cour 26-episode TV anime (2002), a full faithful adaptation of the complete manga (88 chapters across 8 volumes). The manga has no formally named story arcs; broad divisions below are anchored to episodes 9 and 18, which Wikipedia notes are clip/recap episodes marking natural breaks in the story. The anime softens some of the manga's more philosophical tone and adds minor original material without altering the plot.",
+  "mappings": [
+    { "episodes": [1, 9], "chapters": [1, 30], "arc": "Chi's Awakening" },
+    {
+      "episodes": [10, 18],
+      "chapters": [31, 60],
+      "arc": "The Secret of Persocoms"
+    },
+    { "episodes": [19, 26], "chapters": [61, 88], "arc": "The Truth About Chi" }
+  ]
+}

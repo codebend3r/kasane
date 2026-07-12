@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 153629,
+  "anilistMangaId": 122344,
+  "title": "The Magical Revolution of the Reincarnated Princess and the Genius Young Lady",
+  "sourceNotes": "Single-cour anime (12 eps, Jan-Mar 2023), adapted primarily from the light novel (13 volumes, complete). The manga adaptation finished serialization in March 2026 and is complete at 53 chapters (9 volumes); it follows the same early story beats as the anime rather than the full 13-volume light novel, with episode 12 corresponding to roughly manga chapter 50 and the final chapters extending slightly past the anime's ending. No theatrical films.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 50],
+      "arc": "Main Story (Anime Adaptation)"
+    },
+    { "chapters": [51, 53], "arc": "Epilogue (manga-only ending, unadapted)" }
+  ]
+}

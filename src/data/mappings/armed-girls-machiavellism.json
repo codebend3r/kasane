@@ -1,0 +1,34 @@
+{
+  "anilistAnimeId": 21851,
+  "anilistMangaId": 85892,
+  "title": "Armed Girl's Machiavellism",
+  "sourceNotes": "12-episode single-cour anime (2017) adapting roughly the first six of the manga's 13 tankobon volumes, up to about chapter 30. Manga complete at 90 chapters. The anime follows the manga's 'Five Swords' structure, spending two-to-three episodes per heroine (Rin Onigawara, Mary Kikakujo, Warabi Hanasaka, Satori Tamaba, Tsukuyo Inaba); exact chapter boundaries per arc are not individually published, so the ~30-chapter adapted range is divided evenly across the five arcs as an approximation.",
+  "mappings": [
+    {
+      "episodes": [1, 2],
+      "chapters": [1, 6],
+      "arc": "Rin Onigawara, the Magnificent Blade"
+    },
+    {
+      "episodes": [3, 4],
+      "chapters": [7, 12],
+      "arc": "Mary Kikakujo, the Fair Sword"
+    },
+    {
+      "episodes": [5, 6],
+      "chapters": [13, 18],
+      "arc": "Warabi Hanasaka, the Love-Crazed Blade"
+    },
+    {
+      "episodes": [7, 9],
+      "chapters": [19, 24],
+      "arc": "Satori Tamaba, the Dubious Sword"
+    },
+    {
+      "episodes": [10, 12],
+      "chapters": [25, 30],
+      "arc": "Tsukuyo Inaba, the Terrifying Blade"
+    },
+    { "chapters": [31, 90], "arc": "Unadapted Arcs" }
+  ]
+}

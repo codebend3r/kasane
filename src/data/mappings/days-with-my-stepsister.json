@@ -1,0 +1,21 @@
+{
+  "anilistAnimeId": 152681,
+  "anilistMangaId": 130837,
+  "title": "Days with My Stepsister",
+  "sourceNotes": "Single-cour 12-episode TV anime (2024). Source material is Mikawa Ghost's light novel; the official manga adaptation (AniList id 130837) tracks the story chapter-by-chapter and has since caught up past the anime's coverage, so it is used here for finer-grained chapter mapping instead of LN volumes. The anime adapts manga chapters 1-23 (roughly LN vols. 1-4). Manga ongoing (current ch. ~36 as of mid-2026).",
+  "mappings": [
+    {
+      "episodes": [1, 3],
+      "chapters": [1, 7],
+      "arc": "Meeting as Stepsiblings (Vol. 1)"
+    },
+    { "episodes": [4, 6], "chapters": [8, 11], "arc": "Settling In (Vol. 2)" },
+    {
+      "episodes": [7, 9],
+      "chapters": [12, 17],
+      "arc": "Growing Closer (Vol. 2-3)"
+    },
+    { "episodes": [10, 12], "chapters": [18, 23], "arc": "Vol. 4" },
+    { "chapters": [24, 36], "arc": "Unadapted (manga ahead of anime)" }
+  ]
+}

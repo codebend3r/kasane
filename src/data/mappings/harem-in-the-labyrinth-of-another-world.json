@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 127090,
+  "anilistMangaId": 99462,
+  "title": "Harem in the Labyrinth of Another World",
+  "sourceNotes": "Single-cour anime (12 eps, 2022). Manga adaptation ongoing (current ch. 108 as of June 2026); the anime finishes at ch. 17 / part of ch. 18 (a reader resumes at manga vol. 7 ch. 45), so ch. 1-44 is the anime-covered range. No distinct named story arcs are used by the source; boundaries are broad. The 2-episode OVA (AniList id 151632) bundles bonus/side content and is not included in the cumulative episode count.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 44],
+      "arc": "Kadan's Dungeon City / Harem Formation"
+    },
+    { "chapters": [45, 108], "arc": "Unadapted continuation (ongoing)" }
+  ]
+}
