@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 112649,
+  "anilistMangaId": 100311,
+  "title": "Suppose a Kid from the Last Dungeon Boonies moved to a starter town?",
+  "sourceNotes": "Single-cour 12-episode anime (Liden Films, 2021) compresses roughly five light novels into one season, skipping large stretches of story. Manga (Hajime Fusemachi, Gangan Online) complete at 52 chapters / 12 volumes (2017-2023), adapting through Novel 6 before ending. The anime's finale lines up with approximately chapter 44 of the manga; the manga continues a bit further with unadapted material before its own conclusion.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 44],
+      "arc": "Anime Story (Season 1)"
+    },
+    { "chapters": [45, 52], "arc": "Manga-only continuation" }
+  ]
+}

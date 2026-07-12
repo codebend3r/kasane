@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 19369,
+  "anilistMangaId": 84983,
+  "title": "Outbreak Company",
+  "sourceNotes": "Single-cour, 12-episode anime (2013) has a semi-original storyline that compresses and rearranges events from light novel volumes 1-4 and 7 (of an eventual 18, ~75 chapters total per AniList). Because Ichiro Sakaki's separate manga adaptation by Kiri Kajiya only ran 4 volumes/25 chapters (2012-2014) and doesn't track the anime's rearranged order, this mapping uses light-novel chapter numbers as the 'chapters' unit instead (same approach as realist-hero.json). Chapter boundaries for the compressed/rearranged span are approximate. Light novel finished at 18 volumes (Aug 2017); unadapted volumes included at the tail. No movies.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 30],
+      "arc": "TV Anime (LN Vols 1-4 & 7, compressed/rearranged)"
+    },
+    { "chapters": [31, 75], "arc": "Unadapted Light Novel (Vols 5-6, 8-18)" }
+  ]
+}

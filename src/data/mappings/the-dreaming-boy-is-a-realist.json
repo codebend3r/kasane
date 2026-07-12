@@ -1,0 +1,9 @@
+{
+  "anilistAnimeId": 157397,
+  "anilistMangaId": 132664,
+  "title": "The Dreaming Boy is a Realist",
+  "sourceNotes": "Single-cour, 12-episode anime (2023) adapts the early volumes of Okemaru's light novel non-linearly, interleaving scenes between different characters' perspectives out of strict chronological order. The direct manga adaptation by Popuri Yoshikita (5 volumes, complete at 33 chapters, finished March 2024) covers roughly the same span of story as the anime. Because the anime jumps between threads rather than following the manga chapter-by-chapter, precise per-episode chapter boundaries are not documented anywhere; this mapping treats the manga's full run as corresponding to the anime's full run. No movies.",
+  "mappings": [
+    { "episodes": [1, 12], "chapters": [1, 33], "arc": "TV Anime Adaptation" }
+  ]
+}

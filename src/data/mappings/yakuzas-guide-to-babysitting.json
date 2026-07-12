@@ -1,0 +1,17 @@
+{
+  "anilistAnimeId": 138882,
+  "anilistMangaId": 107896,
+  "title": "The Yakuza's Guide to Babysitting",
+  "sourceNotes": "Single-cour 12-episode TV anime (Feel/Gaina, 2022). Manga ongoing (16 tankobon volumes, current ch. ~64 as of 2026; AniList lists no fixed chapter count for the ongoing series). Fan continue-reading guides point viewers to resume the manga at chapter 37 after the anime, putting the season's coverage at chapters 1-36. No distinct named story arcs are used by the source material, so broad season-based entries are used instead.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 36],
+      "arc": "Season 1"
+    },
+    {
+      "chapters": [37, 64],
+      "arc": "Unadapted (manga continues, approximate)"
+    }
+  ]
+}

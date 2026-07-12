@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 116242,
+  "anilistMangaId": 97371,
+  "title": "I'm Standing on a Million Lives",
+  "sourceNotes": "Cumulative episodes across S1 (12) + S2 (12). Manga ongoing (~24 volumes / current ch. ~120 as of mid-2026). The anime follows the manga's numbered \"quest\" arcs closely through cumulative episode 18 (S2 episode 6), after which S2's back half (eps 19-24) becomes an anime-original alternate take on the manga's Quest 6 (the Ihar-Nemore drug-cartel war), altered due to restrictions on depicting drug content, so it is not mapped to further chapters.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 12],
+      "arc": "Quest 1 (Troll) & Quest 2 (Radodorbo Cargo Delivery)"
+    },
+    {
+      "episodes": [13, 24],
+      "chapters": [13, 25],
+      "arc": "Quest 3-5 (Island Battles, New Recruits, Aoyu's Farewell)"
+    },
+    {
+      "chapters": [26, 120],
+      "arc": "Quest 6 onward: Ihar-Nemore Drug War (unadapted on TV, manga ongoing)"
+    }
+  ]
+}

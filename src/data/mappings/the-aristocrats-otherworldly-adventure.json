@@ -1,0 +1,19 @@
+{
+  "anilistAnimeId": 153332,
+  "anilistMangaId": 103238,
+  "title": "The Aristocrat's Otherworldly Adventure: Serving Gods Who Go Too Far",
+  "sourceNotes": "Single-cour, 12 episodes. The manga (illustrated by Nini) is ongoing at 15+ volumes, current ch. ~77; AniList does not track a chapter count for the source light novel, so the manga is used as the reference here. Volume synopses confirm the 5-year training arc (vol. 5) lands at ep. 9 and Cain becoming a domain lord (vol. 6) lands at eps. 11-12, so the anime's 12 episodes cover roughly the first 6 volumes; exact chapter cut points are estimated from an average chapters-per-volume rate and should be refined via PR if a fan chapter guide surfaces.",
+  "mappings": [
+    {
+      "episodes": [1, 8],
+      "chapters": [1, 20],
+      "arc": "Reincarnation, the Royal Capital, and the Academy"
+    },
+    {
+      "episodes": [9, 12],
+      "chapters": [21, 31],
+      "arc": "Five Years of Training and Becoming a Domain Lord"
+    },
+    { "chapters": [32, 77], "arc": "Unadapted manga continuation" }
+  ]
+}

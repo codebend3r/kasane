@@ -1,0 +1,13 @@
+{
+  "anilistAnimeId": 19221,
+  "anilistMangaId": 84593,
+  "title": "My Mental Choices Are Completely Interfering With My School Romantic Comedy",
+  "sourceNotes": "Single-cour, 10 episodes total. Original source is a 12-volume light novel (AniList id 84431, chapters untracked); this mapping instead uses the closely-following manga adaptation by Sayaka Itsuki (5 volumes, complete at 23 chapters), which is the entry AniList tracks by chapter count. Episodic girl-of-the-week comedy format with no distinct named story arcs, so a single broad mapping is used; chapter boundaries are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 10],
+      "chapters": [1, 23],
+      "arc": "Series (episodic comedy, no distinct arcs)"
+    }
+  ]
+}

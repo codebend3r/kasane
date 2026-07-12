@@ -1,0 +1,17 @@
+{
+  "anilistAnimeId": 20031,
+  "anilistMangaId": 44721,
+  "title": "D-Frag!",
+  "sourceNotes": "Single-season, 12-episode TV anime (Brain's Base, 2014) adapts manga ch. 1-36 (~vol. 1-4), covering the Game Creation Club (Provisional)'s formation through its showdown with the ex-Student Council. Manga ongoing (current ch. ~176). Episodic gag-comedy source with no formally named story arcs beyond this stretch.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 36],
+      "arc": "Game Creation Club (Provisional) Founding"
+    },
+    {
+      "chapters": [37, 176],
+      "arc": "Unadapted (manga continues past the anime)"
+    }
+  ]
+}

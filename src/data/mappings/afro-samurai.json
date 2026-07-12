@@ -1,0 +1,23 @@
+{
+  "anilistAnimeId": 1292,
+  "anilistMangaId": 39935,
+  "title": "Afro Samurai",
+  "sourceNotes": "Anime is 5 TV episodes (2007): episodes 1-4 form the Number Two arc, episode 5 the Number One/Justice arc. Manga complete at 10 chapters (2 volumes) — a 2008 remake of Takashi Okazaki's original self-published doujinshi, split evenly between the two arcs; the creator calls it the closest version to the source doujinshi, though it also folds in some elements from the film sequel.",
+  "mappings": [
+    { "episodes": [1, 4], "chapters": [1, 5], "arc": "Number Two Arc" },
+    {
+      "episodes": [5, 5],
+      "chapters": [6, 10],
+      "arc": "Number One Arc (Justice)"
+    }
+  ],
+  "movies": [
+    {
+      "anilistId": 4970,
+      "title": "Afro Samurai: Resurrection",
+      "year": 2009,
+      "afterEpisode": 5,
+      "note": "Canon sequel film continuing directly after the TV series; anime-original story, not covered by the 10-chapter manga."
+    }
+  ]
+}

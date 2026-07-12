@@ -1,0 +1,48 @@
+{
+  "anilistAnimeId": 71,
+  "anilistMangaId": 40892,
+  "title": "Full Metal Panic!",
+  "sourceNotes": "Cumulative episodes across S1 (24) + The Second Raid (13) + Invisible Victory (12) = 49; Full Metal Panic? Fumoffu (12 eps) is a non-canon gag side-story and is excluded from arc numbering. Source is the light novel (72 chapters across 12 volumes, complete); chapter ranges assume an even ~6 chapters per volume since no published per-chapter table of contents was found, so boundaries are approximate. S1 adapts vol. 1-3 (Boy Meets Girl through Into the Blue); The Second Raid adapts vol. 4-5 (Ending Day by Day); vol. 6 (Dancing Very Merry Christmas) is a side story that was never animated; Invisible Victory adapts vol. 7-9. Vol. 10-12 (Forever Stand by Me) is the unadapted novel-only finale.",
+  "mappings": [
+    {
+      "episodes": [1, 7],
+      "chapters": [1, 6],
+      "arc": "Fighting: Boy Meets Girl"
+    },
+    {
+      "episodes": [8, 12],
+      "chapters": [7, 12],
+      "arc": "Running: One Night Stand"
+    },
+    {
+      "episodes": [13, 24],
+      "chapters": [13, 18],
+      "arc": "Swaying: Into the Blue"
+    },
+    {
+      "episodes": [25, 31],
+      "chapters": [19, 24],
+      "arc": "Ending Day by Day (Part 1)"
+    },
+    {
+      "episodes": [32, 37],
+      "chapters": [25, 30],
+      "arc": "Ending Day by Day (Part 2)"
+    },
+    {
+      "episodes": [38, 41],
+      "chapters": [37, 42],
+      "arc": "Continuing On My Own"
+    },
+    {
+      "episodes": [42, 45],
+      "chapters": [43, 48],
+      "arc": "Burning One Man Force"
+    },
+    { "episodes": [46, 49], "chapters": [49, 54], "arc": "Come Make My Day" },
+    {
+      "chapters": [55, 72],
+      "arc": "Forever Stand by Me (unadapted novel finale)"
+    }
+  ]
+}

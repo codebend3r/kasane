@@ -1,0 +1,19 @@
+{
+  "anilistAnimeId": 99426,
+  "anilistMangaId": 101415,
+  "title": "A Place Further Than the Universe",
+  "sourceNotes": "Single-cour anime, 13 episodes. Manga is a close tie-in retelling, complete at 17 chapters (15 main chapters plus two .5 bonus chapters, matching AniList's count) across 3 volumes, with each volume covering a clean four-to-five episode block.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 5],
+      "arc": "Forming the Yukihana Crew"
+    },
+    {
+      "episodes": [5, 8],
+      "chapters": [6, 11],
+      "arc": "Voyage Aboard the Soya"
+    },
+    { "episodes": [9, 13], "chapters": [12, 17], "arc": "Antarctica" }
+  ]
+}

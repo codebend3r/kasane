@@ -1,0 +1,10 @@
+{
+  "anilistAnimeId": 173694,
+  "anilistMangaId": 110989,
+  "title": "Failure Frame: I Became the Strongest and Annihilated Everything with Low-Level Spells",
+  "sourceNotes": "Single 12-episode season (Seven Arcs, 2024) adapts light novel volumes 1-4; the anilistMangaId here points at the separate manga adaptation (AniList's light-novel entry doesn't track a chapter count), which covers the same content through approx. chapter 44 (community continuation point cited as vol. 9, ch. 44.2). Manga ongoing (current ch. 70 as of mid-2026). No widely established named arcs for this fast-paced revenge-isekai story, so mapping uses broad coverage entries.",
+  "mappings": [
+    { "episodes": [1, 12], "chapters": [1, 44], "arc": "TV Anime Adaptation" },
+    { "chapters": [45, 70], "arc": "Unadapted Chapters" }
+  ]
+}

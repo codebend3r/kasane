@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 178869,
+  "anilistMangaId": 122693,
+  "title": "Clevatess",
+  "sourceNotes": "Cumulative episodes across S1 (12) + S2 (13) = 25 total; anilistAnimeId is S1's id per convention. S1 adapts manga ch. 1-24 (resume post-anime at ch. 25); S2 began airing July 2026 adapting the Solsein Magic Academy arc onward, but it's too early in its run for confirmed per-episode chapter boundaries, so only S1 is mapped precisely for now. Manga ongoing (Yuji Iwahara, LINE Manga since Aug 2020), current ch. ~52 across 13 volumes as of mid-2026; AniList lists chapters as null so this figure is approximate. Arc names sourced from the Clevatess Fandom wiki.",
+  "mappings": [
+    {
+      "episodes": [1, 1],
+      "chapters": [1, 3],
+      "arc": "Clevatess' Departure Arc"
+    },
+    {
+      "episodes": [2, 12],
+      "chapters": [4, 24],
+      "arc": "Hiden Furnace War / Black Dragon & Black Tower / Legend of the Hero"
+    },
+    {
+      "chapters": [25, 52],
+      "arc": "Solsein Magic Academy Arc (S2, ongoing) / unadapted"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "anilistAnimeId": 129192,
+  "anilistMangaId": 106144,
+  "title": "My Isekai Life: I Gained a Second Character Class and Became the Strongest Sage in the World!",
+  "sourceNotes": "Single-cour, 12 episodes (Jul-Sep 2022). Source is Shinkoshoto's web/light novel (SB Creative, 19 LN volumes as of March 2026); AniList reports null chapter/volume counts for both the LN and its 'Manga UP!' manga tie-in, so the manga (used here as the chaptered 'chapters' axis) is tracked externally at ch. 93 across 32 volumes as of mid-2026 and is ongoing (Manga UP! splits most numbered chapters into .1/.2 parts). The anime heavily abridges and reorders the early story; per community anime-to-manga sync guides it corresponds to manga ch. 1-19 (through eps 1-9), after which eps 10-12 are mostly anime-original and adapt no further chapters.",
+  "mappings": [
+    {
+      "episodes": [1, 9],
+      "chapters": [1, 19],
+      "arc": "Isekai Arrival / Adventurer's Guild / Sage Awakening"
+    },
+    {
+      "episodes": [10, 12],
+      "chapters": [19, 19],
+      "arc": "Anime-original epilogue (no manga source)"
+    },
+    { "chapters": [20, 93], "arc": "Unadapted ongoing manga" }
+  ]
+}

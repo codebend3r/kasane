@@ -1,0 +1,23 @@
+{
+  "anilistAnimeId": 20997,
+  "anilistMangaId": 105941,
+  "title": "Charlotte",
+  "sourceNotes": "Single-cour, 13-episode anime with a complete 45-chapter, 6-volume manga tie-in written by Jun Maeda (the anime's original creator), which follows the TV story faithfully. Charlotte tells one continuous story rather than discrete named arcs, so boundaries below are grouped by story beat and scaled proportionally (~3.5 chapters/episode) off the confirmed Volume 1 = Ch. 1-8 split; treat chapter numbers as approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 7],
+      "chapters": [1, 24],
+      "arc": "Hoshinoumi Student Council / Ayumi's Tragedy"
+    },
+    {
+      "episodes": [8, 10],
+      "chapters": [25, 33],
+      "arc": "Sala Shane & the Stolen Ability"
+    },
+    {
+      "episodes": [11, 13],
+      "chapters": [34, 45],
+      "arc": "Twilight Frontier / World Tour Finale"
+    }
+  ]
+}

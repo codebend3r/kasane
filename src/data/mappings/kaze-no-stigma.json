@@ -1,0 +1,26 @@
+{
+  "anilistAnimeId": 1691,
+  "anilistMangaId": 40312,
+  "title": "Kaze no Stigma",
+  "sourceNotes": "24-episode anime adapts all 6 main light novel volumes (39 chapters + epilogues total; author Takahiro Yamato died in 2009, leaving the 6 side-story 'Ignition' compilations as a separate, unadapted spin-off). Episodic structure runs ~4 episodes per volume, so arc boundaries are approximated at one volume per arc using the official volume subtitles; precise chapter-level guides were not available.",
+  "mappings": [
+    { "episodes": [1, 4], "chapters": [1, 7], "arc": "Kaze no Stigma" },
+    { "episodes": [5, 8], "chapters": [8, 14], "arc": "The Price of a Soul" },
+    {
+      "episodes": [9, 12],
+      "chapters": [15, 21],
+      "arc": "The Confession Under the Moon"
+    },
+    {
+      "episodes": [13, 16],
+      "chapters": [22, 26],
+      "arc": "The Lazuline Afterimage"
+    },
+    {
+      "episodes": [17, 20],
+      "chapters": [27, 33],
+      "arc": "The Scarlet Contract"
+    },
+    { "episodes": [21, 24], "chapters": [34, 39], "arc": "The Hurricane Pike" }
+  ]
+}

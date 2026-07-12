@@ -1,0 +1,17 @@
+{
+  "anilistAnimeId": 156023,
+  "anilistMangaId": 101722,
+  "title": "An Archdemon's Dilemma: How to Love Your Elf Bride",
+  "sourceNotes": "Source is Hako Itagaki's manga adaptation (AniList 101722) of Fuminori Teshima's light novel; manga ongoing (~ch. 77 as of April 2026, 15 volumes). The 12-episode anime adapts through chapter 24 (four of manga Volume 5's five chapters), with the finale episode running slightly ahead of/original relative to the print pacing. No named story arcs; this is a single continuous romance narrative, so the anime run is grouped as one block with the unadapted tail left as chapters-only.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 24],
+      "arc": "Anime Run"
+    },
+    {
+      "chapters": [25, 77],
+      "arc": "Post-Anime (Manga-Only)"
+    }
+  ]
+}

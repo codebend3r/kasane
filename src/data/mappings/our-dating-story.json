@@ -1,0 +1,10 @@
+{
+  "anilistAnimeId": 154459,
+  "anilistMangaId": 144718,
+  "title": "Our Dating Story: The Experienced You and The Inexperienced Me",
+  "sourceNotes": "Single-cour, 12 episodes. Original source is a light novel (finished at 10 volumes); this mapping uses the same-story manga adaptation (ongoing, current ch. ~50) for concrete chapter numbers since AniList does not track the novel's chapter count. The anime's 12 episodes adapt roughly manga chapters 1-30 (viewers are pointed to continue from ch. 31 after the finale, though the manga diverges from the anime's ending). No distinct named story arcs — a straightforward romance chronology.",
+  "mappings": [
+    { "episodes": [1, 12], "chapters": [1, 30], "arc": "Anime-Adapted Story" },
+    { "chapters": [31, 50], "arc": "Unadapted Manga Continuation" }
+  ]
+}

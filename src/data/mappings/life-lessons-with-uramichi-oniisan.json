@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 112802,
+  "anilistMangaId": 100704,
+  "title": "Life Lessons with Uramichi Oniisan",
+  "sourceNotes": "Anime is 13 TV episodes (2020-2021), adapting Volumes 1-4 of the manga (through roughly chapter 36) with some anime-exclusive scenes woven in. Manga ongoing (current ch. ~76). Episodic workplace comedy with no distinct named story arcs.",
+  "mappings": [
+    {
+      "episodes": [1, 13],
+      "chapters": [1, 36],
+      "arc": "Season 1 (TV) — Volumes 1-4"
+    },
+    { "chapters": [37, 76], "arc": "Manga-only chapters (post-anime)" }
+  ]
+}

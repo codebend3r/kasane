@@ -1,0 +1,10 @@
+{
+  "anilistAnimeId": 170130,
+  "anilistMangaId": 107120,
+  "title": "Chillin' in Another World with Level 2 Super Cheat Powers",
+  "sourceNotes": "Single 12-episode season adapts manga chapters 1-26. Manga ongoing (current ch. 73); unadapted continuation included at the tail. Laid-back slice-of-life isekai with no distinct named story arcs.",
+  "mappings": [
+    { "episodes": [1, 12], "chapters": [1, 26], "arc": "Anime Adaptation" },
+    { "chapters": [27, 73], "arc": "Manga-Only Continuation" }
+  ]
+}

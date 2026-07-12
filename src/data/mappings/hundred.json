@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 21362,
+  "anilistMangaId": 88159,
+  "title": "Hundred",
+  "sourceNotes": "Single-cour, 12-episode anime adapting the first four of sixteen light novel volumes. Novel is complete at 116 chapters (ongoing-style web-novel chapter numbering, not tankobon chapters); no chapter-precise anime guide was found, so the vol. 1-4 boundary is approximated from the ~7.25 chapters/volume average (116 chapters / 16 volumes), covering roughly chapters 1-29. A separate 2-volume/13-chapter manga tie-in (Sasayuki) exists but only covers volume 1, so the novel is used as the source of truth per AniList's direct ADAPTATION relation. Chapters 30-116 are the unadapted remainder of the light novel, never covered by the anime.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 29],
+      "arc": "Little Garden Enrollment / Savage Incursions (Vols. 1-4)"
+    },
+    { "chapters": [30, 116], "arc": "Unadapted (Vols. 5-16)" }
+  ]
+}

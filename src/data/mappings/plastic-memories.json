@@ -1,0 +1,9 @@
+{
+  "anilistAnimeId": 20872,
+  "anilistMangaId": 122492,
+  "title": "Plastic Memories",
+  "sourceNotes": "Original 13-episode anime; the closest tie-in print source is the 'Heartfelt Thanks' light novel, a novelization following the same protagonist (Tsukasa Mizugaki) and story, complete at 5 chapters. Dense novelization — chapter ranges are approximate (~2-3 episodes per chapter). The 'Say to Good-bye' spin-off manga is a prequel told from a different character's (Michiru's) perspective and is not used here since it does not map onto the anime's episode-by-episode plot.",
+  "mappings": [
+    { "episodes": [1, 13], "chapters": [1, 5], "arc": "Terminal Service No. 1" }
+  ]
+}

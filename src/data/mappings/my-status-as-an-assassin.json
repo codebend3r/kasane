@@ -1,0 +1,13 @@
+{
+  "anilistAnimeId": 186794,
+  "anilistMangaId": 103655,
+  "title": "My Status as an Assassin Obviously Exceeds the Hero's",
+  "sourceNotes": "12-episode single-cour anime (TMS Entertainment/Sunrise, Oct-Dec 2025) adapts the Matsuri Akai light novel directly; the Hiroyuki Aigamo manga (Comic Gardo, since July 2018) is a parallel adaptation of the same novel rather than the anime's source, and lags well behind the anime's pace. Manga ongoing, current ch. 37 as of July 2026; AniList lists chapters as null. By the time the manga catches up to ch. 37 the story has only reached roughly the midpoint of episode 7, so episodes 8-12 have no manga equivalent yet and aren't mapped. Chapter boundaries are approximate; no distinct named arcs are documented for this series.",
+  "mappings": [
+    {
+      "episodes": [1, 7],
+      "chapters": [1, 37],
+      "arc": "Retice Kingdom Summoning & Early Assassin Missions"
+    }
+  ]
+}

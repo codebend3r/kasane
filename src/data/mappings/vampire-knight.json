@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 3457,
+  "anilistMangaId": 30618,
+  "title": "Vampire Knight",
+  "sourceNotes": "Cumulative episodes across S1 \"Vampire Knight\" (13, AniList 3457) + S2 \"Vampire Knight: Guilty\" (13, AniList 4752) = 26. Manga by Matsuri Hino is complete; AniList lists 108 total chapters, though the tankobon volumes collect the main story as 93 numbered \"Nights\" (1st Night - 93rd Night across 19 volumes) - the AniList total likely folds in bonus/omake chapters interspersed between volumes, so treat exact chapter numbers as approximate. Season 1 adapts roughly the first 5 volumes (through the 24th Night); Guilty continues through roughly the 43rd-47th Night as the anime caught up to ongoing serialization by late 2008. The manga continues well past the anime's ending into the Kuran family's full backstory and the Rido conflict.",
+  "mappings": [
+    {
+      "episodes": [1, 13],
+      "chapters": [1, 24],
+      "arc": "Cross Academy (Season 1)"
+    },
+    {
+      "episodes": [14, 26],
+      "chapters": [25, 43],
+      "arc": "Yuki's Awakening (Guilty / Season 2)"
+    },
+    {
+      "chapters": [44, 108],
+      "arc": "Rest of the manga (unadapted, approximate)"
+    }
+  ]
+}

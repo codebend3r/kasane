@@ -1,0 +1,50 @@
+{
+  "anilistAnimeId": 157198,
+  "anilistMangaId": 100868,
+  "title": "Dead Mount Death Play",
+  "sourceNotes": "Cumulative episodes across Part 1 (12) + Part 2 (12) = 24 total. Manga ongoing (current ch. 152 across 17+ volumes). The anime adapts manga chapters 1-81 (through the start of Vol. 10); viewers are pointed to pick the manga back up at ch. 82. Episode-to-chapter ranges are sourced directly from the fandom wiki's per-episode 'Adapted From' chapter listings; arc names are drawn from the manga's own in-story volume 'Episode' titles (e.g. Vol. 1 = 'Episode 1: The Calamity, Alive and Well'). A couple of episodes straddle two volumes' worth of material — the shared boundary chapter is credited to the earlier episode/arc for a clean split.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 8],
+      "arc": "The Calamity, Alive and Well"
+    },
+    {
+      "episodes": [5, 6],
+      "chapters": [9, 17],
+      "arc": "The Energy of the Abandoned"
+    },
+    {
+      "episodes": [7, 9],
+      "chapters": [18, 25],
+      "arc": "The Evil Bones of the Frontier"
+    },
+    { "episodes": [10, 12], "chapters": [26, 34], "arc": "The Storage Attack" },
+    {
+      "episodes": [13, 15],
+      "chapters": [35, 45],
+      "arc": "The Way of the Jesting Dragons"
+    },
+    {
+      "episodes": [16, 17],
+      "chapters": [46, 52],
+      "arc": "The Sudden Turning of the Celestial Sphere"
+    },
+    {
+      "episodes": [18, 20],
+      "chapters": [53, 64],
+      "arc": "Order of a Parallel World"
+    },
+    {
+      "episodes": [21, 22],
+      "chapters": [65, 72],
+      "arc": "Barrier of Coursing Blood"
+    },
+    {
+      "episodes": [23, 24],
+      "chapters": [73, 81],
+      "arc": "The Beautiful Woman's Pilgrimage / The Saint's Aid (partial)"
+    },
+    { "chapters": [82, 152], "arc": "Manga-only continuation (unadapted arcs)" }
+  ]
+}

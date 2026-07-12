@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 106319,
+  "anilistMangaId": 96344,
+  "title": "The 8th Son? Are You Kidding Me?",
+  "sourceNotes": "Single 12-episode season. Manga ongoing (current ch. 112); AniList does not track chapter/episode counts for this series so figures are sourced from tracking sites. The anime covers the succession-dispute opening storyline, ending around manga ch. 70 (community consensus continuation point). No widely-documented named-arc split exists for this stretch, so episode/chapter groupings below follow the anime's own episode-title beats and are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 22],
+      "arc": "Transmigration, Magic Awakening & Academy"
+    },
+    {
+      "episodes": [5, 6],
+      "chapters": [23, 36],
+      "arc": "Betrothal & the Dragon-Slaying Bullet Tour"
+    },
+    {
+      "episodes": [7, 9],
+      "chapters": [37, 54],
+      "arc": "Tournament, Ancient Ruins & Assassination Plot"
+    },
+    {
+      "episodes": [10, 12],
+      "chapters": [55, 70],
+      "arc": "Undead Purification & Succession Climax"
+    },
+    {
+      "chapters": [71, 112],
+      "arc": "Unadapted (manga ongoing)"
+    }
+  ]
+}

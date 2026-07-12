@@ -1,0 +1,32 @@
+{
+  "anilistAnimeId": 147642,
+  "anilistMangaId": 100693,
+  "title": "The Unwanted Undead Adventurer",
+  "sourceNotes": "Single 12-episode season (ONA). Manga ongoing (current ch. 70); AniList does not track chapter counts for this series so figures are sourced from tracking sites. Anime-continuation guides agree the season covers manga chapters 1-29, with readers directed to pick the manga back up at ch. 30. No widely-documented named-arc split exists for the adapted stretch beyond the Bronze-Class Exam and Garden Labyrinth story beats named in the anime's own episode titles, so the intervening groupings below are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 6],
+      "arc": "Unwanted Undead (Death & Awakening)"
+    },
+    {
+      "episodes": [5, 6],
+      "chapters": [7, 14],
+      "arc": "Undead Adventurer / Bronze-Class Exam"
+    },
+    {
+      "episodes": [7, 10],
+      "chapters": [15, 24],
+      "arc": "Magical Contract & Dragonblood Flower"
+    },
+    {
+      "episodes": [11, 12],
+      "chapters": [25, 29],
+      "arc": "The Garden Labyrinth"
+    },
+    {
+      "chapters": [30, 70],
+      "arc": "Unadapted (manga ongoing)"
+    }
+  ]
+}

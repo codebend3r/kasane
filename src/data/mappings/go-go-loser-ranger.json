@@ -1,0 +1,37 @@
+{
+  "anilistAnimeId": 158417,
+  "anilistMangaId": 127564,
+  "title": "Go! Go! Loser Ranger!",
+  "sourceNotes": "Cumulative episodes across S1 (12) + S2 (12) = 24. Manga ongoing in Weekly Shonen Magazine (currently on hiatus; ch. 221 as of July 2026). S1 adapts ch. 1-51 (Introduction / Pylon's Nest training arcs); S2 adapts ch. 52-124 (Green Squad / Dream School Life through the Monster Protection Society War and Three Way Melee climax), matching fan sync guides that place the post-S2 restart at Vol. 14 Ch. 125. Later manga-only arcs (Akabane, Sentoin Hunt, New Sentai) are unadapted. Anime pacing is uneven, compressing many chapters per episode especially late in each season, so within-season episode/chapter splits are approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 6],
+      "chapters": [1, 23],
+      "arc": "R1000 / Introduction Arc"
+    },
+    {
+      "episodes": [7, 12],
+      "chapters": [24, 51],
+      "arc": "Pylon's Nest Arc"
+    },
+    {
+      "episodes": [13, 16],
+      "chapters": [52, 72],
+      "arc": "Green Squad / Dream School Life Arc"
+    },
+    {
+      "episodes": [17, 20],
+      "chapters": [73, 102],
+      "arc": "Monster Protection Society Arc"
+    },
+    {
+      "episodes": [21, 24],
+      "chapters": [103, 124],
+      "arc": "Three Way Melee"
+    },
+    {
+      "chapters": [125, 221],
+      "arc": "Post-anime arcs (Akabane, Sentoin Hunt, New Sentai; manga only, ongoing)"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "anilistAnimeId": 97768,
+  "anilistMangaId": 88547,
+  "title": "Record of Grancrest War",
+  "sourceNotes": "24 episodes, attempting to cover the entire 10-volume, 46-chapter light novel series (complete) in one cour. The separate manga adaptation by Makoto Yotsuba only covers the first two light novel volumes, so the light novel itself (AniList type MANGA, format NOVEL) is used here as the source of truth. Chapter cut points are estimated proportionally from the light novel's volume synopses (e.g. vol. 5 covers the Altirk Treaty/liberation of Theo's hometown, vol. 10 covers Theo's coronation and the final battle with Pandora) and should be treated as approximate.",
+  "mappings": [
+    {
+      "episodes": [1, 9],
+      "chapters": [1, 19],
+      "arc": "Siluca and Theo's Rise Against the Coalition"
+    },
+    {
+      "episodes": [10, 19],
+      "chapters": [20, 36],
+      "arc": "The Altirk Treaty and the Fall of Milza"
+    },
+    {
+      "episodes": [20, 24],
+      "chapters": [37, 46],
+      "arc": "The Final War and the Empire of Leon"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 21457,
+  "anilistMangaId": 80331,
+  "title": "This Art Club Has a Problem!",
+  "sourceNotes": "12-episode single-cour anime (Feel, 2016) is an episodic 4-koma-adjacent gag comedy; each episode strings together several short, largely self-contained vignettes drawn non-sequentially from the manga. Resume reading post-anime at ch. 35. Manga ongoing since Oct 2012 (Dengeki Maoh), current ch. ~112 (vol. 16) as of 2026; AniList lists chapters as null. Chapter ranges are approximate given the non-linear episode-to-chapter drawing and the series' lack of named story arcs.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 34],
+      "arc": "Art Club Antics (Season 1)"
+    },
+    { "chapters": [35, 112], "arc": "Post-anime (ongoing, unadapted)" }
+  ]
+}

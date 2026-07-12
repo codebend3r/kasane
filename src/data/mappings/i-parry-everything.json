@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 170695,
+  "anilistMangaId": 131041,
+  "title": "I Parry Everything",
+  "sourceNotes": "Single 12-episode season (OLM, 2024). The anime adapts Nabeshiki's light novel (12 volumes as of June 2026); the separately-illustrated KRSG manga tracks the same story but lags behind the anime's pace, having reached only ~ch. 19 by the time the anime finished airing. Manga ongoing (current ~ch. 26, approximate — AniList does not track a chapter count for this title). No distinct named arcs are documented for the story's opening stretch, so the season is treated as one broad entry; the chapter endpoint for the finale is an approximation pending a precise sync guide.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 21],
+      "arc": "Season 1: Noor's Arrival Through the Deridas Empire Invasion"
+    },
+    { "chapters": [22, 26], "arc": "Unadapted (manga continuation)" }
+  ]
+}

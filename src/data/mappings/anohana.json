@@ -1,0 +1,18 @@
+{
+  "anilistAnimeId": 9989,
+  "anilistMangaId": 65733,
+  "title": "Anohana: The Flower We Saw That Day",
+  "sourceNotes": "Single-cour 11-episode series. Manga is a close tie-in adaptation running the same linear story with no distinct named arcs; complete at 13 chapters.",
+  "mappings": [
+    { "episodes": [1, 11], "chapters": [1, 13], "arc": "Super Peace Busters" }
+  ],
+  "movies": [
+    {
+      "anilistId": 15039,
+      "title": "Anohana the Movie: The Flower We Saw That Day",
+      "year": 2013,
+      "afterEpisode": 11,
+      "note": "Epilogue set a year after the TV series; new framing device (the group writing letters to Menma) around flashbacks to the show."
+    }
+  ]
+}

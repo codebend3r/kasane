@@ -1,0 +1,18 @@
+{
+  "anilistAnimeId": 9289,
+  "anilistMangaId": 55408,
+  "title": "Hanasaku Iroha ~Blossoms for Tomorrow~",
+  "sourceNotes": "Single-season 26-episode TV anime (2011). The manga tie-in (complete at 24 chapters across 5 volumes) was serialized concurrently with the anime but on an altered timeline and pacing - same core story and cast, different scene ordering - so the chapter alignment below is a loose approximation rather than a precise scene-for-scene match.",
+  "mappings": [
+    { "episodes": [1, 26], "chapters": [1, 24], "arc": "Kissuiso Inn Story" }
+  ],
+  "movies": [
+    {
+      "anilistId": 14175,
+      "title": "Hanasaku Iroha the Movie ~ HOME SWEET HOME ~",
+      "year": 2013,
+      "afterEpisode": 20,
+      "note": "Canon side story exploring Ohana's mother Satsuki's past at Kissuiso; set between eps 20-21. Anime-original content, not adapted from the manga."
+    }
+  ]
+}

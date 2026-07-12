@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 20462,
+  "anilistMangaId": 62097,
+  "title": "Chaika -The Coffin Princess-",
+  "sourceNotes": "Cumulative episodes across Season 1 (12) + Avenging Battle (10) = 22. Manga (Shinta Sakayama, Monthly Shonen Ace, Oct. 2011-Dec. 2014) complete at 33 chapters across 5 volumes, finishing the same month as the TV anime's second season; treated here as the primary chapter source since it tracks the anime's two-cour pacing closely, rather than Ichiro Sakaki's original 12-volume/60-chapter light novel (AniList id 62831), which the anime does not fully adapt. Chapter boundaries between the two seasons are approximate, split proportionally to the manga's total length; no theatrical films exist for this franchise.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 18],
+      "arc": "Season 1: Gathering the Coffin's Contents"
+    },
+    { "episodes": [13, 22], "chapters": [19, 33], "arc": "Avenging Battle" }
+  ]
+}

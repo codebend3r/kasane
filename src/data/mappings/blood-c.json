@@ -1,0 +1,27 @@
+{
+  "anilistAnimeId": 10490,
+  "anilistMangaId": 56182,
+  "title": "Blood-C",
+  "sourceNotes": "Single 12-episode TV season (2011, Production I.G / CLAMP). Paired with Ranmaru Kotone's tie-in manga (4 volumes, complete at 17 chapters), which was written alongside the anime and covers both the TV series and the follow-up film Blood-C: The Last Dark in its final volume. Original anime; manga is a close tie-in adaptation, not the source material. Chapter split between the TV story and the film is approximate since exact per-chapter tables were not available.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 13],
+      "arc": "Elder Bairn Hunt in Sonozaki Town (TV series)"
+    },
+    {
+      "chapters": [14, 17],
+      "arc": "The Last Dark (film-only continuation, see movies)"
+    }
+  ],
+  "movies": [
+    {
+      "anilistId": 10681,
+      "title": "BLOOD-C: The Last Dark",
+      "year": 2012,
+      "chapters": [14, 17],
+      "afterEpisode": 12,
+      "note": "Direct canon sequel film concluding the Blood-C story; adapted in the manga's fourth volume."
+    }
+  ]
+}

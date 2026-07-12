@@ -1,0 +1,37 @@
+{
+  "anilistAnimeId": 21196,
+  "anilistMangaId": 104517,
+  "title": "Kabaneri of the Iron Fortress",
+  "sourceNotes": "12-episode original anime (Wit Studio, 2016) paired with a concurrent 28-chapter (4-volume, complete) tie-in manga by Shiro Yoshida that follows the same story; a published chapter-to-episode guide was not found, so chapter ranges are proportioned across the anime's four major story beats (Aragane Station outbreak, the Black Fog at Yashiro Station, Biba Amatori's introduction, and the Kongokaku finale).",
+  "mappings": [
+    {
+      "episodes": [1, 4],
+      "chapters": [1, 9],
+      "arc": "Aragane Station Outbreak / Birth of the Kabaneri"
+    },
+    {
+      "episodes": [5, 6],
+      "chapters": [10, 14],
+      "arc": "The Black Fog at Yashiro Station"
+    },
+    {
+      "episodes": [7, 8],
+      "chapters": [15, 19],
+      "arc": "Biba Amatori and the Hunters"
+    },
+    {
+      "episodes": [9, 12],
+      "chapters": [20, 28],
+      "arc": "Biba's Betrayal / Kongokaku Showdown"
+    }
+  ],
+  "movies": [
+    {
+      "anilistId": 97918,
+      "title": "Kabaneri of the Iron Fortress: The Battle of Unato",
+      "year": 2019,
+      "afterEpisode": 12,
+      "note": "Canon sequel film set six months after the TV series with entirely new story content, not adapted from the tie-in manga."
+    }
+  ]
+}

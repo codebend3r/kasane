@@ -1,0 +1,13 @@
+{
+  "anilistAnimeId": 126791,
+  "anilistMangaId": 127668,
+  "title": "Full Dive: This Ultimate Next-Gen Full Dive RPG Is Even Shittier than Real Life!",
+  "sourceNotes": "Single-cour, 12-episode anime adapting the first light novel volume. The manga tie-in (Kino, Monthly Comic Alive) was cancelled after 11 chapters in Jan. 2022, covering only roughly the first half of the anime's run (through about episode 6); AniList does not track a chapter count for it since it stopped without a defined ending. Episodes 7-12 have no manga equivalent as a result. Original light novel; manga is a close but incomplete tie-in adaptation.",
+  "mappings": [
+    {
+      "episodes": [1, 6],
+      "chapters": [1, 11],
+      "arc": "Kiwame Quest: First Login (Vol. 1)"
+    }
+  ]
+}

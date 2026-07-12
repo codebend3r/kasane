@@ -1,0 +1,11 @@
+{
+  "anilistAnimeId": 11785,
+  "anilistMangaId": 53485,
+  "title": "Nyaruko: Crawling with Love!",
+  "sourceNotes": "Cumulative episodes across S1 (12) + Season W (12) = 24. Source is Manta Aisora's light novel, complete at 12 volumes / 65 chapters per AniList. S1 loosely adapts volumes 1-4 (~chapters 1-22); Season W draws mainly from volumes 5-7 (~chapters 23-40) but sprinkles in material out of order, and its finale adapts a short story from volume 11. The adaptation is a gag/comedy series that reorders and omits content freely, so chapter ranges are approximate. Chapters 41-65 (most of volumes 8-10 and 12) are unadapted. A separate flash-animated OVA series (Haiyoru! Nyaruani, 2009-2010) predates this TV adaptation and is a different production; a 1-episode OVA (\"F\", 2015) also exists but is not included in this mapping's episode numbering.",
+  "mappings": [
+    { "episodes": [1, 12], "chapters": [1, 22], "arc": "Season 1" },
+    { "episodes": [13, 24], "chapters": [23, 40], "arc": "Season W" },
+    { "chapters": [41, 65], "arc": "Unadapted (Volumes 8-10, 12)" }
+  ]
+}

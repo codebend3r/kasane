@@ -1,0 +1,240 @@
+{
+  "anilistAnimeId": 235,
+  "anilistMangaId": 31061,
+  "title": "Detective Conan",
+  "sourceNotes": "Long-running case-of-the-week mystery series airing since 1996 (1,207+ episodes as of mid-2026, ~47% filler) alongside an ongoing manga (1,164+ chapters as of mid-2026). Because the anime interleaves original filler cases between canon manga adaptations rather than adapting story-by-story, this is an initial seed anchored on the well-known Black Organization mythology beats; the vast case-of-the-week middle is not individually mapped. Refine per-episode mappings via PR.",
+  "mappings": [
+    {
+      "episodes": [1, 2],
+      "chapters": [1, 5],
+      "arc": "Shinichi Kudo Shrinks / Series Pilot"
+    },
+    {
+      "episodes": [54, 58],
+      "chapters": [114, 121],
+      "arc": "First Black Organization Appearances (Gin & Vodka)"
+    },
+    {
+      "episodes": [129, 129],
+      "chapters": [176, 181],
+      "arc": "Haibara Ai's Introduction"
+    },
+    {
+      "episodes": [176, 178],
+      "chapters": [238, 242],
+      "arc": "Reunion with the Black Organization"
+    },
+    {
+      "episodes": [188, 193],
+      "chapters": [251, 260],
+      "arc": "The Desperate Revival"
+    },
+    {
+      "episodes": [309, 311],
+      "chapters": [380, 383],
+      "arc": "Contact with the Black Organization"
+    },
+    {
+      "episodes": [385, 387],
+      "chapters": [470, 474],
+      "arc": "Black Organization Intelligence Gathering"
+    },
+    { "episodes": [425, 425], "chapters": [499, 504], "arc": "Black Impact" },
+    {
+      "episodes": [491, 504],
+      "chapters": [585, 609],
+      "arc": "Clash of Red and Black"
+    },
+    {
+      "episodes": [701, 704],
+      "chapters": [818, 824],
+      "arc": "The Pitch-Black Mystery Train"
+    },
+    {
+      "episodes": [779, 783],
+      "chapters": [891, 898],
+      "arc": "The Scarlet Series"
+    },
+    {
+      "episodes": [784, 1207],
+      "chapters": [899, 1164],
+      "arc": "Modern Era: Rum Arc Onward (ongoing, approximate)"
+    }
+  ],
+  "movies": [
+    {
+      "anilistId": 779,
+      "title": "Detective Conan: The Time-Bombed Skyscraper",
+      "year": 1997,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 780,
+      "title": "Detective Conan: The Fourteenth Target",
+      "year": 1998,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 781,
+      "title": "Detective Conan: The Last Wizard of the Century",
+      "year": 1999,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 1363,
+      "title": "Detective Conan: Captured in Her Eyes",
+      "year": 2000,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 1364,
+      "title": "Detective Conan: Countdown to Heaven",
+      "year": 2001,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 1365,
+      "title": "Detective Conan: The Phantom of Baker Street",
+      "year": 2002,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 1366,
+      "title": "Detective Conan: Crossroad in the Ancient Capital",
+      "year": 2003,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 1367,
+      "title": "Detective Conan: Magician of the Silver Sky",
+      "year": 2004,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 1505,
+      "title": "Detective Conan: Strategy Above the Depths",
+      "year": 2005,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 1506,
+      "title": "Detective Conan: The Private Eyes' Requiem",
+      "year": 2006,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 2171,
+      "title": "Detective Conan: Jolly Roger in the Deep Azure",
+      "year": 2007,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 4447,
+      "title": "Detective Conan: Full Score of Fear",
+      "year": 2008,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 5460,
+      "title": "Detective Conan: The Raven Chaser",
+      "year": 2009,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 6467,
+      "title": "Detective Conan: The Lost Ship in the Sky",
+      "year": 2010,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 9963,
+      "title": "Detective Conan: Quarter of Silence",
+      "year": 2011,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 12117,
+      "title": "Detective Conan: The Eleventh Striker",
+      "year": 2012,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 14735,
+      "title": "Detective Conan: Private Eye in the Distant Sea",
+      "year": 2013,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 20546,
+      "title": "Detective Conan: Dimensional Sniper",
+      "year": 2014,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 21646,
+      "title": "Detective Conan: Sunflowers of Inferno",
+      "year": 2015,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 21470,
+      "title": "Detective Conan: The Darkest Nightmare",
+      "year": 2016,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 98222,
+      "title": "Detective Conan: The Crimson Love Letter",
+      "year": 2017,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 100653,
+      "title": "Detective Conan: Zero the Enforcer",
+      "year": 2018,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 106206,
+      "title": "Detective Conan: The Fist of Blue Sapphire",
+      "year": 2019,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 113653,
+      "title": "Detective Conan: The Scarlet Bullet",
+      "year": 2021,
+      "note": "Side story (anime-original); no 2020 film due to COVID-19."
+    },
+    {
+      "anilistId": 142219,
+      "title": "Detective Conan: The Bride of Halloween",
+      "year": 2022,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 156841,
+      "title": "Detective Conan: Black Iron Submarine",
+      "year": 2023,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 169754,
+      "title": "Detective Conan: The Million-Dollar Pentagram",
+      "year": 2024,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 185212,
+      "title": "Detective Conan: One-Eyed Flashback",
+      "year": 2025,
+      "note": "Side story (anime-original)."
+    },
+    {
+      "anilistId": 198369,
+      "title": "Detective Conan: Fallen Angel of the Highway",
+      "year": 2026,
+      "note": "Side story (anime-original); 30th-anniversary commemorative film."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "anilistAnimeId": 20735,
+  "anilistMangaId": 85408,
+  "title": "I Can't Understand What My Husband Is Saying",
+  "sourceNotes": "Cumulative episodes across Season 1 (13, Oct-Dec 2014) + Season 2 '2nd Thread' (13, Apr-Jun 2015) = 26 total, using the first season's AniList id (20735). Manga complete at 52 chapters (4-koma slice-of-life by Coolkyousinnjya) — episodic/anthology adaptation, so episode-to-chapter boundaries are approximate. Season 1 ends around Kaoru's positive pregnancy test; Season 2 ends around the couple choosing baby names. The manga's final chapters, depicting Kaoru giving birth to daughter Sayoko, are never animated and are included at the tail as unadapted.",
+  "mappings": [
+    { "episodes": [1, 13], "chapters": [1, 24], "arc": "Season 1" },
+    {
+      "episodes": [14, 26],
+      "chapters": [25, 48],
+      "arc": "Season 2 (2nd Thread)"
+    },
+    { "chapters": [49, 52], "arc": "Unadapted Ending (Sayoko's Birth)" }
+  ]
+}

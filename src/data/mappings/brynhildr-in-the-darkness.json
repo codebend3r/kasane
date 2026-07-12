@@ -1,0 +1,14 @@
+{
+  "anilistAnimeId": 20534,
+  "anilistMangaId": 64377,
+  "title": "Brynhildr in the Darkness",
+  "sourceNotes": "Single-cour 13-episode TV anime (ARMS, 2014); a separate bonus OVA (AniList id 20866) is excluded as side content rather than counted as a 14th episode, matching this repo's OVA convention. Manga complete at 181 chapters / 18 volumes. The anime heavily compresses and reorders manga material to reach a stopping point around chapter 100 by its finale; no official or fan-sourced episode-by-episode breakdown exists, so the single TV-run entry below is an approximate aggregate rather than a scene-accurate boundary. Chapters 101-181 continue the manga-only story past where the anime ends.",
+  "mappings": [
+    {
+      "episodes": [1, 13],
+      "chapters": [1, 100],
+      "arc": "TV Anime (heavily condensed adaptation)"
+    },
+    { "chapters": [101, 181], "arc": "Unadapted continuation" }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "anilistAnimeId": 142455,
+  "anilistMangaId": 146480,
+  "title": "Bubble",
+  "sourceNotes": "Original Netflix theatrical anime film (single ONA entry on AniList, 2022). The tie-in manga retells the same story as a close adaptation, complete at 8 chapters.",
+  "mappings": [{ "episodes": [1, 1], "chapters": [1, 8], "arc": "Full Story" }]
+}

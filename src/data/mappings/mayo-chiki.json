@@ -1,0 +1,17 @@
+{
+  "anilistAnimeId": 10110,
+  "anilistMangaId": 51860,
+  "title": "Mayo Chiki!",
+  "sourceNotes": "Single-cour 13-episode TV anime (2011) adapting Hajime Asano's light novel; paired here with the NEET-illustrated manga adaptation (complete at 39 chapters across 7 volumes). Anime covers through roughly manga chapter 18 (readers are pointed to Vol. 4 Ch. 19 to continue after the anime); episode 13 is a largely anime-original epilogue. Continuous rom-com without formally named story arcs.",
+  "mappings": [
+    {
+      "episodes": [1, 13],
+      "chapters": [1, 18],
+      "arc": "TV Anime Adaptation (Subaru's Secret → Butler Reinstatement)"
+    },
+    {
+      "chapters": [19, 39],
+      "arc": "Unadapted manga chapters (never adapted in the TV anime)"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "anilistAnimeId": 156415,
+  "anilistMangaId": 123264,
+  "title": "I Was Reincarnated as the 7th Prince so I Can Take My Time Perfecting My Magical Ability",
+  "sourceNotes": "Cumulative episodes across S1 (12, AniList 156415) + S2 (12, AniList 178090) = 24. Sourced from Kodansha's manga adaptation (AniList 123264) of Kenkyo na Circle's ongoing light novel; the manga is ongoing at ch. 217 as of July 2026 (AniList lists no chapter count). Per community continue-reading guides, S1 adapts manga chapters 1-42 and S2 continues through chapter 85, with the manga resuming at ch. 86 for viewers who finish the anime. Arc names are approximate; the wiki documents an early \"Alchemy Festival\" arc and a \"Stampede\" arc within the S2 range, but full arc-by-arc chapter boundaries are not firmly documented, so episode ranges are grouped by season instead.",
+  "mappings": [
+    {
+      "episodes": [1, 12],
+      "chapters": [1, 42],
+      "arc": "Season 1 (Reincarnation and Magical Training)"
+    },
+    {
+      "episodes": [13, 24],
+      "chapters": [43, 85],
+      "arc": "Season 2 (Alchemy Festival and Stampede)"
+    },
+    {
+      "chapters": [86, 217],
+      "arc": "Later chapters to date (unadapted)"
+    }
+  ]
+}
