@@ -28,7 +28,7 @@ import {
   formatAniListDateJa,
   localeLabel,
 } from "@/data/format";
-import type { MangaDexInfo, MangaDexVolumeCover, SeriesMapping } from "@/types";
+import type { MangaDexVolumeCover, SeriesMapping } from "@/types";
 import { FONT } from "@/theme";
 
 export default function MangaDetail() {
