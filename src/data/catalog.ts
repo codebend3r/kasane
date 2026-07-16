@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/api/supabase";
 import { setSearchAliases } from "@/data/searchAliases";
@@ -15,6 +16,7 @@ type SeriesRow = Database["public"]["Tables"]["series"]["Row"] & {
 export type Catalog = {
   mappings: SeriesMapping[];
   byMediaId: Map<number, SeriesMapping>;
+  aliases: Record<string, string>;
   genreFilters: GenreFilter[];
 };
 
@@ -92,14 +94,10 @@ const fetchCatalog = async (): Promise<Catalog> => {
     return acc;
   }, new Map<number, SeriesMapping>());
 
-  // Hydrate the module-level alias table read by the (non-React) AniList query
-  // functions.
-  setSearchAliases(
-    aliasRes.data.reduce<Record<string, string>>((acc, a) => {
-      acc[a.alias] = a.target;
-      return acc;
-    }, {}),
-  );
+  const aliases = aliasRes.data.reduce<Record<string, string>>((acc, a) => {
+    acc[a.alias] = a.target;
+    return acc;
+  }, {});
 
   const genreFilters = genreRes.data.map(
     (g): GenreFilter => ({
@@ -110,7 +108,7 @@ const fetchCatalog = async (): Promise<Catalog> => {
     }),
   );
 
-  return { mappings, byMediaId, genreFilters };
+  return { mappings, byMediaId, aliases, genreFilters };
 };
 
 export const useCatalogQuery = () =>
@@ -144,4 +142,15 @@ export const useMapping = (mediaId: number): SeriesMapping | null => {
 export const useGenreFilters = (): GenreFilter[] => {
   const { data } = useCatalogQuery();
   return data?.genreFilters ?? [];
+};
+
+// Pushes the DB-backed alias table into the module singleton read by the
+// (non-React) AniList query functions. Reads from query data — not the fetch —
+// so it also runs on a cache-restored start where fetchCatalog never fires.
+// Call once, high in the tree.
+export const useHydrateSearchAliases = (): void => {
+  const { data } = useCatalogQuery();
+  useEffect(() => {
+    if (data) setSearchAliases(data.aliases);
+  }, [data]);
 };

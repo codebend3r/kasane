@@ -11,7 +11,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
-import { CATALOG_QUERY_KEY, useCatalogQuery } from "@/data/catalog";
+import {
+  CATALOG_QUERY_KEY,
+  useCatalogQuery,
+  useHydrateSearchAliases,
+} from "@/data/catalog";
 import {
   useFonts,
   SpaceGrotesk_400Regular,
@@ -46,10 +50,11 @@ const persister = createAsyncStoragePersister({
 });
 const CATALOG_CACHE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
 
-// Warms the catalog at launch (and hydrates the search-alias table) so it is
-// ready before the first screen needs a mapping.
+// Warms the catalog at launch and keeps the search-alias table hydrated so
+// everything is ready before the first screen needs a mapping.
 function CatalogWarmup() {
   useCatalogQuery();
+  useHydrateSearchAliases();
   return null;
 }
 
