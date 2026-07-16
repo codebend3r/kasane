@@ -3,7 +3,7 @@ import { Link } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 import type { SeriesBadge, SeriesEntry } from "@/types";
 import { FONT } from "@/theme";
-import { findMappingByMediaId } from "@/data";
+import { useMapping } from "@/data/catalog";
 import { getAnimeFranchise, hasAnimeSequels } from "@/api/anilist";
 import { usePreferences } from "@/state/preferences";
 import { useSeriesProgress } from "@/state/progress";
@@ -28,7 +28,7 @@ export function SeriesCard({ entry }: { entry: SeriesEntry }) {
     ? (primary.title.native ?? primary.title.english ?? primary.title.romaji)
     : (primary.title.english ?? primary.title.romaji);
 
-  const mapping = findMappingByMediaId(routeId);
+  const mapping = useMapping(routeId);
   const mappedEpisodeCount = mapping
     ? (() => {
         const eps = mapping.mappings

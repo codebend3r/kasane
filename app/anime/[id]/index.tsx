@@ -17,13 +17,13 @@ import {
   buildSyntheticMapping,
   chapterToEpisodes,
   episodeToChapters,
-  findMappingByMediaId,
 } from "@/data";
+import { useCatalog } from "@/data/catalog";
 import { EpisodeChapterRail } from "@/components/EpisodeChapterRail";
 import { Footer } from "@/components/Footer";
 import { Paragraph } from "@/components/Paragraph";
 import { formatAniListDate } from "@/data/format";
-import type { AnimeFranchise } from "@/types";
+import type { AnimeFranchise, SeriesMapping } from "@/types";
 import { FONT } from "@/theme";
 
 export default function AnimeDetail() {
@@ -45,13 +45,14 @@ export default function AnimeDetail() {
     staleTime: 24 * 60 * 60 * 1000,
   });
 
-  const curatedMapping = useMemo(
-    () => findMappingByMediaId(mediaId),
-    [mediaId],
-  );
+  const { findMapping, isLoaded: catalogLoaded } = useCatalog();
+  const curatedMapping = findMapping(mediaId);
   const syntheticMapping = useMemo(
-    () => (media && !curatedMapping ? buildSyntheticMapping(media) : null),
-    [media, curatedMapping],
+    () =>
+      media && catalogLoaded && !curatedMapping
+        ? buildSyntheticMapping(media)
+        : null,
+    [media, catalogLoaded, curatedMapping],
   );
   const mapping = curatedMapping ?? syntheticMapping;
   const isAutoEstimated = !curatedMapping && !!syntheticMapping;
@@ -228,11 +229,7 @@ function SeasonsList({
   );
 }
 
-function QuickLookup({
-  mapping,
-}: {
-  mapping: ReturnType<typeof findMappingByMediaId>;
-}) {
+function QuickLookup({ mapping }: { mapping: SeriesMapping | null }) {
   const [epInput, setEpInput] = useState("");
   const [chInput, setChInput] = useState("");
 

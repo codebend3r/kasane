@@ -17,8 +17,8 @@ import {
   buildSyntheticMapping,
   chapterToEpisodes,
   episodeToChapters,
-  findMappingByMediaId,
 } from "@/data";
+import { useCatalog } from "@/data/catalog";
 import { EpisodeChapterRail } from "@/components/EpisodeChapterRail";
 import { EpisodeChapterPie } from "@/components/EpisodeChapterPie";
 import {
@@ -68,10 +68,8 @@ export default function SeriesDetail() {
     enabled: !Number.isNaN(mediaId),
   });
 
-  const curatedMapping = useMemo(
-    () => findMappingByMediaId(mediaId),
-    [mediaId],
-  );
+  const { findMapping, isLoaded: catalogLoaded } = useCatalog();
+  const curatedMapping = findMapping(mediaId);
 
   const partnerId = useMemo(() => {
     if (!media) return null;
@@ -117,8 +115,11 @@ export default function SeriesDetail() {
   });
 
   const syntheticMapping = useMemo(
-    () => (media && !curatedMapping ? buildSyntheticMapping(media) : null),
-    [media, curatedMapping],
+    () =>
+      media && catalogLoaded && !curatedMapping
+        ? buildSyntheticMapping(media)
+        : null,
+    [media, catalogLoaded, curatedMapping],
   );
   const mapping = curatedMapping ?? syntheticMapping;
   const isAutoEstimated = !curatedMapping && !!syntheticMapping;

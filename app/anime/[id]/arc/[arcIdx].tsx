@@ -1,7 +1,6 @@
-import { useMemo } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { ActivityIndicator, Text, View, StyleSheet } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import { findMappingByMediaId } from "@/data";
+import { useCatalog } from "@/data/catalog";
 import { ArcDetailView } from "@/components/ArcDetailView";
 import { FONT } from "@/theme";
 
@@ -10,7 +9,16 @@ export default function AnimeArcDetail() {
   const mediaId = Number(id);
   const arcIndex = Number(arcIdx);
 
-  const mapping = useMemo(() => findMappingByMediaId(mediaId), [mediaId]);
+  const { findMapping, isLoaded } = useCatalog();
+  const mapping = findMapping(mediaId);
+
+  if (!isLoaded) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator color="#7c5cff" />
+      </View>
+    );
+  }
 
   if (!mapping) {
     return (
