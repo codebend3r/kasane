@@ -1,10 +1,17 @@
 import { useEffect } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Stack, useRouter, usePathname } from "expo-router";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  defaultShouldDehydrateQuery,
+  QueryClient,
+} from "@tanstack/react-query";
+import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
+import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
+import { CATALOG_QUERY_KEY, useCatalogQuery } from "@/data/catalog";
 import {
   useFonts,
   SpaceGrotesk_400Regular,
@@ -25,6 +32,22 @@ const queryClient = new QueryClient({
     queries: { staleTime: 5 * 60 * 1000, retry: 1 },
   },
 });
+
+// Persist only the catalog query to AsyncStorage so a cold (or offline) launch
+// renders the anime<->manga mappings instantly, then refreshes in the
+// background. AniList/MangaDex results stay in-memory only.
+const persister = createAsyncStoragePersister({
+  storage: AsyncStorage,
+  key: "kasane-query-cache",
+});
+const CATALOG_CACHE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
+
+// Warms the catalog at launch (and hydrates the search-alias table) so it is
+// ready before the first screen needs a mapping.
+function CatalogWarmup() {
+  useCatalogQuery();
+  return null;
+}
 
 function GlobalHeader() {
   const router = useRouter();
@@ -105,10 +128,22 @@ export default function RootLayout() {
   if (!fontsLoaded) return null;
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <PersistQueryClientProvider
+      client={queryClient}
+      persistOptions={{
+        persister,
+        maxAge: CATALOG_CACHE_MAX_AGE,
+        dehydrateOptions: {
+          shouldDehydrateQuery: (query) =>
+            defaultShouldDehydrateQuery(query) &&
+            query.queryKey[0] === CATALOG_QUERY_KEY[0],
+        },
+      }}
+    >
       <SafeAreaProvider>
         <StatusBar style="light" />
         <View style={headerStyles.root}>
+          <CatalogWarmup />
           <GlobalHeader />
           <Stack
             screenOptions={{
@@ -126,7 +161,7 @@ export default function RootLayout() {
           </Stack>
         </View>
       </SafeAreaProvider>
-    </QueryClientProvider>
+    </PersistQueryClientProvider>
   );
 }
 
