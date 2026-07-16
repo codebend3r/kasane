@@ -1,4 +1,6 @@
-const SEARCH_ALIASES: Record<string, string> = {
+// Seeded from the `search_aliases` table at launch (see catalog fetch); these
+// bundled defaults cover the first render before the catalog resolves.
+const DEFAULT_ALIASES: Record<string, string> = {
   // concatenated titles AniList won't match without spaces
   deathnote: "death note",
   onepiece: "one piece",
@@ -34,10 +36,17 @@ const SEARCH_ALIASES: Record<string, string> = {
   ksdk: "kaguya-sama love is war",
 };
 
+// Mutable so the catalog fetch can swap in the DB-backed table at runtime.
+let aliases: Record<string, string> = DEFAULT_ALIASES;
+
+export function setSearchAliases(next: Record<string, string>): void {
+  aliases = next;
+}
+
 export function applySearchAlias(query: string): string {
   const key = query
     .trim()
     .toLowerCase()
     .replace(/[^a-z0-9]/g, "");
-  return SEARCH_ALIASES[key] ?? query;
+  return aliases[key] ?? query;
 }
