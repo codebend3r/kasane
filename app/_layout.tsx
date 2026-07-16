@@ -22,10 +22,14 @@ import {
 import { ZenTokyoZoo_400Regular } from "@expo-google-fonts/zen-tokyo-zoo";
 import { usePreferences } from "@/state/preferences";
 import { useAuthEmail } from "@/state/auth";
+import { startCloudSync } from "@/state/sync";
 import type { PressableState } from "@/types";
 import { FONT } from "@/theme";
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
+
+// Reconcile local progress/preferences with Supabase once a session exists.
+startCloudSync();
 
 const queryClient = new QueryClient({
   defaultOptions: {

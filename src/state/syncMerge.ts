@@ -113,9 +113,11 @@ export const mergeProgress = (
   };
 };
 
+export type ProgressSideDelete = { routeId: number; side: ProgressSide };
+
 export type ProgressDelta = {
   upserts: ProgressEntry[];
-  deletes: { routeId: number; side: ProgressSide }[];
+  deletes: ProgressSideDelete[];
 };
 
 /** Rows to upsert/delete to move the server from `prev` to `next`. */
