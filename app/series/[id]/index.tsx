@@ -317,9 +317,8 @@ export default function SeriesDetail() {
               </View>
               <Paragraph style={styles.autoBannerBody}>
                 Linear pacing — anime episode count distributed evenly across
-                the manga chapter count. Real pacing varies; curated JSON in{" "}
-                <Text style={styles.code}>src/data/mappings/</Text> overrides
-                this.
+                the manga chapter count. Real pacing varies; a curated mapping
+                overrides this estimate.
               </Paragraph>
             </View>
           )}
@@ -353,8 +352,7 @@ export default function SeriesDetail() {
           <Text style={styles.noMappingTitle}>No mapping available yet</Text>
           <Paragraph style={styles.noMappingBody}>
             We couldn&apos;t find an anime↔manga adaptation pair on AniList for
-            this entry, and no curated mapping exists. Add a JSON file to{" "}
-            <Text style={styles.code}>src/data/mappings/</Text> in the repo.
+            this entry, and no curated mapping exists for it yet.
           </Paragraph>
         </View>
       )}
@@ -572,7 +570,6 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     fontFamily: FONT.regular,
   },
-  code: { fontFamily: "Menlo", color: "#7c5cff" },
   volumesBlock: { gap: 12 },
   titlesBlock: { gap: 8 },
   titlesList: { gap: 6 },

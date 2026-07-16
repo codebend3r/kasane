@@ -1,43 +1,7 @@
-// Seeded from the `search_aliases` table at launch (see catalog fetch); these
-// bundled defaults cover the first render before the catalog resolves.
-const DEFAULT_ALIASES: Record<string, string> = {
-  // concatenated titles AniList won't match without spaces
-  deathnote: "death note",
-  onepiece: "one piece",
-  spyfamily: "spy x family",
-  spyxfamily: "spy x family",
-  chainsawman: "chainsaw man",
-  demonslayer: "demon slayer",
-  attackontitan: "attack on titan",
-  myheroacademia: "my hero academia",
-  jujutsukaisen: "jujutsu kaisen",
-  fullmetalalchemist: "fullmetal alchemist",
-  bleach: "bleach",
-  blackclover: "black clover",
-  fairytail: "fairy tail",
-  mobpsycho: "mob psycho",
-  drstone: "dr. stone",
-  kaijuno8: "kaiju no. 8",
-  sakamotodays: "sakamoto days",
-  goldenkamuy: "golden kamuy",
-
-  // common acronyms
-  aot: "attack on titan",
-  snk: "shingeki no kyojin",
-  mha: "my hero academia",
-  bnha: "boku no hero academia",
-  jjk: "jujutsu kaisen",
-  fmab: "fullmetal alchemist brotherhood",
-  fma: "fullmetal alchemist",
-  ohshc: "ouran high school host club",
-  ygo: "yu-gi-oh",
-  hxh: "hunter x hunter",
-  tbhk: "toilet-bound hanako-kun",
-  ksdk: "kaguya-sama love is war",
-};
-
-// Mutable so the catalog fetch can swap in the DB-backed table at runtime.
-let aliases: Record<string, string> = DEFAULT_ALIASES;
+// Search aliases now live in the `search_aliases` table and are loaded at
+// launch by the catalog fetch (see `useHydrateSearchAliases`). Until that
+// resolves the table is empty and queries pass through unchanged.
+let aliases: Record<string, string> = {};
 
 export function setSearchAliases(next: Record<string, string>): void {
   aliases = next;

@@ -1,9 +1,0 @@
-{
-  "anilistAnimeId": 99424,
-  "anilistMangaId": 116192,
-  "title": "SSSS.GRIDMAN",
-  "sourceNotes": "Single-cour 12-episode series (Studio Trigger, 2018). Manga by Yuki Konno (Shonen Jump+, Nov 2019 - Dec 2021) is a close tie-in adaptation of the same story with no distinct named arcs; complete at 52 chapters. Original anime; manga is a close tie-in adaptation.",
-  "mappings": [
-    { "episodes": [1, 12], "chapters": [1, 52], "arc": "Gridman Alliance" }
-  ]
-}
