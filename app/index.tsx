@@ -18,7 +18,8 @@ import { Link } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 import { getLatestAnime, searchMedia } from "@/api/anilist";
 import { pairResults } from "@/data";
-import { GENRE_FILTERS, splitHiddenForAniList } from "@/data/genreFilters";
+import { useGenreFilters } from "@/data/catalog";
+import { splitHiddenForAniList, type GenreFilter } from "@/data/genreFilters";
 import { SeriesCard } from "@/components/SeriesCard";
 import { ContinueSection } from "@/components/ContinueSection";
 import {
@@ -48,7 +49,11 @@ export default function HomeScreen() {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const hiddenGenres = usePreferences((s) => s.hiddenGenres);
   const toggleHiddenGenre = usePreferences((s) => s.toggleHiddenGenre);
-  const { genreNotIn, tagNotIn } = splitHiddenForAniList(hiddenGenres);
+  const genreFilters = useGenreFilters();
+  const { genreNotIn, tagNotIn } = splitHiddenForAniList(
+    hiddenGenres,
+    genreFilters,
+  );
   const { width: windowWidth } = useWindowDimensions();
   const isMobile = windowWidth < MOBILE_WIDTH_BREAKPOINT;
   const hiddenCount = hiddenGenres.length;
@@ -117,7 +122,7 @@ export default function HomeScreen() {
 
       {!isMobile && filtersOpen && (
         <View style={styles.genreFilters}>
-          {GENRE_FILTERS.map((f) => {
+          {genreFilters.map((f) => {
             const included = !hiddenGenres.includes(f.id);
             return (
               <Pressable
@@ -142,6 +147,7 @@ export default function HomeScreen() {
       {isMobile && (
         <GenreFilterSheet
           visible={filtersOpen}
+          filters={genreFilters}
           hiddenGenres={hiddenGenres}
           onToggle={toggleHiddenGenre}
           onClose={() => setFiltersOpen(false)}
@@ -182,11 +188,13 @@ export default function HomeScreen() {
 
 function GenreFilterSheet({
   visible,
+  filters,
   hiddenGenres,
   onToggle,
   onClose,
 }: {
   visible: boolean;
+  filters: readonly GenreFilter[];
   hiddenGenres: string[];
   onToggle: (id: string) => void;
   onClose: () => void;
@@ -219,7 +227,7 @@ function GenreFilterSheet({
             style={styles.sheetScroll}
             contentContainerStyle={styles.sheetScrollContent}
           >
-            {GENRE_FILTERS.map((f) => {
+            {filters.map((f) => {
               const included = !hiddenGenres.includes(f.id);
               return (
                 <Pressable

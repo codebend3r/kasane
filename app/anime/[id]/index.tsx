@@ -17,13 +17,13 @@ import {
   buildSyntheticMapping,
   chapterToEpisodes,
   episodeToChapters,
-  findMappingByMediaId,
 } from "@/data";
+import { useCatalog } from "@/data/catalog";
 import { EpisodeChapterRail } from "@/components/EpisodeChapterRail";
 import { Footer } from "@/components/Footer";
 import { Paragraph } from "@/components/Paragraph";
 import { formatAniListDate } from "@/data/format";
-import type { AnimeFranchise } from "@/types";
+import type { AnimeFranchise, SeriesMapping } from "@/types";
 import { FONT } from "@/theme";
 
 export default function AnimeDetail() {
@@ -45,13 +45,14 @@ export default function AnimeDetail() {
     staleTime: 24 * 60 * 60 * 1000,
   });
 
-  const curatedMapping = useMemo(
-    () => findMappingByMediaId(mediaId),
-    [mediaId],
-  );
+  const { findMapping, isLoaded: catalogLoaded } = useCatalog();
+  const curatedMapping = findMapping(mediaId);
   const syntheticMapping = useMemo(
-    () => (media && !curatedMapping ? buildSyntheticMapping(media) : null),
-    [media, curatedMapping],
+    () =>
+      media && catalogLoaded && !curatedMapping
+        ? buildSyntheticMapping(media)
+        : null,
+    [media, catalogLoaded, curatedMapping],
   );
   const mapping = curatedMapping ?? syntheticMapping;
   const isAutoEstimated = !curatedMapping && !!syntheticMapping;
@@ -154,9 +155,8 @@ export default function AnimeDetail() {
               <Paragraph style={styles.autoBannerBody}>
                 Linear pacing — anime episode count distributed evenly across
                 the manga chapter count. Real arcs rarely adapt at a uniform
-                rate, so treat numbers as a rough guide. Curated JSON in{" "}
-                <Text style={styles.code}>src/data/mappings/</Text> overrides
-                this.
+                rate, so treat numbers as a rough guide. A curated mapping
+                overrides this estimate.
               </Paragraph>
             </View>
           )}
@@ -172,8 +172,7 @@ export default function AnimeDetail() {
           <Text style={styles.noMappingTitle}>No mapping available yet</Text>
           <Paragraph style={styles.noMappingBody}>
             We couldn&apos;t find an anime↔manga adaptation pair on AniList for
-            this entry, and no curated mapping exists. Add a JSON file to{" "}
-            <Text style={styles.code}>src/data/mappings/</Text> in the repo.
+            this entry, and no curated mapping exists for it yet.
           </Paragraph>
         </View>
       )}
@@ -228,11 +227,7 @@ function SeasonsList({
   );
 }
 
-function QuickLookup({
-  mapping,
-}: {
-  mapping: ReturnType<typeof findMappingByMediaId>;
-}) {
+function QuickLookup({ mapping }: { mapping: SeriesMapping | null }) {
   const [epInput, setEpInput] = useState("");
   const [chInput, setChInput] = useState("");
 
@@ -356,7 +351,6 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     fontFamily: FONT.regular,
   },
-  code: { fontFamily: "Menlo", color: "#7c5cff" },
   lookup: { gap: 12, paddingTop: 8 },
   lookupRow: {
     flexDirection: "row",

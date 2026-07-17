@@ -18,8 +18,8 @@ import {
   buildSyntheticMapping,
   chapterToEpisodes,
   episodeToChapters,
-  findMappingByMediaId,
 } from "@/data";
+import { useCatalog } from "@/data/catalog";
 import { EpisodeChapterRail } from "@/components/EpisodeChapterRail";
 import { Footer } from "@/components/Footer";
 import { Paragraph } from "@/components/Paragraph";
@@ -50,13 +50,14 @@ export default function MangaDetail() {
     staleTime: 60 * 60 * 1000,
   });
 
-  const curatedMapping = useMemo(
-    () => findMappingByMediaId(mediaId),
-    [mediaId],
-  );
+  const { findMapping, isLoaded: catalogLoaded } = useCatalog();
+  const curatedMapping = findMapping(mediaId);
   const syntheticMapping = useMemo(
-    () => (media && !curatedMapping ? buildSyntheticMapping(media) : null),
-    [media, curatedMapping],
+    () =>
+      media && catalogLoaded && !curatedMapping
+        ? buildSyntheticMapping(media)
+        : null,
+    [media, catalogLoaded, curatedMapping],
   );
   const mapping = curatedMapping ?? syntheticMapping;
   const isAutoEstimated = !curatedMapping && !!syntheticMapping;
@@ -141,9 +142,8 @@ export default function MangaDetail() {
               </View>
               <Paragraph style={styles.autoBannerBody}>
                 Linear pacing — anime episode count distributed evenly across
-                the manga chapter count. Real pacing varies; curated JSON in{" "}
-                <Text style={styles.code}>src/data/mappings/</Text> overrides
-                this.
+                the manga chapter count. Real pacing varies; a curated mapping
+                overrides this estimate.
               </Paragraph>
             </View>
           )}
@@ -165,9 +165,8 @@ export default function MangaDetail() {
             No anime adaptation mapped yet
           </Text>
           <Paragraph style={styles.noMappingBody}>
-            No curated or auto-estimated mapping is available for this manga.
-            Add a JSON file to{" "}
-            <Text style={styles.code}>src/data/mappings/</Text>.
+            No curated or auto-estimated mapping is available for this manga
+            yet.
           </Paragraph>
         </View>
       )}
@@ -553,7 +552,6 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     fontFamily: FONT.regular,
   },
-  code: { fontFamily: "Menlo", color: "#7c5cff" },
   seasonBlock: {
     padding: 12,
     backgroundColor: "#17181b",

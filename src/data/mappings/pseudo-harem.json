@@ -1,9 +1,0 @@
-{
-  "anilistAnimeId": 163623,
-  "anilistMangaId": 105577,
-  "title": "Pseudo Harem",
-  "sourceNotes": "Single 12-episode season (Nomad, 2024) adapts the complete manga, a former Twitter webcomic parallel-serialized in Monthly Shonen Sunday (Jan 2019-Mar 2021) and collected into 6 volumes. Manga complete at 157 chapters; the anime covers the full story through its epilogue, so a single broad mapping entry is used (no distinct named arcs).",
-  "mappings": [
-    { "episodes": [1, 12], "chapters": [1, 157], "arc": "Complete Adaptation" }
-  ]
-}

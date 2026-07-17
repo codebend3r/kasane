@@ -8,13 +8,17 @@ type State = {
 
   hiddenGenres: string[];
   toggleHiddenGenre: (id: string) => void;
+
+  // Last local edit, in epoch ms. Drives last-write-wins against the cloud copy.
+  updatedAt: number;
 };
 
 export const usePreferences = create<State>()(
   persist(
     (set) => ({
       japanese: false,
-      toggleJapanese: () => set((s) => ({ japanese: !s.japanese })),
+      toggleJapanese: () =>
+        set((s) => ({ japanese: !s.japanese, updatedAt: Date.now() })),
 
       hiddenGenres: [],
       toggleHiddenGenre: (id) =>
@@ -22,7 +26,10 @@ export const usePreferences = create<State>()(
           hiddenGenres: s.hiddenGenres.includes(id)
             ? s.hiddenGenres.filter((x) => x !== id)
             : [...s.hiddenGenres, id],
+          updatedAt: Date.now(),
         })),
+
+      updatedAt: 0,
     }),
     {
       name: "kasane-preferences",
@@ -30,6 +37,7 @@ export const usePreferences = create<State>()(
       partialize: (s) => ({
         japanese: s.japanese,
         hiddenGenres: s.hiddenGenres,
+        updatedAt: s.updatedAt,
       }),
     },
   ),

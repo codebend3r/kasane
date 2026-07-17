@@ -43,7 +43,8 @@ Drill into a single arc to see per-episode ↔ per-chapter alignment:
 - **Expo Router** for file-based universal routes
 - **TanStack Query** + **Zustand**
 - **AniList GraphQL** for anime/manga metadata
-- Bundled JSON in `src/data/mappings/` for episode↔chapter alignments
+- **Supabase** (Postgres + RLS) for episode↔chapter mappings, search aliases,
+  genre filters, and synced user progress/preferences
 - **Tauri 2** for desktop binaries
 
 ## Getting started
@@ -80,24 +81,31 @@ Desktop is shipped via Tauri 2 wrapping the Expo web export. One-time setup:
 
 ## Contributing a mapping
 
+Mappings live in Supabase — the `series`, `arc_mappings`, and `movies` tables
+(see `supabase/migrations/`) — not in the repo, so a new or corrected mapping
+reaches every client on next launch with no app release. The catalog tables are
+read-only under RLS; write via the Supabase dashboard, SQL editor, or a
+service-role script.
+
 1. Find the AniList anime ID and manga ID for the series.
-2. Add a file at `src/data/mappings/<slug>.json` following the schema in `src/types/index.ts` → `SeriesMapping`.
-3. Import it in `src/data/index.ts`.
+2. Insert a `series` row and its arcs:
 
-The mapping schema:
-
-```json
-{
-  "anilistAnimeId": 21,
-  "anilistMangaId": 30013,
-  "title": "One Piece",
-  "mappings": [
-    { "episodes": [1, 3], "chapters": [1, 7], "arc": "Romance Dawn" }
-  ]
-}
+```sql
+with s as (
+  insert into series (anilist_anime_id, anilist_manga_id, title)
+  values (21, 30013, 'One Piece')
+  returning id
+)
+insert into arc_mappings
+  (series_id, position, episode_start, episode_end, chapter_start, chapter_end, arc)
+select s.id, v.*
+from s, (values
+  (0, 1, 3, 1, 7, 'Romance Dawn')
+) as v(position, episode_start, episode_end, chapter_start, chapter_end, arc);
 ```
 
-Episode and chapter ranges are inclusive.
+Episode and chapter ranges are inclusive; omit `episode_start`/`episode_end`
+for manga-only arcs.
 
 ## Project layout
 
@@ -109,8 +117,10 @@ app/                    # Expo Router routes
 src/
   api/anilist.ts        # GraphQL client
   components/           # SeriesCard, EpisodeChapterRail
-  data/                 # bundled mappings + lookup helpers
+  data/                 # Supabase catalog fetch + mapping helpers
+  state/                # zustand stores + cloud sync
   types/                # shared TS types
+supabase/migrations/    # database schema
 docs/superpowers/specs/ # design docs
 src-tauri/              # desktop wrapper (added after web bundle works)
 ```

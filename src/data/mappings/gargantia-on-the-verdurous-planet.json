@@ -1,9 +1,0 @@
-{
-  "anilistAnimeId": 16524,
-  "anilistMangaId": 80169,
-  "title": "Gargantia on the Verdurous Planet",
-  "sourceNotes": "Original anime (13 episodes, Production I.G, 2013); the manga by Wataru Mitogawa is a close tie-in adaptation (complete at 13 chapters) that follows the TV series scene-for-scene with no distinct arcs. Two Blu-ray-exclusive OVA episodes and their own manga/novel side stories exist in a separate continuity and are not covered here.",
-  "mappings": [
-    { "episodes": [1, 13], "chapters": [1, 13], "arc": "Original Series" }
-  ]
-}
