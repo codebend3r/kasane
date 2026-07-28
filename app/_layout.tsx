@@ -27,6 +27,8 @@ import { ZenTokyoZoo_400Regular } from "@expo-google-fonts/zen-tokyo-zoo";
 import { usePreferences } from "@/state/preferences";
 import { useAuthEmail } from "@/state/auth";
 import { startCloudSync } from "@/state/sync";
+import { startLoginPrompt } from "@/state/loginPrompt";
+import { LoginPrompt } from "@/components/LoginPrompt";
 import type { PressableState } from "@/types";
 import { FONT } from "@/theme";
 
@@ -34,6 +36,9 @@ SplashScreen.preventAutoHideAsync().catch(() => {});
 
 // Reconcile local progress/preferences with Supabase once a session exists.
 startCloudSync();
+
+// Nudge signed-out users to log in the first time they change something.
+startLoginPrompt();
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -168,6 +173,7 @@ export default function RootLayout() {
             <Stack.Screen name="manga/[id]/arc/[arcIdx]" />
             <Stack.Screen name="series/[id]/index" />
           </Stack>
+          <LoginPrompt />
         </View>
       </SafeAreaProvider>
     </PersistQueryClientProvider>
