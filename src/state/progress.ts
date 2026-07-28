@@ -27,7 +27,7 @@ const withSide = (
   side: ProgressSide,
   pointer: SidePointer,
 ): SeriesProgress => ({
-  ...(current ?? {}),
+  ...current,
   [side]: pointer,
 });
 

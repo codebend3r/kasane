@@ -22,8 +22,8 @@ jobs:
       - name: 🔎 Typecheck
         run: bun run typecheck
 
-      - name: 💅 Prettier check
-        run: bun run prettier:check
+      - name: 💅 Format check
+        run: bun run format:check
 
       - name: 🧹 Lint
         run: bun run lint

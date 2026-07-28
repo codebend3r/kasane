@@ -225,7 +225,9 @@ export async function getMediaByIds(ids: number[]): Promise<AniListMedia[]> {
   if (ids.length === 0) return [];
   const data = await client.request<{ Page: { media: AniListMedia[] } }>(
     MEDIA_BY_IDS_QUERY,
-    { ids },
+    {
+      ids,
+    },
   );
   return data.Page.media;
 }
@@ -285,7 +287,9 @@ async function collectFranchiseNodes(
 
   const data = await client.request<{ Page: { media: FranchiseRawNode[] } }>(
     FRANCHISE_NODE_QUERY,
-    { ids },
+    {
+      ids,
+    },
   );
   const nextVisited = data.Page.media.reduce(
     (acc, node) => acc.set(node.id, node),

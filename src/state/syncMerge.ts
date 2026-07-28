@@ -44,7 +44,7 @@ const flatten = (byRoute: ProgressByRoute): ProgressEntry[] =>
 const rebuild = (entries: ProgressEntry[]): ProgressByRoute =>
   entries.reduce<ProgressByRoute>((acc, e) => {
     acc[e.routeId] = {
-      ...(acc[e.routeId] ?? {}),
+      ...acc[e.routeId],
       [e.side]: { position: e.position, updatedAt: e.updatedAt },
     };
     return acc;
