@@ -3,6 +3,9 @@ import type { SeriesMapping } from "@/types";
 export type MappedShowSort = "alpha" | "episodes";
 
 export type MappedShow = {
+  // Stable list key. Several series legitimately share a manga id (a shared
+  // source adapted more than once), so `routeId` alone duplicates.
+  key: string;
   routeId: number;
   title: string;
   episodes: number;
@@ -16,6 +19,7 @@ export type MappedShow = {
  * offline from the persisted catalog.
  */
 export const toMappedShow = (m: SeriesMapping): MappedShow => ({
+  key: `${m.anilistAnimeId}-${m.anilistMangaId}`,
   // Matches the series screen, which keys progress on the manga id.
   routeId: m.anilistMangaId,
   title: m.title,

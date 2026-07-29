@@ -18,6 +18,7 @@ const series: SeriesMapping = {
 };
 
 const show = (title: string, episodes: number): MappedShow => ({
+  key: `k-${title}`,
   routeId: 1,
   title,
   episodes,
@@ -35,6 +36,16 @@ describe("toMappedShow", () => {
 
   it("keys on the manga id so it matches how progress is stored", () => {
     expect(toMappedShow(series).routeId).toBe(53390);
+  });
+
+  // Several catalog entries share a manga id (one source adapted more than
+  // once), which duplicated React keys and warned in the console.
+  it("gives series sharing a manga id distinct list keys", () => {
+    const sibling = { ...series, anilistAnimeId: 999, title: "AoT: Final" };
+    const a = toMappedShow(series);
+    const b = toMappedShow(sibling);
+    expect(a.routeId).toBe(b.routeId);
+    expect(a.key).not.toBe(b.key);
   });
 
   it("reports zero episodes for a manga with no adapted arcs", () => {

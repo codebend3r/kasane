@@ -120,11 +120,25 @@ function GlobalHeader() {
           { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
         ]}
       >
-        <Text style={headerStyles.wordmark}>Kasane</Text>
-        <Text style={headerStyles.subheading}>
-          anime <Text style={headerStyles.subAccent}>+</Text> manga
+        <Text
+          numberOfLines={1}
+          style={[
+            headerStyles.wordmark,
+            isNarrow && headerStyles.wordmarkNarrow,
+          ]}
+        >
+          Kasane
         </Text>
-        <View style={headerStyles.rule} />
+        {/* The wide-tracked subheading is what pushes the header past a phone
+            viewport once the back arrow is present, so drop it when narrow. */}
+        {!isNarrow && (
+          <>
+            <Text style={headerStyles.subheading}>
+              anime <Text style={headerStyles.subAccent}>+</Text> manga
+            </Text>
+            <View style={headerStyles.rule} />
+          </>
+        )}
       </Pressable>
       <View style={headerStyles.spacer} />
       <Pressable
@@ -194,6 +208,9 @@ export default function RootLayout() {
           >
             <Stack.Screen name="index" />
             <Stack.Screen name="login" />
+            <Stack.Screen name="mapped" />
+            <Stack.Screen name="my-shows" />
+            <Stack.Screen name="settings" />
             <Stack.Screen name="anime/[id]/index" />
             <Stack.Screen name="anime/[id]/arc/[arcIdx]" />
             <Stack.Screen name="manga/[id]/index" />
@@ -235,7 +252,11 @@ const headerStyles = StyleSheet.create({
   },
   wordmarkPressable: {
     gap: 4,
+    flexShrink: 1,
   },
+  // Scaled down rather than allowed to shrink-wrap, which broke "Kasane"
+  // across two lines on a phone.
+  wordmarkNarrow: { fontSize: 34, lineHeight: 38, letterSpacing: -1 },
   wordmark: {
     color: "#f5f5f5",
     fontSize: 64,
