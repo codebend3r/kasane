@@ -1,4 +1,6 @@
 import {
+  DEFAULT_SORT,
+  nextSort,
   sortMappedShows,
   toMappedShow,
   type MappedShow,
@@ -17,12 +19,13 @@ const series: SeriesMapping = {
   ],
 };
 
-const show = (title: string, episodes: number): MappedShow => ({
+const show = (title: string, episodes: number, chapters = 0): MappedShow => ({
   key: `k-${title}`,
   routeId: 1,
+  coverId: 2,
   title,
   episodes,
-  chapters: 0,
+  chapters,
   arcs: 0,
 });
 
@@ -59,39 +62,103 @@ describe("toMappedShow", () => {
 
 describe("sortMappedShows", () => {
   const shows = [
-    show("Berserk", 25),
-    show("Attack on Titan", 98),
-    show("Chainsaw Man", 12),
+    show("Berserk", 25, 383),
+    show("Attack on Titan", 98, 139),
+    show("Chainsaw Man", 12, 232),
   ];
+  const titles = (sort: Parameters<typeof sortMappedShows>[1]) =>
+    sortMappedShows(shows, sort).map((s) => s.title);
 
   it("sorts alphabetically", () => {
-    expect(sortMappedShows(shows, "alpha").map((s) => s.title)).toEqual([
+    expect(titles({ field: "alpha", direction: "asc" })).toEqual([
       "Attack on Titan",
       "Berserk",
       "Chainsaw Man",
     ]);
   });
 
-  it("sorts by episode count, highest first", () => {
-    expect(sortMappedShows(shows, "episodes").map((s) => s.title)).toEqual([
+  it("reverses the alphabetical order when descending", () => {
+    expect(titles({ field: "alpha", direction: "desc" })).toEqual([
+      "Chainsaw Man",
+      "Berserk",
+      "Attack on Titan",
+    ]);
+  });
+
+  it("sorts by episode count in both directions", () => {
+    expect(titles({ field: "episodes", direction: "desc" })).toEqual([
       "Attack on Titan",
       "Berserk",
       "Chainsaw Man",
     ]);
+    expect(titles({ field: "episodes", direction: "asc" })).toEqual([
+      "Chainsaw Man",
+      "Berserk",
+      "Attack on Titan",
+    ]);
   });
 
-  it("breaks episode ties alphabetically", () => {
+  it("sorts by chapter count in both directions", () => {
+    expect(titles({ field: "chapters", direction: "desc" })).toEqual([
+      "Berserk",
+      "Chainsaw Man",
+      "Attack on Titan",
+    ]);
+    expect(titles({ field: "chapters", direction: "asc" })).toEqual([
+      "Attack on Titan",
+      "Chainsaw Man",
+      "Berserk",
+    ]);
+  });
+
+  // A descending count column should not also flip the names inside a tie.
+  it("breaks ties alphabetically in either direction", () => {
     const tied = [show("Zeta", 12), show("Alpha", 12), show("Mid", 40)];
-    expect(sortMappedShows(tied, "episodes").map((s) => s.title)).toEqual([
-      "Mid",
-      "Alpha",
-      "Zeta",
-    ]);
+    expect(
+      sortMappedShows(tied, { field: "episodes", direction: "desc" }).map(
+        (s) => s.title,
+      ),
+    ).toEqual(["Mid", "Alpha", "Zeta"]);
+    expect(
+      sortMappedShows(tied, { field: "episodes", direction: "asc" }).map(
+        (s) => s.title,
+      ),
+    ).toEqual(["Alpha", "Zeta", "Mid"]);
   });
 
   it("does not mutate the input", () => {
     const original = [...shows];
-    sortMappedShows(shows, "alpha");
+    sortMappedShows(shows, DEFAULT_SORT);
     expect(shows).toEqual(original);
+  });
+});
+
+describe("nextSort", () => {
+  it("flips direction when the same column is pressed again", () => {
+    expect(nextSort({ field: "alpha", direction: "asc" }, "alpha")).toEqual({
+      field: "alpha",
+      direction: "desc",
+    });
+    expect(nextSort({ field: "alpha", direction: "desc" }, "alpha")).toEqual({
+      field: "alpha",
+      direction: "asc",
+    });
+  });
+
+  it("opens counts biggest-first and titles A–Z", () => {
+    expect(nextSort({ field: "alpha", direction: "desc" }, "episodes")).toEqual(
+      {
+        field: "episodes",
+        direction: "desc",
+      },
+    );
+    expect(nextSort({ field: "alpha", direction: "asc" }, "chapters")).toEqual({
+      field: "chapters",
+      direction: "desc",
+    });
+    expect(nextSort({ field: "episodes", direction: "asc" }, "alpha")).toEqual({
+      field: "alpha",
+      direction: "asc",
+    });
   });
 });

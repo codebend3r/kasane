@@ -2,9 +2,12 @@ import { useMemo, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useCatalog } from "@/data/catalog";
 import {
+  DEFAULT_SORT,
+  nextSort,
   sortMappedShows,
   toMappedShow,
   type MappedShowSort,
+  type MappedShowSortField,
 } from "@/data/mappedShows";
 import { ShowTile } from "@/components/ShowTile";
 import { Footer } from "@/components/Footer";
@@ -14,7 +17,9 @@ import { FONT } from "@/theme";
 
 export default function MappedShowsScreen() {
   const { mappings, isLoaded } = useCatalog();
-  const [sort, setSort] = useState<MappedShowSort>("alpha");
+  const [sort, setSort] = useState<MappedShowSort>(DEFAULT_SORT);
+  const sortBy = (field: MappedShowSortField) =>
+    setSort((current) => nextSort(current, field));
 
   const shows = useMemo(
     () => sortMappedShows(mappings.map(toMappedShow), sort),
@@ -35,14 +40,22 @@ export default function MappedShowsScreen() {
         </Text>
         <View style={styles.sortButtons}>
           <SortButton
-            label="A–Z"
-            active={sort === "alpha"}
-            onPress={() => setSort("alpha")}
+            label="Title"
+            field="alpha"
+            sort={sort}
+            onPress={sortBy}
           />
           <SortButton
             label="Episodes"
-            active={sort === "episodes"}
-            onPress={() => setSort("episodes")}
+            field="episodes"
+            sort={sort}
+            onPress={sortBy}
+          />
+          <SortButton
+            label="Chapters"
+            field="chapters"
+            sort={sort}
+            onPress={sortBy}
           />
         </View>
       </View>
@@ -61,18 +74,24 @@ export default function MappedShowsScreen() {
   );
 }
 
+/** Column-header style control: press to sort, press again to reverse. */
 function SortButton({
   label,
-  active,
+  field,
+  sort,
   onPress,
 }: {
   label: string;
-  active: boolean;
-  onPress: () => void;
+  field: MappedShowSortField;
+  sort: MappedShowSort;
+  onPress: (field: MappedShowSortField) => void;
 }) {
+  const active = sort.field === field;
   return (
     <Pressable
-      onPress={onPress}
+      onPress={() => onPress(field)}
+      accessibilityRole="button"
+      accessibilityLabel={`Sort by ${label}`}
       style={({ hovered, pressed }: PressableState) => [
         styles.sortButton,
         active && styles.sortButtonActive,
@@ -81,6 +100,7 @@ function SortButton({
     >
       <Text style={[styles.sortText, active && styles.sortTextActive]}>
         {label}
+        {active ? (sort.direction === "asc" ? " ↑" : " ↓") : ""}
       </Text>
     </Pressable>
   );
