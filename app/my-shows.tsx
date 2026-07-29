@@ -5,6 +5,7 @@ import { useCatalog } from "@/data/catalog";
 import { toMappedShow } from "@/data/mappedShows";
 import { useAuthEmail, useAuthStatus } from "@/state/auth";
 import { useInProgressEntries } from "@/state/progress";
+import { useCovers } from "@/data/covers";
 import { ShowTile } from "@/components/ShowTile";
 import { Footer } from "@/components/Footer";
 import type { PressableState } from "@/types";
@@ -33,6 +34,9 @@ export default function MyShowsScreen() {
         return [{ show: toMappedShow(mapping), trailing }];
       }),
     [entries, findMapping],
+  );
+  const covers = useCovers(
+    useMemo(() => shows.map(({ show }) => show.coverId), [shows]),
   );
 
   return (
@@ -78,7 +82,12 @@ export default function MyShowsScreen() {
       ) : (
         <View style={styles.grid}>
           {shows.map(({ show, trailing }) => (
-            <ShowTile key={show.key} show={show} trailing={trailing} />
+            <ShowTile
+              key={show.key}
+              show={show}
+              cover={covers[show.coverId]}
+              trailing={trailing}
+            />
           ))}
         </View>
       )}

@@ -38,6 +38,15 @@ export type AniListMedia = {
   relations?: { edges: RelationEdge[] };
 };
 
+/** Just enough of a media record to render its poster. */
+export type MediaCover = {
+  id: number;
+  coverImage: {
+    large: string;
+    color: string | null;
+  };
+};
+
 export type RelationEdge = {
   relationType: string;
   node: {

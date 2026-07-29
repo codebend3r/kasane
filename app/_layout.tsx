@@ -22,6 +22,7 @@ import {
   useCatalogQuery,
   useHydrateSearchAliases,
 } from "@/data/catalog";
+import { COVERS_QUERY_KEY } from "@/data/covers";
 import {
   useFonts,
   SpaceGrotesk_400Regular,
@@ -55,14 +56,16 @@ const queryClient = new QueryClient({
   },
 });
 
-// Persist only the catalog query to AsyncStorage so a cold (or offline) launch
-// renders the anime<->manga mappings instantly, then refreshes in the
-// background. AniList/MangaDex results stay in-memory only.
+// Persist the catalog and its poster art to AsyncStorage so a cold (or
+// offline) launch renders the anime<->manga mappings instantly, then refreshes
+// in the background. Other AniList/MangaDex results stay in-memory only.
 const persister = createAsyncStoragePersister({
   storage: AsyncStorage,
   key: "kasane-query-cache",
 });
 const CATALOG_CACHE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
+
+const PERSISTED_QUERIES: string[] = [CATALOG_QUERY_KEY[0], COVERS_QUERY_KEY[0]];
 
 // Warms the catalog at launch and keeps the search-alias table hydrated so
 // everything is ready before the first screen needs a mapping.
@@ -191,7 +194,7 @@ export default function RootLayout() {
         dehydrateOptions: {
           shouldDehydrateQuery: (query) =>
             defaultShouldDehydrateQuery(query) &&
-            query.queryKey[0] === CATALOG_QUERY_KEY[0],
+            PERSISTED_QUERIES.some((k) => k === query.queryKey[0]),
         },
       }}
     >

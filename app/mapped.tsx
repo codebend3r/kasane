@@ -9,15 +9,20 @@ import {
   type MappedShowSort,
   type MappedShowSortField,
 } from "@/data/mappedShows";
+import { useCovers } from "@/data/covers";
 import { ShowTile } from "@/components/ShowTile";
+import { ShowRow } from "@/components/ShowRow";
 import { Footer } from "@/components/Footer";
 import type { PressableState } from "@/types";
 import { Pressable } from "react-native";
 import { FONT } from "@/theme";
 
+type ViewMode = "grid" | "list";
+
 export default function MappedShowsScreen() {
   const { mappings, isLoaded } = useCatalog();
   const [sort, setSort] = useState<MappedShowSort>(DEFAULT_SORT);
+  const [view, setView] = useState<ViewMode>("grid");
   const sortBy = (field: MappedShowSortField) =>
     setSort((current) => nextSort(current, field));
 
@@ -25,6 +30,13 @@ export default function MappedShowsScreen() {
     () => sortMappedShows(mappings.map(toMappedShow), sort),
     [mappings, sort],
   );
+  // Derived from the mappings rather than the sorted list, so re-sorting never
+  // disturbs the cover query.
+  const coverIds = useMemo(
+    () => mappings.map((m) => m.anilistAnimeId),
+    [mappings],
+  );
+  const covers = useCovers(coverIds);
 
   return (
     <ScrollView style={styles.root} contentContainerStyle={styles.content}>
@@ -57,15 +69,35 @@ export default function MappedShowsScreen() {
             sort={sort}
             onPress={sortBy}
           />
+          <View style={styles.viewToggle}>
+            <ViewButton
+              label="Grid"
+              mode="grid"
+              view={view}
+              onPress={setView}
+            />
+            <ViewButton
+              label="List"
+              mode="list"
+              view={view}
+              onPress={setView}
+            />
+          </View>
         </View>
       </View>
 
       {!isLoaded && shows.length === 0 ? (
         <Text style={styles.muted}>Loading the catalog…</Text>
-      ) : (
+      ) : view === "grid" ? (
         <View style={styles.grid}>
           {shows.map((s) => (
-            <ShowTile key={s.key} show={s} />
+            <ShowTile key={s.key} show={s} cover={covers[s.coverId]} />
+          ))}
+        </View>
+      ) : (
+        <View style={styles.list}>
+          {shows.map((s) => (
+            <ShowRow key={s.key} show={s} cover={covers[s.coverId]} />
           ))}
         </View>
       )}
@@ -106,6 +138,36 @@ function SortButton({
   );
 }
 
+function ViewButton({
+  label,
+  mode,
+  view,
+  onPress,
+}: {
+  label: string;
+  mode: ViewMode;
+  view: ViewMode;
+  onPress: (mode: ViewMode) => void;
+}) {
+  const active = view === mode;
+  return (
+    <Pressable
+      onPress={() => onPress(mode)}
+      accessibilityRole="button"
+      accessibilityLabel={`${label} view`}
+      style={({ hovered, pressed }: PressableState) => [
+        styles.viewButton,
+        active && styles.viewButtonActive,
+        { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
+      ]}
+    >
+      <Text style={[styles.sortText, active && styles.sortTextActive]}>
+        {label}
+      </Text>
+    </Pressable>
+  );
+}
+
 const styles = StyleSheet.create({
   root: { flex: 1 },
   content: { gap: 12, padding: 16, paddingBottom: 40 },
@@ -138,7 +200,15 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
-  sortButtons: { flexDirection: "row", gap: 8 },
+  // Shrinkable so the four controls wrap onto a second line on a phone
+  // instead of running off the edge of the viewport.
+  sortButtons: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "flex-end",
+    flexShrink: 1,
+    gap: 8,
+  },
   sortButton: {
     paddingHorizontal: 14,
     paddingVertical: 6,
@@ -153,6 +223,16 @@ const styles = StyleSheet.create({
     fontFamily: FONT.bold,
   },
   sortTextActive: { color: "#0c0c0e" },
+  // Set apart from the sort pills so the two controls do not read as one
+  // group; it wraps to its own line once the row runs out of room.
+  viewToggle: { flexDirection: "row", gap: 2, paddingLeft: 8 },
+  viewButton: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    backgroundColor: "#17181b",
+  },
+  viewButtonActive: { backgroundColor: "#5cdfff" },
   grid: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  list: { gap: 4 },
   muted: { color: "#6b7177", fontSize: 14, fontFamily: FONT.regular },
 });
