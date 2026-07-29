@@ -1,5 +1,11 @@
 import { useEffect } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import { Stack, useRouter, usePathname } from "expo-router";
 import {
   defaultShouldDehydrateQuery,
@@ -29,6 +35,9 @@ import { useAuthEmail } from "@/state/auth";
 import { startCloudSync } from "@/state/sync";
 import { startLoginPrompt } from "@/state/loginPrompt";
 import { LoginPrompt } from "@/components/LoginPrompt";
+import { useSideMenu } from "@/state/sideMenu";
+import { SideMenu } from "@/components/SideMenu";
+import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
 import type { PressableState } from "@/types";
 import { FONT } from "@/theme";
 
@@ -67,12 +76,30 @@ function GlobalHeader() {
   const router = useRouter();
   const pathname = usePathname();
   const isHome = pathname === "/";
+  // The header packs six controls into one row; at phone widths the default
+  // gaps push it past the viewport, so tighten the spacing rather than let the
+  // page scroll sideways.
+  const { width: windowWidth } = useWindowDimensions();
+  const isNarrow = windowWidth < MOBILE_WIDTH_BREAKPOINT;
   const japanese = usePreferences((s) => s.japanese);
   const toggleJapanese = usePreferences((s) => s.toggleJapanese);
   const email = useAuthEmail();
 
+  const openMenu = useSideMenu((s) => s.openMenu);
+
   return (
-    <View style={headerStyles.bar}>
+    <View style={[headerStyles.bar, isNarrow && headerStyles.barNarrow]}>
+      <Pressable
+        onPress={() => openMenu()}
+        hitSlop={10}
+        accessibilityLabel="Open menu"
+        style={({ hovered, pressed }: any) => [
+          headerStyles.menuButton,
+          { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
+        ]}
+      >
+        <Text style={headerStyles.menuIcon}>☰</Text>
+      </Pressable>
       {!isHome && (
         <Pressable
           onPress={() => router.back()}
@@ -174,6 +201,7 @@ export default function RootLayout() {
             <Stack.Screen name="series/[id]/index" />
           </Stack>
           <LoginPrompt />
+          <SideMenu />
         </View>
       </SafeAreaProvider>
     </PersistQueryClientProvider>
@@ -190,12 +218,15 @@ const headerStyles = StyleSheet.create({
     paddingTop: 24,
     paddingBottom: 12,
   },
+  barNarrow: { gap: 8, paddingHorizontal: 10 },
   back: {
     width: 44,
     height: 44,
     alignItems: "center",
     justifyContent: "center",
   },
+  menuButton: { paddingVertical: 2, paddingHorizontal: 2 },
+  menuIcon: { color: "#f5f5f5", fontSize: 20, fontFamily: FONT.bold },
   backArrow: {
     color: "#7c5cff",
     fontSize: 32,
