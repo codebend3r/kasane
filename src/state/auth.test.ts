@@ -3,6 +3,12 @@ import type { Session, User } from "@supabase/supabase-js";
 import { useAuth } from "./auth";
 import { supabase } from "@/api/supabase";
 
+// `expo-linking` reads the expo-constants manifest to resolve the app's URI
+// scheme, which isn't available under jest.
+jest.mock("expo-linking", () => ({
+  createURL: (path: string) => `kasane://${path.replace(/^\//, "")}`,
+}));
+
 jest.mock("@/api/supabase", () => ({
   supabase: {
     auth: {
@@ -85,7 +91,7 @@ describe("actions", () => {
     expect(result).toBe("Invalid login credentials");
   });
 
-  it("signUp sends the email confirmation redirect", async () => {
+  it("signUp sends a confirmation redirect back to the running origin", async () => {
     const signUp = jest.mocked(supabase.auth.signUp).mockResolvedValue({
       data: { user: fakeUser, session: null },
       error: null,
@@ -95,8 +101,14 @@ describe("actions", () => {
     expect(signUp).toHaveBeenCalledWith({
       email: "cj@example.com",
       password: "pw",
-      options: { emailRedirectTo: "https://kasane.netlify.app/login" },
+      options: { emailRedirectTo: expect.stringMatching(/\/login$/) },
     });
+
+    // Regression guard: the redirect used to be hardcoded to a domain that is
+    // not the production deployment, which sent every confirmation link to the
+    // wrong site.
+    const { emailRedirectTo } = signUp.mock.calls[0][0].options ?? {};
+    expect(emailRedirectTo).not.toContain("https://kasane.netlify.app");
   });
 
   it("signOut returns the error message on failure", async () => {

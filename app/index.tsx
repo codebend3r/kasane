@@ -18,7 +18,7 @@ import { Link } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 import { getLatestAnime, searchMedia } from "@/api/anilist";
 import { pairResults } from "@/data";
-import { useGenreFilters } from "@/data/catalog";
+import { useCatalog, useGenreFilters } from "@/data/catalog";
 import { splitHiddenForAniList, type GenreFilter } from "@/data/genreFilters";
 import { SeriesCard } from "@/components/SeriesCard";
 import { ContinueSection } from "@/components/ContinueSection";
@@ -28,7 +28,7 @@ import {
 } from "@/components/CoverCarousel";
 import { Footer } from "@/components/Footer";
 import { usePreferences } from "@/state/preferences";
-import type { AniListMedia, SeriesEntry } from "@/types";
+import type { AniListMedia, PressableState, SeriesEntry } from "@/types";
 import { FONT } from "@/theme";
 
 const BADGE_COLOR: Record<SeriesEntry["badge"], string> = {
@@ -49,9 +49,24 @@ export default function HomeScreen() {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const hiddenGenres = usePreferences((s) => s.hiddenGenres);
   const toggleHiddenGenre = usePreferences((s) => s.toggleHiddenGenre);
+  const setHiddenGenres = usePreferences((s) => s.setHiddenGenres);
   const genreFilters = useGenreFilters();
+  const [mappedOnly, setMappedOnly] = useState(true);
+  const { findMapping } = useCatalog();
+
+  // Chips update `hiddenGenres` immediately so they stay responsive, but the
+  // AniList query keys follow this debounced copy. Without it every chip tap
+  // fired its own request, and toggling a row of genres tripped AniList's rate
+  // limit — the 429s then stuck around as cached query errors, leaving the grid
+  // empty even after the genres were switched back on.
+  const [debouncedHidden, setDebouncedHidden] = useState(hiddenGenres);
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedHidden(hiddenGenres), 500);
+    return () => clearTimeout(t);
+  }, [hiddenGenres]);
+
   const { genreNotIn, tagNotIn } = splitHiddenForAniList(
-    hiddenGenres,
+    debouncedHidden,
     genreFilters,
   );
   const { width: windowWidth } = useWindowDimensions();
@@ -87,6 +102,18 @@ export default function HomeScreen() {
     [searchResults],
   );
 
+  // Default to the series kasane actually has an episode<->chapter map for,
+  // since those are the ones it can say anything useful about. Unchecking the
+  // toggle falls back to everything AniList returned.
+  const visibleResults = useMemo(
+    () =>
+      mappedOnly
+        ? pairedResults.filter((e) => !!findMapping(e.routeId))
+        : pairedResults,
+    [pairedResults, mappedOnly, findMapping],
+  );
+  const hiddenByMapping = pairedResults.length - visibleResults.length;
+
   return (
     <View style={styles.root}>
       <Text style={styles.tagline}>
@@ -102,6 +129,8 @@ export default function HomeScreen() {
         autoCorrect={false}
         returnKeyType="search"
       />
+
+      <MappedOnlyToggle value={mappedOnly} onChange={setMappedOnly} />
 
       <Pressable
         onPress={() => setFiltersOpen((o) => !o)}
@@ -122,6 +151,11 @@ export default function HomeScreen() {
 
       {!isMobile && filtersOpen && (
         <View style={styles.genreFilters}>
+          <ToggleAllGenres
+            filters={genreFilters}
+            hiddenGenres={hiddenGenres}
+            onSetHidden={setHiddenGenres}
+          />
           {genreFilters.map((f) => {
             const included = !hiddenGenres.includes(f.id);
             return (
@@ -166,13 +200,19 @@ export default function HomeScreen() {
             </View>
           )}
           <FlatList
-            data={pairedResults}
+            data={visibleResults}
             keyExtractor={(item) => `series-${item.routeId}`}
             renderItem={({ item }) => <SeriesCard entry={item} />}
             ListEmptyComponent={
               !isFetching && query === debouncedQuery ? (
                 <View style={styles.emptyWrap}>
-                  <Text style={styles.empty}>No results.</Text>
+                  <Text style={styles.empty}>
+                    {mappedOnly && hiddenByMapping > 0
+                      ? `No mapped results. Uncheck “Mapped only” to see ${hiddenByMapping} unmapped ${
+                          hiddenByMapping === 1 ? "match" : "matches"
+                        }.`
+                      : "No results."}
+                  </Text>
                 </View>
               ) : null
             }
@@ -183,6 +223,61 @@ export default function HomeScreen() {
         <LatestReleases data={latestAnime ?? []} loading={latestFetching} />
       )}
     </View>
+  );
+}
+
+/**
+ * One-tap "show everything / hide everything" for the genre chips. Writes the
+ * whole selection at once, which also keeps a bulk change from fanning out into
+ * one AniList request per genre.
+ */
+function ToggleAllGenres({
+  filters,
+  hiddenGenres,
+  onSetHidden,
+}: {
+  filters: readonly GenreFilter[];
+  hiddenGenres: string[];
+  onSetHidden: (ids: string[]) => void;
+}) {
+  const allHidden = filters.length > 0 && hiddenGenres.length >= filters.length;
+  return (
+    <Pressable
+      onPress={() => onSetHidden(allHidden ? [] : filters.map((f) => f.id))}
+      style={({ hovered, pressed }: PressableState) => [
+        styles.toggleAllChip,
+        { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
+      ]}
+    >
+      <Text style={styles.toggleAllText}>
+        {allHidden ? "Show all" : "Hide all"}
+      </Text>
+    </Pressable>
+  );
+}
+
+/** Checkbox-style switch for "only show series with a chapter map". */
+function MappedOnlyToggle({
+  value,
+  onChange,
+}: {
+  value: boolean;
+  onChange: (next: boolean) => void;
+}) {
+  return (
+    <Pressable
+      onPress={() => onChange(!value)}
+      hitSlop={6}
+      style={({ hovered, pressed }: PressableState) => [
+        styles.mappedToggle,
+        { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
+      ]}
+    >
+      <View style={[styles.checkbox, value && styles.checkboxOn]}>
+        {value && <Text style={styles.checkboxMark}>✓</Text>}
+      </View>
+      <Text style={styles.mappedToggleText}>Mapped only</Text>
+    </Pressable>
   );
 }
 
@@ -545,6 +640,48 @@ const styles = StyleSheet.create({
     fontFamily: FONT.bold,
   },
   filterTextActive: { color: "#0c0c0e" },
+  toggleAllChip: {
+    paddingHorizontal: 14,
+    paddingVertical: 6,
+    backgroundColor: "#17181b",
+    borderWidth: 1,
+    borderColor: "#7c5cff",
+  },
+  toggleAllText: {
+    color: "#7c5cff",
+    fontSize: 12,
+    letterSpacing: 1.2,
+    textTransform: "uppercase",
+    fontFamily: FONT.bold,
+  },
+  mappedToggle: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "flex-start",
+    gap: 8,
+    paddingVertical: 4,
+  },
+  checkbox: {
+    width: 18,
+    height: 18,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#17181b",
+    borderWidth: 2,
+    borderColor: "#3a3d42",
+  },
+  checkboxOn: { backgroundColor: "#7c5cff", borderColor: "#7c5cff" },
+  checkboxMark: {
+    color: "#0c0c0e",
+    fontSize: 12,
+    lineHeight: 14,
+    fontFamily: FONT.bold,
+  },
+  mappedToggleText: {
+    color: "#cfd2d6",
+    fontSize: 13,
+    fontFamily: FONT.medium,
+  },
   spinnerWrap: { paddingTop: 24 },
   emptyWrap: { paddingTop: 32 },
   empty: { color: "#6b7177", textAlign: "center", fontFamily: FONT.regular },

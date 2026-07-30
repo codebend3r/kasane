@@ -1,5 +1,11 @@
 import { useEffect } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import { Stack, useRouter, usePathname } from "expo-router";
 import {
   defaultShouldDehydrateQuery,
@@ -16,6 +22,7 @@ import {
   useCatalogQuery,
   useHydrateSearchAliases,
 } from "@/data/catalog";
+import { COVERS_QUERY_KEY } from "@/data/covers";
 import {
   useFonts,
   SpaceGrotesk_400Regular,
@@ -27,6 +34,11 @@ import { ZenTokyoZoo_400Regular } from "@expo-google-fonts/zen-tokyo-zoo";
 import { usePreferences } from "@/state/preferences";
 import { useAuthEmail } from "@/state/auth";
 import { startCloudSync } from "@/state/sync";
+import { startLoginPrompt } from "@/state/loginPrompt";
+import { LoginPrompt } from "@/components/LoginPrompt";
+import { useSideMenu } from "@/state/sideMenu";
+import { SideMenu } from "@/components/SideMenu";
+import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
 import type { PressableState } from "@/types";
 import { FONT } from "@/theme";
 
@@ -35,20 +47,25 @@ SplashScreen.preventAutoHideAsync().catch(() => {});
 // Reconcile local progress/preferences with Supabase once a session exists.
 startCloudSync();
 
+// Nudge signed-out users to log in the first time they change something.
+startLoginPrompt();
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: { staleTime: 5 * 60 * 1000, retry: 1 },
   },
 });
 
-// Persist only the catalog query to AsyncStorage so a cold (or offline) launch
-// renders the anime<->manga mappings instantly, then refreshes in the
-// background. AniList/MangaDex results stay in-memory only.
+// Persist the catalog and its poster art to AsyncStorage so a cold (or
+// offline) launch renders the anime<->manga mappings instantly, then refreshes
+// in the background. Other AniList/MangaDex results stay in-memory only.
 const persister = createAsyncStoragePersister({
   storage: AsyncStorage,
   key: "kasane-query-cache",
 });
 const CATALOG_CACHE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
+
+const PERSISTED_QUERIES: string[] = [CATALOG_QUERY_KEY[0], COVERS_QUERY_KEY[0]];
 
 // Warms the catalog at launch and keeps the search-alias table hydrated so
 // everything is ready before the first screen needs a mapping.
@@ -62,12 +79,30 @@ function GlobalHeader() {
   const router = useRouter();
   const pathname = usePathname();
   const isHome = pathname === "/";
+  // The header packs six controls into one row; at phone widths the default
+  // gaps push it past the viewport, so tighten the spacing rather than let the
+  // page scroll sideways.
+  const { width: windowWidth } = useWindowDimensions();
+  const isNarrow = windowWidth < MOBILE_WIDTH_BREAKPOINT;
   const japanese = usePreferences((s) => s.japanese);
   const toggleJapanese = usePreferences((s) => s.toggleJapanese);
   const email = useAuthEmail();
 
+  const openMenu = useSideMenu((s) => s.openMenu);
+
   return (
-    <View style={headerStyles.bar}>
+    <View style={[headerStyles.bar, isNarrow && headerStyles.barNarrow]}>
+      <Pressable
+        onPress={() => openMenu()}
+        hitSlop={10}
+        accessibilityLabel="Open menu"
+        style={({ hovered, pressed }: any) => [
+          headerStyles.menuButton,
+          { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
+        ]}
+      >
+        <Text style={headerStyles.menuIcon}>☰</Text>
+      </Pressable>
       {!isHome && (
         <Pressable
           onPress={() => router.back()}
@@ -88,11 +123,25 @@ function GlobalHeader() {
           { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
         ]}
       >
-        <Text style={headerStyles.wordmark}>Kasane</Text>
-        <Text style={headerStyles.subheading}>
-          anime <Text style={headerStyles.subAccent}>+</Text> manga
+        <Text
+          numberOfLines={1}
+          style={[
+            headerStyles.wordmark,
+            isNarrow && headerStyles.wordmarkNarrow,
+          ]}
+        >
+          Kasane
         </Text>
-        <View style={headerStyles.rule} />
+        {/* The wide-tracked subheading is what pushes the header past a phone
+            viewport once the back arrow is present, so drop it when narrow. */}
+        {!isNarrow && (
+          <>
+            <Text style={headerStyles.subheading}>
+              anime <Text style={headerStyles.subAccent}>+</Text> manga
+            </Text>
+            <View style={headerStyles.rule} />
+          </>
+        )}
       </Pressable>
       <View style={headerStyles.spacer} />
       <Pressable
@@ -145,7 +194,7 @@ export default function RootLayout() {
         dehydrateOptions: {
           shouldDehydrateQuery: (query) =>
             defaultShouldDehydrateQuery(query) &&
-            query.queryKey[0] === CATALOG_QUERY_KEY[0],
+            PERSISTED_QUERIES.some((k) => k === query.queryKey[0]),
         },
       }}
     >
@@ -162,12 +211,17 @@ export default function RootLayout() {
           >
             <Stack.Screen name="index" />
             <Stack.Screen name="login" />
+            <Stack.Screen name="mapped" />
+            <Stack.Screen name="my-shows" />
+            <Stack.Screen name="settings" />
             <Stack.Screen name="anime/[id]/index" />
             <Stack.Screen name="anime/[id]/arc/[arcIdx]" />
             <Stack.Screen name="manga/[id]/index" />
             <Stack.Screen name="manga/[id]/arc/[arcIdx]" />
             <Stack.Screen name="series/[id]/index" />
           </Stack>
+          <LoginPrompt />
+          <SideMenu />
         </View>
       </SafeAreaProvider>
     </PersistQueryClientProvider>
@@ -184,12 +238,15 @@ const headerStyles = StyleSheet.create({
     paddingTop: 24,
     paddingBottom: 12,
   },
+  barNarrow: { gap: 8, paddingHorizontal: 10 },
   back: {
     width: 44,
     height: 44,
     alignItems: "center",
     justifyContent: "center",
   },
+  menuButton: { paddingVertical: 2, paddingHorizontal: 2 },
+  menuIcon: { color: "#f5f5f5", fontSize: 20, fontFamily: FONT.bold },
   backArrow: {
     color: "#7c5cff",
     fontSize: 32,
@@ -198,7 +255,11 @@ const headerStyles = StyleSheet.create({
   },
   wordmarkPressable: {
     gap: 4,
+    flexShrink: 1,
   },
+  // Scaled down rather than allowed to shrink-wrap, which broke "Kasane"
+  // across two lines on a phone.
+  wordmarkNarrow: { fontSize: 34, lineHeight: 38, letterSpacing: -1 },
   wordmark: {
     color: "#f5f5f5",
     fontSize: 64,

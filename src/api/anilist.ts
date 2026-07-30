@@ -4,10 +4,14 @@ import type {
   AniListMedia,
   AnimeFranchise,
   FranchiseSeason,
+  MediaCover,
   MediaType,
 } from "@/types";
 
 const client = new GraphQLClient("https://graphql.anilist.co");
+
+// AniList caps a page at 50 entries.
+const COVER_PAGE_SIZE = 50;
 
 const MEDIA_FIELDS = `
   id
@@ -225,9 +229,49 @@ export async function getMediaByIds(ids: number[]): Promise<AniListMedia[]> {
   if (ids.length === 0) return [];
   const data = await client.request<{ Page: { media: AniListMedia[] } }>(
     MEDIA_BY_IDS_QUERY,
-    { ids },
+    {
+      ids,
+    },
   );
   return data.Page.media;
+}
+
+const COVERS_BY_IDS_QUERY = gql`
+  query CoversByIds($ids: [Int]!) {
+    Page(perPage: ${COVER_PAGE_SIZE}) {
+      media(id_in: $ids) {
+        id
+        coverImage {
+          large
+          color
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * Cover art for an arbitrary number of media ids, batched at AniList's page
+ * limit. The batches run one after another: firing all dozen of the catalog's
+ * pages at once trips AniList's burst limit, and a rate-limited response comes
+ * back without CORS headers, so on web it fails outright rather than retrying.
+ * The result is cached for a week, so this runs about once per device.
+ */
+export async function getCoversByIds(
+  ids: readonly number[],
+): Promise<MediaCover[]> {
+  const unique = [...new Set(ids)];
+  return Array.from(
+    { length: Math.ceil(unique.length / COVER_PAGE_SIZE) },
+    (_, i) => unique.slice(i * COVER_PAGE_SIZE, (i + 1) * COVER_PAGE_SIZE),
+  ).reduce<Promise<MediaCover[]>>(async (acc, batch) => {
+    const covers = await acc;
+    const page = await client.request<{ Page: { media: MediaCover[] } }>(
+      COVERS_BY_IDS_QUERY,
+      { ids: batch },
+    );
+    return [...covers, ...page.Page.media];
+  }, Promise.resolve([]));
 }
 
 const FRANCHISE_NODE_QUERY = gql`
@@ -285,7 +329,9 @@ async function collectFranchiseNodes(
 
   const data = await client.request<{ Page: { media: FranchiseRawNode[] } }>(
     FRANCHISE_NODE_QUERY,
-    { ids },
+    {
+      ids,
+    },
   );
   const nextVisited = data.Page.media.reduce(
     (acc, node) => acc.set(node.id, node),

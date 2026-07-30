@@ -15,9 +15,39 @@ type SeriesRow = Database["public"]["Tables"]["series"]["Row"] & {
 
 export type Catalog = {
   mappings: SeriesMapping[];
-  byMediaId: Map<number, SeriesMapping>;
   aliases: Record<string, string>;
   genreFilters: GenreFilter[];
+};
+
+// Media-id -> series index, derived on demand rather than stored on `Catalog`.
+//
+// This query is persisted to AsyncStorage as JSON, and a `Map` does not survive
+// that round trip — `JSON.stringify(new Map())` is `{}`. Storing the index made
+// every cold launch restore it as a plain object, so `.get(...)` threw and took
+// the series screen down with it. Deriving it keeps it a real Map, and keeps
+// the persisted payload from carrying a second copy of every mapping.
+//
+// Keyed on the `mappings` array identity, so the index is rebuilt only when
+// react-query hands back a new payload.
+const indexCache = new WeakMap<SeriesMapping[], Map<number, SeriesMapping>>();
+
+const EMPTY_MAPPINGS: SeriesMapping[] = [];
+
+export const indexByMediaId = (
+  mappings: SeriesMapping[],
+): Map<number, SeriesMapping> => {
+  const cached = indexCache.get(mappings);
+  if (cached) return cached;
+  // Both the anime and manga id resolve to the series. First-listed wins so a
+  // shared manga id keeps the old `findMappingByMediaId` array-order tie-break
+  // (series are fetched ordered by id, i.e. original ALL_MAPPINGS order).
+  const index = mappings.reduce((acc, m) => {
+    if (!acc.has(m.anilistAnimeId)) acc.set(m.anilistAnimeId, m);
+    if (!acc.has(m.anilistMangaId)) acc.set(m.anilistMangaId, m);
+    return acc;
+  }, new Map<number, SeriesMapping>());
+  indexCache.set(mappings, index);
+  return index;
 };
 
 export const CATALOG_QUERY_KEY = ["catalog"] as const;
@@ -85,15 +115,6 @@ const fetchCatalog = async (): Promise<Catalog> => {
 
   const mappings = seriesRes.data.map(rowToMapping);
 
-  // Both the anime and manga id resolve to the series. First-listed wins so a
-  // shared manga id keeps the old `findMappingByMediaId` array-order tie-break
-  // (series are fetched ordered by id, i.e. original ALL_MAPPINGS order).
-  const byMediaId = mappings.reduce((acc, m) => {
-    if (!acc.has(m.anilistAnimeId)) acc.set(m.anilistAnimeId, m);
-    if (!acc.has(m.anilistMangaId)) acc.set(m.anilistMangaId, m);
-    return acc;
-  }, new Map<number, SeriesMapping>());
-
   const aliases = aliasRes.data.reduce<Record<string, string>>((acc, a) => {
     acc[a.alias] = a.target;
     return acc;
@@ -108,7 +129,7 @@ const fetchCatalog = async (): Promise<Catalog> => {
     }),
   );
 
-  return { mappings, byMediaId, aliases, genreFilters };
+  return { mappings, aliases, genreFilters };
 };
 
 export const useCatalogQuery = () =>
@@ -127,16 +148,17 @@ export type CatalogAccess = {
 
 export const useCatalog = (): CatalogAccess => {
   const { data, isSuccess } = useCatalogQuery();
+  const mappings = data?.mappings ?? EMPTY_MAPPINGS;
   return {
-    findMapping: (mediaId) => data?.byMediaId.get(mediaId) ?? null,
-    mappings: data?.mappings ?? [],
+    findMapping: (mediaId) => indexByMediaId(mappings).get(mediaId) ?? null,
+    mappings,
     isLoaded: isSuccess,
   };
 };
 
 export const useMapping = (mediaId: number): SeriesMapping | null => {
   const { data } = useCatalogQuery();
-  return data?.byMediaId.get(mediaId) ?? null;
+  return indexByMediaId(data?.mappings ?? EMPTY_MAPPINGS).get(mediaId) ?? null;
 };
 
 export const useGenreFilters = (): GenreFilter[] => {

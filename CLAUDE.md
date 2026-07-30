@@ -15,6 +15,7 @@
 ## Styling
 
 - Never use margins. Use `display: grid` with `gap` and `padding` for spacing. Only fall back to margins if absolutely unavoidable.
+- Always consider responsive design for every change. Every layout must support small, medium, and large screens — check each breakpoint before calling a change done.
 
 ## Commits
 

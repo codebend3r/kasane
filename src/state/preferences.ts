@@ -8,6 +8,9 @@ type State = {
 
   hiddenGenres: string[];
   toggleHiddenGenre: (id: string) => void;
+  // Replaces the whole selection in one write, so "show/hide all" is a single
+  // state change rather than one per chip.
+  setHiddenGenres: (ids: string[]) => void;
 
   // Last local edit, in epoch ms. Drives last-write-wins against the cloud copy.
   updatedAt: number;
@@ -28,6 +31,9 @@ export const usePreferences = create<State>()(
             : [...s.hiddenGenres, id],
           updatedAt: Date.now(),
         })),
+
+      setHiddenGenres: (ids) =>
+        set({ hiddenGenres: [...ids], updatedAt: Date.now() }),
 
       updatedAt: 0,
     }),
