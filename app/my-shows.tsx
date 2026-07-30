@@ -6,7 +6,7 @@ import { toMappedShow } from "@/data/mappedShows";
 import { useAuthEmail, useAuthStatus } from "@/state/auth";
 import { useInProgressEntries } from "@/state/progress";
 import { useCovers } from "@/data/covers";
-import { ShowTile } from "@/components/ShowTile";
+import { ShowGrid } from "@/components/ShowGrid";
 import { Footer } from "@/components/Footer";
 import type { PressableState } from "@/types";
 import { FONT } from "@/theme";
@@ -80,16 +80,7 @@ export default function MyShowsScreen() {
           and it will show up here.
         </Text>
       ) : (
-        <View style={styles.grid}>
-          {shows.map(({ show, trailing }) => (
-            <ShowTile
-              key={show.key}
-              show={show}
-              cover={covers[show.coverId]}
-              trailing={trailing}
-            />
-          ))}
-        </View>
+        <ShowGrid items={shows} covers={covers} />
       )}
       <Footer />
     </ScrollView>
@@ -149,7 +140,6 @@ const styles = StyleSheet.create({
     fontFamily: FONT.bold,
   },
   synced: { color: "#5cff9d", fontSize: 13, fontFamily: FONT.medium },
-  grid: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
   muted: {
     color: "#6b7177",
     fontSize: 14,

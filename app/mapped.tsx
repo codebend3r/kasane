@@ -10,7 +10,7 @@ import {
   type MappedShowSortField,
 } from "@/data/mappedShows";
 import { useCovers } from "@/data/covers";
-import { ShowTile } from "@/components/ShowTile";
+import { ShowGrid } from "@/components/ShowGrid";
 import { ShowRow } from "@/components/ShowRow";
 import { Footer } from "@/components/Footer";
 import type { PressableState } from "@/types";
@@ -89,11 +89,7 @@ export default function MappedShowsScreen() {
       {!isLoaded && shows.length === 0 ? (
         <Text style={styles.muted}>Loading the catalog…</Text>
       ) : view === "grid" ? (
-        <View style={styles.grid}>
-          {shows.map((s) => (
-            <ShowTile key={s.key} show={s} cover={covers[s.coverId]} />
-          ))}
-        </View>
+        <ShowGrid items={shows.map((show) => ({ show }))} covers={covers} />
       ) : (
         <View style={styles.list}>
           {shows.map((s) => (
@@ -232,7 +228,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#17181b",
   },
   viewButtonActive: { backgroundColor: "#5cdfff" },
-  grid: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
   list: { gap: 4 },
   muted: { color: "#6b7177", fontSize: 14, fontFamily: FONT.regular },
 });

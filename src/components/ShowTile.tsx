@@ -22,10 +22,12 @@ export function ShowTile({
   show,
   cover,
   trailing,
+  width,
 }: {
   show: MappedShow;
   cover?: Cover;
   trailing?: string;
+  width: number;
 }) {
   const router = useRouter();
   return (
@@ -33,7 +35,7 @@ export function ShowTile({
       onPress={() => router.push(`/series/${show.routeId}`)}
       style={({ hovered, pressed }: PressableState) => [
         styles.tile,
-        { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
+        { width, opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
       ]}
     >
       <Poster cover={cover} style={styles.poster} />
@@ -71,12 +73,10 @@ export function Poster({
 }
 
 const styles = StyleSheet.create({
+  // Poster-shaped rather than the old text-only block, so a row of tiles
+  // reads as cover art first: two up on a phone, more as the page widens.
+  // The width is set by `ShowGrid`, which sizes every row the same.
   tile: {
-    flexGrow: 1,
-    // Poster-shaped rather than the old text-only block, so a row of tiles
-    // reads as cover art first: two up on a phone, more as the page widens.
-    flexBasis: 140,
-    maxWidth: 200,
     backgroundColor: "#17181b",
     borderLeftWidth: 3,
     borderLeftColor: "#7c5cff",
