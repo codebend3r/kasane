@@ -63,8 +63,29 @@
   "Natsume's Book of Friends": {
     "chapter-overlap": "episodic anthology: each season revisits chapters out of publication order"
   },
-  "A Certain Scientific Railgun": {
-    "chapter-overlap": "anime-original arcs are woven into the adapted chapters rather than appended (stated in the arc names)"
+  "Aoashi": {
+    "episode-overlap": "episode 17 adapts the tail of the Fullback Training arc (through ch 75) and the head of the Esperion B vs. Tama Sports arc (ch 76+); the Ao Ashi fandom wiki cited in `source_notes` lists it under both arcs"
+  },
+  "Ragna Crimson": {
+    "chapter-overlap": "the fandom wiki marks chapter 7 '(Partially)' at the end of Birth of the Reaper and the start of Royal Capital: its content is split across both arcs",
+    "episode-overlap": "the fandom wiki marks episodes 4 and 8 '(Partially)' at both adjoining arcs; only those two boundaries overlap, which rules out a systematic off-by-one"
+  },
+  "Banished from the Hero's Party, I Decided to Live a Quiet Life in the Countryside": {
+    "episode-null-sandwich": "light-novel adaptation: season 2 skipped LN volumes 6-7 mid-run and resumed at volume 8, so the unmapped volume 6-7 row sits between two adapted arcs rather than at the tail"
+  },
+  "My Stepmom's Daughter Is My Ex": {
+    "episode-null-sandwich": "light-novel adaptation: the anime skips the whole volume 3 arc mid-run and resumes at volume 4, so the unadapted row sits between two adapted arcs"
+  },
+  "Black Lagoon": {
+    "chapter-overlap": "the TV anime airs the Greenback Jane arc (eps 16-18) before the Fujiyama Gangsta Paradise arc (eps 19-24), while in the manga Fujiyama (ch 22-37) precedes Greenback Jane (ch 38-43)"
+  },
+  "Ouran High School Host Club": {
+    "chapter-overlap": "episodic adaptation that reorders chapters: episode 21 combines chapter 11 (Belltower Witch, skipped when eps 9-11 jumped from ch 10 to 12) with chapter 32 (Scare Fest, pulled forward from volume 8)",
+    "chapter-gap": "chapter 11 is not unadapted; it is covered non-contiguously by the episode 21 Halloween arc"
+  },
+  "Interspecies Reviewers": {
+    "chapter-overlap": "episodic anthology: episode titles are literal concatenations of the chapter titles they adapt, and confirm the reorder (ep 5 = ch 10 + ch 12, ep 6 = ch 13 + ch 11)",
+    "chapter-gap": "the anime never adapts chapters 22 and 24; their titles appear in no episode title on the fandom Episode Guide"
   },
   "Rosario + Vampire": {
     "chapter-overlap": "episodic adaptation that reorders chapters across episodes"

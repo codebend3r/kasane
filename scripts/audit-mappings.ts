@@ -159,18 +159,36 @@ const checkArcRanges = (
             ),
           ]
         : [];
-    const nonPositive =
-      a.chapter_start < 1 || (a.episode_start !== null && a.episode_start < 1)
+    // Chapter 0 is legitimate: publishers number prologue chapters "00" (Black
+    // Lagoon's first chapter is officially 00). Only a negative index is wrong.
+    const negativeChapter =
+      a.chapter_start < 0
         ? [
             finding(
               "error",
-              "non-positive-index",
+              "negative-chapter",
               series,
-              `"${name}" starts below 1 (chapters ${a.chapter_start}, episodes ${a.episode_start ?? "null"})`,
+              `"${name}" starts at chapter ${a.chapter_start}`,
             ),
           ]
         : [];
-    return [...chapterOrder, ...episodeOrder, ...nonPositive];
+    const nonPositiveEpisode =
+      a.episode_start !== null && a.episode_start < 1
+        ? [
+            finding(
+              "error",
+              "non-positive-episode",
+              series,
+              `"${name}" starts at episode ${a.episode_start}; episodes are 1-indexed`,
+            ),
+          ]
+        : [];
+    return [
+      ...chapterOrder,
+      ...episodeOrder,
+      ...negativeChapter,
+      ...nonPositiveEpisode,
+    ];
   });
 
 /** Consecutive arcs should tile the chapter axis with no gap and no overlap. */
@@ -182,13 +200,39 @@ const checkChapterContinuity = (
     const prev = arcs[i];
     const name = cur.arc ?? `position ${cur.position}`;
     const prevName = prev.arc ?? `position ${prev.position}`;
-    if (cur.chapter_start <= prev.chapter_end) {
+
+    // `chapter_start`/`chapter_end` are NOT NULL, so an anime-original arc that
+    // adapts no manga at all can only say so by collapsing to a zero-width range
+    // pinned at the last adapted chapter. Dororo, Ouran, Railgun and My Isekai
+    // Life all use this idiom; it is the schema's only way to express it.
+    if (
+      cur.chapter_start === cur.chapter_end &&
+      cur.chapter_start === prev.chapter_end
+    ) {
       return [
         finding(
-          "error",
+          "info",
+          "anime-original-pinned",
+          series,
+          `"${name}" is pinned to chapter ${cur.chapter_start} with no width, marking an arc that adapts no further manga`,
+        ),
+      ];
+    }
+
+    if (cur.chapter_start <= prev.chapter_end) {
+      // One shared unit is ambiguous: adaptations routinely split a single
+      // chapter across an arc boundary, and a hand-typed boundary is just as
+      // routinely off by one. Only a wider overlap is unambiguously wrong.
+      const shared = prev.chapter_end - cur.chapter_start + 1;
+      return [
+        finding(
+          shared === 1 ? "warn" : "error",
           "chapter-overlap",
           series,
-          `"${name}" starts at chapter ${cur.chapter_start} but "${prevName}" runs through ${prev.chapter_end}`,
+          `"${name}" starts at chapter ${cur.chapter_start} but "${prevName}" runs through ${prev.chapter_end}` +
+            (shared === 1
+              ? " (1 shared chapter: a split boundary, or an off-by-one)"
+              : ` (${shared} shared chapters)`),
         ),
       ];
     }
@@ -217,15 +261,19 @@ const checkEpisodeContinuity = (
     (a) => a.episode_start !== null && a.episode_end !== null,
   );
   const firstNullIndex = arcs.findIndex((a) => a.episode_start === null);
+  // An unadapted arc between two adapted ones is a real and common shape: the
+  // anime skipped that source material and resumed after it (Banished from the
+  // Hero's Party skips LN volumes 6-7; My Stepmom's Daughter skips volume 3).
+  // It is worth surfacing, because it is also what a mis-ordered row looks like.
   const sandwiched =
     firstNullIndex >= 0 &&
     arcs.slice(firstNullIndex).some((a) => a.episode_start !== null)
       ? [
           finding(
-            "error",
+            "warn",
             "episode-null-sandwich",
             series,
-            `an arc with episodes follows an arc without them (position ${firstNullIndex}); null episodes are only valid on the unadapted tail`,
+            `the arc at position ${firstNullIndex} has no episodes but adapted arcs follow it; confirm the anime skipped this material rather than the row being misordered`,
           ),
         ]
       : [];
@@ -237,12 +285,19 @@ const checkEpisodeContinuity = (
     const start = cur.episode_start ?? 0;
     const prevEnd = prev.episode_end ?? 0;
     if (start <= prevEnd) {
+      // Same ambiguity as chapters: one episode routinely straddles an arc
+      // boundary (Aoashi's own wiki lists episode 17 under both arcs), so a
+      // single shared episode is a prompt to check, not a proven error.
+      const shared = prevEnd - start + 1;
       return [
         finding(
-          "error",
+          shared === 1 ? "warn" : "error",
           "episode-overlap",
           series,
-          `"${name}" starts at episode ${start} but "${prevName}" runs through ${prevEnd} (episodes are cumulative across seasons)`,
+          `"${name}" starts at episode ${start} but "${prevName}" runs through ${prevEnd}` +
+            (shared === 1
+              ? " (1 shared episode: a straddling episode, or an off-by-one)"
+              : ` (${shared} shared episodes; episodes are cumulative across seasons)`),
         ),
       ];
     }
