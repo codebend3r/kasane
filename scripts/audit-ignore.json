@@ -1,0 +1,79 @@
+{
+  "Accel World": {
+    "chapter-overlap": "light-novel series: the chapters column holds LN volume numbers, and side-story volumes interleave with the main sequence",
+    "chapter-gap": "light-novel series: volume numbers, not chapters"
+  },
+  "Alderamin on the Sky": {
+    "chapter-overlap": "light-novel series: the chapters column holds LN volume numbers",
+    "chapter-gap": "light-novel series: volume numbers, not chapters"
+  },
+  "Amagi Brilliant Park": {
+    "chapter-overlap": "light-novel series: arcs share LN volumes 1-2",
+    "chapter-gap": "light-novel series: volume numbers, not chapters"
+  },
+  "Assassin's Pride": {
+    "chapter-overlap": "light-novel series: the chapters column holds LN volume numbers",
+    "chapter-gap": "light-novel series: volume numbers, not chapters"
+  },
+  "Baccano!": {
+    "chapter-overlap": "light-novel series: volume numbers, not chapters",
+    "chapter-gap": "light-novel series: volume numbers, not chapters",
+    "episode-overlap": "three LN timelines are woven across the same TV run, so their episode ranges genuinely overlap (stated in each arc name)"
+  },
+  "Gosick": {
+    "chapter-overlap": "light-novel series: the chapters column holds LN volume numbers",
+    "chapter-gap": "light-novel series: volume numbers, not chapters"
+  },
+  "Grimgar of Fantasy and Ash": {
+    "chapter-overlap": "light-novel series: consecutive arcs share LN volumes 1-2",
+    "chapter-gap": "light-novel series: volume numbers, not chapters"
+  },
+  "How a Realist Hero Rebuilt the Kingdom": {
+    "chapter-overlap": "light-novel series: the anime stops partway through LN vol 5, so the unadapted tail arc starts on the same volume",
+    "chapter-gap": "light-novel series: volume numbers, not chapters"
+  },
+  "Infinite Stratos": {
+    "chapter-overlap": "light-novel series: the chapters column holds LN volume numbers",
+    "chapter-gap": "light-novel series: volume numbers, not chapters"
+  },
+  "Is this a Zombie?": {
+    "chapter-overlap": "light-novel series: the chapters column holds LN volume numbers",
+    "chapter-gap": "light-novel series: volume numbers, not chapters"
+  },
+  "Strike the Blood": {
+    "chapter-overlap": "light-novel series: the chapters column holds LN volume numbers",
+    "chapter-gap": "light-novel series: volume numbers, not chapters"
+  },
+  "The Melancholy of Haruhi Suzumiya": {
+    "chapter-overlap": "light-novel series: the anime broadcast order re-orders LN volumes, so volume ranges overlap",
+    "chapter-gap": "light-novel series: volume numbers, not chapters"
+  },
+  "Detective Conan": {
+    "chapter-gap": "deliberately partial mapping: only the Black Organization plot arcs are mapped out of 1100+ episodes",
+    "episode-gap": "deliberately partial mapping: only the Black Organization plot arcs are mapped",
+    "episode-start-offset": "first mapped arc is the series pilot; the mapping is intentionally not exhaustive"
+  },
+  "To Love-Ru": {
+    "chapter-overlap": "Darkness is a separate manga (AniList id 52519) whose chapter numbering restarts at 1, as stated in the arc name",
+    "episode-null-sandwich": "the unadapted original-manga tail sits before the Darkness season arcs, which are a different manga"
+  },
+  "Toilet-bound Hanako-kun": {
+    "chapter-overlap": "S1 skipped chapters 23-29 and S2 backfilled them, so the season ranges genuinely overlap (stated in the arc name)"
+  },
+  "Natsume's Book of Friends": {
+    "chapter-overlap": "episodic anthology: each season revisits chapters out of publication order"
+  },
+  "A Certain Scientific Railgun": {
+    "chapter-overlap": "anime-original arcs are woven into the adapted chapters rather than appended (stated in the arc names)"
+  },
+  "Rosario + Vampire": {
+    "chapter-overlap": "episodic adaptation that reorders chapters across episodes"
+  },
+  "Kiss Him, Not Me": {
+    "episode-overlap": "episodic adaptation that reorders chapters across episodes"
+  },
+  "Undead Unluck": {
+    "chapter-overlap": "S1 ends partway through chapter 53 and the 1-hour special resumes in it (stated in the arc names)",
+    "episode-overlap": "arcs are mapped per manga chapter, and single episodes cover the tail of one chapter and the head of the next"
+  }
+}
