@@ -12,7 +12,7 @@ kasane ships one codebase to five targets. The version lives in **two** files th
 ```bash
 git switch main && git pull
 bun install
-bun run system-check     # typecheck + prettier + lint + test + web build
+bun run system-check     # typecheck + oxfmt + oxlint + test + web build
 bun run build:web && bun run e2e
 bun run scripts/audit-mappings.ts --errors-only
 ```
