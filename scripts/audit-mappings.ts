@@ -544,16 +544,35 @@ const checkAgainstAniList = (
           ),
         ]
       : [];
-  // AniList `episodes` on the first-season id covers season 1 only, and this
-  // catalog stores cumulative episodes, so only a shortfall is a real signal.
+  // A shortfall is NOT an error. This catalog maps the episodes that adapt
+  // manga; AniList reports every episode the anime aired. The two diverge
+  // whenever the anime outruns its source, which is the common case, not the
+  // exception: an anime-original ending (Claymore eps 23-26, Soul Eater eps
+  // 36-51), a tie-in manga cancelled mid-run (Great Pretender, SK8, Kill la
+  // Kill), later anime arcs carrying their own manga id (Sword Art Online's
+  // Fairy Dance), or AniList counting short-form segments that the mapping
+  // folds into a half-hour edit (Saiki K: 120 shorts vs 24 episodes). Every
+  // one of the 26 series this flagged at `error` was a documented, intentional
+  // stop, so the check failed the release gate on 26 false positives and zero
+  // real defects.
+  //
+  // Firing only when manga chapters are also left unmapped drops the cases
+  // where the anime provably outran a fully mapped source, and `info` keeps
+  // what remains visible without failing the gate. A mapping deliberately
+  // stopped at an anime-original tail still lands here, so treat this as a
+  // prompt to confirm intent, never as a defect on its own.
+  const animeEpisodes = anime?.episodes ?? 0;
+  const mangaChapters = manga?.chapters ?? 0;
   const animeShort =
-    anime?.episodes && lastEpisode > 0 && lastEpisode < anime.episodes
+    lastEpisode > 0 &&
+    lastEpisode < animeEpisodes &&
+    lastChapter < mangaChapters
       ? [
           finding(
-            "error",
+            "info",
             "catalog-behind-anime",
             series,
-            `arcs stop at episode ${lastEpisode}; AniList reports ${anime.episodes} episodes for the mapped anime id alone`,
+            `arcs stop at episode ${lastEpisode} of ${animeEpisodes} and chapter ${lastChapter} of ${mangaChapters}; expected when the anime outruns its source, but confirm the mapping was stopped on purpose`,
           ),
         ]
       : [];
