@@ -23,7 +23,7 @@ import { EpisodeChapterRail } from "@/components/EpisodeChapterRail";
 import { Footer } from "@/components/Footer";
 import { Paragraph } from "@/components/Paragraph";
 import { formatAniListDate } from "@/data/format";
-import type { AnimeFranchise, SeriesMapping } from "@/types";
+import type { AnimeFranchise, PressableState, SeriesMapping } from "@/types";
 import { COLOR, FONT } from "@/theme";
 
 export default function AnimeDetail() {
@@ -201,7 +201,7 @@ function SeasonsList({
               asChild
             >
               <Pressable
-                style={({ hovered, pressed }: any) => [
+                style={({ hovered, pressed }: PressableState) => [
                   styles.seasonCard,
                   isCurrent && styles.seasonCardActive,
                   { opacity: pressed ? 0.6 : hovered ? 0.9 : 1 },

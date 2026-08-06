@@ -96,7 +96,7 @@ function GlobalHeader() {
         onPress={() => openMenu()}
         hitSlop={10}
         accessibilityLabel="Open menu"
-        style={({ hovered, pressed }: any) => [
+        style={({ hovered, pressed }: PressableState) => [
           headerStyles.menuButton,
           { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
         ]}
@@ -107,7 +107,7 @@ function GlobalHeader() {
         <Pressable
           onPress={() => router.back()}
           hitSlop={12}
-          style={({ pressed }: any) => [
+          style={({ pressed }: PressableState) => [
             headerStyles.back,
             { opacity: pressed ? 0.6 : 1 },
           ]}
@@ -118,7 +118,7 @@ function GlobalHeader() {
       <Pressable
         onPress={() => router.replace("/")}
         hitSlop={8}
-        style={({ hovered, pressed }: any) => [
+        style={({ hovered, pressed }: PressableState) => [
           headerStyles.wordmarkPressable,
           { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
         ]}
@@ -146,7 +146,7 @@ function GlobalHeader() {
       <View style={headerStyles.spacer} />
       <Pressable
         onPress={toggleJapanese}
-        style={({ hovered, pressed }: any) => [
+        style={({ hovered, pressed }: PressableState) => [
           headerStyles.langToggle,
           { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
         ]}

@@ -28,7 +28,11 @@ import {
   formatAniListDateJa,
   localeLabel,
 } from "@/data/format";
-import type { MangaDexVolumeCover, SeriesMapping } from "@/types";
+import type {
+  MangaDexVolumeCover,
+  PressableState,
+  SeriesMapping,
+} from "@/types";
 import { COLOR, FONT } from "@/theme";
 
 export default function MangaDetail() {
@@ -295,7 +299,7 @@ function VolumeCard({ group }: { group: VolumeGroup }) {
           setIsHovered(false);
           animateTo(1);
         }}
-        style={({ pressed }: any) => [
+        style={({ pressed }: PressableState) => [
           styles.volumeCardPress,
           { opacity: pressed ? 0.7 : 1 },
         ]}
@@ -328,7 +332,7 @@ function VolumeCard({ group }: { group: VolumeGroup }) {
             <Pressable
               key={coverKey(v)}
               onPress={() => setSelectedKey(coverKey(v))}
-              style={({ hovered, pressed }: any) => [
+              style={({ hovered, pressed }: PressableState) => [
                 styles.variantCell,
                 { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
               ]}

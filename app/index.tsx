@@ -134,7 +134,7 @@ export default function HomeScreen() {
 
       <Pressable
         onPress={() => setFiltersOpen((o) => !o)}
-        style={({ hovered, pressed }: any) => [
+        style={({ hovered, pressed }: PressableState) => [
           styles.filterToggle,
           { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
         ]}
@@ -310,7 +310,7 @@ function GenreFilterSheet({
             <Pressable
               onPress={onClose}
               hitSlop={12}
-              style={({ pressed }: any) => [
+              style={({ pressed }: PressableState) => [
                 styles.sheetDone,
                 { opacity: pressed ? 0.7 : 1 },
               ]}
@@ -328,7 +328,7 @@ function GenreFilterSheet({
                 <Pressable
                   key={f.id}
                   onPress={() => onToggle(f.id)}
-                  style={({ pressed }: any) => [
+                  style={({ pressed }: PressableState) => [
                     styles.sheetRow,
                     { opacity: pressed ? 0.7 : 1 },
                   ]}
@@ -419,7 +419,7 @@ function LatestReleases({
       asChild
     >
       <Pressable
-        style={({ hovered, pressed }: any) => [
+        style={({ hovered, pressed }: PressableState) => [
           styles.gridItem,
           { opacity: pressed ? 0.6 : hovered ? 0.9 : 1 },
         ]}
