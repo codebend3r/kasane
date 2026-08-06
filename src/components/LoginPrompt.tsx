@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { useLoginPrompt } from "@/state/loginPrompt";
 import type { PressableState } from "@/types";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 
 /**
  * Bottom-right toaster reminding signed-out users to log in so their progress
@@ -65,19 +65,19 @@ const styles = StyleSheet.create({
     maxWidth: 340,
     gap: 10,
     padding: 16,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     borderLeftWidth: 4,
-    borderLeftColor: "#7c5cff",
+    borderLeftColor: COLOR.accent,
   },
   eyebrow: {
-    color: "#7c5cff",
+    color: COLOR.accent,
     fontSize: 11,
     letterSpacing: 1.8,
     textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
   body: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 14,
     lineHeight: 20,
     fontFamily: FONT.regular,
@@ -91,10 +91,10 @@ const styles = StyleSheet.create({
   primary: {
     paddingHorizontal: 16,
     paddingVertical: 10,
-    backgroundColor: "#7c5cff",
+    backgroundColor: COLOR.accent,
   },
   primaryText: {
-    color: "#0c0c0e",
+    color: COLOR.background,
     fontSize: 12,
     letterSpacing: 1.4,
     textTransform: "uppercase",
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   secondaryText: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 13,
     fontFamily: FONT.medium,
   },

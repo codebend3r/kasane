@@ -11,7 +11,7 @@ import { useRouter, usePathname } from "expo-router";
 import { MENU_LINKS, useSideMenu } from "@/state/sideMenu";
 import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
 import type { PressableState } from "@/types";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 
 const PANEL_MAX_WIDTH = 320;
 const SLIDE_MS = 220;
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: "#000000cc",
+    backgroundColor: COLOR.scrim,
   },
   scrimPress: { flex: 1 },
   panel: {
@@ -139,9 +139,9 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     bottom: 0,
-    backgroundColor: "#0f1013",
+    backgroundColor: COLOR.surfaceSubtle,
     borderRightWidth: 1,
-    borderRightColor: "#22242a",
+    borderRightColor: COLOR.borderSubtle,
   },
   panelHeader: {
     flexDirection: "row",
@@ -152,12 +152,12 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
   },
   panelTitle: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 20,
     letterSpacing: -0.3,
     fontFamily: FONT.bold,
   },
-  close: { color: "#9aa0a6", fontSize: 18, fontFamily: FONT.bold },
+  close: { color: COLOR.textMuted, fontSize: 18, fontFamily: FONT.bold },
   links: { gap: 4, paddingHorizontal: 12 },
   link: {
     gap: 3,
@@ -166,8 +166,12 @@ const styles = StyleSheet.create({
     borderLeftWidth: 3,
     borderLeftColor: "transparent",
   },
-  linkActive: { backgroundColor: "#17181b", borderLeftColor: "#7c5cff" },
-  linkLabel: { color: "#f5f5f5", fontSize: 15, fontFamily: FONT.semibold },
-  linkLabelActive: { color: "#7c5cff" },
-  linkHint: { color: "#6b7177", fontSize: 12, fontFamily: FONT.regular },
+  linkActive: { backgroundColor: COLOR.surface, borderLeftColor: COLOR.accent },
+  linkLabel: {
+    color: COLOR.textPrimary,
+    fontSize: 15,
+    fontFamily: FONT.semibold,
+  },
+  linkLabelActive: { color: COLOR.accent },
+  linkHint: { color: COLOR.textFaint, fontSize: 12, fontFamily: FONT.regular },
 });

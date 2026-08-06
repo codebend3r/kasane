@@ -9,7 +9,7 @@ import {
 import { useRouter } from "expo-router";
 import Svg, { Circle, Line, Path } from "react-native-svg";
 import type { PressableState, SeriesMapping } from "@/types";
-import { FONT } from "@/theme";
+import { ARC_COLORS, COLOR, FONT } from "@/theme";
 import {
   useProgress,
   useSeriesProgress,
@@ -21,17 +21,6 @@ import {
   useHoverLabel,
   type MouseLike,
 } from "./HoverLabel";
-
-const COLORS = [
-  "#7c5cff",
-  "#ff7c5c",
-  "#5cff9d",
-  "#ffd65c",
-  "#5cdfff",
-  "#ff5c9d",
-  "#9dff5c",
-  "#ff9d5c",
-];
 
 const SIZE = 280;
 const RING_RATIO = 0.56;
@@ -119,8 +108,10 @@ export function EpisodeChapterPie({
           arcIdx: idx,
           startDeg,
           endDeg,
-          color: unadapted ? "#2a2a2a" : COLORS[idx % COLORS.length],
-          textColor: unadapted ? "#9aa0a6" : "#000",
+          color: unadapted
+            ? COLOR.surfaceRaised
+            : ARC_COLORS[idx % ARC_COLORS.length],
+          textColor: unadapted ? COLOR.textMuted : COLOR.textOnBright,
           label: m.arc ?? `${m.chapters[0]}–${m.chapters[1]}`,
           chapterEnd: m.chapters[1],
         };
@@ -135,8 +126,8 @@ export function EpisodeChapterPie({
             arcIdx: -1,
             startDeg: ((totalSpan - tailSpan) / totalSpan) * 360,
             endDeg: 360,
-            color: "#2a2a2a",
-            textColor: "#9aa0a6",
+            color: COLOR.surfaceRaised,
+            textColor: COLOR.textMuted,
             label: `${maxCoveredChapter + 1}–${totalChapters}`,
             chapterEnd: totalChapters ?? maxCoveredChapter,
           },
@@ -262,14 +253,14 @@ export function EpisodeChapterPie({
             <>
               <Path
                 d={annularSectorPath(markerDeg, 360)}
-                fill="rgba(12,12,14,0.55)"
+                fill={COLOR.overlayUnconsumed}
               />
               <Line
                 x1={markerInnerX}
                 y1={markerInnerY}
                 x2={markerOuterX}
                 y2={markerOuterY}
-                stroke="#f5f5f5"
+                stroke={COLOR.textPrimary}
                 strokeWidth={0.018}
                 strokeLinecap="round"
               />
@@ -305,26 +296,26 @@ const styles = StyleSheet.create({
     width: HOLE,
     height: HOLE,
     borderRadius: HOLE,
-    backgroundColor: "#0c0c0e",
+    backgroundColor: COLOR.background,
     alignItems: "center",
     justifyContent: "center",
     gap: 2,
   },
   percent: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 44,
     letterSpacing: -2,
     fontFamily: FONT.bold,
     lineHeight: 48,
   },
   percentLabel: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 11,
     letterSpacing: 1.4,
     fontFamily: FONT.semibold,
   },
   hint: {
-    color: "#6b7177",
+    color: COLOR.textFaint,
     fontSize: 11,
     letterSpacing: 1,
     paddingTop: 6,

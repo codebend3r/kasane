@@ -6,7 +6,7 @@ import { pairResults } from "@/data";
 import { useInProgressEntries } from "@/state/progress";
 import { SeriesCard } from "@/components/SeriesCard";
 import type { AniListMedia, SeriesEntry } from "@/types";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 
 const STALE_MS = 60 * 60 * 1000;
 const PARTNER_RELATIONS = new Set(["ADAPTATION", "SOURCE"]);
@@ -76,14 +76,14 @@ const styles = StyleSheet.create({
   section: { gap: 8 },
   header: { gap: 2 },
   eyebrow: {
-    color: "#5cff9d",
+    color: COLOR.success,
     fontSize: 11,
     letterSpacing: 1.8,
     textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
   title: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 22,
     letterSpacing: -0.4,
     fontFamily: FONT.bold,

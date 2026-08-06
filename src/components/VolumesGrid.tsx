@@ -15,7 +15,7 @@ import {
   CoverCarousel,
   MOBILE_WIDTH_BREAKPOINT,
 } from "@/components/CoverCarousel";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 
 const MOBILE_COVER_WIDTH = 140;
 const MOBILE_COVER_HEIGHT = 210;
@@ -223,9 +223,9 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   cover: {
-    backgroundColor: "#222",
+    backgroundColor: COLOR.coverPlaceholder,
     borderWidth: 1,
-    borderColor: "#fff",
+    borderColor: COLOR.coverBorder,
   },
   variantBadge: {
     position: "absolute",
@@ -233,10 +233,10 @@ const styles = StyleSheet.create({
     right: 6,
     paddingHorizontal: 6,
     paddingVertical: 2,
-    backgroundColor: "rgba(124, 92, 255, 0.92)",
+    backgroundColor: COLOR.accentTranslucent,
   },
   variantBadgeText: {
-    color: "#fff",
+    color: COLOR.textOnAccent,
     fontSize: 10,
     letterSpacing: 0.6,
     fontFamily: FONT.bold,
@@ -254,26 +254,26 @@ const styles = StyleSheet.create({
   variantThumb: {
     width: 36,
     height: 54,
-    backgroundColor: "#222",
+    backgroundColor: COLOR.coverPlaceholder,
   },
   variantLabel: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 9,
     fontFamily: FONT.semibold,
     letterSpacing: 0.4,
   },
   labels: {
-    backgroundColor: "#000",
+    backgroundColor: COLOR.coverBackdrop,
     padding: 6,
     gap: 2,
   },
   number: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 13,
     fontFamily: FONT.bold,
   },
   locale: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 11,
     letterSpacing: 0.8,
     textTransform: "uppercase",

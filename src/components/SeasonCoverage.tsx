@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import type { SeriesMapping } from "@/types";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 
 export function SeasonCoverage({ mapping }: { mapping: SeriesMapping }) {
   const seasonBuckets = useMemo(() => {
@@ -48,11 +48,11 @@ const styles = StyleSheet.create({
   outer: { paddingTop: 4 },
   block: {
     padding: 12,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     gap: 6,
   },
   label: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 11,
     letterSpacing: 1.4,
     textTransform: "uppercase",
@@ -66,12 +66,12 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   name: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 14,
     fontFamily: FONT.semibold,
   },
   meta: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 12,
     fontFamily: FONT.regular,
   },
