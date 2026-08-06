@@ -244,24 +244,24 @@ export default function SeriesDetail() {
                 primary.title.romaji)
               : (primary.title.english ?? primary.title.romaji)}
           </Text>
-          {primary.title.native && !japanese ? (
+          {!!(primary.title.native && !japanese) && (
             <Text style={styles.titleNative}>{primary.title.native}</Text>
-          ) : null}
+          )}
           <Text style={styles.sub}>{subParts.join("  ·  ")}</Text>
-          {primary.startDate.year ? (
+          {!!primary.startDate.year && (
             <Text style={styles.dates}>
               Started {formatAniListDate(primary.startDate)}
               {primary.countryOfOrigin === "JP"
                 ? `  ·  ${formatAniListDateJa(primary.startDate)}`
                 : ""}
             </Text>
-          ) : null}
-          {primary.endDate?.year ? (
+          )}
+          {!!primary.endDate?.year && (
             <Text style={styles.dates}>
               Ended {formatAniListDate(primary.endDate)}
             </Text>
-          ) : null}
-          {primary.genres.length > 0 ? (
+          )}
+          {primary.genres.length > 0 && (
             <View style={styles.tagRow}>
               {primary.genres.map((g) => (
                 <View key={g} style={styles.tag}>
@@ -269,7 +269,7 @@ export default function SeriesDetail() {
                 </View>
               ))}
             </View>
-          ) : null}
+          )}
           {primary.description && (
             <Paragraph style={styles.description} numberOfLines={8}>
               {primary.description.replace(/<[^>]+>/g, "")}
@@ -322,13 +322,13 @@ export default function SeriesDetail() {
               </Paragraph>
             </View>
           )}
-          {markEvent ? (
+          {!!markEvent && (
             <ProgressMarkBanner
               event={markEvent}
               routeId={routeId}
               onDismiss={() => setMarkEvent(null)}
             />
-          ) : null}
+          )}
           {mappingView === "rail" ? (
             <EpisodeChapterRail
               mapping={mapping}
@@ -344,8 +344,8 @@ export default function SeriesDetail() {
               onMarked={onMarked}
             />
           )}
-          {curatedMapping ? <SeasonCoverage mapping={curatedMapping} /> : null}
-          {movies.length > 0 ? <SeriesMovies movies={movies} /> : null}
+          {!!curatedMapping && <SeasonCoverage mapping={curatedMapping} />}
+          {movies.length > 0 && <SeriesMovies movies={movies} />}
         </View>
       ) : badge === "anime-only" ? null : (
         <View style={styles.noMapping}>
@@ -374,7 +374,7 @@ export default function SeriesDetail() {
         </View>
       )}
 
-      {mangadex && mangadex.titles.length > 1 ? (
+      {mangadex && mangadex.titles.length > 1 && (
         <View style={styles.titlesBlock}>
           <Text style={styles.sectionTitle}>Titles & translations</Text>
           <View style={styles.titlesList}>
@@ -386,7 +386,7 @@ export default function SeriesDetail() {
             ))}
           </View>
         </View>
-      ) : null}
+      )}
 
       <View style={styles.sourcesWrap}>
         <View style={styles.sources}>

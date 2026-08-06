@@ -126,12 +126,12 @@ export default function AnimeDetail() {
               ? ` · ${formatAniListDate(media.startDate)}`
               : ""}
           </Text>
-          {franchise && franchise.tvSeasonCount > 1 ? (
+          {franchise && franchise.tvSeasonCount > 1 && (
             <Text style={styles.franchiseTotal}>
               Franchise total: {franchise.totalTvEpisodes} TV eps across{" "}
               {franchise.tvSeasonCount} seasons
             </Text>
-          ) : null}
+          )}
           {media.description && (
             <Paragraph style={styles.description} numberOfLines={6}>
               {media.description.replace(/<[^>]+>/g, "")}
@@ -140,9 +140,9 @@ export default function AnimeDetail() {
         </View>
       </View>
 
-      {franchise && franchise.seasons.length > 1 ? (
+      {franchise && franchise.seasons.length > 1 && (
         <SeasonsList franchise={franchise} currentId={mediaId} />
-      ) : null}
+      )}
 
       {mapping ? (
         <>
@@ -215,9 +215,9 @@ function SeasonsList({
                   {s.episodes ? ` · ${s.episodes} eps` : ""}
                   {s.year ? ` · ${s.year}` : ""}
                 </Text>
-                {isCurrent ? (
+                {isCurrent && (
                   <Text style={styles.seasonCardCurrent}>VIEWING</Text>
-                ) : null}
+                )}
               </Pressable>
             </Link>
           );

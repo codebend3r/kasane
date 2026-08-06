@@ -29,7 +29,7 @@ export function SeriesMovies({ movies }: { movies: MovieEntry[] }) {
               </Text>
             </View>
             <Text style={styles.movieTitle}>{movie.title}</Text>
-            {movie.note ? <Text style={styles.note}>{movie.note}</Text> : null}
+            {!!movie.note && <Text style={styles.note}>{movie.note}</Text>}
           </View>
         ))}
       </View>

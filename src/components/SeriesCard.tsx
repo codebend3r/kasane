@@ -112,14 +112,14 @@ export function SeriesCard({ entry }: { entry: SeriesEntry }) {
             )}
           </View>
         </View>
-        {showProgressBar ? (
+        {showProgressBar && (
           <ProgressBar
             hasAnime={hasAnime}
             hasManga={hasManga}
             animeFrac={animeFrac}
             mangaFrac={mangaFrac}
           />
-        ) : null}
+        )}
       </Pressable>
     </Link>
   );
@@ -138,9 +138,9 @@ function ProgressBar({
 }) {
   return (
     <View style={styles.progressTrack}>
-      {hasAnime ? (
+      {hasAnime && (
         <View style={styles.progressBand}>
-          {animeFrac !== null ? (
+          {animeFrac !== null && (
             <View
               style={[
                 styles.progressFill,
@@ -150,12 +150,12 @@ function ProgressBar({
                 },
               ]}
             />
-          ) : null}
+          )}
         </View>
-      ) : null}
-      {hasManga ? (
+      )}
+      {hasManga && (
         <View style={styles.progressBand}>
-          {mangaFrac !== null ? (
+          {mangaFrac !== null && (
             <View
               style={[
                 styles.progressFill,
@@ -165,9 +165,9 @@ function ProgressBar({
                 },
               ]}
             />
-          ) : null}
+          )}
         </View>
-      ) : null}
+      )}
     </View>
   );
 }

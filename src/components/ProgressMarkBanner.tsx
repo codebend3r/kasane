@@ -68,14 +68,14 @@ export function ProgressMarkBanner({
           <Text style={styles.closeText}>×</Text>
         </Pressable>
       </View>
-      {event.suggestion ? (
+      {!!event.suggestion && (
         <Text style={styles.suggestionText}>
           ≈ {otherLabel} {event.suggestion.position} on the{" "}
           {event.suggestion.side} side
         </Text>
-      ) : null}
+      )}
       <View style={styles.actionsRow}>
-        {event.suggestion ? (
+        {!!event.suggestion && (
           <Pressable
             onPress={acceptSuggestion}
             style={({ pressed }) => [
@@ -87,7 +87,7 @@ export function ProgressMarkBanner({
               Mark {event.suggestion.side}
             </Text>
           </Pressable>
-        ) : null}
+        )}
         <Pressable
           onPress={undo}
           style={({ pressed }) => [

@@ -90,28 +90,28 @@ export default function MangaDetail() {
           <Text style={styles.title}>
             {media.title.english ?? media.title.romaji}
           </Text>
-          {media.title.native ? (
+          {!!media.title.native && (
             <Text style={styles.titleNative}>{media.title.native}</Text>
-          ) : null}
+          )}
           <Text style={styles.sub}>
             MANGA · {totalChapters ?? "?"} ch · {totalVolumes ?? "?"} vol
             {media.format ? ` · ${media.format}` : ""}
             {status ? ` · ${status}` : ""}
           </Text>
-          {media.startDate.year ? (
+          {!!media.startDate.year && (
             <Text style={styles.dates}>
               Started {formatAniListDate(media.startDate)}
               {media.countryOfOrigin === "JP"
                 ? `  ·  ${formatAniListDateJa(media.startDate)}`
                 : ""}
             </Text>
-          ) : null}
-          {media.endDate?.year ? (
+          )}
+          {!!media.endDate?.year && (
             <Text style={styles.dates}>
               Ended {formatAniListDate(media.endDate)}
             </Text>
-          ) : null}
-          {media.genres.length > 0 ? (
+          )}
+          {media.genres.length > 0 && (
             <View style={styles.tagRow}>
               {media.genres.map((g) => (
                 <View key={g} style={styles.tag}>
@@ -119,7 +119,7 @@ export default function MangaDetail() {
                 </View>
               ))}
             </View>
-          ) : null}
+          )}
           {media.description && (
             <Paragraph style={styles.description} numberOfLines={8}>
               {media.description.replace(/<[^>]+>/g, "")}
@@ -152,11 +152,11 @@ export default function MangaDetail() {
             seriesId={String(mediaId)}
             totalChapters={totalChapters}
           />
-          {curatedMapping ? (
+          {!!curatedMapping && (
             <View style={styles.seasonWrap}>
               <SeasonCoverage mapping={curatedMapping} />
             </View>
-          ) : null}
+          )}
           <QuickLookup mapping={mapping} />
         </View>
       ) : (
@@ -186,7 +186,7 @@ export default function MangaDetail() {
         )}
       </View>
 
-      {mangadex && mangadex.titles.length > 1 ? (
+      {mangadex && mangadex.titles.length > 1 && (
         <View style={styles.titlesBlock}>
           <Text style={styles.sectionTitle}>Titles & translations</Text>
           <View style={styles.titlesList}>
@@ -198,7 +198,7 @@ export default function MangaDetail() {
             ))}
           </View>
         </View>
-      ) : null}
+      )}
 
       <View style={styles.sourcesWrap}>
         <View style={styles.sources}>

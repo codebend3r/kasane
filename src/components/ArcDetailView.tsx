@@ -44,9 +44,7 @@ export function ArcDetailView({
               ? `Episodes ${arcEpisodes[0]}–${arcEpisodes[1]} · Chapters ${arc.chapters[0]}–${arc.chapters[1]}${arc.season ? ` · Season ${arc.season}` : ""}`
               : `Chapters ${arc.chapters[0]}–${arc.chapters[1]} · Not yet in the anime`}
           </Text>
-          {arc.note ? (
-            <Paragraph style={styles.note}>{arc.note}</Paragraph>
-          ) : null}
+          {!!arc.note && <Paragraph style={styles.note}>{arc.note}</Paragraph>}
         </View>
 
         <View style={styles.columns}>
