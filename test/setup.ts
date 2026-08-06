@@ -9,6 +9,21 @@ import { supabaseMock } from "@/api/supabase.mock";
 // react-test-renderer's act() refuses to run outside an act-enabled environment.
 Object.assign(globalThis, { IS_REACT_ACT_ENVIRONMENT: true });
 
+// React 19 prints a deprecation notice on every TestRenderer.create() call,
+// which shreds the dots reporter output. Swallow that one known message and
+// pass everything else through untouched.
+const consoleError = console.error.bind(console);
+console.error = (...args: unknown[]) => {
+  const [first] = args;
+  if (
+    typeof first === "string" &&
+    first.startsWith("react-test-renderer is deprecated")
+  ) {
+    return;
+  }
+  consoleError(...args);
+};
+
 mock.module("react-native", () => ({
   Platform: { OS: "ios" },
   AppState: { addEventListener: () => ({ remove: () => {} }) },
