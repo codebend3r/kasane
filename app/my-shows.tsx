@@ -9,7 +9,7 @@ import { useCovers } from "@/data/covers";
 import { ShowGrid } from "@/components/ShowGrid";
 import { Footer } from "@/components/Footer";
 import type { PressableState } from "@/types";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 
 export default function MyShowsScreen() {
   const router = useRouter();
@@ -60,6 +60,8 @@ export default function MyShowsScreen() {
           </Text>
           <Pressable
             onPress={() => router.push("/login")}
+            accessibilityRole="link"
+            accessibilityLabel="Sign in to save your shows"
             style={({ hovered, pressed }: PressableState) => [
               styles.calloutButton,
               { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
@@ -91,37 +93,41 @@ const styles = StyleSheet.create({
   root: { flex: 1 },
   content: { gap: 12, padding: 16, paddingBottom: 40 },
   eyebrow: {
-    color: "#7c5cff",
+    color: COLOR.accent,
     fontSize: 11,
     letterSpacing: 1.8,
     textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
   title: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 24,
     letterSpacing: -0.4,
     fontFamily: FONT.bold,
   },
-  blurb: { color: "#9aa0a6", fontSize: 14, fontFamily: FONT.regular },
+  blurb: { color: COLOR.textMuted, fontSize: 14, fontFamily: FONT.regular },
   callout: {
     maxWidth: 620,
     gap: 10,
     padding: 16,
-    backgroundColor: "#1b1524",
+    backgroundColor: COLOR.surfaceCallout,
     borderLeftWidth: 4,
-    borderLeftColor: "#ff7c5c",
+    borderLeftColor: COLOR.danger,
   },
   calloutEyebrow: {
-    color: "#ff7c5c",
+    color: COLOR.danger,
     fontSize: 11,
     letterSpacing: 1.8,
     textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
-  calloutTitle: { color: "#f5f5f5", fontSize: 16, fontFamily: FONT.bold },
+  calloutTitle: {
+    color: COLOR.textPrimary,
+    fontSize: 16,
+    fontFamily: FONT.bold,
+  },
   calloutBody: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 13,
     lineHeight: 19,
     fontFamily: FONT.regular,
@@ -130,18 +136,18 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     paddingHorizontal: 16,
     paddingVertical: 10,
-    backgroundColor: "#ff7c5c",
+    backgroundColor: COLOR.danger,
   },
   calloutButtonText: {
-    color: "#0c0c0e",
+    color: COLOR.background,
     fontSize: 12,
     letterSpacing: 1.4,
     textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
-  synced: { color: "#5cff9d", fontSize: 13, fontFamily: FONT.medium },
+  synced: { color: COLOR.success, fontSize: 13, fontFamily: FONT.medium },
   muted: {
-    color: "#6b7177",
+    color: COLOR.textFaint,
     fontSize: 14,
     lineHeight: 20,
     fontFamily: FONT.regular,

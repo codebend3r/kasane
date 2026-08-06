@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
   ActivityIndicator,
   Image,
@@ -6,25 +6,21 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from "react-native";
 import { Link, useLocalSearchParams } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 import { getAnimeFranchise, getMedia, hasAnimeSequels } from "@/api/anilist";
 import { getMangaDexInfoByAniListId } from "@/api/mangadex";
-import {
-  buildSyntheticMapping,
-  chapterToEpisodes,
-  episodeToChapters,
-} from "@/data";
+import { buildSyntheticMapping } from "@/data";
 import { useCatalog } from "@/data/catalog";
 import { EpisodeChapterRail } from "@/components/EpisodeChapterRail";
 import { Footer } from "@/components/Footer";
 import { Paragraph } from "@/components/Paragraph";
+import { QuickLookup } from "@/components/QuickLookup";
 import { formatAniListDate } from "@/data/format";
-import type { AnimeFranchise, SeriesMapping } from "@/types";
-import { FONT } from "@/theme";
+import type { AnimeFranchise, PressableState } from "@/types";
+import { COLOR, FONT } from "@/theme";
 
 export default function AnimeDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -98,7 +94,7 @@ export default function AnimeDetail() {
   if (isLoading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator color="#7c5cff" />
+        <ActivityIndicator color={COLOR.accent} />
       </View>
     );
   }
@@ -114,7 +110,11 @@ export default function AnimeDetail() {
   return (
     <ScrollView style={styles.root} contentContainerStyle={styles.content}>
       <View style={styles.header}>
-        <Image source={{ uri: media.coverImage.large }} style={styles.cover} />
+        <Image
+          source={{ uri: media.coverImage.large }}
+          accessibilityLabel={`Cover art for ${media.title.english ?? media.title.romaji}`}
+          style={styles.cover}
+        />
         <View style={styles.headerMeta}>
           <Text style={styles.title}>
             {media.title.english ?? media.title.romaji}
@@ -126,12 +126,12 @@ export default function AnimeDetail() {
               ? ` · ${formatAniListDate(media.startDate)}`
               : ""}
           </Text>
-          {franchise && franchise.tvSeasonCount > 1 ? (
+          {franchise && franchise.tvSeasonCount > 1 && (
             <Text style={styles.franchiseTotal}>
               Franchise total: {franchise.totalTvEpisodes} TV eps across{" "}
               {franchise.tvSeasonCount} seasons
             </Text>
-          ) : null}
+          )}
           {media.description && (
             <Paragraph style={styles.description} numberOfLines={6}>
               {media.description.replace(/<[^>]+>/g, "")}
@@ -140,9 +140,9 @@ export default function AnimeDetail() {
         </View>
       </View>
 
-      {franchise && franchise.seasons.length > 1 ? (
+      {franchise && franchise.seasons.length > 1 && (
         <SeasonsList franchise={franchise} currentId={mediaId} />
-      ) : null}
+      )}
 
       {mapping ? (
         <>
@@ -201,7 +201,9 @@ function SeasonsList({
               asChild
             >
               <Pressable
-                style={({ hovered, pressed }: any) => [
+                accessibilityRole="link"
+                accessibilityLabel={`${s.title}${isCurrent ? ", current season" : ""}`}
+                style={({ hovered, pressed }: PressableState) => [
                   styles.seasonCard,
                   isCurrent && styles.seasonCardActive,
                   { opacity: pressed ? 0.6 : hovered ? 0.9 : 1 },
@@ -215,65 +217,13 @@ function SeasonsList({
                   {s.episodes ? ` · ${s.episodes} eps` : ""}
                   {s.year ? ` · ${s.year}` : ""}
                 </Text>
-                {isCurrent ? (
+                {isCurrent && (
                   <Text style={styles.seasonCardCurrent}>VIEWING</Text>
-                ) : null}
+                )}
               </Pressable>
             </Link>
           );
         })}
-      </View>
-    </View>
-  );
-}
-
-function QuickLookup({ mapping }: { mapping: SeriesMapping | null }) {
-  const [epInput, setEpInput] = useState("");
-  const [chInput, setChInput] = useState("");
-
-  if (!mapping) return null;
-
-  const epNum = Number(epInput);
-  const chNum = Number(chInput);
-  const fromEp =
-    !Number.isNaN(epNum) && epNum > 0
-      ? episodeToChapters(mapping, epNum)
-      : null;
-  const fromCh =
-    !Number.isNaN(chNum) && chNum > 0
-      ? chapterToEpisodes(mapping, chNum)
-      : null;
-
-  return (
-    <View style={styles.lookup}>
-      <Text style={styles.sectionTitle}>Quick lookup</Text>
-      <View style={styles.lookupRow}>
-        <Text style={styles.lookupLabel}>I finished episode</Text>
-        <TextInput
-          value={epInput}
-          onChangeText={setEpInput}
-          keyboardType="number-pad"
-          style={styles.lookupInput}
-          placeholder="e.g. 12"
-          placeholderTextColor="#6b7177"
-        />
-        <Text style={styles.lookupResult}>
-          → {fromEp ? `chapters ${fromEp[0]}–${fromEp[1]}` : "—"}
-        </Text>
-      </View>
-      <View style={styles.lookupRow}>
-        <Text style={styles.lookupLabel}>I finished chapter</Text>
-        <TextInput
-          value={chInput}
-          onChangeText={setChInput}
-          keyboardType="number-pad"
-          style={styles.lookupInput}
-          placeholder="e.g. 50"
-          placeholderTextColor="#6b7177"
-        />
-        <Text style={styles.lookupResult}>
-          → {fromCh ? `episodes ${fromCh[0]}–${fromCh[1]}` : "—"}
-        </Text>
       </View>
     </View>
   );
@@ -284,92 +234,75 @@ const styles = StyleSheet.create({
   content: { padding: 16, gap: 20 },
   center: { flex: 1, alignItems: "center", justifyContent: "center" },
   header: { flexDirection: "row", gap: 16 },
-  cover: { width: 110, height: 154, backgroundColor: "#222" },
+  cover: { width: 110, height: 154, backgroundColor: COLOR.coverPlaceholder },
   headerMeta: { flex: 1, gap: 6 },
   title: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 28,
     letterSpacing: -0.8,
     fontFamily: FONT.bold,
   },
   sub: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 12,
     letterSpacing: 1.2,
     textTransform: "uppercase",
     fontFamily: FONT.semibold,
   },
   description: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 14,
     lineHeight: 20,
     paddingTop: 6,
     fontFamily: FONT.regular,
   },
   sectionTitle: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 18,
     paddingTop: 10,
     letterSpacing: -0.3,
     fontFamily: FONT.bold,
   },
-  empty: { color: "#9aa0a6", fontFamily: FONT.regular },
+  empty: { color: COLOR.textMuted, fontFamily: FONT.regular },
   autoBanner: {
     padding: 14,
-    backgroundColor: "#1f1a2e",
+    backgroundColor: COLOR.surfaceNotice,
     borderLeftWidth: 4,
-    borderLeftColor: "#ffd65c",
+    borderLeftColor: COLOR.notice,
     gap: 8,
   },
   autoBadge: {
     alignSelf: "flex-start",
     paddingHorizontal: 8,
     paddingVertical: 3,
-    backgroundColor: "#ffd65c",
+    backgroundColor: COLOR.notice,
   },
   autoBadgeText: {
-    color: "#0c0c0e",
+    color: COLOR.background,
     fontSize: 11,
     letterSpacing: 1.5,
     fontFamily: FONT.bold,
   },
   autoBannerBody: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 13,
     lineHeight: 19,
     fontFamily: FONT.regular,
   },
   noMapping: {
     padding: 16,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     gap: 6,
   },
-  noMappingTitle: { color: "#ffd65c", fontFamily: FONT.bold },
+  noMappingTitle: { color: COLOR.notice, fontFamily: FONT.bold },
   noMappingBody: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 13,
     lineHeight: 18,
     fontFamily: FONT.regular,
   },
-  lookup: { gap: 12, paddingTop: 8 },
-  lookupRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-    flexWrap: "wrap",
-  },
-  lookupLabel: { color: "#cfd2d6", fontSize: 13, fontFamily: FONT.medium },
-  lookupInput: {
-    backgroundColor: "#17181b",
-    color: "#f5f5f5",
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    minWidth: 80,
-    fontFamily: FONT.regular,
-  },
-  lookupResult: { color: "#7c5cff", fontSize: 13, fontFamily: FONT.bold },
   franchiseTotal: {
-    color: "#7c5cff",
+    color: COLOR.accent,
     fontSize: 13,
     letterSpacing: -0.2,
     fontFamily: FONT.semibold,
@@ -380,31 +313,31 @@ const styles = StyleSheet.create({
   seasonCard: {
     width: 220,
     padding: 12,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     borderLeftWidth: 3,
-    borderLeftColor: "#7c5cff",
+    borderLeftColor: COLOR.accent,
     gap: 6,
   },
   seasonCardActive: {
-    backgroundColor: "#1f1a2e",
-    borderLeftColor: "#ffd65c",
+    backgroundColor: COLOR.surfaceNotice,
+    borderLeftColor: COLOR.notice,
   },
   seasonCardTitle: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 14,
     lineHeight: 18,
     fontFamily: FONT.semibold,
     letterSpacing: -0.2,
   },
   seasonCardMeta: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 11,
     letterSpacing: 0.8,
     textTransform: "uppercase",
     fontFamily: FONT.semibold,
   },
   seasonCardCurrent: {
-    color: "#ffd65c",
+    color: COLOR.notice,
     fontSize: 10,
     letterSpacing: 1.4,
     fontFamily: FONT.bold,

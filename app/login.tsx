@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useAuth, useAuthEmail, useAuthStatus } from "@/state/auth";
 import type { PressableState } from "@/types";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 
 type Mode = "signIn" | "signUp";
 
@@ -36,7 +36,7 @@ export default function LoginScreen() {
     <View style={styles.root}>
       <View style={styles.panel}>
         <Text style={styles.eyebrow}>Account</Text>
-        {status === "loading" && <ActivityIndicator color="#7c5cff" />}
+        {status === "loading" && <ActivityIndicator color={COLOR.accent} />}
         {status === "signedIn" && <AccountView />}
         {status === "signedOut" && <AuthForm />}
       </View>
@@ -62,6 +62,8 @@ function AccountView() {
       {!!error && <Text style={styles.error}>{error}</Text>}
       <Pressable
         onPress={onSignOut}
+        accessibilityRole="button"
+        accessibilityLabel="Sign out"
         style={({ hovered, pressed }: PressableState) => [
           styles.button,
           { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
@@ -119,6 +121,8 @@ function AuthForm() {
             setMode("signIn");
             setPassword("");
           }}
+          accessibilityRole="button"
+          accessibilityLabel="Back to sign in"
           style={({ hovered, pressed }: PressableState) => [
             styles.button,
             { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
@@ -137,7 +141,8 @@ function AuthForm() {
         value={email}
         onChangeText={setEmail}
         placeholder="Email"
-        placeholderTextColor="#6b7177"
+        accessibilityLabel="Email"
+        placeholderTextColor={COLOR.textFaint}
         style={styles.input}
         autoCapitalize="none"
         autoCorrect={false}
@@ -148,7 +153,8 @@ function AuthForm() {
         value={password}
         onChangeText={setPassword}
         placeholder="Password"
-        placeholderTextColor="#6b7177"
+        accessibilityLabel="Password"
+        placeholderTextColor={COLOR.textFaint}
         style={styles.input}
         secureTextEntry
         autoCapitalize="none"
@@ -159,6 +165,9 @@ function AuthForm() {
       <Pressable
         onPress={submit}
         disabled={!canSubmit}
+        accessibilityRole="button"
+        accessibilityLabel={copy.submit}
+        accessibilityState={{ disabled: !canSubmit, busy }}
         style={({ hovered, pressed }: PressableState) => [
           styles.button,
           !canSubmit && styles.buttonDisabled,
@@ -166,7 +175,7 @@ function AuthForm() {
         ]}
       >
         {busy ? (
-          <ActivityIndicator color="#0c0c0e" />
+          <ActivityIndicator color={COLOR.background} />
         ) : (
           <Text style={styles.buttonText}>{copy.submit}</Text>
         )}
@@ -174,6 +183,8 @@ function AuthForm() {
       <Pressable
         onPress={switchMode}
         hitSlop={6}
+        accessibilityRole="button"
+        accessibilityLabel={copy.switchLabel}
         style={({ hovered, pressed }: PressableState) => [
           { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
         ]}
@@ -194,59 +205,59 @@ const styles = StyleSheet.create({
   },
   stack: { gap: 16 },
   eyebrow: {
-    color: "#7c5cff",
+    color: COLOR.accent,
     fontSize: 11,
     letterSpacing: 1.8,
     textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
   title: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 22,
     letterSpacing: -0.4,
     fontFamily: FONT.bold,
   },
   emailLine: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 16,
     fontFamily: FONT.medium,
   },
   hint: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 14,
     lineHeight: 20,
     fontFamily: FONT.regular,
   },
   input: {
-    backgroundColor: "#17181b",
-    color: "#f5f5f5",
+    backgroundColor: COLOR.surface,
+    color: COLOR.textPrimary,
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 16,
     fontFamily: FONT.medium,
     borderLeftWidth: 4,
-    borderLeftColor: "#7c5cff",
+    borderLeftColor: COLOR.accent,
   },
   error: {
-    color: "#ff7c5c",
+    color: COLOR.danger,
     fontSize: 14,
     fontFamily: FONT.medium,
   },
   button: {
     alignItems: "center",
     paddingVertical: 14,
-    backgroundColor: "#7c5cff",
+    backgroundColor: COLOR.accent,
   },
-  buttonDisabled: { backgroundColor: "#2a2c30" },
+  buttonDisabled: { backgroundColor: COLOR.border },
   buttonText: {
-    color: "#0c0c0e",
+    color: COLOR.background,
     fontSize: 13,
     letterSpacing: 1.4,
     textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
   switchLabel: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 13,
     fontFamily: FONT.medium,
   },

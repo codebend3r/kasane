@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import type { MovieEntry, PressableState, SeriesMapping } from "@/types";
-import { FONT } from "@/theme";
+import { ARC_COLORS, COLOR, FONT, MOVIE_COLOR } from "@/theme";
 import {
   useProgress,
   useSeriesProgress,
@@ -9,20 +9,36 @@ import {
 } from "@/state/progress";
 import { HoverLabel, useHoverLabel, type MouseLike } from "./HoverLabel";
 
-const COLORS = [
-  "#7c5cff",
-  "#ff7c5c",
-  "#5cff9d",
-  "#ffd65c",
-  "#5cdfff",
-  "#ff5c9d",
-  "#9dff5c",
-  "#ff9d5c",
-];
-
 const BAR_HEIGHT = 44;
 const LONG_PRESS_MS = 320;
-const MOVIE_COLOR = "#5cdfff";
+
+// The rail is pure colour and geometry, so a screen reader needs the same
+// facts in words. Label the group; the arc detail route carries the per-arc
+// breakdown, so individual bars stay out of the accessibility tree.
+const arcName = (arc: string | undefined, from: number, to: number): string =>
+  arc ?? `${from} to ${to}`;
+
+const episodeSummary = (mapping: SeriesMapping): string => {
+  const parts = mapping.mappings.flatMap((m) =>
+    m.episodes
+      ? [
+          `${arcName(m.arc, m.episodes[0], m.episodes[1])}, episodes ${m.episodes[0]} to ${m.episodes[1]}`,
+        ]
+      : [],
+  );
+  return `Anime episodes by arc. ${parts.join(". ")}`;
+};
+
+const chapterSummary = (mapping: SeriesMapping): string => {
+  const parts = mapping.mappings.map((m) => {
+    const label = arcName(m.arc, m.chapters[0], m.chapters[1]);
+    const range = `chapters ${m.chapters[0]} to ${m.chapters[1]}`;
+    return m.episodes
+      ? `${label}, ${range}`
+      : `${label}, ${range}, not yet adapted`;
+  });
+  return `Manga chapters by arc. ${parts.join(". ")}`;
+};
 
 export function EpisodeChapterRail({
   mapping,
@@ -88,23 +104,29 @@ export function EpisodeChapterRail({
   return (
     <View ref={containerRef} style={styles.container}>
       <Text style={styles.label}>Anime episodes →</Text>
-      <View style={styles.rail}>
+      <View
+        style={styles.rail}
+        accessibilityRole="summary"
+        accessibilityLabel={episodeSummary(mapping)}
+      >
         {mapping.mappings.map((m, idx) => {
           if (!m.episodes) return null;
           const eps = m.episodes;
           const span = eps[1] - eps[0] + 1;
           const label = m.arc ?? `${eps[0]}–${eps[1]}`;
-          const color = COLORS[idx % COLORS.length];
+          const color = ARC_COLORS[idx % ARC_COLORS.length];
           return (
             <Pressable
               key={`ep-${idx}`}
+              accessibilityElementsHidden
+              importantForAccessibility="no-hide-descendants"
               onPress={() => markSide("anime", eps[1])}
               onLongPress={() => goToArc(idx)}
               delayLongPress={LONG_PRESS_MS}
               onHoverOut={clearHover}
               // @ts-expect-error react-native-web forwards onMouseMove to the DOM
               onMouseMove={(e: MouseLike) =>
-                moveTo({ label, color, textColor: "#000" }, e)
+                moveTo({ label, color, textColor: COLOR.textOnBright }, e)
               }
               style={({ hovered, pressed }: PressableState) => [
                 styles.bar,
@@ -142,10 +164,19 @@ export function EpisodeChapterRail({
                 ]}
               >
                 <Pressable
+                  accessibilityRole="text"
+                  accessibilityLabel={label}
                   onHoverOut={clearHover}
                   // @ts-expect-error react-native-web forwards onMouseMove to the DOM
                   onMouseMove={(e: MouseLike) =>
-                    moveTo({ label, color: MOVIE_COLOR, textColor: "#000" }, e)
+                    moveTo(
+                      {
+                        label,
+                        color: MOVIE_COLOR,
+                        textColor: COLOR.textOnBright,
+                      },
+                      e,
+                    )
                   }
                   style={styles.movieMarker}
                 >
@@ -158,19 +189,29 @@ export function EpisodeChapterRail({
       )}
 
       <Text style={styles.label}>Manga chapters →</Text>
-      <View style={styles.rail}>
+      <View
+        style={styles.rail}
+        accessibilityRole="summary"
+        accessibilityLabel={chapterSummary(mapping)}
+      >
         {mapping.mappings.map((m, idx) => {
           const span = m.chapters[1] - m.chapters[0] + 1;
           const unadapted = !m.episodes;
-          const bg = unadapted ? "#2a2a2a" : COLORS[idx % COLORS.length];
+          const bg = unadapted
+            ? COLOR.surfaceRaised
+            : ARC_COLORS[idx % ARC_COLORS.length];
           const textStyle = unadapted
             ? styles.unadaptedBarText
             : styles.barText;
-          const popoverTextColor = unadapted ? "#9aa0a6" : "#000";
+          const popoverTextColor = unadapted
+            ? COLOR.textMuted
+            : COLOR.textOnBright;
           const label = m.arc ?? `${m.chapters[0]}–${m.chapters[1]}`;
           return (
             <Pressable
               key={`ch-${idx}`}
+              accessibilityElementsHidden
+              importantForAccessibility="no-hide-descendants"
               onPress={() => markSide("manga", m.chapters[1])}
               onLongPress={() => goToArc(idx)}
               delayLongPress={LONG_PRESS_MS}
@@ -228,7 +269,7 @@ function ProgressOverlay({ frac }: { frac: number }) {
 const styles = StyleSheet.create({
   container: { gap: 8, width: "100%", position: "relative" },
   label: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 12,
     paddingTop: 8,
     letterSpacing: 1.2,
@@ -236,7 +277,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT.semibold,
   },
   hint: {
-    color: "#6b7177",
+    color: COLOR.textFaint,
     fontSize: 11,
     letterSpacing: 1,
     paddingTop: 4,
@@ -247,7 +288,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: BAR_HEIGHT,
     width: "100%",
-    backgroundColor: "#1a1a1a",
+    backgroundColor: COLOR.progressTrack,
     overflow: "hidden",
     position: "relative",
   },
@@ -258,16 +299,16 @@ const styles = StyleSheet.create({
     minWidth: 0,
   },
   barText: {
-    color: "#000",
+    color: COLOR.textOnBright,
     fontSize: 13,
     letterSpacing: -0.2,
     fontFamily: FONT.bold,
   },
   tailBar: {
-    backgroundColor: "#2a2a2a",
+    backgroundColor: COLOR.surfaceRaised,
   },
   tailBarText: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 13,
     letterSpacing: -0.2,
     fontFamily: FONT.bold,
@@ -296,7 +337,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT.bold,
   },
   unadaptedBarText: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 13,
     letterSpacing: -0.2,
     fontFamily: FONT.bold,
@@ -305,13 +346,13 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     bottom: 0,
-    backgroundColor: "rgba(12,12,14,0.55)",
+    backgroundColor: COLOR.overlayUnconsumed,
   },
   progressMarker: {
     position: "absolute",
     top: 0,
     bottom: 0,
     width: 2,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: COLOR.textPrimary,
   },
 });

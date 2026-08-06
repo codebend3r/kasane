@@ -7,7 +7,7 @@ import {
   Text,
   View,
 } from "react-native";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 
 export const MOBILE_WIDTH_BREAKPOINT = 700;
 
@@ -117,16 +117,16 @@ const styles = StyleSheet.create({
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: "#2a2a2a",
+    backgroundColor: COLOR.surfaceRaised,
   },
   dotActive: {
-    backgroundColor: "#7c5cff",
+    backgroundColor: COLOR.accent,
   },
   counterWrap: {
     alignItems: "center",
   },
   counterText: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 11,
     letterSpacing: 1.4,
     fontFamily: FONT.bold,

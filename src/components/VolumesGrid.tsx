@@ -15,7 +15,7 @@ import {
   CoverCarousel,
   MOBILE_WIDTH_BREAKPOINT,
 } from "@/components/CoverCarousel";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 
 const MOBILE_COVER_WIDTH = 140;
 const MOBILE_COVER_HEIGHT = 210;
@@ -151,6 +151,13 @@ function VolumeCard({
     <View style={[styles.card, { width }, isHovered && styles.cardHovered]}>
       <Pressable
         onPress={() => hasVariants && setIsOpen((v) => !v)}
+        accessibilityRole={hasVariants ? "button" : "image"}
+        accessibilityLabel={
+          hasVariants
+            ? `Volume ${group.volume} cover, ${variants.length} more editions`
+            : `Volume ${group.volume} cover`
+        }
+        accessibilityState={hasVariants ? { expanded: isOpen } : undefined}
         onHoverIn={() => {
           setIsHovered(true);
           animateTo(1.6);
@@ -167,6 +174,8 @@ function VolumeCard({
           <View style={{ width, height: coverHeight, position: "relative" }}>
             <Image
               source={{ uri: primary.thumbUrl }}
+              accessibilityElementsHidden
+              importantForAccessibility="no-hide-descendants"
               style={[styles.cover, { width, height: coverHeight }]}
             />
             {hasVariants && (
@@ -187,12 +196,19 @@ function VolumeCard({
             <Pressable
               key={coverKey(v)}
               onPress={() => setSelectedKey(coverKey(v))}
+              accessibilityRole="button"
+              accessibilityLabel={`Show the ${localeLabel(v.locale)} cover for volume ${v.volume}`}
               style={({ hovered, pressed }: PressableState) => [
                 styles.variantCell,
                 { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
               ]}
             >
-              <Image source={{ uri: v.thumbUrl }} style={styles.variantThumb} />
+              <Image
+                source={{ uri: v.thumbUrl }}
+                accessibilityElementsHidden
+                importantForAccessibility="no-hide-descendants"
+                style={styles.variantThumb}
+              />
               <Text style={styles.variantLabel}>
                 {v.volume}
                 {v.locale && v.locale !== primary.locale
@@ -223,9 +239,9 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   cover: {
-    backgroundColor: "#222",
+    backgroundColor: COLOR.coverPlaceholder,
     borderWidth: 1,
-    borderColor: "#fff",
+    borderColor: COLOR.coverBorder,
   },
   variantBadge: {
     position: "absolute",
@@ -233,10 +249,10 @@ const styles = StyleSheet.create({
     right: 6,
     paddingHorizontal: 6,
     paddingVertical: 2,
-    backgroundColor: "rgba(124, 92, 255, 0.92)",
+    backgroundColor: COLOR.accentTranslucent,
   },
   variantBadgeText: {
-    color: "#fff",
+    color: COLOR.textOnAccent,
     fontSize: 10,
     letterSpacing: 0.6,
     fontFamily: FONT.bold,
@@ -254,26 +270,26 @@ const styles = StyleSheet.create({
   variantThumb: {
     width: 36,
     height: 54,
-    backgroundColor: "#222",
+    backgroundColor: COLOR.coverPlaceholder,
   },
   variantLabel: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 9,
     fontFamily: FONT.semibold,
     letterSpacing: 0.4,
   },
   labels: {
-    backgroundColor: "#000",
+    backgroundColor: COLOR.coverBackdrop,
     padding: 6,
     gap: 2,
   },
   number: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 13,
     fontFamily: FONT.bold,
   },
   locale: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 11,
     letterSpacing: 0.8,
     textTransform: "uppercase",

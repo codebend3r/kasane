@@ -11,7 +11,7 @@ import type { Cover } from "@/data/covers";
 import { Poster, showMeta } from "@/components/ShowTile";
 import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
 import type { PressableState } from "@/types";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 
 /**
  * List-view counterpart to `ShowTile`: poster in the leftmost column, then the
@@ -34,6 +34,8 @@ export function ShowRow({
   return (
     <Pressable
       onPress={() => router.push(`/series/${show.routeId}`)}
+      accessibilityRole="link"
+      accessibilityLabel={`${show.title}. ${showMeta(show)}`}
       style={({ hovered, pressed }: PressableState) => [
         styles.row,
         { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
@@ -65,21 +67,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 12,
     padding: 8,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     borderLeftWidth: 3,
-    borderLeftColor: "#7c5cff",
+    borderLeftColor: COLOR.accent,
   },
   poster: { width: 40, height: 60 },
   // Rows span the page, but the title column stops growing so the counts stay
   // beside the titles on a wide monitor instead of a screen-width away.
   titleCell: { flex: 1, maxWidth: 620, gap: 2 },
-  title: { color: "#f5f5f5", fontSize: 14, fontFamily: FONT.semibold },
-  meta: { color: "#6b7177", fontSize: 11, fontFamily: FONT.medium },
-  trailing: { color: "#5cff9d", fontSize: 11, fontFamily: FONT.bold },
+  title: { color: COLOR.textPrimary, fontSize: 14, fontFamily: FONT.semibold },
+  meta: { color: COLOR.textFaint, fontSize: 11, fontFamily: FONT.medium },
+  trailing: { color: COLOR.success, fontSize: 11, fontFamily: FONT.bold },
   count: {
     width: 90,
     textAlign: "right",
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 12,
     letterSpacing: 0.6,
     fontFamily: FONT.medium,

@@ -3,7 +3,7 @@ import { Stack } from "expo-router";
 import { Footer } from "@/components/Footer";
 import { Paragraph } from "@/components/Paragraph";
 import type { MappingEntry, SeriesMapping } from "@/types";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 
 type ChapterRow = { chapter: number; episode?: number };
 
@@ -44,9 +44,7 @@ export function ArcDetailView({
               ? `Episodes ${arcEpisodes[0]}–${arcEpisodes[1]} · Chapters ${arc.chapters[0]}–${arc.chapters[1]}${arc.season ? ` · Season ${arc.season}` : ""}`
               : `Chapters ${arc.chapters[0]}–${arc.chapters[1]} · Not yet in the anime`}
           </Text>
-          {arc.note ? (
-            <Paragraph style={styles.note}>{arc.note}</Paragraph>
-          ) : null}
+          {!!arc.note && <Paragraph style={styles.note}>{arc.note}</Paragraph>}
         </View>
 
         <View style={styles.columns}>
@@ -147,30 +145,30 @@ const styles = StyleSheet.create({
   root: { flex: 1 },
   content: { padding: 16, gap: 20 },
   center: { flex: 1, alignItems: "center", justifyContent: "center" },
-  empty: { color: "#9aa0a6", fontFamily: FONT.regular },
+  empty: { color: COLOR.textMuted, fontFamily: FONT.regular },
   head: { gap: 4 },
   eyebrow: {
-    color: "#7c5cff",
+    color: COLOR.accent,
     fontSize: 12,
     letterSpacing: 1.8,
     textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
   title: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 36,
     letterSpacing: -1,
     fontFamily: FONT.bold,
   },
   meta: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 12,
     letterSpacing: 1.2,
     textTransform: "uppercase",
     fontFamily: FONT.semibold,
   },
   note: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 13,
     paddingTop: 6,
     fontStyle: "italic",
@@ -179,7 +177,7 @@ const styles = StyleSheet.create({
   columns: { flexDirection: "row", gap: 16, flexWrap: "wrap" },
   column: { flex: 1, minWidth: 280, gap: 8 },
   columnLabel: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 12,
     letterSpacing: 1.2,
     textTransform: "uppercase",
@@ -190,7 +188,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 12,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     paddingHorizontal: 12,
     paddingVertical: 10,
   },
@@ -199,23 +197,35 @@ const styles = StyleSheet.create({
     height: 36,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#7c5cff",
+    backgroundColor: COLOR.accent,
   },
-  indexBadgeAlt: { backgroundColor: "#ff7c5c" },
-  indexBadgeText: { color: "#000", fontSize: 14, fontFamily: FONT.bold },
+  indexBadgeAlt: { backgroundColor: COLOR.sideManga },
+  indexBadgeText: {
+    color: COLOR.textOnBright,
+    fontSize: 14,
+    fontFamily: FONT.bold,
+  },
   rowBody: { flex: 1, gap: 2 },
-  rowTitle: { color: "#f5f5f5", fontSize: 15, fontFamily: FONT.semibold },
-  rowSub: { color: "#9aa0a6", fontSize: 12, fontFamily: FONT.regular },
+  rowTitle: {
+    color: COLOR.textPrimary,
+    fontSize: 15,
+    fontFamily: FONT.semibold,
+  },
+  rowSub: { color: COLOR.textMuted, fontSize: 12, fontFamily: FONT.regular },
   columnEmpty: {
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     paddingHorizontal: 14,
     paddingVertical: 16,
     gap: 4,
   },
   columnEmptyTitle: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 14,
     fontFamily: FONT.semibold,
   },
-  columnEmptySub: { color: "#9aa0a6", fontSize: 12, fontFamily: FONT.regular },
+  columnEmptySub: {
+    color: COLOR.textMuted,
+    fontSize: 12,
+    fontFamily: FONT.regular,
+  },
 });

@@ -40,7 +40,7 @@ import { useSideMenu } from "@/state/sideMenu";
 import { SideMenu } from "@/components/SideMenu";
 import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
 import type { PressableState } from "@/types";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
 
@@ -95,8 +95,9 @@ function GlobalHeader() {
       <Pressable
         onPress={() => openMenu()}
         hitSlop={10}
+        accessibilityRole="button"
         accessibilityLabel="Open menu"
-        style={({ hovered, pressed }: any) => [
+        style={({ hovered, pressed }: PressableState) => [
           headerStyles.menuButton,
           { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
         ]}
@@ -107,7 +108,9 @@ function GlobalHeader() {
         <Pressable
           onPress={() => router.back()}
           hitSlop={12}
-          style={({ pressed }: any) => [
+          accessibilityRole="button"
+          accessibilityLabel="Go back"
+          style={({ pressed }: PressableState) => [
             headerStyles.back,
             { opacity: pressed ? 0.6 : 1 },
           ]}
@@ -118,7 +121,9 @@ function GlobalHeader() {
       <Pressable
         onPress={() => router.replace("/")}
         hitSlop={8}
-        style={({ hovered, pressed }: any) => [
+        accessibilityRole="link"
+        accessibilityLabel="Kasane, go to home"
+        style={({ hovered, pressed }: PressableState) => [
           headerStyles.wordmarkPressable,
           { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
         ]}
@@ -146,7 +151,10 @@ function GlobalHeader() {
       <View style={headerStyles.spacer} />
       <Pressable
         onPress={toggleJapanese}
-        style={({ hovered, pressed }: any) => [
+        accessibilityRole="switch"
+        accessibilityLabel="Show titles in Japanese"
+        accessibilityState={{ checked: japanese }}
+        style={({ hovered, pressed }: PressableState) => [
           headerStyles.langToggle,
           { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
         ]}
@@ -157,6 +165,10 @@ function GlobalHeader() {
       </Pressable>
       <Pressable
         onPress={() => router.push("/login")}
+        accessibilityRole="link"
+        accessibilityLabel={
+          email ? `Account, signed in as ${email}` : "Sign in"
+        }
         style={({ hovered, pressed }: PressableState) => [
           headerStyles.accountPill,
           { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
@@ -206,7 +218,7 @@ export default function RootLayout() {
           <Stack
             screenOptions={{
               headerShown: false,
-              contentStyle: { backgroundColor: "#0c0c0e" },
+              contentStyle: { backgroundColor: COLOR.background },
             }}
           >
             <Stack.Screen name="index" />
@@ -229,7 +241,7 @@ export default function RootLayout() {
 }
 
 const headerStyles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: "#0c0c0e" },
+  root: { flex: 1, backgroundColor: COLOR.background },
   bar: {
     flexDirection: "row",
     alignItems: "center",
@@ -246,9 +258,9 @@ const headerStyles = StyleSheet.create({
     justifyContent: "center",
   },
   menuButton: { paddingVertical: 2, paddingHorizontal: 2 },
-  menuIcon: { color: "#f5f5f5", fontSize: 20, fontFamily: FONT.bold },
+  menuIcon: { color: COLOR.textPrimary, fontSize: 20, fontFamily: FONT.bold },
   backArrow: {
-    color: "#7c5cff",
+    color: COLOR.accent,
     fontSize: 32,
     fontFamily: FONT.bold,
     lineHeight: 32,
@@ -261,7 +273,7 @@ const headerStyles = StyleSheet.create({
   // across two lines on a phone.
   wordmarkNarrow: { fontSize: 34, lineHeight: 38, letterSpacing: -1 },
   wordmark: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 64,
     lineHeight: 68,
     letterSpacing: -2,
@@ -269,7 +281,7 @@ const headerStyles = StyleSheet.create({
     paddingBottom: 2,
   },
   subheading: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 13,
     letterSpacing: 6,
     textTransform: "uppercase",
@@ -277,24 +289,24 @@ const headerStyles = StyleSheet.create({
     paddingBottom: 6,
   },
   subAccent: {
-    color: "#7c5cff",
+    color: COLOR.accent,
     fontFamily: FONT.bold,
   },
   rule: {
     height: 4,
     width: 64,
-    backgroundColor: "#7c5cff",
+    backgroundColor: COLOR.accent,
   },
   spacer: { flex: 1 },
   langToggle: {
     paddingHorizontal: 14,
     paddingTop: 12,
     paddingBottom: 8,
-    backgroundColor: "#7c5cff",
+    backgroundColor: COLOR.accent,
     alignSelf: "flex-start",
   },
   langToggleText: {
-    color: "#0c0c0e",
+    color: COLOR.background,
     fontSize: 13,
     letterSpacing: 2,
     fontFamily: FONT.bold,
@@ -303,13 +315,13 @@ const headerStyles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingTop: 12,
     paddingBottom: 8,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     borderLeftWidth: 2,
-    borderLeftColor: "#7c5cff",
+    borderLeftColor: COLOR.accent,
     alignSelf: "flex-start",
   },
   accountPillText: {
-    color: "#7c5cff",
+    color: COLOR.accent,
     fontSize: 13,
     letterSpacing: 2,
     textTransform: "uppercase",

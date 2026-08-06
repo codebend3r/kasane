@@ -2,7 +2,7 @@ import { ActivityIndicator, Text, View, StyleSheet } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useCatalog } from "@/data/catalog";
 import { ArcDetailView } from "@/components/ArcDetailView";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 
 export default function AnimeArcDetail() {
   const { id, arcIdx } = useLocalSearchParams<{ id: string; arcIdx: string }>();
@@ -15,7 +15,7 @@ export default function AnimeArcDetail() {
   if (!isLoaded) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator color="#7c5cff" />
+        <ActivityIndicator color={COLOR.accent} />
       </View>
     );
   }
@@ -33,5 +33,5 @@ export default function AnimeArcDetail() {
 
 const styles = StyleSheet.create({
   center: { flex: 1, alignItems: "center", justifyContent: "center" },
-  empty: { color: "#9aa0a6", fontFamily: FONT.regular },
+  empty: { color: COLOR.textMuted, fontFamily: FONT.regular },
 });

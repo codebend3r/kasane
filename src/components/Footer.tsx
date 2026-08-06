@@ -1,6 +1,6 @@
 import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import { version } from "@pkg";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 import type { PressableState } from "@/types";
 
 export function Footer() {
@@ -10,6 +10,8 @@ export function Footer() {
       <Pressable
         onPress={() => Linking.openURL("https://github.com/codebend3r")}
         hitSlop={6}
+        accessibilityRole="link"
+        accessibilityLabel="CJ Rivas on GitHub"
         style={({ hovered, pressed }: PressableState) => [
           { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
         ]}
@@ -21,6 +23,8 @@ export function Footer() {
       <Pressable
         onPress={() => Linking.openURL("https://github.com/codebend3r")}
         hitSlop={6}
+        accessibilityRole="link"
+        accessibilityLabel="Open the Kasane source on GitHub"
         style={({ hovered, pressed }: PressableState) => [
           { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
         ]}
@@ -40,17 +44,17 @@ const styles = StyleSheet.create({
     paddingTop: 160,
     paddingBottom: 20,
     borderTopWidth: 1,
-    borderTopColor: "#17181b",
+    borderTopColor: COLOR.surface,
   },
   copy: {
-    color: "#6b7177",
+    color: COLOR.textFaint,
     fontSize: 12,
     letterSpacing: 1.4,
     textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
   link: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 12,
     letterSpacing: 1.4,
     textTransform: "uppercase",
@@ -58,14 +62,14 @@ const styles = StyleSheet.create({
   },
   spacer: { flex: 1 },
   version: {
-    color: "#6b7177",
+    color: COLOR.textFaint,
     fontSize: 12,
     letterSpacing: 1.4,
     textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
   github: {
-    color: "#7c5cff",
+    color: COLOR.accent,
     fontSize: 12,
     letterSpacing: 1.4,
     textTransform: "uppercase",

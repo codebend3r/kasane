@@ -11,7 +11,7 @@ import { useRouter } from "expo-router";
 import type { MappedShow } from "@/data/mappedShows";
 import type { Cover } from "@/data/covers";
 import type { PressableState } from "@/types";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 
 /** `12 eps · 42 ch`, or just the chapters when nothing is adapted yet. */
 export const showMeta = (show: MappedShow): string =>
@@ -33,6 +33,8 @@ export function ShowTile({
   return (
     <Pressable
       onPress={() => router.push(`/series/${show.routeId}`)}
+      accessibilityRole="link"
+      accessibilityLabel={`${show.title}. ${showMeta(show)}`}
       style={({ hovered, pressed }: PressableState) => [
         styles.tile,
         { width, opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
@@ -64,7 +66,9 @@ export function Poster({
   return cover ? (
     <Image
       source={{ uri: cover.url }}
-      style={[style, { backgroundColor: cover.color ?? "#1f2024" }]}
+      style={[style, { backgroundColor: cover.color ?? COLOR.tilePlaceholder }]}
+      accessibilityElementsHidden
+      importantForAccessibility="no-hide-descendants"
       accessibilityIgnoresInvertColors
     />
   ) : (
@@ -77,14 +81,18 @@ const styles = StyleSheet.create({
   // reads as cover art first: two up on a phone, more as the page widens.
   // The width is set by `ShowGrid`, which sizes every row the same.
   tile: {
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     borderLeftWidth: 3,
-    borderLeftColor: "#7c5cff",
+    borderLeftColor: COLOR.accent,
   },
   poster: { width: "100%", aspectRatio: 2 / 3 },
-  posterEmpty: { backgroundColor: "#1f2024" },
+  posterEmpty: { backgroundColor: COLOR.tilePlaceholder },
   body: { gap: 4, padding: 10 },
-  tileTitle: { color: "#f5f5f5", fontSize: 13, fontFamily: FONT.semibold },
-  tileMeta: { color: "#6b7177", fontSize: 11, fontFamily: FONT.medium },
-  tileTrailing: { color: "#5cff9d", fontSize: 11, fontFamily: FONT.bold },
+  tileTitle: {
+    color: COLOR.textPrimary,
+    fontSize: 13,
+    fontFamily: FONT.semibold,
+  },
+  tileMeta: { color: COLOR.textFaint, fontSize: 11, fontFamily: FONT.medium },
+  tileTrailing: { color: COLOR.success, fontSize: 11, fontFamily: FONT.bold },
 });

@@ -1,8 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import type { MovieEntry } from "@/types";
-import { FONT } from "@/theme";
-
-const MOVIE_COLOR = "#5cdfff";
+import { COLOR, FONT, MOVIE_COLOR } from "@/theme";
 
 export function SeriesMovies({ movies }: { movies: MovieEntry[] }) {
   const ordered = [...movies].sort(
@@ -31,7 +29,7 @@ export function SeriesMovies({ movies }: { movies: MovieEntry[] }) {
               </Text>
             </View>
             <Text style={styles.movieTitle}>{movie.title}</Text>
-            {movie.note ? <Text style={styles.note}>{movie.note}</Text> : null}
+            {!!movie.note && <Text style={styles.note}>{movie.note}</Text>}
           </View>
         ))}
       </View>
@@ -42,7 +40,7 @@ export function SeriesMovies({ movies }: { movies: MovieEntry[] }) {
 const styles = StyleSheet.create({
   container: { gap: 12 },
   sectionTitle: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 20,
     letterSpacing: -0.4,
     fontFamily: FONT.bold,
@@ -50,7 +48,7 @@ const styles = StyleSheet.create({
   list: { gap: 8 },
   card: {
     padding: 12,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     borderLeftWidth: 2,
     borderLeftColor: MOVIE_COLOR,
     gap: 4,
@@ -69,17 +67,17 @@ const styles = StyleSheet.create({
     fontFamily: FONT.bold,
   },
   meta: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 12,
     fontFamily: FONT.regular,
   },
   movieTitle: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 14,
     fontFamily: FONT.semibold,
   },
   note: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 12,
     lineHeight: 17,
     fontFamily: FONT.regular,

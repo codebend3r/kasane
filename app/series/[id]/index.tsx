@@ -1,8 +1,6 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
   ActivityIndicator,
-  Image,
-  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -13,54 +11,25 @@ import { useLocalSearchParams } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 import { getMedia } from "@/api/anilist";
 import { getMangaDexInfoByAniListId } from "@/api/mangadex";
-import {
-  buildSyntheticMapping,
-  chapterToEpisodes,
-  episodeToChapters,
-} from "@/data";
+import { buildSyntheticMapping } from "@/data";
 import { useCatalog } from "@/data/catalog";
-import { EpisodeChapterRail } from "@/components/EpisodeChapterRail";
-import { EpisodeChapterPie } from "@/components/EpisodeChapterPie";
-import {
-  ProgressMarkBanner,
-  type MarkEvent,
-} from "@/components/ProgressMarkBanner";
-import { SeasonCoverage } from "@/components/SeasonCoverage";
-import { SeriesMovies } from "@/components/SeriesMovies";
+import { MappingSection } from "@/components/MappingSection";
+import { SeriesHeader } from "@/components/SeriesHeader";
+import { TitlesList } from "@/components/TitlesList";
 import { VolumesGrid } from "@/components/VolumesGrid";
 import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
 import { Footer } from "@/components/Footer";
-import { Paragraph } from "@/components/Paragraph";
-import {
-  formatAniListDate,
-  formatAniListDateJa,
-  localeLabel,
-} from "@/data/format";
-import { usePreferences } from "@/state/preferences";
-import { useProgress, type ProgressSide } from "@/state/progress";
-import type { PressableState, SeriesBadge } from "@/types";
-import { FONT } from "@/theme";
-
-type MappingView = "rail" | "pie";
-
-const BADGE_LABEL: Record<SeriesBadge, string> = {
-  both: "ANIME + MANGA",
-  "manga-only": "MANGA ONLY",
-  "anime-only": "ANIME ONLY",
-};
+import { formatAniListDate } from "@/data/format";
+import type { SeriesBadge } from "@/types";
+import { COLOR, FONT } from "@/theme";
 
 export default function SeriesDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const mediaId = Number(id);
-  const japanese = usePreferences((s) => s.japanese);
   const { width: windowWidth } = useWindowDimensions();
   const isMobile = windowWidth < MOBILE_WIDTH_BREAKPOINT;
   const mobileCoverWidth = Math.min(windowWidth - 32, 420);
   const mobileCoverHeight = Math.round(mobileCoverWidth * (340 / 240));
-  const [mappingView, setMappingView] = useState<MappingView>(
-    isMobile ? "pie" : "rail",
-  );
-  const [markEvent, setMarkEvent] = useState<MarkEvent | null>(null);
 
   const { data: media, isLoading } = useQuery({
     queryKey: ["media", mediaId],
@@ -122,33 +91,8 @@ export default function SeriesDetail() {
     [media, catalogLoaded, curatedMapping],
   );
   const mapping = curatedMapping ?? syntheticMapping;
-  const isAutoEstimated = !curatedMapping && !!syntheticMapping;
-  const arcsBehind = mapping
-    ? mapping.mappings.filter((m) => !m.episodes).length
-    : 0;
 
   const routeId = manga?.id ?? anime?.id ?? mediaId;
-
-  const onMarked = (
-    side: ProgressSide,
-    position: number,
-    previous?: number,
-  ) => {
-    const otherSide: ProgressSide = side === "anime" ? "manga" : "anime";
-    const otherPosition =
-      useProgress.getState().byRouteId[routeId]?.[otherSide]?.position ?? 0;
-    const range = mapping
-      ? side === "anime"
-        ? episodeToChapters(mapping, position)
-        : chapterToEpisodes(mapping, position)
-      : null;
-    const suggested = range?.[1];
-    const suggestion =
-      typeof suggested === "number" && suggested > otherPosition
-        ? { side: otherSide, position: suggested }
-        : undefined;
-    setMarkEvent({ side, position, previous, suggestion });
-  };
 
   const badge: SeriesBadge = useMemo(() => {
     if (!media) return "manga-only";
@@ -167,7 +111,7 @@ export default function SeriesDetail() {
   if (isLoading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator color="#7c5cff" />
+        <ActivityIndicator color={COLOR.accent} />
       </View>
     );
   }
@@ -217,152 +161,31 @@ export default function SeriesDetail() {
 
   return (
     <ScrollView style={styles.root} contentContainerStyle={styles.content}>
-      <View style={[styles.header, isMobile && styles.headerMobile]}>
-        <Image
-          source={{ uri: primary.coverImage.large }}
-          style={[
-            styles.cover,
-            isMobile && { width: mobileCoverWidth, height: mobileCoverHeight },
-            badge === "anime-only" && styles.coverAnimeOnly,
-          ]}
-        />
-        <View style={[styles.headerMeta, isMobile && styles.headerMetaMobile]}>
-          <View style={styles.badgeRow}>
-            <View style={styles.badge}>
-              <Text style={styles.badgeText}>{BADGE_LABEL[badge]}</Text>
-            </View>
-            {curatedMapping && (
-              <View style={[styles.badge, styles.mappedBadge]}>
-                <Text style={styles.badgeText}>MAPPED</Text>
-              </View>
-            )}
-          </View>
-          <Text style={styles.title}>
-            {japanese
-              ? (primary.title.native ??
-                primary.title.english ??
-                primary.title.romaji)
-              : (primary.title.english ?? primary.title.romaji)}
-          </Text>
-          {primary.title.native && !japanese ? (
-            <Text style={styles.titleNative}>{primary.title.native}</Text>
-          ) : null}
-          <Text style={styles.sub}>{subParts.join("  ·  ")}</Text>
-          {primary.startDate.year ? (
-            <Text style={styles.dates}>
-              Started {formatAniListDate(primary.startDate)}
-              {primary.countryOfOrigin === "JP"
-                ? `  ·  ${formatAniListDateJa(primary.startDate)}`
-                : ""}
-            </Text>
-          ) : null}
-          {primary.endDate?.year ? (
-            <Text style={styles.dates}>
-              Ended {formatAniListDate(primary.endDate)}
-            </Text>
-          ) : null}
-          {primary.genres.length > 0 ? (
-            <View style={styles.tagRow}>
-              {primary.genres.map((g) => (
-                <View key={g} style={styles.tag}>
-                  <Text style={styles.tagText}>{g}</Text>
-                </View>
-              ))}
-            </View>
-          ) : null}
-          {primary.description && (
-            <Paragraph style={styles.description} numberOfLines={8}>
-              {primary.description.replace(/<[^>]+>/g, "")}
-            </Paragraph>
-          )}
-        </View>
-      </View>
+      <SeriesHeader
+        media={primary}
+        badge={badge}
+        subParts={subParts}
+        isMapped={!!curatedMapping}
+        isMobile={isMobile}
+        mobileCoverWidth={mobileCoverWidth}
+        mobileCoverHeight={mobileCoverHeight}
+      />
 
-      {mapping ? (
-        <View style={styles.mappingBlock}>
-          <View style={styles.sectionTitleRow}>
-            <View style={styles.sectionTitleLeft}>
-              <Text style={styles.sectionTitle}>Episode ↔ Chapter map</Text>
-              {arcsBehind > 0 && (
-                <View style={styles.arcsBehindBadge}>
-                  <Text style={styles.arcsBehindText}>
-                    {arcsBehind} {arcsBehind === 1 ? "ARC" : "ARCS"} BEHIND
-                  </Text>
-                </View>
-              )}
-            </View>
-            <Pressable
-              onPress={() =>
-                setMappingView((v) => (v === "rail" ? "pie" : "rail"))
-              }
-              accessibilityLabel={
-                mappingView === "rail"
-                  ? "Show pie chart view"
-                  : "Show rail view"
-              }
-              style={({ hovered, pressed }: PressableState) => [
-                styles.viewToggle,
-                { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
-              ]}
-            >
-              <Text style={styles.viewToggleIcon}>
-                {mappingView === "rail" ? "◐" : "▤"}
-              </Text>
-            </Pressable>
-          </View>
-          {isAutoEstimated && (
-            <View style={styles.autoBanner}>
-              <View style={styles.autoBadge}>
-                <Text style={styles.autoBadgeText}>AUTO-ESTIMATED</Text>
-              </View>
-              <Paragraph style={styles.autoBannerBody}>
-                Linear pacing — anime episode count distributed evenly across
-                the manga chapter count. Real pacing varies; a curated mapping
-                overrides this estimate.
-              </Paragraph>
-            </View>
-          )}
-          {markEvent ? (
-            <ProgressMarkBanner
-              event={markEvent}
-              routeId={routeId}
-              onDismiss={() => setMarkEvent(null)}
-            />
-          ) : null}
-          {mappingView === "rail" ? (
-            <EpisodeChapterRail
-              mapping={mapping}
-              seriesId={String(routeId)}
-              totalChapters={totalChapters}
-              onMarked={onMarked}
-            />
-          ) : (
-            <EpisodeChapterPie
-              mapping={mapping}
-              seriesId={String(routeId)}
-              totalChapters={totalChapters}
-              onMarked={onMarked}
-            />
-          )}
-          {curatedMapping ? <SeasonCoverage mapping={curatedMapping} /> : null}
-          {movies.length > 0 ? <SeriesMovies movies={movies} /> : null}
-        </View>
-      ) : badge === "anime-only" ? null : (
-        <View style={styles.noMapping}>
-          <Text style={styles.noMappingTitle}>No mapping available yet</Text>
-          <Paragraph style={styles.noMappingBody}>
-            We couldn&apos;t find an anime↔manga adaptation pair on AniList for
-            this entry, and no curated mapping exists for it yet.
-          </Paragraph>
-        </View>
-      )}
+      <MappingSection
+        mapping={mapping}
+        curatedMapping={curatedMapping}
+        routeId={routeId}
+        totalChapters={totalChapters}
+        badge={badge}
+        isMobile={isMobile}
+      />
 
       {manga && (
         <View style={styles.volumesBlock}>
           <Text style={styles.sectionTitle}>Volumes</Text>
           {mangadexLoading && !mangadex ? (
             <View style={styles.spinnerWrap}>
-              <ActivityIndicator color="#7c5cff" />
+              <ActivityIndicator color={COLOR.accent} />
             </View>
           ) : mangadex && mangadex.covers.length > 0 ? (
             <VolumesGrid covers={mangadex.covers} />
@@ -374,19 +197,7 @@ export default function SeriesDetail() {
         </View>
       )}
 
-      {mangadex && mangadex.titles.length > 1 ? (
-        <View style={styles.titlesBlock}>
-          <Text style={styles.sectionTitle}>Titles & translations</Text>
-          <View style={styles.titlesList}>
-            {mangadex.titles.map((t, idx) => (
-              <View key={`${t.locale}-${idx}`} style={styles.titleRow}>
-                <Text style={styles.titleLocale}>{localeLabel(t.locale)}</Text>
-                <Text style={styles.titleValue}>{t.value}</Text>
-              </View>
-            ))}
-          </View>
-        </View>
-      ) : null}
+      {!!mangadex && <TitlesList titles={mangadex.titles} />}
 
       <View style={styles.sourcesWrap}>
         <View style={styles.sources}>
@@ -406,203 +217,23 @@ const styles = StyleSheet.create({
   root: { flex: 1 },
   content: { padding: 16, gap: 24, paddingBottom: 48 },
   center: { flex: 1, alignItems: "center", justifyContent: "center" },
-  header: { flexDirection: "row", gap: 16 },
-  headerMobile: { flexDirection: "column", alignItems: "center" },
-  cover: { width: 240, height: 340, backgroundColor: "#222" },
-  coverAnimeOnly: {
-    borderWidth: 2,
-    borderColor: "rgb(124, 92, 255)",
-    borderBottomRightRadius: 16,
-    cornerBottomRightShape: "bevel",
-    overflow: "hidden",
-  },
-  headerMeta: { flex: 1, gap: 6, minWidth: 240 },
-  headerMetaMobile: { flex: 0, minWidth: 0, alignSelf: "stretch" },
-  badgeRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 6,
-    paddingBottom: 2,
-  },
-  badge: {
-    alignSelf: "flex-start",
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    backgroundColor: "#7c5cff",
-  },
-  mappedBadge: { backgroundColor: "#5cdfff" },
-  badgeText: {
-    color: "#0c0c0e",
-    fontSize: 11,
-    letterSpacing: 1.4,
-    fontFamily: FONT.bold,
-  },
-  title: {
-    color: "#f5f5f5",
-    fontSize: 32,
-    letterSpacing: -1,
-    fontFamily: FONT.bold,
-    lineHeight: 36,
-  },
-  titleNative: {
-    color: "#cfd2d6",
-    fontSize: 18,
-    fontFamily: FONT.medium,
-    marginTop: -2,
-  },
-  sub: {
-    color: "#9aa0a6",
-    fontSize: 11,
-    letterSpacing: 1.4,
-    textTransform: "uppercase",
-    fontFamily: FONT.semibold,
-    paddingTop: 2,
-  },
-  dates: {
-    color: "#cfd2d6",
-    fontSize: 13,
-    fontFamily: FONT.medium,
-  },
-  tagRow: { flexDirection: "row", flexWrap: "wrap", gap: 6, paddingTop: 4 },
-  tag: {
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    backgroundColor: "#17181b",
-    borderLeftWidth: 2,
-    borderLeftColor: "#7c5cff",
-  },
-  tagText: {
-    color: "#cfd2d6",
-    fontSize: 11,
-    letterSpacing: 0.8,
-    fontFamily: FONT.semibold,
-    textTransform: "uppercase",
-  },
-  description: {
-    color: "#cfd2d6",
-    fontSize: 14,
-    lineHeight: 20,
-    paddingTop: 8,
-    fontFamily: FONT.regular,
-  },
   sectionTitle: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 20,
     letterSpacing: -0.4,
     fontFamily: FONT.bold,
   },
-  sectionTitleRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-  },
-  sectionTitleLeft: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-    flexWrap: "wrap",
-  },
-  viewToggle: {
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    backgroundColor: "#17181b",
-    borderLeftWidth: 2,
-    borderLeftColor: "#7c5cff",
-  },
-  viewToggleIcon: {
-    color: "#cfd2d6",
-    fontSize: 16,
-    fontFamily: FONT.bold,
-    lineHeight: 18,
-  },
-  arcsBehindBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    backgroundColor: "#2a2a2a",
-    borderLeftWidth: 4,
-    borderLeftColor: "#ffd65c",
-  },
-  arcsBehindText: {
-    color: "#ffd65c",
-    fontSize: 14,
-    letterSpacing: 1.4,
-    fontFamily: FONT.bold,
-  },
-  empty: { color: "#9aa0a6", fontFamily: FONT.regular, paddingTop: 8 },
+  empty: { color: COLOR.textMuted, fontFamily: FONT.regular, paddingTop: 8 },
   spinnerWrap: { paddingTop: 12 },
-  mappingBlock: { gap: 10 },
-  autoBanner: {
-    padding: 14,
-    backgroundColor: "#1f1a2e",
-    borderLeftWidth: 4,
-    borderLeftColor: "#ffd65c",
-    gap: 8,
-  },
-  autoBadge: {
-    alignSelf: "flex-start",
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    backgroundColor: "#ffd65c",
-  },
-  autoBadgeText: {
-    color: "#0c0c0e",
-    fontSize: 11,
-    letterSpacing: 1.5,
-    fontFamily: FONT.bold,
-  },
-  autoBannerBody: {
-    color: "#cfd2d6",
-    fontSize: 13,
-    lineHeight: 19,
-    fontFamily: FONT.regular,
-  },
-  noMapping: {
-    padding: 16,
-    backgroundColor: "#17181b",
-    gap: 6,
-  },
-  noMappingTitle: { color: "#ffd65c", fontFamily: FONT.bold },
-  noMappingBody: {
-    color: "#cfd2d6",
-    fontSize: 13,
-    lineHeight: 18,
-    fontFamily: FONT.regular,
-  },
   volumesBlock: { gap: 12 },
-  titlesBlock: { gap: 8 },
-  titlesList: { gap: 6 },
-  titleRow: {
-    flexDirection: "row",
-    gap: 12,
-    alignItems: "baseline",
-    paddingVertical: 4,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: "#2a2a2a",
-  },
-  titleLocale: {
-    color: "#7c5cff",
-    fontSize: 11,
-    letterSpacing: 1.2,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-    minWidth: 130,
-  },
-  titleValue: {
-    color: "#f5f5f5",
-    fontSize: 14,
-    flex: 1,
-    fontFamily: FONT.regular,
-  },
   sourcesWrap: { paddingTop: 8 },
   sources: {
     paddingTop: 12,
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: "#2a2a2a",
+    borderTopColor: COLOR.surfaceRaised,
   },
   sourcesText: {
-    color: "#6b7177",
+    color: COLOR.textFaint,
     fontSize: 11,
     letterSpacing: 0.8,
     fontFamily: FONT.regular,

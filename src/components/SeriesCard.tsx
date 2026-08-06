@@ -2,7 +2,7 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Link } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 import type { SeriesBadge, SeriesEntry } from "@/types";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 import { useMapping } from "@/data/catalog";
 import { getAnimeFranchise, hasAnimeSequels } from "@/api/anilist";
 import { usePreferences } from "@/state/preferences";
@@ -15,9 +15,9 @@ const BADGE_LABEL: Record<SeriesBadge, string> = {
 };
 
 const BADGE_COLOR: Record<SeriesBadge, string> = {
-  both: "#7c5cff",
-  "manga-only": "#ff7c5c",
-  "anime-only": "#5cdfff",
+  both: COLOR.accent,
+  "manga-only": COLOR.sideManga,
+  "anime-only": COLOR.sideAnime,
 };
 
 export function SeriesCard({ entry }: { entry: SeriesEntry }) {
@@ -81,13 +81,22 @@ export function SeriesCard({ entry }: { entry: SeriesEntry }) {
 
   return (
     <Link href={{ pathname: "/series/[id]", params: { id: routeId } }} asChild>
-      <Pressable style={styles.card}>
+      <Pressable
+        accessibilityRole="link"
+        accessibilityLabel={`${title}. ${parts.join(", ")}`}
+        style={styles.card}
+      >
         <View style={styles.cardRow}>
           <Image
             source={{ uri: primary.coverImage.large }}
+            accessibilityElementsHidden
+            importantForAccessibility="no-hide-descendants"
             style={[
               styles.cover,
-              { backgroundColor: primary.coverImage.color ?? "#222" },
+              {
+                backgroundColor:
+                  primary.coverImage.color ?? COLOR.coverPlaceholder,
+              },
             ]}
           />
           <View style={styles.meta}>
@@ -109,14 +118,14 @@ export function SeriesCard({ entry }: { entry: SeriesEntry }) {
             )}
           </View>
         </View>
-        {showProgressBar ? (
+        {showProgressBar && (
           <ProgressBar
             hasAnime={hasAnime}
             hasManga={hasManga}
             animeFrac={animeFrac}
             mangaFrac={mangaFrac}
           />
-        ) : null}
+        )}
       </Pressable>
     </Link>
   );
@@ -135,30 +144,36 @@ function ProgressBar({
 }) {
   return (
     <View style={styles.progressTrack}>
-      {hasAnime ? (
+      {hasAnime && (
         <View style={styles.progressBand}>
-          {animeFrac !== null ? (
+          {animeFrac !== null && (
             <View
               style={[
                 styles.progressFill,
-                { width: `${animeFrac * 100}%`, backgroundColor: "#5cdfff" },
+                {
+                  width: `${animeFrac * 100}%`,
+                  backgroundColor: COLOR.sideAnime,
+                },
               ]}
             />
-          ) : null}
+          )}
         </View>
-      ) : null}
-      {hasManga ? (
+      )}
+      {hasManga && (
         <View style={styles.progressBand}>
-          {mangaFrac !== null ? (
+          {mangaFrac !== null && (
             <View
               style={[
                 styles.progressFill,
-                { width: `${mangaFrac * 100}%`, backgroundColor: "#ff7c5c" },
+                {
+                  width: `${mangaFrac * 100}%`,
+                  backgroundColor: COLOR.sideManga,
+                },
               ]}
             />
-          ) : null}
+          )}
         </View>
-      ) : null}
+      )}
     </View>
   );
 }
@@ -168,7 +183,7 @@ const styles = StyleSheet.create({
     gap: 6,
     padding: 12,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: "#2a2a2a",
+    borderBottomColor: COLOR.surfaceRaised,
   },
   cardRow: { flexDirection: "row", gap: 12 },
   cover: { width: 60, height: 84 },
@@ -177,7 +192,7 @@ const styles = StyleSheet.create({
   progressTrack: { gap: 2 },
   progressBand: {
     height: 3,
-    backgroundColor: "#1a1a1a",
+    backgroundColor: COLOR.progressTrack,
     overflow: "hidden",
   },
   progressFill: {
@@ -188,21 +203,21 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
     alignSelf: "flex-end",
   },
-  mappedBadge: { backgroundColor: "#5cff9d" },
+  mappedBadge: { backgroundColor: COLOR.success },
   badgeText: {
-    color: "#0c0c0e",
+    color: COLOR.background,
     fontSize: 10,
     letterSpacing: 1.4,
     fontFamily: FONT.bold,
   },
   title: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 17,
     letterSpacing: -0.3,
     fontFamily: FONT.bold,
   },
   sub: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 12,
     paddingTop: 4,
     letterSpacing: 0.8,

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 import { useProgress, type ProgressSide } from "@/state/progress";
 
 const AUTO_DISMISS_MS = 8000;
@@ -60,6 +60,8 @@ export function ProgressMarkBanner({
         <Pressable
           onPress={onDismiss}
           hitSlop={10}
+          accessibilityRole="button"
+          accessibilityLabel="Dismiss"
           style={({ pressed }) => [
             styles.closeBtn,
             { opacity: pressed ? 0.6 : 1 },
@@ -68,16 +70,18 @@ export function ProgressMarkBanner({
           <Text style={styles.closeText}>×</Text>
         </Pressable>
       </View>
-      {event.suggestion ? (
+      {!!event.suggestion && (
         <Text style={styles.suggestionText}>
           ≈ {otherLabel} {event.suggestion.position} on the{" "}
           {event.suggestion.side} side
         </Text>
-      ) : null}
+      )}
       <View style={styles.actionsRow}>
-        {event.suggestion ? (
+        {!!event.suggestion && (
           <Pressable
             onPress={acceptSuggestion}
+            accessibilityRole="button"
+            accessibilityLabel={`Mark ${event.suggestion.side} progress`}
             style={({ pressed }) => [
               styles.primaryBtn,
               { opacity: pressed ? 0.7 : 1 },
@@ -87,9 +91,11 @@ export function ProgressMarkBanner({
               Mark {event.suggestion.side}
             </Text>
           </Pressable>
-        ) : null}
+        )}
         <Pressable
           onPress={undo}
+          accessibilityRole="button"
+          accessibilityLabel="Undo this progress mark"
           style={({ pressed }) => [
             styles.secondaryBtn,
             { opacity: pressed ? 0.7 : 1 },
@@ -105,9 +111,9 @@ export function ProgressMarkBanner({
 const styles = StyleSheet.create({
   banner: {
     padding: 14,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     borderLeftWidth: 4,
-    borderLeftColor: "#5cff9d",
+    borderLeftColor: COLOR.success,
     gap: 8,
   },
   row: {
@@ -117,7 +123,7 @@ const styles = StyleSheet.create({
   },
   headline: {
     flex: 1,
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 14,
     fontFamily: FONT.bold,
     letterSpacing: -0.2,
@@ -126,13 +132,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
   },
   closeText: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 20,
     lineHeight: 20,
     fontFamily: FONT.bold,
   },
   suggestionText: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 13,
     fontFamily: FONT.regular,
   },
@@ -144,10 +150,10 @@ const styles = StyleSheet.create({
   primaryBtn: {
     paddingHorizontal: 12,
     paddingVertical: 8,
-    backgroundColor: "#5cff9d",
+    backgroundColor: COLOR.success,
   },
   primaryBtnText: {
-    color: "#0c0c0e",
+    color: COLOR.background,
     fontSize: 11,
     letterSpacing: 1.4,
     textTransform: "uppercase",
@@ -156,10 +162,10 @@ const styles = StyleSheet.create({
   secondaryBtn: {
     paddingHorizontal: 12,
     paddingVertical: 8,
-    backgroundColor: "#2a2a2a",
+    backgroundColor: COLOR.surfaceRaised,
   },
   secondaryBtnText: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 11,
     letterSpacing: 1.4,
     textTransform: "uppercase",

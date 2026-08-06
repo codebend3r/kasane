@@ -15,7 +15,7 @@ import { ShowRow } from "@/components/ShowRow";
 import { Footer } from "@/components/Footer";
 import type { PressableState } from "@/types";
 import { Pressable } from "react-native";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 
 type ViewMode = "grid" | "list";
 
@@ -168,19 +168,19 @@ const styles = StyleSheet.create({
   root: { flex: 1 },
   content: { gap: 12, padding: 16, paddingBottom: 40 },
   eyebrow: {
-    color: "#7c5cff",
+    color: COLOR.accent,
     fontSize: 11,
     letterSpacing: 1.8,
     textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
   title: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 24,
     letterSpacing: -0.4,
     fontFamily: FONT.bold,
   },
-  blurb: { color: "#9aa0a6", fontSize: 14, fontFamily: FONT.regular },
+  blurb: { color: COLOR.textMuted, fontSize: 14, fontFamily: FONT.regular },
   sortRow: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     paddingTop: 4,
   },
   count: {
-    color: "#6b7177",
+    color: COLOR.textFaint,
     fontSize: 12,
     letterSpacing: 1.2,
     textTransform: "uppercase",
@@ -208,26 +208,26 @@ const styles = StyleSheet.create({
   sortButton: {
     paddingHorizontal: 14,
     paddingVertical: 6,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
   },
-  sortButtonActive: { backgroundColor: "#7c5cff" },
+  sortButtonActive: { backgroundColor: COLOR.accent },
   sortText: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 11,
     letterSpacing: 1.2,
     textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
-  sortTextActive: { color: "#0c0c0e" },
+  sortTextActive: { color: COLOR.background },
   // Set apart from the sort pills so the two controls do not read as one
   // group; it wraps to its own line once the row runs out of room.
   viewToggle: { flexDirection: "row", gap: 2, paddingLeft: 8 },
   viewButton: {
     paddingHorizontal: 12,
     paddingVertical: 6,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
   },
-  viewButtonActive: { backgroundColor: "#5cdfff" },
+  viewButtonActive: { backgroundColor: COLOR.highlight },
   list: { gap: 4 },
-  muted: { color: "#6b7177", fontSize: 14, fontFamily: FONT.regular },
+  muted: { color: COLOR.textFaint, fontSize: 14, fontFamily: FONT.regular },
 });
