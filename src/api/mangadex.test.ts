@@ -1,3 +1,4 @@
+import { describe, expect, it } from "bun:test";
 import { pickBestMatch } from "./mangadex";
 
 type Record = Parameters<typeof pickBestMatch>[0][number];

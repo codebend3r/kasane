@@ -13,7 +13,8 @@ kasane's whole product claim is that episode N maps to chapters X-Y. The functio
 
 `src/state/syncMerge.test.ts` is the reference. Match it:
 
-- Colocate as `<module>.test.ts` next to the source. Jest preset is `jest-expo`; `@/` resolves to `src/`.
+- Colocate as `<module>.test.ts` next to the source. Tests run on `bun test` (`bun run test`); `@/` resolves to `src/`. Import `describe`/`it`/`expect` (and `mock`/`spyOn`) from `bun:test` in every test file.
+- Native-only modules (`react-native`, AsyncStorage, `expo-linking`) and `@/api/supabase` are mocked globally in the preload `test/setup.ts` — bun has no `jest.mock` hoisting and runs every test file in one process, so module mocks are shared, not per-file. Drive the Supabase auth mocks via `@/api/supabase.mock`.
 - One `describe` per exported function, `it` names stating the behaviour, not the mechanism.
 - Build inputs as typed literals with an explicit type annotation, never a cast.
 - Assert whole objects with `toEqual`, not field-by-field. A regression that adds a stray key should fail.
@@ -37,6 +38,7 @@ Both lookup helpers return the **first** matching arc. Overlapping arcs therefor
 ## One good example
 
 ```ts
+import { describe, expect, it } from "bun:test";
 import { episodeToChapters } from "./index";
 import type { SeriesMapping } from "@/types";
 

@@ -1,3 +1,4 @@
+import { describe, expect, it } from "bun:test";
 import { splitHiddenForAniList, type GenreFilter } from "./genreFilters";
 
 // A representative slice of the `genre_filters` table (the full catalog now

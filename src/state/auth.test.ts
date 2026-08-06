@@ -1,27 +1,10 @@
+import { beforeEach, describe, expect, it } from "bun:test";
 import { AuthError } from "@supabase/supabase-js";
 import type { Session, User } from "@supabase/supabase-js";
 import { useAuth } from "./auth";
-import { supabase } from "@/api/supabase";
-
-// `expo-linking` reads the expo-constants manifest to resolve the app's URI
-// scheme, which isn't available under jest.
-jest.mock("expo-linking", () => ({
-  createURL: (path: string) => `kasane://${path.replace(/^\//, "")}`,
-}));
-
-jest.mock("@/api/supabase", () => ({
-  supabase: {
-    auth: {
-      getSession: jest.fn(() => Promise.resolve({ data: { session: null } })),
-      onAuthStateChange: jest.fn(() => ({
-        data: { subscription: { unsubscribe: jest.fn() } },
-      })),
-      signInWithPassword: jest.fn(),
-      signUp: jest.fn(),
-      signOut: jest.fn(),
-    },
-  },
-}));
+// `@/api/supabase` (and the native modules it drags in) is replaced with these
+// mocks by the global preload in `test/setup.ts`.
+import { authMocks } from "@/api/supabase.mock";
 
 const fakeUser: User = {
   id: "user-1",
@@ -60,7 +43,7 @@ describe("applySession", () => {
 
 describe("auth state subscription", () => {
   it("routes onAuthStateChange sessions into the store", () => {
-    const subscribe = jest.mocked(supabase.auth.onAuthStateChange);
+    const subscribe = authMocks.onAuthStateChange;
     expect(subscribe).toHaveBeenCalledTimes(1);
 
     const callback = subscribe.mock.calls[0][0];
@@ -74,7 +57,7 @@ describe("auth state subscription", () => {
 
 describe("actions", () => {
   it("signIn returns null on success", async () => {
-    jest.mocked(supabase.auth.signInWithPassword).mockResolvedValue({
+    authMocks.signInWithPassword.mockResolvedValue({
       data: { user: fakeUser, session: fakeSession },
       error: null,
     });
@@ -83,7 +66,7 @@ describe("actions", () => {
   });
 
   it("signIn returns the error message on failure", async () => {
-    jest.mocked(supabase.auth.signInWithPassword).mockResolvedValue({
+    authMocks.signInWithPassword.mockResolvedValue({
       data: { user: null, session: null },
       error: new AuthError("Invalid login credentials"),
     });
@@ -92,7 +75,7 @@ describe("actions", () => {
   });
 
   it("signUp sends a confirmation redirect back to the running origin", async () => {
-    const signUp = jest.mocked(supabase.auth.signUp).mockResolvedValue({
+    const signUp = authMocks.signUp.mockResolvedValue({
       data: { user: fakeUser, session: null },
       error: null,
     });
@@ -112,7 +95,7 @@ describe("actions", () => {
   });
 
   it("signOut returns the error message on failure", async () => {
-    jest.mocked(supabase.auth.signOut).mockResolvedValue({
+    authMocks.signOut.mockResolvedValue({
       error: new AuthError("Network failure"),
     });
     const result = await useAuth.getState().signOut();

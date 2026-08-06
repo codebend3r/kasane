@@ -1,8 +1,6 @@
-// `@/data/catalog` pulls in the Supabase client, which reaches for a native
-// storage module that doesn't exist under jest. The index is pure, so an empty
-// stub is enough.
-jest.mock("@/api/supabase", () => ({ supabase: {} }));
-
+// `@/data/catalog` pulls in the Supabase client, which the bun test preload in
+// `test/setup.ts` replaces with a stub. The index itself is pure.
+import { describe, expect, it } from "bun:test";
 import { indexByMediaId } from "@/data/catalog";
 import type { SeriesMapping } from "@/types";
 
