@@ -62,6 +62,8 @@ function AccountView() {
       {!!error && <Text style={styles.error}>{error}</Text>}
       <Pressable
         onPress={onSignOut}
+        accessibilityRole="button"
+        accessibilityLabel="Sign out"
         style={({ hovered, pressed }: PressableState) => [
           styles.button,
           { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
@@ -119,6 +121,8 @@ function AuthForm() {
             setMode("signIn");
             setPassword("");
           }}
+          accessibilityRole="button"
+          accessibilityLabel="Back to sign in"
           style={({ hovered, pressed }: PressableState) => [
             styles.button,
             { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
@@ -137,6 +141,7 @@ function AuthForm() {
         value={email}
         onChangeText={setEmail}
         placeholder="Email"
+        accessibilityLabel="Email"
         placeholderTextColor={COLOR.textFaint}
         style={styles.input}
         autoCapitalize="none"
@@ -148,6 +153,7 @@ function AuthForm() {
         value={password}
         onChangeText={setPassword}
         placeholder="Password"
+        accessibilityLabel="Password"
         placeholderTextColor={COLOR.textFaint}
         style={styles.input}
         secureTextEntry
@@ -159,6 +165,9 @@ function AuthForm() {
       <Pressable
         onPress={submit}
         disabled={!canSubmit}
+        accessibilityRole="button"
+        accessibilityLabel={copy.submit}
+        accessibilityState={{ disabled: !canSubmit, busy }}
         style={({ hovered, pressed }: PressableState) => [
           styles.button,
           !canSubmit && styles.buttonDisabled,
@@ -174,6 +183,8 @@ function AuthForm() {
       <Pressable
         onPress={switchMode}
         hitSlop={6}
+        accessibilityRole="button"
+        accessibilityLabel={copy.switchLabel}
         style={({ hovered, pressed }: PressableState) => [
           { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
         ]}

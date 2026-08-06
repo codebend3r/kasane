@@ -89,7 +89,11 @@ export default function MangaDetail() {
   return (
     <ScrollView style={styles.root} contentContainerStyle={styles.content}>
       <View style={styles.header}>
-        <Image source={{ uri: media.coverImage.large }} style={styles.cover} />
+        <Image
+          source={{ uri: media.coverImage.large }}
+          accessibilityLabel={`Cover art for ${media.title.english ?? media.title.romaji}`}
+          style={styles.cover}
+        />
         <View style={styles.headerMeta}>
           <Text style={styles.title}>
             {media.title.english ?? media.title.romaji}
@@ -291,6 +295,13 @@ function VolumeCard({ group }: { group: VolumeGroup }) {
     <View style={[styles.volumeCard, isHovered && styles.volumeCardHovered]}>
       <Pressable
         onPress={() => hasVariants && setIsOpen((v) => !v)}
+        accessibilityRole={hasVariants ? "button" : "image"}
+        accessibilityLabel={
+          hasVariants
+            ? `Volume ${group.volume} cover, ${variants.length} more editions`
+            : `Volume ${group.volume} cover`
+        }
+        accessibilityState={hasVariants ? { expanded: isOpen } : undefined}
         onHoverIn={() => {
           setIsHovered(true);
           animateTo(1.6);
@@ -310,6 +321,8 @@ function VolumeCard({ group }: { group: VolumeGroup }) {
           <View style={styles.volumeCoverWrap}>
             <Image
               source={{ uri: primary.thumbUrl }}
+              accessibilityElementsHidden
+              importantForAccessibility="no-hide-descendants"
               style={styles.volumeCover}
             />
             {hasVariants && (
@@ -332,12 +345,19 @@ function VolumeCard({ group }: { group: VolumeGroup }) {
             <Pressable
               key={coverKey(v)}
               onPress={() => setSelectedKey(coverKey(v))}
+              accessibilityRole="button"
+              accessibilityLabel={`Show the ${v.locale ?? "default"} cover for volume ${v.volume}`}
               style={({ hovered, pressed }: PressableState) => [
                 styles.variantCell,
                 { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
               ]}
             >
-              <Image source={{ uri: v.thumbUrl }} style={styles.variantThumb} />
+              <Image
+                source={{ uri: v.thumbUrl }}
+                accessibilityElementsHidden
+                importantForAccessibility="no-hide-descendants"
+                style={styles.variantThumb}
+              />
               <Text style={styles.variantLabel}>
                 {v.volume}
                 {v.locale && v.locale !== primary.locale
@@ -422,9 +442,19 @@ function QuickLookup({ mapping }: { mapping: SeriesMapping }) {
           keyboardType="number-pad"
           style={styles.lookupInput}
           placeholder="e.g. 38"
+          accessibilityLabel="I finished chapter"
           placeholderTextColor={COLOR.textFaint}
         />
-        <Text style={styles.lookupResult}>
+        <Text
+          style={styles.lookupResult}
+          accessibilityRole="text"
+          accessibilityLiveRegion="polite"
+          accessibilityLabel={
+            fromCh
+              ? `episodes ${fromCh[0]} to ${fromCh[1]}${seasonForCh ? `, season ${seasonForCh}` : ""}`
+              : "no match"
+          }
+        >
           → {fromCh ? `episodes ${fromCh[0]}–${fromCh[1]}` : "—"}
           {seasonForCh ? ` (S${seasonForCh})` : ""}
         </Text>
@@ -437,9 +467,17 @@ function QuickLookup({ mapping }: { mapping: SeriesMapping }) {
           keyboardType="number-pad"
           style={styles.lookupInput}
           placeholder="e.g. 12"
+          accessibilityLabel="I finished episode"
           placeholderTextColor={COLOR.textFaint}
         />
-        <Text style={styles.lookupResult}>
+        <Text
+          style={styles.lookupResult}
+          accessibilityRole="text"
+          accessibilityLiveRegion="polite"
+          accessibilityLabel={
+            fromEp ? `chapters ${fromEp[0]} to ${fromEp[1]}` : "no match"
+          }
+        >
           → {fromEp ? `chapters ${fromEp[0]}–${fromEp[1]}` : "—"}
         </Text>
       </View>

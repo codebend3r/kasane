@@ -220,6 +220,7 @@ export default function SeriesDetail() {
       <View style={[styles.header, isMobile && styles.headerMobile]}>
         <Image
           source={{ uri: primary.coverImage.large }}
+          accessibilityLabel={`Cover art for ${primary.title.english ?? primary.title.romaji}`}
           style={[
             styles.cover,
             isMobile && { width: mobileCoverWidth, height: mobileCoverHeight },
@@ -295,6 +296,7 @@ export default function SeriesDetail() {
               onPress={() =>
                 setMappingView((v) => (v === "rail" ? "pie" : "rail"))
               }
+              accessibilityRole="button"
               accessibilityLabel={
                 mappingView === "rail"
                   ? "Show pie chart view"

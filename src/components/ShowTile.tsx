@@ -67,6 +67,8 @@ export function Poster({
     <Image
       source={{ uri: cover.url }}
       style={[style, { backgroundColor: cover.color ?? COLOR.tilePlaceholder }]}
+      accessibilityElementsHidden
+      importantForAccessibility="no-hide-descendants"
       accessibilityIgnoresInvertColors
     />
   ) : (

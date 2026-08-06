@@ -89,6 +89,8 @@ export function SeriesCard({ entry }: { entry: SeriesEntry }) {
         <View style={styles.cardRow}>
           <Image
             source={{ uri: primary.coverImage.large }}
+            accessibilityElementsHidden
+            importantForAccessibility="no-hide-descendants"
             style={[
               styles.cover,
               {

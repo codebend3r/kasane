@@ -174,6 +174,8 @@ function VolumeCard({
           <View style={{ width, height: coverHeight, position: "relative" }}>
             <Image
               source={{ uri: primary.thumbUrl }}
+              accessibilityElementsHidden
+              importantForAccessibility="no-hide-descendants"
               style={[styles.cover, { width, height: coverHeight }]}
             />
             {hasVariants && (
@@ -201,7 +203,12 @@ function VolumeCard({
                 { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
               ]}
             >
-              <Image source={{ uri: v.thumbUrl }} style={styles.variantThumb} />
+              <Image
+                source={{ uri: v.thumbUrl }}
+                accessibilityElementsHidden
+                importantForAccessibility="no-hide-descendants"
+                style={styles.variantThumb}
+              />
               <Text style={styles.variantLabel}>
                 {v.volume}
                 {v.locale && v.locale !== primary.locale

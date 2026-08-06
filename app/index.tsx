@@ -124,6 +124,7 @@ export default function HomeScreen() {
         value={query}
         onChangeText={setQuery}
         placeholder="Search anime or manga…"
+        accessibilityLabel="Search anime or manga"
         placeholderTextColor={COLOR.textFaint}
         style={styles.input}
         autoCorrect={false}
@@ -134,6 +135,9 @@ export default function HomeScreen() {
 
       <Pressable
         onPress={() => setFiltersOpen((o) => !o)}
+        accessibilityRole="button"
+        accessibilityLabel="Filter genres"
+        accessibilityState={{ expanded: filtersOpen }}
         style={({ hovered, pressed }: PressableState) => [
           styles.filterToggle,
           { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
@@ -162,6 +166,9 @@ export default function HomeScreen() {
               <Pressable
                 key={f.id}
                 onPress={() => toggleHiddenGenre(f.id)}
+                accessibilityRole="switch"
+                accessibilityLabel={`Show ${f.label}`}
+                accessibilityState={{ checked: included }}
                 style={[styles.filterChip, included && styles.filterChipActive]}
               >
                 <Text
@@ -244,6 +251,8 @@ function ToggleAllGenres({
   return (
     <Pressable
       onPress={() => onSetHidden(allHidden ? [] : filters.map((f) => f.id))}
+      accessibilityRole="button"
+      accessibilityLabel={allHidden ? "Show all genres" : "Hide all genres"}
       style={({ hovered, pressed }: PressableState) => [
         styles.toggleAllChip,
         { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
@@ -268,6 +277,9 @@ function MappedOnlyToggle({
     <Pressable
       onPress={() => onChange(!value)}
       hitSlop={6}
+      accessibilityRole="checkbox"
+      accessibilityLabel="Only show mapped series"
+      accessibilityState={{ checked: value }}
       style={({ hovered, pressed }: PressableState) => [
         styles.mappedToggle,
         { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
@@ -302,7 +314,12 @@ function GenreFilterSheet({
       onRequestClose={onClose}
     >
       <View style={styles.sheetBackdrop}>
-        <Pressable style={styles.sheetBackdropFill} onPress={onClose} />
+        <Pressable
+          style={styles.sheetBackdropFill}
+          onPress={onClose}
+          accessibilityRole="button"
+          accessibilityLabel="Close the genre filters"
+        />
         <View style={styles.sheet}>
           <View style={styles.sheetHandle} />
           <View style={styles.sheetHeader}>
@@ -310,6 +327,8 @@ function GenreFilterSheet({
             <Pressable
               onPress={onClose}
               hitSlop={12}
+              accessibilityRole="button"
+              accessibilityLabel="Done filtering genres"
               style={({ pressed }: PressableState) => [
                 styles.sheetDone,
                 { opacity: pressed ? 0.7 : 1 },
@@ -328,6 +347,9 @@ function GenreFilterSheet({
                 <Pressable
                   key={f.id}
                   onPress={() => onToggle(f.id)}
+                  accessibilityRole="checkbox"
+                  accessibilityLabel={`Show ${f.label}`}
+                  accessibilityState={{ checked: included }}
                   style={({ pressed }: PressableState) => [
                     styles.sheetRow,
                     { opacity: pressed ? 0.7 : 1 },
@@ -419,6 +441,8 @@ function LatestReleases({
       asChild
     >
       <Pressable
+        accessibilityRole="link"
+        accessibilityLabel={`${entry.primary.title.english ?? entry.primary.title.romaji}`}
         style={({ hovered, pressed }: PressableState) => [
           styles.gridItem,
           { opacity: pressed ? 0.6 : hovered ? 0.9 : 1 },
@@ -427,6 +451,8 @@ function LatestReleases({
         <View style={styles.gridCoverWrap}>
           <Image
             source={{ uri: entry.primary.coverImage.large }}
+            accessibilityElementsHidden
+            importantForAccessibility="no-hide-descendants"
             style={[
               styles.gridCover,
               {

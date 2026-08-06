@@ -114,7 +114,11 @@ export default function AnimeDetail() {
   return (
     <ScrollView style={styles.root} contentContainerStyle={styles.content}>
       <View style={styles.header}>
-        <Image source={{ uri: media.coverImage.large }} style={styles.cover} />
+        <Image
+          source={{ uri: media.coverImage.large }}
+          accessibilityLabel={`Cover art for ${media.title.english ?? media.title.romaji}`}
+          style={styles.cover}
+        />
         <View style={styles.headerMeta}>
           <Text style={styles.title}>
             {media.title.english ?? media.title.romaji}
@@ -201,6 +205,8 @@ function SeasonsList({
               asChild
             >
               <Pressable
+                accessibilityRole="link"
+                accessibilityLabel={`${s.title}${isCurrent ? ", current season" : ""}`}
                 style={({ hovered, pressed }: PressableState) => [
                   styles.seasonCard,
                   isCurrent && styles.seasonCardActive,
@@ -255,9 +261,17 @@ function QuickLookup({ mapping }: { mapping: SeriesMapping | null }) {
           keyboardType="number-pad"
           style={styles.lookupInput}
           placeholder="e.g. 12"
+          accessibilityLabel="I finished episode"
           placeholderTextColor={COLOR.textFaint}
         />
-        <Text style={styles.lookupResult}>
+        <Text
+          style={styles.lookupResult}
+          accessibilityRole="text"
+          accessibilityLiveRegion="polite"
+          accessibilityLabel={
+            fromEp ? `chapters ${fromEp[0]} to ${fromEp[1]}` : "no match"
+          }
+        >
           → {fromEp ? `chapters ${fromEp[0]}–${fromEp[1]}` : "—"}
         </Text>
       </View>
@@ -269,9 +283,17 @@ function QuickLookup({ mapping }: { mapping: SeriesMapping | null }) {
           keyboardType="number-pad"
           style={styles.lookupInput}
           placeholder="e.g. 50"
+          accessibilityLabel="I finished chapter"
           placeholderTextColor={COLOR.textFaint}
         />
-        <Text style={styles.lookupResult}>
+        <Text
+          style={styles.lookupResult}
+          accessibilityRole="text"
+          accessibilityLiveRegion="polite"
+          accessibilityLabel={
+            fromCh ? `episodes ${fromCh[0]} to ${fromCh[1]}` : "no match"
+          }
+        >
           → {fromCh ? `episodes ${fromCh[0]}–${fromCh[1]}` : "—"}
         </Text>
       </View>

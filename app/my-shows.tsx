@@ -60,6 +60,8 @@ export default function MyShowsScreen() {
           </Text>
           <Pressable
             onPress={() => router.push("/login")}
+            accessibilityRole="link"
+            accessibilityLabel="Sign in to save your shows"
             style={({ hovered, pressed }: PressableState) => [
               styles.calloutButton,
               { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
