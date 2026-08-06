@@ -29,5 +29,5 @@ const styles = StyleSheet.create({
     letterSpacing: -0.4,
     fontFamily: FONT.bold,
   },
-  muted: { color: COLOR.textFaint, fontSize: 14, fontFamily: FONT.regular },
+  muted: { color: COLOR.textMuted, fontSize: 14, fontFamily: FONT.regular },
 });

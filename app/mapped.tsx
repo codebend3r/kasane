@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     paddingTop: 4,
   },
   count: {
-    color: COLOR.textFaint,
+    color: COLOR.textMuted,
     fontSize: 12,
     letterSpacing: 1.2,
     textTransform: "uppercase",
@@ -229,5 +229,5 @@ const styles = StyleSheet.create({
   },
   viewButtonActive: { backgroundColor: COLOR.highlight },
   list: { gap: 4 },
-  muted: { color: COLOR.textFaint, fontSize: 14, fontFamily: FONT.regular },
+  muted: { color: COLOR.textMuted, fontSize: 14, fontFamily: FONT.regular },
 });

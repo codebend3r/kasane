@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   // beside the titles on a wide monitor instead of a screen-width away.
   titleCell: { flex: 1, maxWidth: 620, gap: 2 },
   title: { color: COLOR.textPrimary, fontSize: 14, fontFamily: FONT.semibold },
-  meta: { color: COLOR.textFaint, fontSize: 11, fontFamily: FONT.medium },
+  meta: { color: COLOR.textMuted, fontSize: 11, fontFamily: FONT.medium },
   trailing: { color: COLOR.success, fontSize: 11, fontFamily: FONT.bold },
   count: {
     width: 90,

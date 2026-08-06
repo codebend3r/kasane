@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
     fontFamily: FONT.semibold,
   },
   hint: {
-    color: COLOR.textFaint,
+    color: COLOR.textMuted,
     fontSize: 11,
     letterSpacing: 1,
     paddingTop: 4,

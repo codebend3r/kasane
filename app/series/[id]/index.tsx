@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
     borderTopColor: COLOR.surfaceRaised,
   },
   sourcesText: {
-    color: COLOR.textFaint,
+    color: COLOR.textMuted,
     fontSize: 11,
     letterSpacing: 0.8,
     fontFamily: FONT.regular,
