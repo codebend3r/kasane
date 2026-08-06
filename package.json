@@ -13,7 +13,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
-    "test": "bun test src",
+    "test": "bun test src --reporter=dots",
     "e2e": "playwright test",
     "e2e:install": "playwright install chromium",
     "format": "oxfmt",
