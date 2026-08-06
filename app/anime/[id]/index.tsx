@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
   ActivityIndicator,
   Image,
@@ -6,24 +6,20 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from "react-native";
 import { Link, useLocalSearchParams } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 import { getAnimeFranchise, getMedia, hasAnimeSequels } from "@/api/anilist";
 import { getMangaDexInfoByAniListId } from "@/api/mangadex";
-import {
-  buildSyntheticMapping,
-  chapterToEpisodes,
-  episodeToChapters,
-} from "@/data";
+import { buildSyntheticMapping } from "@/data";
 import { useCatalog } from "@/data/catalog";
 import { EpisodeChapterRail } from "@/components/EpisodeChapterRail";
 import { Footer } from "@/components/Footer";
 import { Paragraph } from "@/components/Paragraph";
+import { QuickLookup } from "@/components/QuickLookup";
 import { formatAniListDate } from "@/data/format";
-import type { AnimeFranchise, PressableState, SeriesMapping } from "@/types";
+import type { AnimeFranchise, PressableState } from "@/types";
 import { COLOR, FONT } from "@/theme";
 
 export default function AnimeDetail() {
@@ -233,74 +229,6 @@ function SeasonsList({
   );
 }
 
-function QuickLookup({ mapping }: { mapping: SeriesMapping | null }) {
-  const [epInput, setEpInput] = useState("");
-  const [chInput, setChInput] = useState("");
-
-  if (!mapping) return null;
-
-  const epNum = Number(epInput);
-  const chNum = Number(chInput);
-  const fromEp =
-    !Number.isNaN(epNum) && epNum > 0
-      ? episodeToChapters(mapping, epNum)
-      : null;
-  const fromCh =
-    !Number.isNaN(chNum) && chNum > 0
-      ? chapterToEpisodes(mapping, chNum)
-      : null;
-
-  return (
-    <View style={styles.lookup}>
-      <Text style={styles.sectionTitle}>Quick lookup</Text>
-      <View style={styles.lookupRow}>
-        <Text style={styles.lookupLabel}>I finished episode</Text>
-        <TextInput
-          value={epInput}
-          onChangeText={setEpInput}
-          keyboardType="number-pad"
-          style={styles.lookupInput}
-          placeholder="e.g. 12"
-          accessibilityLabel="I finished episode"
-          placeholderTextColor={COLOR.textFaint}
-        />
-        <Text
-          style={styles.lookupResult}
-          accessibilityRole="text"
-          accessibilityLiveRegion="polite"
-          accessibilityLabel={
-            fromEp ? `chapters ${fromEp[0]} to ${fromEp[1]}` : "no match"
-          }
-        >
-          → {fromEp ? `chapters ${fromEp[0]}–${fromEp[1]}` : "—"}
-        </Text>
-      </View>
-      <View style={styles.lookupRow}>
-        <Text style={styles.lookupLabel}>I finished chapter</Text>
-        <TextInput
-          value={chInput}
-          onChangeText={setChInput}
-          keyboardType="number-pad"
-          style={styles.lookupInput}
-          placeholder="e.g. 50"
-          accessibilityLabel="I finished chapter"
-          placeholderTextColor={COLOR.textFaint}
-        />
-        <Text
-          style={styles.lookupResult}
-          accessibilityRole="text"
-          accessibilityLiveRegion="polite"
-          accessibilityLabel={
-            fromCh ? `episodes ${fromCh[0]} to ${fromCh[1]}` : "no match"
-          }
-        >
-          → {fromCh ? `episodes ${fromCh[0]}–${fromCh[1]}` : "—"}
-        </Text>
-      </View>
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
   root: { flex: 1 },
   content: { padding: 16, gap: 20 },
@@ -373,27 +301,6 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     fontFamily: FONT.regular,
   },
-  lookup: { gap: 12, paddingTop: 8 },
-  lookupRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-    flexWrap: "wrap",
-  },
-  lookupLabel: {
-    color: COLOR.textSecondary,
-    fontSize: 13,
-    fontFamily: FONT.medium,
-  },
-  lookupInput: {
-    backgroundColor: COLOR.surface,
-    color: COLOR.textPrimary,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    minWidth: 80,
-    fontFamily: FONT.regular,
-  },
-  lookupResult: { color: COLOR.accent, fontSize: 13, fontFamily: FONT.bold },
   franchiseTotal: {
     color: COLOR.accent,
     fontSize: 13,

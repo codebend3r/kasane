@@ -1,38 +1,29 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
   ActivityIndicator,
-  Animated,
   Image,
-  Pressable,
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 import { getMedia } from "@/api/anilist";
 import { getMangaDexInfoByAniListId } from "@/api/mangadex";
-import {
-  buildSyntheticMapping,
-  chapterToEpisodes,
-  episodeToChapters,
-} from "@/data";
+import { buildSyntheticMapping } from "@/data";
 import { useCatalog } from "@/data/catalog";
 import { EpisodeChapterRail } from "@/components/EpisodeChapterRail";
 import { Footer } from "@/components/Footer";
 import { Paragraph } from "@/components/Paragraph";
+import { QuickLookup } from "@/components/QuickLookup";
+import { SeasonCoverage } from "@/components/SeasonCoverage";
+import { VolumesGrid } from "@/components/VolumesGrid";
 import {
   formatAniListDate,
   formatAniListDateJa,
   localeLabel,
 } from "@/data/format";
-import type {
-  MangaDexVolumeCover,
-  PressableState,
-  SeriesMapping,
-} from "@/types";
 import { COLOR, FONT } from "@/theme";
 
 export default function MangaDetail() {
@@ -165,7 +156,7 @@ export default function MangaDetail() {
               <SeasonCoverage mapping={curatedMapping} />
             </View>
           )}
-          <QuickLookup mapping={mapping} />
+          <QuickLookup mapping={mapping} lead="chapter" showSeason />
         </View>
       ) : (
         <View style={styles.noMapping}>
@@ -219,269 +210,6 @@ export default function MangaDetail() {
 
       <Footer />
     </ScrollView>
-  );
-}
-
-type VolumeGroup = {
-  volume: number;
-  primary: MangaDexVolumeCover;
-  variants: MangaDexVolumeCover[];
-};
-
-const LOCALE_RANK: Record<string, number> = { ja: 0, en: 1 };
-
-function groupCovers(covers: MangaDexVolumeCover[]): VolumeGroup[] {
-  const groups = new Map<number, MangaDexVolumeCover[]>();
-  for (const c of covers) {
-    const n = Number(c.volume);
-    if (!Number.isFinite(n)) continue;
-    const base = Math.floor(n);
-    if (!groups.has(base)) groups.set(base, []);
-    groups.get(base)!.push(c);
-  }
-  return Array.from(groups.entries())
-    .sort(([a], [b]) => a - b)
-    .map(([volume, list]) => {
-      const sorted = [...list].sort((a, b) => {
-        const aIsInt = !a.volume.includes(".");
-        const bIsInt = !b.volume.includes(".");
-        if (aIsInt !== bIsInt) return aIsInt ? -1 : 1;
-        const ra = LOCALE_RANK[a.locale] ?? 99;
-        const rb = LOCALE_RANK[b.locale] ?? 99;
-        if (ra !== rb) return ra - rb;
-        return a.volume.localeCompare(b.volume);
-      });
-      return { volume, primary: sorted[0], variants: sorted.slice(1) };
-    });
-}
-
-function VolumesGrid({ covers }: { covers: MangaDexVolumeCover[] }) {
-  const groups = useMemo(() => groupCovers(covers), [covers]);
-  return (
-    <View style={styles.volumeGrid}>
-      {groups.map((group) => (
-        <VolumeCard key={`vol-${group.volume}`} group={group} />
-      ))}
-    </View>
-  );
-}
-
-function coverKey(c: MangaDexVolumeCover): string {
-  return `${c.volume}-${c.locale}`;
-}
-
-function VolumeCard({ group }: { group: VolumeGroup }) {
-  const allCovers = useMemo(() => [group.primary, ...group.variants], [group]);
-  const [selectedKey, setSelectedKey] = useState<string>(
-    coverKey(group.primary),
-  );
-  const [isOpen, setIsOpen] = useState(false);
-
-  const primary =
-    allCovers.find((c) => coverKey(c) === selectedKey) ?? group.primary;
-  const variants = allCovers.filter((c) => c !== primary);
-  const hasVariants = variants.length > 0;
-
-  const [scale] = useState(() => new Animated.Value(1));
-  const [isHovered, setIsHovered] = useState(false);
-  const animateTo = (toValue: number) =>
-    Animated.timing(scale, {
-      toValue,
-      duration: 120,
-      useNativeDriver: true,
-    }).start();
-
-  return (
-    <View style={[styles.volumeCard, isHovered && styles.volumeCardHovered]}>
-      <Pressable
-        onPress={() => hasVariants && setIsOpen((v) => !v)}
-        accessibilityRole={hasVariants ? "button" : "image"}
-        accessibilityLabel={
-          hasVariants
-            ? `Volume ${group.volume} cover, ${variants.length} more editions`
-            : `Volume ${group.volume} cover`
-        }
-        accessibilityState={hasVariants ? { expanded: isOpen } : undefined}
-        onHoverIn={() => {
-          setIsHovered(true);
-          animateTo(1.6);
-        }}
-        onHoverOut={() => {
-          setIsHovered(false);
-          animateTo(1);
-        }}
-        style={({ pressed }: PressableState) => [
-          styles.volumeCardPress,
-          { opacity: pressed ? 0.7 : 1 },
-        ]}
-      >
-        <Animated.View
-          style={[styles.volumeCardInner, { transform: [{ scale }] }]}
-        >
-          <View style={styles.volumeCoverWrap}>
-            <Image
-              source={{ uri: primary.thumbUrl }}
-              accessibilityElementsHidden
-              importantForAccessibility="no-hide-descendants"
-              style={styles.volumeCover}
-            />
-            {hasVariants && (
-              <View style={styles.variantBadge}>
-                <Text style={styles.variantBadgeText}>+{variants.length}</Text>
-              </View>
-            )}
-          </View>
-          <View style={styles.volumeLabels}>
-            <Text style={styles.volumeNumber}>Vol. {group.volume}</Text>
-            <Text style={styles.volumeLocale}>
-              {localeLabel(primary.locale)}
-            </Text>
-          </View>
-        </Animated.View>
-      </Pressable>
-      {isOpen && (
-        <View style={styles.variantRow}>
-          {variants.map((v) => (
-            <Pressable
-              key={coverKey(v)}
-              onPress={() => setSelectedKey(coverKey(v))}
-              accessibilityRole="button"
-              accessibilityLabel={`Show the ${v.locale ?? "default"} cover for volume ${v.volume}`}
-              style={({ hovered, pressed }: PressableState) => [
-                styles.variantCell,
-                { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
-              ]}
-            >
-              <Image
-                source={{ uri: v.thumbUrl }}
-                accessibilityElementsHidden
-                importantForAccessibility="no-hide-descendants"
-                style={styles.variantThumb}
-              />
-              <Text style={styles.variantLabel}>
-                {v.volume}
-                {v.locale && v.locale !== primary.locale
-                  ? ` · ${v.locale.toUpperCase()}`
-                  : ""}
-              </Text>
-            </Pressable>
-          ))}
-        </View>
-      )}
-    </View>
-  );
-}
-
-function SeasonCoverage({ mapping }: { mapping: SeriesMapping }) {
-  const seasonBuckets = useMemo(() => {
-    const m = new Map<string, typeof mapping.mappings>();
-    for (const entry of mapping.mappings) {
-      if (!entry.episodes) continue;
-      const key = entry.season ? `Season ${entry.season}` : "Other";
-      if (!m.has(key)) m.set(key, []);
-      m.get(key)!.push(entry);
-    }
-    return Array.from(m.entries());
-  }, [mapping]);
-
-  if (seasonBuckets.length === 0) return null;
-  if (seasonBuckets.length === 1 && seasonBuckets[0][0] === "Other")
-    return null;
-
-  return (
-    <View style={styles.seasonBlock}>
-      <Text style={styles.seasonLabel}>Per-season chapter coverage</Text>
-      {seasonBuckets.map(([label, entries]) => {
-        const minCh = Math.min(...entries.map((e) => e.chapters[0]));
-        const maxCh = Math.max(...entries.map((e) => e.chapters[1]));
-        const minEp = Math.min(...entries.map((e) => e.episodes![0]));
-        const maxEp = Math.max(...entries.map((e) => e.episodes![1]));
-        return (
-          <View key={label} style={styles.seasonRow}>
-            <Text style={styles.seasonName}>{label}</Text>
-            <Text style={styles.seasonMeta}>
-              Eps {minEp}–{maxEp} · Ch {minCh}–{maxCh}
-            </Text>
-          </View>
-        );
-      })}
-    </View>
-  );
-}
-
-function QuickLookup({ mapping }: { mapping: SeriesMapping }) {
-  const [chInput, setChInput] = useState("");
-  const [epInput, setEpInput] = useState("");
-
-  const chNum = Number(chInput);
-  const epNum = Number(epInput);
-  const fromCh =
-    !Number.isNaN(chNum) && chNum > 0
-      ? chapterToEpisodes(mapping, chNum)
-      : null;
-  const fromEp =
-    !Number.isNaN(epNum) && epNum > 0
-      ? episodeToChapters(mapping, epNum)
-      : null;
-  const seasonForCh = useMemo(() => {
-    if (!chNum) return null;
-    const hit = mapping.mappings.find(
-      (m) => chNum >= m.chapters[0] && chNum <= m.chapters[1],
-    );
-    return hit?.season ?? null;
-  }, [chNum, mapping]);
-
-  return (
-    <View style={styles.lookup}>
-      <Text style={styles.sectionTitle}>Quick lookup</Text>
-      <View style={styles.lookupRow}>
-        <Text style={styles.lookupLabel}>I finished chapter</Text>
-        <TextInput
-          value={chInput}
-          onChangeText={setChInput}
-          keyboardType="number-pad"
-          style={styles.lookupInput}
-          placeholder="e.g. 38"
-          accessibilityLabel="I finished chapter"
-          placeholderTextColor={COLOR.textFaint}
-        />
-        <Text
-          style={styles.lookupResult}
-          accessibilityRole="text"
-          accessibilityLiveRegion="polite"
-          accessibilityLabel={
-            fromCh
-              ? `episodes ${fromCh[0]} to ${fromCh[1]}${seasonForCh ? `, season ${seasonForCh}` : ""}`
-              : "no match"
-          }
-        >
-          → {fromCh ? `episodes ${fromCh[0]}–${fromCh[1]}` : "—"}
-          {seasonForCh ? ` (S${seasonForCh})` : ""}
-        </Text>
-      </View>
-      <View style={styles.lookupRow}>
-        <Text style={styles.lookupLabel}>I finished episode</Text>
-        <TextInput
-          value={epInput}
-          onChangeText={setEpInput}
-          keyboardType="number-pad"
-          style={styles.lookupInput}
-          placeholder="e.g. 12"
-          accessibilityLabel="I finished episode"
-          placeholderTextColor={COLOR.textFaint}
-        />
-        <Text
-          style={styles.lookupResult}
-          accessibilityRole="text"
-          accessibilityLiveRegion="polite"
-          accessibilityLabel={
-            fromEp ? `chapters ${fromEp[0]} to ${fromEp[1]}` : "no match"
-          }
-        >
-          → {fromEp ? `chapters ${fromEp[0]}–${fromEp[1]}` : "—"}
-        </Text>
-      </View>
-    </View>
   );
 }
 
@@ -594,123 +322,7 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     fontFamily: FONT.regular,
   },
-  seasonBlock: {
-    padding: 12,
-    backgroundColor: COLOR.surface,
-    gap: 6,
-  },
-  seasonLabel: {
-    color: COLOR.textMuted,
-    fontSize: 11,
-    letterSpacing: 1.4,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-    paddingBottom: 4,
-  },
-  seasonRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "baseline",
-    gap: 12,
-  },
-  seasonName: {
-    color: COLOR.textPrimary,
-    fontSize: 14,
-    fontFamily: FONT.semibold,
-  },
-  seasonMeta: {
-    color: COLOR.textSecondary,
-    fontSize: 12,
-    fontFamily: FONT.regular,
-  },
   volumesBlock: { gap: 12 },
-  volumeGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 12,
-  },
-  volumeCard: {
-    width: 120,
-    gap: 4,
-    position: "relative",
-    zIndex: 1,
-  },
-  volumeCardHovered: {
-    zIndex: 10,
-  },
-  volumeCardPress: {
-    width: 120,
-  },
-  volumeCardInner: {
-    width: 120,
-    gap: 4,
-  },
-  volumeCoverWrap: {
-    width: 120,
-    height: 180,
-    position: "relative",
-  },
-  volumeCover: {
-    width: 120,
-    height: 180,
-    backgroundColor: COLOR.coverPlaceholder,
-    borderWidth: 1,
-    borderColor: COLOR.coverBorder,
-  },
-  variantBadge: {
-    position: "absolute",
-    top: 6,
-    right: 6,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    backgroundColor: COLOR.accentTranslucent,
-  },
-  variantBadgeText: {
-    color: COLOR.textOnAccent,
-    fontSize: 10,
-    letterSpacing: 0.6,
-    fontFamily: FONT.bold,
-  },
-  variantRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 6,
-    paddingTop: 4,
-    width: 120,
-  },
-  variantCell: {
-    width: 36,
-    gap: 2,
-  },
-  variantThumb: {
-    width: 36,
-    height: 54,
-    backgroundColor: COLOR.coverPlaceholder,
-  },
-  variantLabel: {
-    color: COLOR.textMuted,
-    fontSize: 9,
-    fontFamily: FONT.semibold,
-    letterSpacing: 0.4,
-  },
-  volumeLabels: {
-    width: 120,
-    backgroundColor: COLOR.coverBackdrop,
-    padding: 6,
-    gap: 2,
-  },
-  volumeNumber: {
-    color: COLOR.textPrimary,
-    fontSize: 13,
-    fontFamily: FONT.bold,
-  },
-  volumeLocale: {
-    color: COLOR.textMuted,
-    fontSize: 11,
-    letterSpacing: 0.8,
-    textTransform: "uppercase",
-    fontFamily: FONT.semibold,
-  },
   titlesBlock: { gap: 8 },
   titlesList: { gap: 6 },
   titleRow: {
@@ -747,25 +359,4 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     fontFamily: FONT.regular,
   },
-  lookup: { gap: 12, paddingTop: 8 },
-  lookupRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-    flexWrap: "wrap",
-  },
-  lookupLabel: {
-    color: COLOR.textSecondary,
-    fontSize: 13,
-    fontFamily: FONT.medium,
-  },
-  lookupInput: {
-    backgroundColor: COLOR.surface,
-    color: COLOR.textPrimary,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    minWidth: 80,
-    fontFamily: FONT.regular,
-  },
-  lookupResult: { color: COLOR.accent, fontSize: 13, fontFamily: FONT.bold },
 });
