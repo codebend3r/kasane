@@ -14,8 +14,10 @@ import { getAnimeFranchise, getMedia, hasAnimeSequels } from "@/api/anilist";
 import { getMangaDexInfoByAniListId } from "@/api/mangadex";
 import { buildSyntheticMapping } from "@/data";
 import { useCatalog } from "@/data/catalog";
+import { AutoEstimatedBanner } from "@/components/AutoEstimatedBanner";
 import { EpisodeChapterRail } from "@/components/EpisodeChapterRail";
 import { Footer } from "@/components/Footer";
+import { NoMappingNotice } from "@/components/NoMappingNotice";
 import { Paragraph } from "@/components/Paragraph";
 import { QuickLookup } from "@/components/QuickLookup";
 import { formatAniListDate } from "@/data/format";
@@ -148,17 +150,7 @@ export default function AnimeDetail() {
         <>
           <Text style={styles.sectionTitle}>Episode ↔ Chapter map</Text>
           {isAutoEstimated && (
-            <View style={styles.autoBanner}>
-              <View style={styles.autoBadge}>
-                <Text style={styles.autoBadgeText}>AUTO-ESTIMATED</Text>
-              </View>
-              <Paragraph style={styles.autoBannerBody}>
-                Linear pacing — anime episode count distributed evenly across
-                the manga chapter count. Real arcs rarely adapt at a uniform
-                rate, so treat numbers as a rough guide. A curated mapping
-                overrides this estimate.
-              </Paragraph>
-            </View>
+            <AutoEstimatedBanner body="Linear pacing — anime episode count distributed evenly across the manga chapter count. Real arcs rarely adapt at a uniform rate, so treat numbers as a rough guide. A curated mapping overrides this estimate." />
           )}
           <EpisodeChapterRail
             mapping={mapping}
@@ -168,13 +160,7 @@ export default function AnimeDetail() {
           <QuickLookup mapping={mapping} />
         </>
       ) : (
-        <View style={styles.noMapping}>
-          <Text style={styles.noMappingTitle}>No mapping available yet</Text>
-          <Paragraph style={styles.noMappingBody}>
-            We couldn&apos;t find an anime↔manga adaptation pair on AniList for
-            this entry, and no curated mapping exists for it yet.
-          </Paragraph>
-        </View>
+        <NoMappingNotice />
       )}
       <Footer />
     </ScrollView>
@@ -264,43 +250,6 @@ const styles = StyleSheet.create({
     fontFamily: FONT.bold,
   },
   empty: { color: COLOR.textMuted, fontFamily: FONT.regular },
-  autoBanner: {
-    padding: 14,
-    backgroundColor: COLOR.surfaceNotice,
-    borderLeftWidth: 4,
-    borderLeftColor: COLOR.notice,
-    gap: 8,
-  },
-  autoBadge: {
-    alignSelf: "flex-start",
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    backgroundColor: COLOR.notice,
-  },
-  autoBadgeText: {
-    color: COLOR.background,
-    fontSize: 11,
-    letterSpacing: 1.5,
-    fontFamily: FONT.bold,
-  },
-  autoBannerBody: {
-    color: COLOR.textSecondary,
-    fontSize: 13,
-    lineHeight: 19,
-    fontFamily: FONT.regular,
-  },
-  noMapping: {
-    padding: 16,
-    backgroundColor: COLOR.surface,
-    gap: 6,
-  },
-  noMappingTitle: { color: COLOR.notice, fontFamily: FONT.bold },
-  noMappingBody: {
-    color: COLOR.textSecondary,
-    fontSize: 13,
-    lineHeight: 18,
-    fontFamily: FONT.regular,
-  },
   franchiseTotal: {
     color: COLOR.accent,
     fontSize: 13,

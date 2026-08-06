@@ -13,17 +13,16 @@ import { getMedia } from "@/api/anilist";
 import { getMangaDexInfoByAniListId } from "@/api/mangadex";
 import { buildSyntheticMapping } from "@/data";
 import { useCatalog } from "@/data/catalog";
+import { AutoEstimatedBanner } from "@/components/AutoEstimatedBanner";
 import { EpisodeChapterRail } from "@/components/EpisodeChapterRail";
 import { Footer } from "@/components/Footer";
+import { NoMappingNotice } from "@/components/NoMappingNotice";
 import { Paragraph } from "@/components/Paragraph";
 import { QuickLookup } from "@/components/QuickLookup";
 import { SeasonCoverage } from "@/components/SeasonCoverage";
+import { TitlesList } from "@/components/TitlesList";
 import { VolumesGrid } from "@/components/VolumesGrid";
-import {
-  formatAniListDate,
-  formatAniListDateJa,
-  localeLabel,
-} from "@/data/format";
+import { formatAniListDate, formatAniListDateJa } from "@/data/format";
 import { COLOR, FONT } from "@/theme";
 
 export default function MangaDetail() {
@@ -134,18 +133,7 @@ export default function MangaDetail() {
             This manga is adapted across the following anime arcs. Tap a band
             for episode-by-episode chapter alignment.
           </Paragraph>
-          {isAutoEstimated && (
-            <View style={styles.autoBanner}>
-              <View style={styles.autoBadge}>
-                <Text style={styles.autoBadgeText}>AUTO-ESTIMATED</Text>
-              </View>
-              <Paragraph style={styles.autoBannerBody}>
-                Linear pacing — anime episode count distributed evenly across
-                the manga chapter count. Real pacing varies; a curated mapping
-                overrides this estimate.
-              </Paragraph>
-            </View>
-          )}
+          {isAutoEstimated && <AutoEstimatedBanner />}
           <EpisodeChapterRail
             mapping={mapping}
             seriesId={String(mediaId)}
@@ -159,15 +147,10 @@ export default function MangaDetail() {
           <QuickLookup mapping={mapping} lead="chapter" showSeason />
         </View>
       ) : (
-        <View style={styles.noMapping}>
-          <Text style={styles.noMappingTitle}>
-            No anime adaptation mapped yet
-          </Text>
-          <Paragraph style={styles.noMappingBody}>
-            No curated or auto-estimated mapping is available for this manga
-            yet.
-          </Paragraph>
-        </View>
+        <NoMappingNotice
+          title="No anime adaptation mapped yet"
+          body="No curated or auto-estimated mapping is available for this manga yet."
+        />
       )}
 
       <View style={styles.volumesBlock}>
@@ -185,19 +168,7 @@ export default function MangaDetail() {
         )}
       </View>
 
-      {mangadex && mangadex.titles.length > 1 && (
-        <View style={styles.titlesBlock}>
-          <Text style={styles.sectionTitle}>Titles & translations</Text>
-          <View style={styles.titlesList}>
-            {mangadex.titles.map((t, idx) => (
-              <View key={`${t.locale}-${idx}`} style={styles.titleRow}>
-                <Text style={styles.titleLocale}>{localeLabel(t.locale)}</Text>
-                <Text style={styles.titleValue}>{t.value}</Text>
-              </View>
-            ))}
-          </View>
-        </View>
-      )}
+      {!!mangadex && <TitlesList titles={mangadex.titles} />}
 
       <View style={styles.sourcesWrap}>
         <View style={styles.sources}>
@@ -285,68 +256,7 @@ const styles = StyleSheet.create({
   spinnerWrap: { paddingTop: 12 },
   seasonWrap: { paddingTop: 4 },
   mappingBlock: { gap: 10 },
-  autoBanner: {
-    padding: 14,
-    backgroundColor: COLOR.surfaceNotice,
-    borderLeftWidth: 4,
-    borderLeftColor: COLOR.notice,
-    gap: 8,
-  },
-  autoBadge: {
-    alignSelf: "flex-start",
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    backgroundColor: COLOR.notice,
-  },
-  autoBadgeText: {
-    color: COLOR.background,
-    fontSize: 11,
-    letterSpacing: 1.5,
-    fontFamily: FONT.bold,
-  },
-  autoBannerBody: {
-    color: COLOR.textSecondary,
-    fontSize: 13,
-    lineHeight: 19,
-    fontFamily: FONT.regular,
-  },
-  noMapping: {
-    padding: 16,
-    backgroundColor: COLOR.surface,
-    gap: 6,
-  },
-  noMappingTitle: { color: COLOR.notice, fontFamily: FONT.bold },
-  noMappingBody: {
-    color: COLOR.textSecondary,
-    fontSize: 13,
-    lineHeight: 18,
-    fontFamily: FONT.regular,
-  },
   volumesBlock: { gap: 12 },
-  titlesBlock: { gap: 8 },
-  titlesList: { gap: 6 },
-  titleRow: {
-    flexDirection: "row",
-    gap: 12,
-    alignItems: "baseline",
-    paddingVertical: 4,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: COLOR.surfaceRaised,
-  },
-  titleLocale: {
-    color: COLOR.accent,
-    fontSize: 11,
-    letterSpacing: 1.2,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-    minWidth: 130,
-  },
-  titleValue: {
-    color: COLOR.textPrimary,
-    fontSize: 14,
-    flex: 1,
-    fontFamily: FONT.regular,
-  },
   sourcesWrap: { paddingTop: 8 },
   sources: {
     paddingTop: 12,
