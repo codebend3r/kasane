@@ -61,6 +61,7 @@ export function SideMenu() {
         <Pressable
           style={styles.scrimPress}
           onPress={close}
+          accessibilityRole="button"
           accessibilityLabel="Close menu"
         />
       </Animated.View>
@@ -76,6 +77,7 @@ export function SideMenu() {
           <Pressable
             onPress={close}
             hitSlop={10}
+            accessibilityRole="button"
             accessibilityLabel="Close menu"
             style={({ hovered, pressed }: PressableState) => [
               { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
@@ -95,6 +97,9 @@ export function SideMenu() {
                   close();
                   router.push(link.href);
                 }}
+                accessibilityRole="link"
+                accessibilityLabel={link.label}
+                accessibilityState={{ selected: active }}
                 style={({ hovered, pressed }: PressableState) => [
                   styles.link,
                   active && styles.linkActive,

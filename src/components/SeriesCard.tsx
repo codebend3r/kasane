@@ -81,7 +81,11 @@ export function SeriesCard({ entry }: { entry: SeriesEntry }) {
 
   return (
     <Link href={{ pathname: "/series/[id]", params: { id: routeId } }} asChild>
-      <Pressable style={styles.card}>
+      <Pressable
+        accessibilityRole="link"
+        accessibilityLabel={`${title}. ${parts.join(", ")}`}
+        style={styles.card}
+      >
         <View style={styles.cardRow}>
           <Image
             source={{ uri: primary.coverImage.large }}

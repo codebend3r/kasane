@@ -60,6 +60,8 @@ export function ProgressMarkBanner({
         <Pressable
           onPress={onDismiss}
           hitSlop={10}
+          accessibilityRole="button"
+          accessibilityLabel="Dismiss"
           style={({ pressed }) => [
             styles.closeBtn,
             { opacity: pressed ? 0.6 : 1 },
@@ -78,6 +80,8 @@ export function ProgressMarkBanner({
         {!!event.suggestion && (
           <Pressable
             onPress={acceptSuggestion}
+            accessibilityRole="button"
+            accessibilityLabel={`Mark ${event.suggestion.side} progress`}
             style={({ pressed }) => [
               styles.primaryBtn,
               { opacity: pressed ? 0.7 : 1 },
@@ -90,6 +94,8 @@ export function ProgressMarkBanner({
         )}
         <Pressable
           onPress={undo}
+          accessibilityRole="button"
+          accessibilityLabel="Undo this progress mark"
           style={({ pressed }) => [
             styles.secondaryBtn,
             { opacity: pressed ? 0.7 : 1 },

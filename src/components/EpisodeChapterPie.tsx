@@ -219,6 +219,10 @@ export function EpisodeChapterPie({
     <View style={styles.outer}>
       <Pressable
         ref={containerRef}
+        accessibilityRole="summary"
+        accessibilityLabel={`Arc coverage. ${percentAdapted}% of the mapped chapters are adapted. ${slices
+          .map((s) => `${s.label}, up to chapter ${s.chapterEnd}`)
+          .join(". ")}`}
         onPress={onPress}
         onLongPress={onLongPress}
         delayLongPress={LONG_PRESS_MS}

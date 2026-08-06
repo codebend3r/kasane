@@ -151,6 +151,13 @@ function VolumeCard({
     <View style={[styles.card, { width }, isHovered && styles.cardHovered]}>
       <Pressable
         onPress={() => hasVariants && setIsOpen((v) => !v)}
+        accessibilityRole={hasVariants ? "button" : "image"}
+        accessibilityLabel={
+          hasVariants
+            ? `Volume ${group.volume} cover, ${variants.length} more editions`
+            : `Volume ${group.volume} cover`
+        }
+        accessibilityState={hasVariants ? { expanded: isOpen } : undefined}
         onHoverIn={() => {
           setIsHovered(true);
           animateTo(1.6);
@@ -187,6 +194,8 @@ function VolumeCard({
             <Pressable
               key={coverKey(v)}
               onPress={() => setSelectedKey(coverKey(v))}
+              accessibilityRole="button"
+              accessibilityLabel={`Show the ${localeLabel(v.locale)} cover for volume ${v.volume}`}
               style={({ hovered, pressed }: PressableState) => [
                 styles.variantCell,
                 { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },

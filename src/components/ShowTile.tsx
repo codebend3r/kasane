@@ -33,6 +33,8 @@ export function ShowTile({
   return (
     <Pressable
       onPress={() => router.push(`/series/${show.routeId}`)}
+      accessibilityRole="link"
+      accessibilityLabel={`${show.title}. ${showMeta(show)}`}
       style={({ hovered, pressed }: PressableState) => [
         styles.tile,
         { width, opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },

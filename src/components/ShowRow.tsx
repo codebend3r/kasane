@@ -34,6 +34,8 @@ export function ShowRow({
   return (
     <Pressable
       onPress={() => router.push(`/series/${show.routeId}`)}
+      accessibilityRole="link"
+      accessibilityLabel={`${show.title}. ${showMeta(show)}`}
       style={({ hovered, pressed }: PressableState) => [
         styles.row,
         { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },

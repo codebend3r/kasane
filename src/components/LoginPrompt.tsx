@@ -30,6 +30,8 @@ export function LoginPrompt() {
               dismiss();
               router.push("/login");
             }}
+            accessibilityRole="link"
+            accessibilityLabel="Log in"
             style={({ hovered, pressed }: PressableState) => [
               styles.primary,
               { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
@@ -40,6 +42,8 @@ export function LoginPrompt() {
           <Pressable
             onPress={dismiss}
             hitSlop={6}
+            accessibilityRole="button"
+            accessibilityLabel="Dismiss the log in prompt"
             style={({ hovered, pressed }: PressableState) => [
               styles.secondary,
               { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },

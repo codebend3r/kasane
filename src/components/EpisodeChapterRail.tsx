@@ -12,6 +12,34 @@ import { HoverLabel, useHoverLabel, type MouseLike } from "./HoverLabel";
 const BAR_HEIGHT = 44;
 const LONG_PRESS_MS = 320;
 
+// The rail is pure colour and geometry, so a screen reader needs the same
+// facts in words. Label the group; the arc detail route carries the per-arc
+// breakdown, so individual bars stay out of the accessibility tree.
+const arcName = (arc: string | undefined, from: number, to: number): string =>
+  arc ?? `${from} to ${to}`;
+
+const episodeSummary = (mapping: SeriesMapping): string => {
+  const parts = mapping.mappings.flatMap((m) =>
+    m.episodes
+      ? [
+          `${arcName(m.arc, m.episodes[0], m.episodes[1])}, episodes ${m.episodes[0]} to ${m.episodes[1]}`,
+        ]
+      : [],
+  );
+  return `Anime episodes by arc. ${parts.join(". ")}`;
+};
+
+const chapterSummary = (mapping: SeriesMapping): string => {
+  const parts = mapping.mappings.map((m) => {
+    const label = arcName(m.arc, m.chapters[0], m.chapters[1]);
+    const range = `chapters ${m.chapters[0]} to ${m.chapters[1]}`;
+    return m.episodes
+      ? `${label}, ${range}`
+      : `${label}, ${range}, not yet adapted`;
+  });
+  return `Manga chapters by arc. ${parts.join(". ")}`;
+};
+
 export function EpisodeChapterRail({
   mapping,
   seriesId,
@@ -76,7 +104,11 @@ export function EpisodeChapterRail({
   return (
     <View ref={containerRef} style={styles.container}>
       <Text style={styles.label}>Anime episodes →</Text>
-      <View style={styles.rail}>
+      <View
+        style={styles.rail}
+        accessibilityRole="summary"
+        accessibilityLabel={episodeSummary(mapping)}
+      >
         {mapping.mappings.map((m, idx) => {
           if (!m.episodes) return null;
           const eps = m.episodes;
@@ -86,6 +118,8 @@ export function EpisodeChapterRail({
           return (
             <Pressable
               key={`ep-${idx}`}
+              accessibilityElementsHidden
+              importantForAccessibility="no-hide-descendants"
               onPress={() => markSide("anime", eps[1])}
               onLongPress={() => goToArc(idx)}
               delayLongPress={LONG_PRESS_MS}
@@ -130,6 +164,8 @@ export function EpisodeChapterRail({
                 ]}
               >
                 <Pressable
+                  accessibilityRole="text"
+                  accessibilityLabel={label}
                   onHoverOut={clearHover}
                   // @ts-expect-error react-native-web forwards onMouseMove to the DOM
                   onMouseMove={(e: MouseLike) =>
@@ -153,7 +189,11 @@ export function EpisodeChapterRail({
       )}
 
       <Text style={styles.label}>Manga chapters →</Text>
-      <View style={styles.rail}>
+      <View
+        style={styles.rail}
+        accessibilityRole="summary"
+        accessibilityLabel={chapterSummary(mapping)}
+      >
         {mapping.mappings.map((m, idx) => {
           const span = m.chapters[1] - m.chapters[0] + 1;
           const unadapted = !m.episodes;
@@ -170,6 +210,8 @@ export function EpisodeChapterRail({
           return (
             <Pressable
               key={`ch-${idx}`}
+              accessibilityElementsHidden
+              importantForAccessibility="no-hide-descendants"
               onPress={() => markSide("manga", m.chapters[1])}
               onLongPress={() => goToArc(idx)}
               delayLongPress={LONG_PRESS_MS}

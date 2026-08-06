@@ -95,6 +95,7 @@ function GlobalHeader() {
       <Pressable
         onPress={() => openMenu()}
         hitSlop={10}
+        accessibilityRole="button"
         accessibilityLabel="Open menu"
         style={({ hovered, pressed }: PressableState) => [
           headerStyles.menuButton,
@@ -107,6 +108,8 @@ function GlobalHeader() {
         <Pressable
           onPress={() => router.back()}
           hitSlop={12}
+          accessibilityRole="button"
+          accessibilityLabel="Go back"
           style={({ pressed }: PressableState) => [
             headerStyles.back,
             { opacity: pressed ? 0.6 : 1 },
@@ -118,6 +121,8 @@ function GlobalHeader() {
       <Pressable
         onPress={() => router.replace("/")}
         hitSlop={8}
+        accessibilityRole="link"
+        accessibilityLabel="Kasane, go to home"
         style={({ hovered, pressed }: PressableState) => [
           headerStyles.wordmarkPressable,
           { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
@@ -146,6 +151,9 @@ function GlobalHeader() {
       <View style={headerStyles.spacer} />
       <Pressable
         onPress={toggleJapanese}
+        accessibilityRole="switch"
+        accessibilityLabel="Show titles in Japanese"
+        accessibilityState={{ checked: japanese }}
         style={({ hovered, pressed }: PressableState) => [
           headerStyles.langToggle,
           { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
@@ -157,6 +165,10 @@ function GlobalHeader() {
       </Pressable>
       <Pressable
         onPress={() => router.push("/login")}
+        accessibilityRole="link"
+        accessibilityLabel={
+          email ? `Account, signed in as ${email}` : "Sign in"
+        }
         style={({ hovered, pressed }: PressableState) => [
           headerStyles.accountPill,
           { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },

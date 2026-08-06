@@ -10,6 +10,8 @@ export function Footer() {
       <Pressable
         onPress={() => Linking.openURL("https://github.com/codebend3r")}
         hitSlop={6}
+        accessibilityRole="link"
+        accessibilityLabel="CJ Rivas on GitHub"
         style={({ hovered, pressed }: PressableState) => [
           { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
         ]}
@@ -21,6 +23,8 @@ export function Footer() {
       <Pressable
         onPress={() => Linking.openURL("https://github.com/codebend3r")}
         hitSlop={6}
+        accessibilityRole="link"
+        accessibilityLabel="Open the Kasane source on GitHub"
         style={({ hovered, pressed }: PressableState) => [
           { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
         ]}
