@@ -1,5 +1,5 @@
 ---
-name: kasane-reviewer
+name: convention-reviewer
 description: Reviews a kasane diff against this repo's specific conventions — the TypeScript and style rules in CLAUDE.md, the component and token structure, and the platform and RLS boundaries a generic review misses.
 tools: Bash, Read, Grep, Glob
 model: sonnet
