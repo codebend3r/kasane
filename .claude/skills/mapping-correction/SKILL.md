@@ -1,13 +1,13 @@
 ---
 name: mapping-correction
-description: Use when changing a series that already exists in kasane's catalog — a new season aired, the manga published past the last mapped arc, an arc boundary was wrong, a film is missing, or the `mapping-audit` script reported an error to fix. For a series with no catalog entry at all, use kasane-arc-mapping instead.
+description: Use when changing a series that already exists in the catalog — a new season aired, the manga published past the last mapped arc, an arc boundary was wrong, a film is missing, or the `mapping-audit` script reported an error to fix. For a series with no catalog entry at all, use arc-mapping instead.
 ---
 
 # Mapping Correction
 
-`kasane-arc-mapping` creates a series that does not exist yet and stops there. Everything after that first insert lands here: extending, renumbering, and correcting rows that users are already reading.
+`arc-mapping` creates a series that does not exist yet and stops there. Everything after that first insert lands here: extending, renumbering, and correcting rows that users are already reading.
 
-**REQUIRED BACKGROUND:** `kasane-arc-mapping` defines the schema, the cumulative-episode convention, and the research sources. This skill assumes them.
+**REQUIRED BACKGROUND:** `arc-mapping` defines the schema, the cumulative-episode convention, and the research sources. This skill assumes them.
 
 Corrections are database writes. No commit, no release. Clients pick them up on next launch, which also means a bad write is live immediately.
 
@@ -20,7 +20,7 @@ Corrections are database writes. No commit, no release. Clients pick them up on 
    from series s join arc_mappings a on a.series_id = s.id
    where s.title ilike '%<show>%' order by a.position;
    ```
-2. **Re-fetch the counts.** The AniList `curl` in `kasane-arc-mapping` step 1. Never carry forward a count from the original insert; that is what went stale.
+2. **Re-fetch the counts.** The AniList `curl` in `arc-mapping` step 1. Never carry forward a count from the original insert; that is what went stale.
 3. **Confirm the boundary against a source** (fandom wiki, Wikipedia episode list, AniList forum guide) before changing a number. An audit finding is a prompt to research, not a fact.
 
 ## The four corrections

@@ -112,7 +112,7 @@ The rules above are the always-on baseline. These skills carry the depth — rea
 | Logic in `src/data/`, `src/state/`, `src/api/`        | `domain-tests`          |
 | Routing, deep links, Netlify fallback, MangaDex proxy | `e2e`                   |
 | Schema, columns, policies, RLS                        | `supabase-migration`    |
-| Adding a series that has no catalog entry             | `kasane-arc-mapping`    |
+| Adding a series that has no catalog entry             | `arc-mapping`           |
 | Changing a series already in the catalog              | `mapping-correction`    |
 | Checking the catalog for bad data                     | `mapping-audit`         |
 | Quick lookup, the rail, arc detail, empty states      | `quick-lookup-ux`       |
