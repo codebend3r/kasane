@@ -102,6 +102,7 @@ export default function HomeScreen() {
         value={query}
         onChangeText={setQuery}
         placeholder="Search anime or manga…"
+        accessibilityRole="search"
         accessibilityLabel="Search anime or manga"
         placeholderTextColor={COLOR.textFaint}
         style={styles.input}
