@@ -174,4 +174,4 @@ investigation; skills load domain-specific guidance before a matching change.
 
 ## License
 
-MIT (TBD)
+[MIT](LICENSE)
