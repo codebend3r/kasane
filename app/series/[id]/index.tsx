@@ -39,7 +39,7 @@ import {
 import { usePreferences } from "@/state/preferences";
 import { useProgress, type ProgressSide } from "@/state/progress";
 import type { PressableState, SeriesBadge } from "@/types";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 
 type MappingView = "rail" | "pie";
 
@@ -167,7 +167,7 @@ export default function SeriesDetail() {
   if (isLoading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator color="#7c5cff" />
+        <ActivityIndicator color={COLOR.accent} />
       </View>
     );
   }
@@ -362,7 +362,7 @@ export default function SeriesDetail() {
           <Text style={styles.sectionTitle}>Volumes</Text>
           {mangadexLoading && !mangadex ? (
             <View style={styles.spinnerWrap}>
-              <ActivityIndicator color="#7c5cff" />
+              <ActivityIndicator color={COLOR.accent} />
             </View>
           ) : mangadex && mangadex.covers.length > 0 ? (
             <VolumesGrid covers={mangadex.covers} />
@@ -408,10 +408,10 @@ const styles = StyleSheet.create({
   center: { flex: 1, alignItems: "center", justifyContent: "center" },
   header: { flexDirection: "row", gap: 16 },
   headerMobile: { flexDirection: "column", alignItems: "center" },
-  cover: { width: 240, height: 340, backgroundColor: "#222" },
+  cover: { width: 240, height: 340, backgroundColor: COLOR.coverPlaceholder },
   coverAnimeOnly: {
     borderWidth: 2,
-    borderColor: "rgb(124, 92, 255)",
+    borderColor: COLOR.accent,
     borderBottomRightRadius: 16,
     cornerBottomRightShape: "bevel",
     overflow: "hidden",
@@ -428,30 +428,30 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     paddingHorizontal: 8,
     paddingVertical: 3,
-    backgroundColor: "#7c5cff",
+    backgroundColor: COLOR.accent,
   },
-  mappedBadge: { backgroundColor: "#5cdfff" },
+  mappedBadge: { backgroundColor: COLOR.highlight },
   badgeText: {
-    color: "#0c0c0e",
+    color: COLOR.background,
     fontSize: 11,
     letterSpacing: 1.4,
     fontFamily: FONT.bold,
   },
   title: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 32,
     letterSpacing: -1,
     fontFamily: FONT.bold,
     lineHeight: 36,
   },
   titleNative: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 18,
     fontFamily: FONT.medium,
     marginTop: -2,
   },
   sub: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 11,
     letterSpacing: 1.4,
     textTransform: "uppercase",
@@ -459,7 +459,7 @@ const styles = StyleSheet.create({
     paddingTop: 2,
   },
   dates: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 13,
     fontFamily: FONT.medium,
   },
@@ -467,26 +467,26 @@ const styles = StyleSheet.create({
   tag: {
     paddingHorizontal: 8,
     paddingVertical: 3,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     borderLeftWidth: 2,
-    borderLeftColor: "#7c5cff",
+    borderLeftColor: COLOR.accent,
   },
   tagText: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 11,
     letterSpacing: 0.8,
     fontFamily: FONT.semibold,
     textTransform: "uppercase",
   },
   description: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 14,
     lineHeight: 20,
     paddingTop: 8,
     fontFamily: FONT.regular,
   },
   sectionTitle: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 20,
     letterSpacing: -0.4,
     fontFamily: FONT.bold,
@@ -507,12 +507,12 @@ const styles = StyleSheet.create({
   viewToggle: {
     paddingHorizontal: 10,
     paddingVertical: 6,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     borderLeftWidth: 2,
-    borderLeftColor: "#7c5cff",
+    borderLeftColor: COLOR.accent,
   },
   viewToggleIcon: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 16,
     fontFamily: FONT.bold,
     lineHeight: 18,
@@ -520,52 +520,52 @@ const styles = StyleSheet.create({
   arcsBehindBadge: {
     paddingHorizontal: 12,
     paddingVertical: 8,
-    backgroundColor: "#2a2a2a",
+    backgroundColor: COLOR.surfaceRaised,
     borderLeftWidth: 4,
-    borderLeftColor: "#ffd65c",
+    borderLeftColor: COLOR.notice,
   },
   arcsBehindText: {
-    color: "#ffd65c",
+    color: COLOR.notice,
     fontSize: 14,
     letterSpacing: 1.4,
     fontFamily: FONT.bold,
   },
-  empty: { color: "#9aa0a6", fontFamily: FONT.regular, paddingTop: 8 },
+  empty: { color: COLOR.textMuted, fontFamily: FONT.regular, paddingTop: 8 },
   spinnerWrap: { paddingTop: 12 },
   mappingBlock: { gap: 10 },
   autoBanner: {
     padding: 14,
-    backgroundColor: "#1f1a2e",
+    backgroundColor: COLOR.surfaceNotice,
     borderLeftWidth: 4,
-    borderLeftColor: "#ffd65c",
+    borderLeftColor: COLOR.notice,
     gap: 8,
   },
   autoBadge: {
     alignSelf: "flex-start",
     paddingHorizontal: 8,
     paddingVertical: 3,
-    backgroundColor: "#ffd65c",
+    backgroundColor: COLOR.notice,
   },
   autoBadgeText: {
-    color: "#0c0c0e",
+    color: COLOR.background,
     fontSize: 11,
     letterSpacing: 1.5,
     fontFamily: FONT.bold,
   },
   autoBannerBody: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 13,
     lineHeight: 19,
     fontFamily: FONT.regular,
   },
   noMapping: {
     padding: 16,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     gap: 6,
   },
-  noMappingTitle: { color: "#ffd65c", fontFamily: FONT.bold },
+  noMappingTitle: { color: COLOR.notice, fontFamily: FONT.bold },
   noMappingBody: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 13,
     lineHeight: 18,
     fontFamily: FONT.regular,
@@ -579,10 +579,10 @@ const styles = StyleSheet.create({
     alignItems: "baseline",
     paddingVertical: 4,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: "#2a2a2a",
+    borderBottomColor: COLOR.surfaceRaised,
   },
   titleLocale: {
-    color: "#7c5cff",
+    color: COLOR.accent,
     fontSize: 11,
     letterSpacing: 1.2,
     textTransform: "uppercase",
@@ -590,7 +590,7 @@ const styles = StyleSheet.create({
     minWidth: 130,
   },
   titleValue: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 14,
     flex: 1,
     fontFamily: FONT.regular,
@@ -599,10 +599,10 @@ const styles = StyleSheet.create({
   sources: {
     paddingTop: 12,
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: "#2a2a2a",
+    borderTopColor: COLOR.surfaceRaised,
   },
   sourcesText: {
-    color: "#6b7177",
+    color: COLOR.textFaint,
     fontSize: 11,
     letterSpacing: 0.8,
     fontFamily: FONT.regular,

@@ -29,7 +29,7 @@ import {
   localeLabel,
 } from "@/data/format";
 import type { MangaDexVolumeCover, SeriesMapping } from "@/types";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 
 export default function MangaDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -65,7 +65,7 @@ export default function MangaDetail() {
   if (isLoading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator color="#7c5cff" />
+        <ActivityIndicator color={COLOR.accent} />
       </View>
     );
   }
@@ -175,7 +175,7 @@ export default function MangaDetail() {
         <Text style={styles.sectionTitle}>Volumes</Text>
         {mangadexLoading && !mangadex ? (
           <View style={styles.spinnerWrap}>
-            <ActivityIndicator color="#7c5cff" />
+            <ActivityIndicator color={COLOR.accent} />
           </View>
         ) : mangadex && mangadex.covers.length > 0 ? (
           <VolumesGrid covers={mangadex.covers} />
@@ -418,7 +418,7 @@ function QuickLookup({ mapping }: { mapping: SeriesMapping }) {
           keyboardType="number-pad"
           style={styles.lookupInput}
           placeholder="e.g. 38"
-          placeholderTextColor="#6b7177"
+          placeholderTextColor={COLOR.textFaint}
         />
         <Text style={styles.lookupResult}>
           → {fromCh ? `episodes ${fromCh[0]}–${fromCh[1]}` : "—"}
@@ -433,7 +433,7 @@ function QuickLookup({ mapping }: { mapping: SeriesMapping }) {
           keyboardType="number-pad"
           style={styles.lookupInput}
           placeholder="e.g. 12"
-          placeholderTextColor="#6b7177"
+          placeholderTextColor={COLOR.textFaint}
         />
         <Text style={styles.lookupResult}>
           → {fromEp ? `chapters ${fromEp[0]}–${fromEp[1]}` : "—"}
@@ -448,23 +448,23 @@ const styles = StyleSheet.create({
   content: { padding: 16, gap: 24, paddingBottom: 48 },
   center: { flex: 1, alignItems: "center", justifyContent: "center" },
   header: { flexDirection: "row", gap: 16 },
-  cover: { width: 140, height: 200, backgroundColor: "#222" },
+  cover: { width: 140, height: 200, backgroundColor: COLOR.coverPlaceholder },
   headerMeta: { flex: 1, gap: 6, minWidth: 240 },
   title: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 32,
     letterSpacing: -1,
     fontFamily: FONT.bold,
     lineHeight: 36,
   },
   titleNative: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 18,
     fontFamily: FONT.medium,
     marginTop: -2,
   },
   sub: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 11,
     letterSpacing: 1.4,
     textTransform: "uppercase",
@@ -472,7 +472,7 @@ const styles = StyleSheet.create({
     paddingTop: 2,
   },
   dates: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 13,
     fontFamily: FONT.medium,
   },
@@ -480,85 +480,85 @@ const styles = StyleSheet.create({
   tag: {
     paddingHorizontal: 8,
     paddingVertical: 3,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     borderLeftWidth: 2,
-    borderLeftColor: "#7c5cff",
+    borderLeftColor: COLOR.accent,
   },
   tagText: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 11,
     letterSpacing: 0.8,
     fontFamily: FONT.semibold,
     textTransform: "uppercase",
   },
   description: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 14,
     lineHeight: 20,
     paddingTop: 8,
     fontFamily: FONT.regular,
   },
   sectionTitle: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 20,
     letterSpacing: -0.4,
     fontFamily: FONT.bold,
   },
   sectionLead: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 13,
     lineHeight: 18,
     fontFamily: FONT.regular,
     marginTop: -4,
   },
-  empty: { color: "#9aa0a6", fontFamily: FONT.regular, paddingTop: 8 },
+  empty: { color: COLOR.textMuted, fontFamily: FONT.regular, paddingTop: 8 },
   spinnerWrap: { paddingTop: 12 },
   seasonWrap: { paddingTop: 4 },
   mappingBlock: { gap: 10 },
   autoBanner: {
     padding: 14,
-    backgroundColor: "#1f1a2e",
+    backgroundColor: COLOR.surfaceNotice,
     borderLeftWidth: 4,
-    borderLeftColor: "#ffd65c",
+    borderLeftColor: COLOR.notice,
     gap: 8,
   },
   autoBadge: {
     alignSelf: "flex-start",
     paddingHorizontal: 8,
     paddingVertical: 3,
-    backgroundColor: "#ffd65c",
+    backgroundColor: COLOR.notice,
   },
   autoBadgeText: {
-    color: "#0c0c0e",
+    color: COLOR.background,
     fontSize: 11,
     letterSpacing: 1.5,
     fontFamily: FONT.bold,
   },
   autoBannerBody: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 13,
     lineHeight: 19,
     fontFamily: FONT.regular,
   },
   noMapping: {
     padding: 16,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     gap: 6,
   },
-  noMappingTitle: { color: "#ffd65c", fontFamily: FONT.bold },
+  noMappingTitle: { color: COLOR.notice, fontFamily: FONT.bold },
   noMappingBody: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 13,
     lineHeight: 18,
     fontFamily: FONT.regular,
   },
   seasonBlock: {
     padding: 12,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     gap: 6,
   },
   seasonLabel: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 11,
     letterSpacing: 1.4,
     textTransform: "uppercase",
@@ -572,12 +572,12 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   seasonName: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 14,
     fontFamily: FONT.semibold,
   },
   seasonMeta: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 12,
     fontFamily: FONT.regular,
   },
@@ -611,9 +611,9 @@ const styles = StyleSheet.create({
   volumeCover: {
     width: 120,
     height: 180,
-    backgroundColor: "#222",
+    backgroundColor: COLOR.coverPlaceholder,
     borderWidth: 1,
-    borderColor: "#fff",
+    borderColor: COLOR.coverBorder,
   },
   variantBadge: {
     position: "absolute",
@@ -621,10 +621,10 @@ const styles = StyleSheet.create({
     right: 6,
     paddingHorizontal: 6,
     paddingVertical: 2,
-    backgroundColor: "rgba(124, 92, 255, 0.92)",
+    backgroundColor: COLOR.accentTranslucent,
   },
   variantBadgeText: {
-    color: "#fff",
+    color: COLOR.textOnAccent,
     fontSize: 10,
     letterSpacing: 0.6,
     fontFamily: FONT.bold,
@@ -643,27 +643,27 @@ const styles = StyleSheet.create({
   variantThumb: {
     width: 36,
     height: 54,
-    backgroundColor: "#222",
+    backgroundColor: COLOR.coverPlaceholder,
   },
   variantLabel: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 9,
     fontFamily: FONT.semibold,
     letterSpacing: 0.4,
   },
   volumeLabels: {
     width: 120,
-    backgroundColor: "#000",
+    backgroundColor: COLOR.coverBackdrop,
     padding: 6,
     gap: 2,
   },
   volumeNumber: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 13,
     fontFamily: FONT.bold,
   },
   volumeLocale: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 11,
     letterSpacing: 0.8,
     textTransform: "uppercase",
@@ -677,10 +677,10 @@ const styles = StyleSheet.create({
     alignItems: "baseline",
     paddingVertical: 4,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: "#2a2a2a",
+    borderBottomColor: COLOR.surfaceRaised,
   },
   titleLocale: {
-    color: "#7c5cff",
+    color: COLOR.accent,
     fontSize: 11,
     letterSpacing: 1.2,
     textTransform: "uppercase",
@@ -688,7 +688,7 @@ const styles = StyleSheet.create({
     minWidth: 130,
   },
   titleValue: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 14,
     flex: 1,
     fontFamily: FONT.regular,
@@ -697,10 +697,10 @@ const styles = StyleSheet.create({
   sources: {
     paddingTop: 12,
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: "#2a2a2a",
+    borderTopColor: COLOR.surfaceRaised,
   },
   sourcesText: {
-    color: "#6b7177",
+    color: COLOR.textFaint,
     fontSize: 11,
     letterSpacing: 0.8,
     fontFamily: FONT.regular,
@@ -712,14 +712,18 @@ const styles = StyleSheet.create({
     gap: 8,
     flexWrap: "wrap",
   },
-  lookupLabel: { color: "#cfd2d6", fontSize: 13, fontFamily: FONT.medium },
+  lookupLabel: {
+    color: COLOR.textSecondary,
+    fontSize: 13,
+    fontFamily: FONT.medium,
+  },
   lookupInput: {
-    backgroundColor: "#17181b",
-    color: "#f5f5f5",
+    backgroundColor: COLOR.surface,
+    color: COLOR.textPrimary,
     paddingHorizontal: 10,
     paddingVertical: 8,
     minWidth: 80,
     fontFamily: FONT.regular,
   },
-  lookupResult: { color: "#7c5cff", fontSize: 13, fontFamily: FONT.bold },
+  lookupResult: { color: COLOR.accent, fontSize: 13, fontFamily: FONT.bold },
 });

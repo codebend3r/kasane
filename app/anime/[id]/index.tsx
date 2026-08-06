@@ -24,7 +24,7 @@ import { Footer } from "@/components/Footer";
 import { Paragraph } from "@/components/Paragraph";
 import { formatAniListDate } from "@/data/format";
 import type { AnimeFranchise, SeriesMapping } from "@/types";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 
 export default function AnimeDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -98,7 +98,7 @@ export default function AnimeDetail() {
   if (isLoading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator color="#7c5cff" />
+        <ActivityIndicator color={COLOR.accent} />
       </View>
     );
   }
@@ -255,7 +255,7 @@ function QuickLookup({ mapping }: { mapping: SeriesMapping | null }) {
           keyboardType="number-pad"
           style={styles.lookupInput}
           placeholder="e.g. 12"
-          placeholderTextColor="#6b7177"
+          placeholderTextColor={COLOR.textFaint}
         />
         <Text style={styles.lookupResult}>
           → {fromEp ? `chapters ${fromEp[0]}–${fromEp[1]}` : "—"}
@@ -269,7 +269,7 @@ function QuickLookup({ mapping }: { mapping: SeriesMapping | null }) {
           keyboardType="number-pad"
           style={styles.lookupInput}
           placeholder="e.g. 50"
-          placeholderTextColor="#6b7177"
+          placeholderTextColor={COLOR.textFaint}
         />
         <Text style={styles.lookupResult}>
           → {fromCh ? `episodes ${fromCh[0]}–${fromCh[1]}` : "—"}
@@ -284,69 +284,69 @@ const styles = StyleSheet.create({
   content: { padding: 16, gap: 20 },
   center: { flex: 1, alignItems: "center", justifyContent: "center" },
   header: { flexDirection: "row", gap: 16 },
-  cover: { width: 110, height: 154, backgroundColor: "#222" },
+  cover: { width: 110, height: 154, backgroundColor: COLOR.coverPlaceholder },
   headerMeta: { flex: 1, gap: 6 },
   title: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 28,
     letterSpacing: -0.8,
     fontFamily: FONT.bold,
   },
   sub: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 12,
     letterSpacing: 1.2,
     textTransform: "uppercase",
     fontFamily: FONT.semibold,
   },
   description: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 14,
     lineHeight: 20,
     paddingTop: 6,
     fontFamily: FONT.regular,
   },
   sectionTitle: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 18,
     paddingTop: 10,
     letterSpacing: -0.3,
     fontFamily: FONT.bold,
   },
-  empty: { color: "#9aa0a6", fontFamily: FONT.regular },
+  empty: { color: COLOR.textMuted, fontFamily: FONT.regular },
   autoBanner: {
     padding: 14,
-    backgroundColor: "#1f1a2e",
+    backgroundColor: COLOR.surfaceNotice,
     borderLeftWidth: 4,
-    borderLeftColor: "#ffd65c",
+    borderLeftColor: COLOR.notice,
     gap: 8,
   },
   autoBadge: {
     alignSelf: "flex-start",
     paddingHorizontal: 8,
     paddingVertical: 3,
-    backgroundColor: "#ffd65c",
+    backgroundColor: COLOR.notice,
   },
   autoBadgeText: {
-    color: "#0c0c0e",
+    color: COLOR.background,
     fontSize: 11,
     letterSpacing: 1.5,
     fontFamily: FONT.bold,
   },
   autoBannerBody: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 13,
     lineHeight: 19,
     fontFamily: FONT.regular,
   },
   noMapping: {
     padding: 16,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     gap: 6,
   },
-  noMappingTitle: { color: "#ffd65c", fontFamily: FONT.bold },
+  noMappingTitle: { color: COLOR.notice, fontFamily: FONT.bold },
   noMappingBody: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 13,
     lineHeight: 18,
     fontFamily: FONT.regular,
@@ -358,18 +358,22 @@ const styles = StyleSheet.create({
     gap: 8,
     flexWrap: "wrap",
   },
-  lookupLabel: { color: "#cfd2d6", fontSize: 13, fontFamily: FONT.medium },
+  lookupLabel: {
+    color: COLOR.textSecondary,
+    fontSize: 13,
+    fontFamily: FONT.medium,
+  },
   lookupInput: {
-    backgroundColor: "#17181b",
-    color: "#f5f5f5",
+    backgroundColor: COLOR.surface,
+    color: COLOR.textPrimary,
     paddingHorizontal: 10,
     paddingVertical: 8,
     minWidth: 80,
     fontFamily: FONT.regular,
   },
-  lookupResult: { color: "#7c5cff", fontSize: 13, fontFamily: FONT.bold },
+  lookupResult: { color: COLOR.accent, fontSize: 13, fontFamily: FONT.bold },
   franchiseTotal: {
-    color: "#7c5cff",
+    color: COLOR.accent,
     fontSize: 13,
     letterSpacing: -0.2,
     fontFamily: FONT.semibold,
@@ -380,31 +384,31 @@ const styles = StyleSheet.create({
   seasonCard: {
     width: 220,
     padding: 12,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     borderLeftWidth: 3,
-    borderLeftColor: "#7c5cff",
+    borderLeftColor: COLOR.accent,
     gap: 6,
   },
   seasonCardActive: {
-    backgroundColor: "#1f1a2e",
-    borderLeftColor: "#ffd65c",
+    backgroundColor: COLOR.surfaceNotice,
+    borderLeftColor: COLOR.notice,
   },
   seasonCardTitle: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 14,
     lineHeight: 18,
     fontFamily: FONT.semibold,
     letterSpacing: -0.2,
   },
   seasonCardMeta: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 11,
     letterSpacing: 0.8,
     textTransform: "uppercase",
     fontFamily: FONT.semibold,
   },
   seasonCardCurrent: {
-    color: "#ffd65c",
+    color: COLOR.notice,
     fontSize: 10,
     letterSpacing: 1.4,
     fontFamily: FONT.bold,

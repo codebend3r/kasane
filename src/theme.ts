@@ -65,6 +65,8 @@ export const COLOR = {
 
   /** Identifies the anime side: its badge, progress band, and rail. */
   sideAnime: "#5cdfff",
+  /** Informational highlight: the MAPPED badge, an active view toggle. */
+  highlight: "#5cdfff",
   /** Identifies the manga side: its badge, progress band, and rail. */
   sideManga: "#ff7c5c",
 

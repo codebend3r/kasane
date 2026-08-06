@@ -29,12 +29,12 @@ import {
 import { Footer } from "@/components/Footer";
 import { usePreferences } from "@/state/preferences";
 import type { AniListMedia, PressableState, SeriesEntry } from "@/types";
-import { FONT } from "@/theme";
+import { COLOR, FONT } from "@/theme";
 
 const BADGE_COLOR: Record<SeriesEntry["badge"], string> = {
-  both: "#7c5cff",
-  "manga-only": "#ff7c5c",
-  "anime-only": "#5cdfff",
+  both: COLOR.accent,
+  "manga-only": COLOR.sideManga,
+  "anime-only": COLOR.sideAnime,
 };
 
 const BADGE_LABEL: Record<SeriesEntry["badge"], string> = {
@@ -124,7 +124,7 @@ export default function HomeScreen() {
         value={query}
         onChangeText={setQuery}
         placeholder="Search anime or manga…"
-        placeholderTextColor="#6b7177"
+        placeholderTextColor={COLOR.textFaint}
         style={styles.input}
         autoCorrect={false}
         returnKeyType="search"
@@ -196,7 +196,7 @@ export default function HomeScreen() {
         <>
           {isFetching && (
             <View style={styles.spinnerWrap}>
-              <ActivityIndicator color="#7c5cff" />
+              <ActivityIndicator color={COLOR.accent} />
             </View>
           )}
           <FlatList
@@ -430,7 +430,8 @@ function LatestReleases({
             style={[
               styles.gridCover,
               {
-                backgroundColor: entry.primary.coverImage.color ?? "#222",
+                backgroundColor:
+                  entry.primary.coverImage.color ?? COLOR.coverPlaceholder,
               },
             ]}
           />
@@ -465,7 +466,7 @@ function LatestReleases({
       </View>
       {loading && entries.length === 0 ? (
         <View style={styles.spinnerWrap}>
-          <ActivityIndicator color="#7c5cff" />
+          <ActivityIndicator color={COLOR.accent} />
         </View>
       ) : isMobile ? (
         <View onLayout={onCarouselLayout}>
@@ -502,21 +503,21 @@ function LatestReleases({
 const styles = StyleSheet.create({
   root: { flex: 1, padding: 16, gap: 16 },
   tagline: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 16,
     letterSpacing: -0.2,
     fontFamily: FONT.medium,
   },
   input: {
-    backgroundColor: "#17181b",
-    color: "#f5f5f5",
+    backgroundColor: COLOR.surface,
+    color: COLOR.textPrimary,
     paddingHorizontal: 24,
     paddingVertical: 24,
     fontSize: 22,
     lineHeight: 28,
     fontFamily: FONT.medium,
     borderLeftWidth: 4,
-    borderLeftColor: "#7c5cff",
+    borderLeftColor: COLOR.accent,
   },
   genreFilters: {
     flexDirection: "row",
@@ -531,31 +532,31 @@ const styles = StyleSheet.create({
     gap: 8,
     paddingHorizontal: 14,
     paddingVertical: 8,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     borderLeftWidth: 2,
-    borderLeftColor: "#7c5cff",
+    borderLeftColor: COLOR.accent,
   },
   filterToggleText: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 12,
     letterSpacing: 1.2,
     textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
   filterToggleChevron: {
-    color: "#7c5cff",
+    color: COLOR.accent,
     fontSize: 12,
     lineHeight: 12,
     fontFamily: FONT.bold,
   },
   sheetBackdrop: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.55)",
+    backgroundColor: COLOR.scrimSheet,
     justifyContent: "flex-end",
   },
   sheetBackdropFill: { flex: 1 },
   sheet: {
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     maxHeight: "75%",
     paddingTop: 8,
     paddingBottom: 24,
@@ -565,7 +566,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     width: 36,
     height: 4,
-    backgroundColor: "#2a2c30",
+    backgroundColor: COLOR.border,
   },
   sheetHeader: {
     flexDirection: "row",
@@ -576,7 +577,7 @@ const styles = StyleSheet.create({
   },
   sheetTitle: {
     flex: 1,
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 18,
     fontFamily: FONT.bold,
     letterSpacing: -0.2,
@@ -584,10 +585,10 @@ const styles = StyleSheet.create({
   sheetDone: {
     paddingHorizontal: 14,
     paddingVertical: 8,
-    backgroundColor: "#7c5cff",
+    backgroundColor: COLOR.accent,
   },
   sheetDoneText: {
-    color: "#0c0c0e",
+    color: COLOR.background,
     fontSize: 12,
     letterSpacing: 1.4,
     textTransform: "uppercase",
@@ -606,22 +607,22 @@ const styles = StyleSheet.create({
     height: 24,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#0c0c0e",
+    backgroundColor: COLOR.background,
     borderWidth: 2,
-    borderColor: "#2a2c30",
+    borderColor: COLOR.border,
   },
   sheetCheckboxOn: {
-    backgroundColor: "#7c5cff",
-    borderColor: "#7c5cff",
+    backgroundColor: COLOR.accent,
+    borderColor: COLOR.accent,
   },
   sheetCheckMark: {
-    color: "#0c0c0e",
+    color: COLOR.background,
     fontSize: 14,
     lineHeight: 14,
     fontFamily: FONT.bold,
   },
   sheetRowLabel: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 16,
     fontFamily: FONT.medium,
     letterSpacing: -0.1,
@@ -629,26 +630,26 @@ const styles = StyleSheet.create({
   filterChip: {
     paddingHorizontal: 14,
     paddingVertical: 6,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
   },
-  filterChipActive: { backgroundColor: "#7c5cff" },
+  filterChipActive: { backgroundColor: COLOR.accent },
   filterText: {
-    color: "#9aa0a6",
+    color: COLOR.textMuted,
     fontSize: 12,
     letterSpacing: 1.2,
     textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
-  filterTextActive: { color: "#0c0c0e" },
+  filterTextActive: { color: COLOR.background },
   toggleAllChip: {
     paddingHorizontal: 14,
     paddingVertical: 6,
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     borderWidth: 1,
-    borderColor: "#7c5cff",
+    borderColor: COLOR.accent,
   },
   toggleAllText: {
-    color: "#7c5cff",
+    color: COLOR.accent,
     fontSize: 12,
     letterSpacing: 1.2,
     textTransform: "uppercase",
@@ -666,37 +667,45 @@ const styles = StyleSheet.create({
     height: 18,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#17181b",
+    backgroundColor: COLOR.surface,
     borderWidth: 2,
-    borderColor: "#3a3d42",
+    borderColor: COLOR.borderControl,
   },
-  checkboxOn: { backgroundColor: "#7c5cff", borderColor: "#7c5cff" },
+  checkboxOn: { backgroundColor: COLOR.accent, borderColor: COLOR.accent },
   checkboxMark: {
-    color: "#0c0c0e",
+    color: COLOR.background,
     fontSize: 12,
     lineHeight: 14,
     fontFamily: FONT.bold,
   },
   mappedToggleText: {
-    color: "#cfd2d6",
+    color: COLOR.textSecondary,
     fontSize: 13,
     fontFamily: FONT.medium,
   },
   spinnerWrap: { paddingTop: 24 },
   emptyWrap: { paddingTop: 32 },
-  empty: { color: "#6b7177", textAlign: "center", fontFamily: FONT.regular },
-  error: { color: "#ff7c5c", textAlign: "center", fontFamily: FONT.medium },
+  empty: {
+    color: COLOR.textFaint,
+    textAlign: "center",
+    fontFamily: FONT.regular,
+  },
+  error: {
+    color: COLOR.danger,
+    textAlign: "center",
+    fontFamily: FONT.medium,
+  },
   latestScroll: { paddingBottom: 32, gap: 16 },
   latestHeader: { gap: 2 },
   latestEyebrow: {
-    color: "#7c5cff",
+    color: COLOR.accent,
     fontSize: 11,
     letterSpacing: 1.8,
     textTransform: "uppercase",
     fontFamily: FONT.bold,
   },
   latestTitle: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 22,
     letterSpacing: -0.4,
     fontFamily: FONT.bold,
@@ -721,13 +730,13 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
   },
   gridBadgeText: {
-    color: "#0c0c0e",
+    color: COLOR.background,
     fontSize: 9,
     letterSpacing: 1.2,
     fontFamily: FONT.bold,
   },
   gridTitle: {
-    color: "#f5f5f5",
+    color: COLOR.textPrimary,
     fontSize: 14,
     lineHeight: 18,
     height: 36,
