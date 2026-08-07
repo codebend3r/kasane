@@ -1,12 +1,15 @@
 // AsyncStorage is mocked globally by the bun test preload in `test/setup.ts`.
-import { afterEach, describe, expect, it, spyOn } from "bun:test";
+import { beforeEach, describe, expect, it, spyOn } from "bun:test";
 import * as React from "react";
 import TestRenderer, { act } from "react-test-renderer";
 import { useInProgressEntries, useProgress } from "./progress";
 
 const { createElement, useState } = React;
 
-afterEach(() => {
+// Reset before, not after: the store is a module singleton, so this file has to
+// defend its own first test against whatever ran earlier rather than trust the
+// previous file to have tidied up.
+beforeEach(() => {
   act(() => {
     useProgress.setState({ byRouteId: {} });
   });

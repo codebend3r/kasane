@@ -81,12 +81,12 @@ describe("episodeToChapters", () => {
 
 ## Common mistakes
 
-| Mistake                                   | Fix                                                                                          |
-| ----------------------------------------- | -------------------------------------------------------------------------------------------- |
-| Testing only the middle of a range        | Off-by-one lives at the boundary. Assert both ends of every arc.                             |
-| Using a real catalog entry as the fixture | Catalog data changes in Supabase and would silently break the test. Build minimal literals.  |
-| Mocking `supabase` to test merge logic    | The pure part already lives in `syncMerge.ts`. Test that; leave `sync.ts` to integration.    |
-| `as SeriesMapping` on a partial literal   | Banned by CLAUDE.md and hides the missing fields the function reads. Build the whole object. |
-| Asserting `toBeTruthy()` on a tuple       | `toEqual([41, 80])` catches a swapped pair; `toBeTruthy` does not.                           |
-| Leaving a module singleton set            | `setSearchAliases` and the zustand stores outlive the file. Reset them in `afterEach`.       |
-| Chasing the coverage number               | Mutate the source and watch it go red. Percentage is a floor, not evidence.                  |
+| Mistake                                   | Fix                                                                                                                                                                                       |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Testing only the middle of a range        | Off-by-one lives at the boundary. Assert both ends of every arc.                                                                                                                          |
+| Using a real catalog entry as the fixture | Catalog data changes in Supabase and would silently break the test. Build minimal literals.                                                                                               |
+| Mocking `supabase` to test merge logic    | The pure part already lives in `syncMerge.ts`. Test that; leave `sync.ts` to integration.                                                                                                 |
+| `as SeriesMapping` on a partial literal   | Banned by CLAUDE.md and hides the missing fields the function reads. Build the whole object.                                                                                              |
+| Asserting `toBeTruthy()` on a tuple       | `toEqual([41, 80])` catches a swapped pair; `toBeTruthy` does not.                                                                                                                        |
+| Leaving a module singleton set            | `setSearchAliases` and the zustand stores outlive the test. Reset them in `beforeEach`, so the file's own first test is protected too — `afterEach` only tidies up for whoever runs next. |
+| Chasing the coverage number               | Mutate the source and watch it go red. Percentage is a floor, not evidence.                                                                                                               |
