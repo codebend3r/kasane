@@ -117,4 +117,5 @@ The rules above are the always-on baseline. These skills carry the depth — rea
 | Checking the catalog for bad data                     | `mapping-audit`         |
 | Quick lookup, the rail, arc detail, empty states      | `quick-lookup-ux`       |
 | Version bumps, tags, Netlify, Tauri, store builds     | `release`               |
+| Main updated; rebasing the other branches onto it     | `active-rebaser`        |
 | Writing a commit message or PR title                  | `commit-messages`       |
