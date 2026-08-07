@@ -3,9 +3,10 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import type { PressableState, SeriesBadge, SeriesMapping } from "@/types";
 import { chapterToEpisodes, episodeToChapters } from "@/data";
 import { useProgress, type ProgressSide } from "@/state/progress";
+import { AutoEstimatedBanner } from "@/components/AutoEstimatedBanner";
 import { EpisodeChapterPie } from "@/components/EpisodeChapterPie";
 import { EpisodeChapterRail } from "@/components/EpisodeChapterRail";
-import { Paragraph } from "@/components/Paragraph";
+import { NoMappingNotice } from "@/components/NoMappingNotice";
 import {
   ProgressMarkBanner,
   type MarkEvent,
@@ -63,15 +64,7 @@ export function MappingSection({
 
   if (!mapping) {
     if (badge === "anime-only") return null;
-    return (
-      <View style={styles.noMapping}>
-        <Text style={styles.noMappingTitle}>No mapping available yet</Text>
-        <Paragraph style={styles.noMappingBody}>
-          We couldn&apos;t find an anime↔manga adaptation pair on AniList for
-          this entry, and no curated mapping exists for it yet.
-        </Paragraph>
-      </View>
-    );
+    return <NoMappingNotice />;
   }
 
   const isAutoEstimated = !curatedMapping;
@@ -107,18 +100,7 @@ export function MappingSection({
           </Text>
         </Pressable>
       </View>
-      {isAutoEstimated && (
-        <View style={styles.autoBanner}>
-          <View style={styles.autoBadge}>
-            <Text style={styles.autoBadgeText}>AUTO-ESTIMATED</Text>
-          </View>
-          <Paragraph style={styles.autoBannerBody}>
-            Linear pacing — anime episode count distributed evenly across the
-            manga chapter count. Real pacing varies; a curated mapping overrides
-            this estimate.
-          </Paragraph>
-        </View>
-      )}
+      {isAutoEstimated && <AutoEstimatedBanner />}
       {!!markEvent && (
         <ProgressMarkBanner
           event={markEvent}
@@ -193,42 +175,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: FONT.bold,
     lineHeight: 18,
-  },
-  autoBanner: {
-    padding: 14,
-    backgroundColor: COLOR.surfaceNotice,
-    borderLeftWidth: 4,
-    borderLeftColor: COLOR.notice,
-    gap: 8,
-  },
-  autoBadge: {
-    alignSelf: "flex-start",
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    backgroundColor: COLOR.notice,
-  },
-  autoBadgeText: {
-    color: COLOR.background,
-    fontSize: 11,
-    letterSpacing: 1.5,
-    fontFamily: FONT.bold,
-  },
-  autoBannerBody: {
-    color: COLOR.textSecondary,
-    fontSize: 13,
-    lineHeight: 19,
-    fontFamily: FONT.regular,
-  },
-  noMapping: {
-    padding: 16,
-    backgroundColor: COLOR.surface,
-    gap: 6,
-  },
-  noMappingTitle: { color: COLOR.notice, fontFamily: FONT.bold },
-  noMappingBody: {
-    color: COLOR.textSecondary,
-    fontSize: 13,
-    lineHeight: 18,
-    fontFamily: FONT.regular,
   },
 });
