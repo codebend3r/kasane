@@ -5,9 +5,9 @@ description: Use when adding or changing logic in kasane's `src/data/`, `src/sta
 
 # Domain Tests
 
-kasane's whole product claim is that episode N maps to chapters X-Y. The functions that decide that live in `src/data/index.ts` and **have no tests**. Everything else is presentation.
+kasane's whole product claim is that episode N maps to chapters X-Y. The functions that decide that live in `src/data/index.ts`. Everything else is presentation.
 
-**REQUIRED BACKGROUND:** `superpowers:test-driven-development` for the RED-GREEN cycle. This skill covers the repo-specific conventions and the untested surface.
+**REQUIRED BACKGROUND:** `superpowers:test-driven-development` for the RED-GREEN cycle. This skill covers the repo-specific conventions and what is worth testing here.
 
 ## The convention
 
@@ -23,7 +23,13 @@ kasane's whole product claim is that episode N maps to chapters X-Y. The functio
 
 Repo rules apply to test files too: no `interface`, no `any`, no casts, `const` over `let`, `Array.prototype` methods over loops.
 
-## The untested surface, in priority order
+## Coverage
+
+`bun test` reports coverage on every run and enforces a floor of 25% lines and functions from `bunfig.toml`. That floor is applied **per file, not across the run** — one module below the bar fails the suite even when the total is far higher. Only files a test actually imports are measured, so an entirely unimported module is invisible rather than failing.
+
+Coverage is a floor, not the goal. A module at 100% whose assertions are `toBeTruthy()` catches nothing. Before claiming a test is worth having, mutate the source it covers — flip a `<=` to `<`, drop a `.sort`, widen a filter — and confirm the suite goes red.
+
+## What is worth testing, in priority order
 
 | Function                                                      | Cases that matter                                                                                                                                                                                                                |
 | ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -31,9 +37,14 @@ Repo rules apply to test files too: no `interface`, no `any`, no casts, `const` 
 | `chapterToEpisodes`                                           | Same boundaries; a chapter in an unadapted arc returns `null` rather than the arc's chapters; a chapter beyond the last arc.                                                                                                     |
 | `pairResults`                                                 | A manga absorbing its anime adaptation; an anime with no source manga staying `anime-only`; several anime sharing one source manga collapsing to one `routeId` and keeping the **first**; badge assignment for all three values. |
 | `buildSyntheticMapping`                                       | Returns `null` with no relations, with no qualifying partner, and when either count is missing; picks the **earliest** partner by `startDate.year`; produces `[1, episodes]` to `[1, chapters]`.                                 |
-| `getAnimeFranchise`, `hasAnimeSequels` (`src/api/anilist.ts`) | Franchise-root detection and cumulative `totalTvEpisodes`. Feed recorded AniList payloads as fixtures; do not hit the network.                                                                                                   |
+| `getAnimeFranchise`, `hasAnimeSequels` (`src/api/anilist.ts`) | Franchise-root detection and cumulative `totalTvEpisodes`. Feed fixture AniList payloads through `graphqlRequestMock`; do not hit the network.                                                                                   |
+| `rowToMapping` via `useCatalog` (`src/data/catalog.ts`)       | Supabase rows arriving out of `position` order must sort; null episode bounds must become `undefined`, not `[null, null]`. Feed rows through `fromMock`/`tableOf` from `@/api/supabase.mock`.                                    |
 
-Both lookup helpers return the **first** matching arc. Overlapping arcs therefore make a lookup silently order-dependent, which is why `mapping-audit` treats overlap as an error. A test should pin that behaviour so a future refactor to `filter` does not change answers.
+Both lookup helpers return the **first** matching arc. Overlapping arcs therefore make a lookup silently order-dependent, which is why `mapping-audit` treats overlap as an error. The tests pin that behaviour so a future refactor to `filter` does not change answers.
+
+## Testing a hook
+
+`src/data/catalog.test.ts` is the reference for anything built on `useQuery`. Render the hook inside a `QueryClientProvider` with `retry: false` via `react-test-renderer`, and settle it by awaiting a **macrotask** (`setTimeout`) inside `act()` — a microtask flush alone resolves the first query in a file but not later ones.
 
 ## One good example
 
@@ -77,3 +88,5 @@ describe("episodeToChapters", () => {
 | Mocking `supabase` to test merge logic    | The pure part already lives in `syncMerge.ts`. Test that; leave `sync.ts` to integration.    |
 | `as SeriesMapping` on a partial literal   | Banned by CLAUDE.md and hides the missing fields the function reads. Build the whole object. |
 | Asserting `toBeTruthy()` on a tuple       | `toEqual([41, 80])` catches a swapped pair; `toBeTruthy` does not.                           |
+| Leaving a module singleton set            | `setSearchAliases` and the zustand stores outlive the file. Reset them in `afterEach`.       |
+| Chasing the coverage number               | Mutate the source and watch it go red. Percentage is a floor, not evidence.                  |
