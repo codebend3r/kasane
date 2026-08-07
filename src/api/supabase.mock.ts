@@ -46,4 +46,32 @@ export const authMocks = {
   ),
 };
 
-export const supabaseMock = { auth: authMocks };
+type TableResponse = { data: unknown[]; error: null };
+
+type SelectResult = Promise<TableResponse> & {
+  order: (
+    column: string,
+    options?: { ascending?: boolean },
+  ) => Promise<TableResponse>;
+};
+
+type SelectBuilder = { select: (columns: string) => SelectResult };
+
+// Query-builder stub for `supabase.from(...)`: awaitable directly after
+// `select` and after `order`, matching the two shapes `fetchCatalog` uses. A
+// real promise carries the `order` method, so nothing hand-rolls `then`.
+export const tableOf = (rows: unknown[]): SelectBuilder => {
+  const respond = (): Promise<TableResponse> =>
+    Promise.resolve({ data: rows, error: null });
+  return {
+    select: () => Object.assign(respond(), { order: () => respond() }),
+  };
+};
+
+export const fromMock = mock<(table: string) => SelectBuilder>(() => {
+  throw new Error(
+    "unexpected supabase query — set an implementation on fromMock",
+  );
+});
+
+export const supabaseMock = { auth: authMocks, from: fromMock };
