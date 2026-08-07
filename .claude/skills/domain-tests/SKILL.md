@@ -14,7 +14,8 @@ kasane's whole product claim is that episode N maps to chapters X-Y. The functio
 `src/state/syncMerge.test.ts` is the reference. Match it:
 
 - Colocate as `<module>.test.ts` next to the source. Tests run on `bun test` (`bun run test`); `@/` resolves to `src/`. Import `describe`/`it`/`expect` (and `mock`/`spyOn`) from `bun:test` in every test file.
-- Native-only modules (`react-native`, AsyncStorage, `expo-linking`) and `@/api/supabase` are mocked globally in the preload `test/setup.ts` — bun has no `jest.mock` hoisting and runs every test file in one process, so module mocks are shared, not per-file. Drive the Supabase auth mocks via `@/api/supabase.mock`.
+- Native-only modules (`react-native`, AsyncStorage, `expo-linking`) and `@/api/supabase` are mocked in the preload `test/setup.ts` — bun has no `jest.mock` hoisting, so they must be mocked before any test file imports them. Drive the Supabase auth mocks via `@/api/supabase.mock`.
+- `bun run test` passes `--parallel`: each test file runs in its own worker process with its own global (`--parallel` implies `--isolate`), and the preload runs once per file. Module state does **not** leak between files. Do not rely on it leaking, and do not assume a bare `bun test` — which is still single-process — will catch the same bugs.
 - One `describe` per exported function, `it` names stating the behaviour, not the mechanism.
 - Build inputs as typed literals with an explicit type annotation, never a cast.
 - Assert whole objects with `toEqual`, not field-by-field. A regression that adds a stray key should fail.

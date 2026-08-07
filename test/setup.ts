@@ -6,6 +6,10 @@ import { GraphQLClientMock, gqlTag } from "@/api/graphql.mock";
 // unlike jest there is no `jest.mock` hoisting: native-only modules must be
 // mocked here, before any test file imports something that pulls them in.
 // react-native ships Flow-typed source bun cannot parse at all.
+//
+// `bun run test` passes `--parallel`, which implies `--isolate`: every test file
+// gets its own worker and its own global, and this preload runs once per file.
+// Nothing below is shared between files — each one starts from clean mocks.
 
 // react-test-renderer's act() refuses to run outside an act-enabled environment.
 Object.assign(globalThis, { IS_REACT_ACT_ENVIRONMENT: true });
@@ -56,9 +60,8 @@ mock.module("expo-linking", () => ({
   createURL: (path: string) => `kasane://${path.replace(/^\//, "")}`,
 }));
 
-// All test files share one process and one module registry, so the Supabase
-// client is mocked once, globally, with the shared mocks from
-// `@/api/supabase.mock`.
+// The Supabase client is mocked here rather than per test file, with the shared
+// mocks from `@/api/supabase.mock`.
 mock.module("@/api/supabase", () => ({ supabase: supabaseMock }));
 
 // `src/api/anilist.ts` builds a `GraphQLClient` at module scope; route it to
