@@ -178,5 +178,5 @@ const styles = StyleSheet.create({
     fontFamily: FONT.semibold,
   },
   linkLabelActive: { color: COLOR.accent },
-  linkHint: { color: COLOR.textFaint, fontSize: 12, fontFamily: FONT.regular },
+  linkHint: { color: COLOR.textMuted, fontSize: 12, fontFamily: FONT.regular },
 });

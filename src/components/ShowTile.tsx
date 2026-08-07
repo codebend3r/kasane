@@ -93,6 +93,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontFamily: FONT.semibold,
   },
-  tileMeta: { color: COLOR.textFaint, fontSize: 11, fontFamily: FONT.medium },
+  tileMeta: { color: COLOR.textMuted, fontSize: 11, fontFamily: FONT.medium },
   tileTrailing: { color: COLOR.success, fontSize: 11, fontFamily: FONT.bold },
 });

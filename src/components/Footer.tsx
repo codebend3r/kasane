@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     borderTopColor: COLOR.surface,
   },
   copy: {
-    color: COLOR.textFaint,
+    color: COLOR.textMuted,
     fontSize: 12,
     letterSpacing: 1.4,
     textTransform: "uppercase",
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   spacer: { flex: 1 },
   version: {
-    color: COLOR.textFaint,
+    color: COLOR.textMuted,
     fontSize: 12,
     letterSpacing: 1.4,
     textTransform: "uppercase",

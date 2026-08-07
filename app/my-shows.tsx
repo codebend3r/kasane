@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   },
   synced: { color: COLOR.success, fontSize: 13, fontFamily: FONT.medium },
   muted: {
-    color: COLOR.textFaint,
+    color: COLOR.textMuted,
     fontSize: 14,
     lineHeight: 20,
     fontFamily: FONT.regular,
