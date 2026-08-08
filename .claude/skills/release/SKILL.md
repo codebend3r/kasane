@@ -21,6 +21,17 @@ The catalog audit belongs here even though mappings are not in the repo: a relea
 
 ## Bump the version in both places
 
+**Check first whether the `version-bumper` skill already did this.** It bumps both files, commits, and tags locally without pushing, so a release often starts with the work below already done:
+
+```bash
+node -p "require('./package.json').version"
+git tag --points-at HEAD          # prints v<version> if the bump is already tagged
+```
+
+If the tag is there and points at the version in `package.json`, skip to the push at the end of this section. Do not bump again — a second bump on top of an untagged-in-your-head-but-actually-tagged commit produces a version nobody released.
+
+Otherwise:
+
 ```bash
 VERSION=1.3.0
 npm pkg set version=$VERSION
@@ -40,7 +51,13 @@ Native builds additionally need a monotonically increasing build number per subm
 Commit with the repo's `KSN:` convention, then tag:
 
 ```bash
-git tag -a "v$VERSION" -m "v$VERSION" && git push --follow-tags
+git tag -a "v$VERSION" -m "v$VERSION"
+```
+
+Either way, the release starts at the push:
+
+```bash
+git push --follow-tags
 ```
 
 ## Per-target
@@ -62,6 +79,7 @@ git tag -a "v$VERSION" -m "v$VERSION" && git push --follow-tags
 | Mistake                                        | Consequence                                                                                        |
 | ---------------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | Bumping only `package.json`                    | Store listings and the about screen keep showing the old version. This has already happened.       |
+| Bumping again over a `version-bumper` tag      | The tag names one version and the files another. Check `git tag --points-at HEAD` before bumping.  |
 | Reusing a native build number                  | The store rejects the upload.                                                                      |
 | Releasing without re-running the catalog audit | Code ships clean while the data users refetch is wrong.                                            |
 | Assuming a green web build means covers work   | The MangaDex proxy and `Referrer-Policy: no-referrer` only matter in production. Look at the page. |
