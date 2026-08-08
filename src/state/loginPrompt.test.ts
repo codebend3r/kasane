@@ -1,32 +1,6 @@
-jest.mock("@react-native-async-storage/async-storage", () => {
-  const store = new Map<string, string>();
-  return {
-    __esModule: true,
-    default: {
-      getItem: (k: string) => Promise.resolve(store.get(k) ?? null),
-      setItem: (k: string, v: string) => {
-        store.set(k, v);
-        return Promise.resolve();
-      },
-      removeItem: (k: string) => {
-        store.delete(k);
-        return Promise.resolve();
-      },
-    },
-  };
-});
-
-jest.mock("@/api/supabase", () => ({
-  supabase: {
-    auth: {
-      getSession: jest.fn(() => Promise.resolve({ data: { session: null } })),
-      onAuthStateChange: jest.fn(() => ({
-        data: { subscription: { unsubscribe: jest.fn() } },
-      })),
-    },
-  },
-}));
-
+// AsyncStorage and `@/api/supabase` are mocked globally by the bun test
+// preload in `test/setup.ts`.
+import { beforeAll, beforeEach, describe, expect, it } from "bun:test";
 import { startLoginPrompt, useLoginPrompt } from "@/state/loginPrompt";
 import { useAuth } from "@/state/auth";
 import { useProgress } from "@/state/progress";

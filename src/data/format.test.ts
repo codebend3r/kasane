@@ -1,3 +1,4 @@
+import { describe, expect, it } from "bun:test";
 import { formatAniListDate, formatAniListDateJa, localeLabel } from "./format";
 
 describe("formatAniListDate", () => {

@@ -1,32 +1,15 @@
+// AsyncStorage is mocked globally by the bun test preload in `test/setup.ts`.
+import { beforeEach, describe, expect, it, spyOn } from "bun:test";
 import * as React from "react";
 import TestRenderer, { act } from "react-test-renderer";
 import { useInProgressEntries, useProgress } from "./progress";
 
-jest.mock("@react-native-async-storage/async-storage", () => {
-  const store = new Map<string, string>();
-  return {
-    __esModule: true,
-    default: {
-      getItem: (k: string) => Promise.resolve(store.get(k) ?? null),
-      setItem: (k: string, v: string) => {
-        store.set(k, v);
-        return Promise.resolve();
-      },
-      removeItem: (k: string) => {
-        store.delete(k);
-        return Promise.resolve();
-      },
-      clear: () => {
-        store.clear();
-        return Promise.resolve();
-      },
-    },
-  };
-});
-
 const { createElement, useState } = React;
 
-afterEach(() => {
+// Reset before, not after: the store is a module singleton, so this file has to
+// defend its own first test against whatever ran earlier rather than trust the
+// previous file to have tidied up.
+beforeEach(() => {
   act(() => {
     useProgress.setState({ byRouteId: {} });
   });
@@ -77,7 +60,7 @@ describe("useInProgressEntries", () => {
     };
 
     let root: TestRenderer.ReactTestRenderer | undefined;
-    const nowSpy = jest.spyOn(Date, "now");
+    const nowSpy = spyOn(Date, "now");
     try {
       act(() => {
         root = TestRenderer.create(createElement(Probe));
