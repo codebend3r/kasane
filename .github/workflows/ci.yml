@@ -52,7 +52,7 @@ jobs:
 
       # Hand the built bundle to the e2e job rather than rebuilding it there.
       - name: 📤 Upload web build
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: web-dist
           path: dist
@@ -82,7 +82,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: 📥 Download web build
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: web-dist
           path: dist
@@ -97,7 +97,7 @@ jobs:
 
       - name: 📊 Upload Playwright report
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: playwright-report
           path: playwright-report
