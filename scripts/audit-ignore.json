@@ -96,5 +96,14 @@
   "Undead Unluck": {
     "chapter-overlap": "S1 ends partway through chapter 53 and the 1-hour special resumes in it (stated in the arc names)",
     "episode-overlap": "arcs are mapped per manga chapter, and single episodes cover the tail of one chapter and the head of the next"
+  },
+  "Gurren Lagann": {
+    "episode-gap": "episode 16 is the compilation episode, a clip-show recap of episodes 1-15 that adapts no manga, so it belongs to no arc"
+  },
+  "The Irregular at Magic High School": {
+    "chapter-gap": "light-novel series: volume numbers, not chapters; volume 5 (Summer Vacation) is a short-story collection the TV run skips, and volume 8 (Reminiscence) was adapted only as the separate Tsuioku-hen special"
+  },
+  "Gintama": {
+    "chapter-gap": "arcs are mapped by named story arc, so standalone comedy lessons between them belong to no arc: 103 is the Kabuki-cho snow-sculpture contest and 273-274 is 'Prelude, Op 28, No. 15 - Raindrop'"
   }
 }
