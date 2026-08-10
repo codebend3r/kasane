@@ -19,7 +19,11 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: process.env.CI ? "github" : "list",
+  // On CI, annotate the diff via "github" and also emit the HTML report the
+  // workflow uploads on failure; it embeds the traces and failure screenshots.
+  reporter: process.env.CI
+    ? [["github"], ["html", { open: "never" }]]
+    : [["list"]],
   timeout: 60_000,
   expect: { timeout: 15_000 },
   use: {
