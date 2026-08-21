@@ -7,6 +7,12 @@ coveragePathIgnorePatterns = ["test/**"]
 # Enforced per file, not across the run: a single module below the bar fails
 # `bun test`, even when the overall percentage is far higher. Only files a test
 # actually imports are measured.
+#
+# So the bar is set by the weakest file, not the average — today that is
+# `src/api/mangadex.ts` (31% lines / 53% funcs), whose `getMangaDexInfoByAniListId`
+# has no test yet. Parked just under it so any regression trips the suite,
+# rather than at a round number no existing file could fail. Raise both once
+# that export is covered.
 [test.coverageThreshold]
-lines = 0.25
-functions = 0.25
+lines = 0.3
+functions = 0.5
