@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it } from "bun:test";
 import { getAnimeFranchise, getLatestAnime, hasAnimeSequels } from "./anilist";
 // `graphql-request` is replaced with this mock by the preload in
 // `test/setup.ts`, so every request below is served from fixtures.
-import { graphqlRequestMock } from "@/api/graphql.mock";
+import { graphqlRequestMock } from "@test/mocks/graphql";
 import type { AniListMedia, MediaType, RelationEdge } from "@/types";
 
 const makeMedia = ({

@@ -1,5 +1,5 @@
 // `@/data/catalog` pulls in the Supabase client, which the bun test preload in
-// `test/setup.ts` replaces with the mocks from `@/api/supabase.mock`. The hook
+// `test/setup.ts` replaces with the mocks from `@test/mocks/supabase`. The hook
 // tests below feed fixture rows through `fromMock` to exercise the row →
 // `SeriesMapping` transformation end to end.
 import { afterEach, describe, expect, it } from "bun:test";
@@ -13,7 +13,7 @@ import {
   useHydrateSearchAliases,
   useMapping,
 } from "@/data/catalog";
-import { fromMock, tableOf } from "@/api/supabase.mock";
+import { fromMock, tableOf } from "@test/mocks/supabase";
 import { applySearchAlias, setSearchAliases } from "@/data/searchAliases";
 import type { SeriesMapping } from "@/types";
 import type { Database } from "@/types/supabase";

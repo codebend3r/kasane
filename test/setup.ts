@@ -1,6 +1,6 @@
 import { mock } from "bun:test";
-import { supabaseMock } from "@/api/supabase.mock";
-import { GraphQLClientMock, gqlTag } from "@/api/graphql.mock";
+import { supabaseMock } from "@test/mocks/supabase";
+import { GraphQLClientMock, gqlTag } from "@test/mocks/graphql";
 
 // Global test preload (wired up in `bunfig.toml`). bun evaluates real ESM, so
 // unlike jest there is no `jest.mock` hoisting: native-only modules must be
@@ -61,11 +61,11 @@ mock.module("expo-linking", () => ({
 }));
 
 // The Supabase client is mocked here rather than per test file, with the shared
-// mocks from `@/api/supabase.mock`.
+// mocks from `@test/mocks/supabase`.
 mock.module("@/api/supabase", () => ({ supabase: supabaseMock }));
 
 // `src/api/anilist.ts` builds a `GraphQLClient` at module scope; route it to
-// the shared request mock from `@/api/graphql.mock` so no test hits the
+// the shared request mock from `@test/mocks/graphql` so no test hits the
 // network.
 mock.module("graphql-request", () => ({
   GraphQLClient: GraphQLClientMock,

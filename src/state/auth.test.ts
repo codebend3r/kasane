@@ -4,7 +4,7 @@ import type { Session, User } from "@supabase/supabase-js";
 import { useAuth } from "./auth";
 // `@/api/supabase` (and the native modules it drags in) is replaced with these
 // mocks by the global preload in `test/setup.ts`.
-import { authMocks } from "@/api/supabase.mock";
+import { authMocks } from "@test/mocks/supabase";
 
 const fakeUser: User = {
   id: "user-1",

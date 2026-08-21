@@ -2,7 +2,7 @@
 preload = ["./test/setup.ts"]
 coverage = true
 coverageSkipTestFiles = true
-coveragePathIgnorePatterns = ["test/setup.ts", "**/*.mock.ts"]
+coveragePathIgnorePatterns = ["test/**"]
 
 # Enforced per file, not across the run: a single module below the bar fails
 # `bun test`, even when the overall percentage is far higher. Only files a test
