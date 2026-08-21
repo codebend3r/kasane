@@ -1,4 +1,4 @@
-import { mock } from "bun:test";
+import { afterEach, mock } from "bun:test";
 import { supabaseMock } from "@test/mocks/supabase";
 import { GraphQLClientMock, gqlTag } from "@test/mocks/graphql";
 
@@ -28,6 +28,13 @@ console.error = (...args: unknown[]) => {
   }
   consoleError(...args);
 };
+
+// Call history is reset centrally so no test file hand-rolls its own
+// `mockClear`. Note this clears calls, not queued implementations: an unspent
+// `mockResolvedValueOnce` still carries into the next test in the file.
+afterEach(() => {
+  mock.clearAllMocks();
+});
 
 mock.module("react-native", () => ({
   Platform: { OS: "ios" },

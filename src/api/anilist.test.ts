@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from "bun:test";
+import { describe, expect, it } from "bun:test";
 import {
   getAnimeFranchise,
   getLatestAnime,
@@ -36,10 +36,6 @@ const franchiseNode = ({
 });
 
 const page = (media: unknown[]) => ({ Page: { media } });
-
-afterEach(() => {
-  graphqlRequestMock.mockClear();
-});
 
 describe("hasAnimeSequels", () => {
   it("detects an anime sequel relation", () => {

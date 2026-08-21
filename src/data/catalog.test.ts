@@ -2,7 +2,7 @@
 // `test/setup.ts` replaces with the mocks from `@test/mocks/supabase`. The hook
 // tests below feed fixture rows through `fromMock` to exercise the row →
 // `SeriesMapping` transformation end to end.
-import { afterEach, describe, expect, it } from "bun:test";
+import { beforeEach, describe, expect, it } from "bun:test";
 import * as React from "react";
 import TestRenderer, { act } from "react-test-renderer";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -252,10 +252,6 @@ const expectedMapping: SeriesMapping = {
 };
 
 describe("useCatalog", () => {
-  afterEach(() => {
-    fromMock.mockClear();
-  });
-
   it("transforms series rows into arc-sorted mappings and resolves both ids", async () => {
     catalogTables({});
     const { captures, unmount } = renderHook(useCatalog);
@@ -277,10 +273,6 @@ describe("useCatalog", () => {
 });
 
 describe("useMapping", () => {
-  afterEach(() => {
-    fromMock.mockClear();
-  });
-
   it("is null before the catalog loads, then resolves by media id", async () => {
     catalogTables({});
     const { captures, unmount } = renderHook(() => useMapping(53390));
@@ -295,10 +287,6 @@ describe("useMapping", () => {
 });
 
 describe("useGenreFilters", () => {
-  afterEach(() => {
-    fromMock.mockClear();
-  });
-
   it("keeps known kinds and degrades unknown kinds to genre", async () => {
     catalogTables({});
     const { captures, unmount } = renderHook(useGenreFilters);
@@ -319,8 +307,7 @@ describe("useGenreFilters", () => {
 });
 
 describe("useHydrateSearchAliases", () => {
-  afterEach(() => {
-    fromMock.mockClear();
+  beforeEach(() => {
     setSearchAliases({});
   });
 

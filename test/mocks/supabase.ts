@@ -26,6 +26,11 @@ export type AuthStateCallback = (
   session: Session | null,
 ) => void;
 
+// `@/state/auth` subscribes at module scope, i.e. once per process on first
+// import. Recording subscribers here rather than reading `mock.calls` keeps
+// that observable to a test no matter when the shared call history is cleared.
+export const authSubscribers: AuthStateCallback[] = [];
+
 export const authMocks = {
   getSession: mock<() => Promise<{ data: { session: Session | null } }>>(() =>
     Promise.resolve({ data: { session: null } }),
@@ -34,7 +39,10 @@ export const authMocks = {
     (callback: AuthStateCallback) => {
       data: { subscription: { unsubscribe: () => void } };
     }
-  >(() => ({ data: { subscription: { unsubscribe: () => {} } } })),
+  >((callback) => {
+    authSubscribers.push(callback);
+    return { data: { subscription: { unsubscribe: () => {} } } };
+  }),
   signInWithPassword: mock<(credentials: Credentials) => Promise<AuthResult>>(
     () => Promise.resolve({ data: { user: null, session: null }, error: null }),
   ),
