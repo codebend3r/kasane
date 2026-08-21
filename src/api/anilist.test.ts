@@ -8,33 +8,7 @@ import {
 // `graphql-request` is replaced with this mock by the preload in
 // `test/setup.ts`, so every request below is served from fixtures.
 import { graphqlRequestMock } from "@test/mocks/graphql";
-import type { AniListMedia, MediaType, RelationEdge } from "@/types";
-
-const makeMedia = ({
-  id,
-  type,
-  relations,
-}: {
-  id: number;
-  type: MediaType;
-  relations?: RelationEdge[];
-}): AniListMedia => ({
-  id,
-  type,
-  title: { romaji: `Media ${id}`, english: null, native: null },
-  coverImage: { large: "https://img.example/cover.png", color: null },
-  description: null,
-  episodes: null,
-  chapters: null,
-  volumes: null,
-  status: null,
-  format: null,
-  countryOfOrigin: null,
-  synonyms: [],
-  genres: [],
-  startDate: { year: null },
-  ...(relations ? { relations: { edges: relations } } : {}),
-});
+import { makeMedia } from "@test/fixtures/media";
 
 // Typed against the real `FRANCHISE_NODE_QUERY` result so a change to the query
 // shape breaks the fixture rather than letting it drift.
