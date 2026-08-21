@@ -1,5 +1,10 @@
 import { afterEach, describe, expect, it } from "bun:test";
-import { getAnimeFranchise, getLatestAnime, hasAnimeSequels } from "./anilist";
+import {
+  getAnimeFranchise,
+  getLatestAnime,
+  hasAnimeSequels,
+  type FranchiseRawNode,
+} from "./anilist";
 // `graphql-request` is replaced with this mock by the preload in
 // `test/setup.ts`, so every request below is served from fixtures.
 import { graphqlRequestMock } from "@test/mocks/graphql";
@@ -31,17 +36,9 @@ const makeMedia = ({
   ...(relations ? { relations: { edges: relations } } : {}),
 });
 
-// Shape returned by `FRANCHISE_NODE_QUERY`.
-type FranchiseNodeFixture = {
-  id: number;
-  title: { romaji: string; english: string | null };
-  format: string | null;
-  episodes: number | null;
-  startDate: { year: number | null };
-  relations: {
-    edges: { relationType: string; node: { id: number; type: MediaType } }[];
-  };
-};
+// Typed against the real `FRANCHISE_NODE_QUERY` result so a change to the query
+// shape breaks the fixture rather than letting it drift.
+type FranchiseEdge = FranchiseRawNode["relations"]["edges"][number];
 
 const franchiseNode = ({
   id,
@@ -54,8 +51,8 @@ const franchiseNode = ({
   format: string | null;
   episodes: number | null;
   year: number | null;
-  edges?: { relationType: string; node: { id: number; type: MediaType } }[];
-}): FranchiseNodeFixture => ({
+  edges?: FranchiseEdge[];
+}): FranchiseRawNode => ({
   id,
   title: { romaji: `Season ${id}`, english: null },
   format,

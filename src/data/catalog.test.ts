@@ -12,6 +12,7 @@ import {
   useGenreFilters,
   useHydrateSearchAliases,
   useMapping,
+  type SeriesRow,
 } from "@/data/catalog";
 import { fromMock, tableOf } from "@test/mocks/supabase";
 import { applySearchAlias, setSearchAliases } from "@/data/searchAliases";
@@ -68,13 +69,7 @@ describe("indexByMediaId", () => {
   });
 });
 
-type ArcRow = Database["public"]["Tables"]["arc_mappings"]["Row"];
-type MovieRow = Database["public"]["Tables"]["movies"]["Row"];
 type GenreRow = Database["public"]["Tables"]["genre_filters"]["Row"];
-type SeriesRow = Database["public"]["Tables"]["series"]["Row"] & {
-  arc_mappings: ArcRow[];
-  movies: MovieRow[];
-};
 
 // Rows arrive with `position` out of order on purpose: the transform must sort.
 const seriesRow: SeriesRow = {

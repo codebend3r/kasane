@@ -302,7 +302,7 @@ const FRANCHISE_NODE_QUERY = gql`
   }
 `;
 
-type FranchiseRawNode = {
+export type FranchiseRawNode = {
   id: number;
   title: { romaji: string; english: string | null };
   format: string | null;
