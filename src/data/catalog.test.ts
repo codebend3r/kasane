@@ -142,10 +142,18 @@ const genreRows: GenreRow[] = [
 ];
 
 const catalogTables = ({ aliases = [] }: { aliases?: unknown[] }) => {
+  const tables: Record<string, unknown[]> = {
+    series: [seriesRow],
+    search_aliases: aliases,
+    genre_filters: genreRows,
+  };
   fromMock.mockImplementation((table) => {
-    if (table === "series") return tableOf([seriesRow]);
-    if (table === "search_aliases") return tableOf(aliases);
-    return tableOf(genreRows);
+    const rows = tables[table];
+    // Mirror the default `fromMock` guard rather than defaulting to some
+    // table's rows: a renamed table must fail loudly, not read as empty or as
+    // the wrong fixture.
+    if (!rows) throw new Error(`no fixture for supabase table "${table}"`);
+    return tableOf(rows);
   });
 };
 
@@ -182,9 +190,22 @@ const renderHook = <T>(hook: () => T) => {
 // Ticks the event loop inside act() until `done` reports settled. A macrotask
 // is required, not just a microtask flush: react-query settles the second and
 // later query instances in this file through a timer.
-const settle = async (done: () => boolean): Promise<void> => {
+//
+// Throws when it runs out of ticks. Returning quietly would turn "the catalog
+// never loaded" into a confusing assertion diff further down the test.
+const SETTLE_TICKS = 20;
+
+const settle = async (
+  done: () => boolean,
+  label: string = "the hook to settle",
+): Promise<void> => {
   const attempt = async (remaining: number): Promise<void> => {
-    if (done() || remaining === 0) return;
+    if (done()) return;
+    if (remaining === 0) {
+      throw new Error(
+        `timed out after ${SETTLE_TICKS} ticks waiting for ${label}`,
+      );
+    }
     await act(async () => {
       await new Promise((resolve) => {
         setTimeout(resolve, 0);
@@ -192,7 +213,7 @@ const settle = async (done: () => boolean): Promise<void> => {
     });
     return attempt(remaining - 1);
   };
-  return attempt(20);
+  return attempt(SETTLE_TICKS);
 };
 
 const last = <T>(values: T[]): T => values[values.length - 1];
@@ -242,7 +263,7 @@ describe("useCatalog", () => {
       expect(captures[0].isLoaded).toBe(false);
       expect(captures[0].findMapping(16498)).toBeNull();
 
-      await settle(() => last(captures).isLoaded);
+      await settle(() => last(captures).isLoaded, "the catalog to load");
 
       const catalog = last(captures);
       expect(catalog.mappings).toEqual([expectedMapping]);
@@ -265,7 +286,7 @@ describe("useMapping", () => {
     const { captures, unmount } = renderHook(() => useMapping(53390));
     try {
       expect(captures[0]).toBeNull();
-      await settle(() => last(captures) !== null);
+      await settle(() => last(captures) !== null, "the mapping to resolve");
       expect(last(captures)).toEqual(expectedMapping);
     } finally {
       unmount();
@@ -282,7 +303,10 @@ describe("useGenreFilters", () => {
     catalogTables({});
     const { captures, unmount } = renderHook(useGenreFilters);
     try {
-      await settle(() => last(captures).length > 0);
+      await settle(
+        () => last(captures).length > 0,
+        "the genre filters to load",
+      );
       expect(last(captures)).toEqual([
         { id: "hentai", kind: "genre", label: "Hentai", token: "Hentai" },
         { id: "ecchi", kind: "tag", label: "Ecchi", token: "Ecchi" },
@@ -306,7 +330,10 @@ describe("useHydrateSearchAliases", () => {
     });
     const { unmount } = renderHook(useHydrateSearchAliases);
     try {
-      await settle(() => applySearchAlias("aot") !== "aot");
+      await settle(
+        () => applySearchAlias("aot") !== "aot",
+        "the aliases to hydrate",
+      );
       expect(applySearchAlias(" A.O.T! ")).toBe("Attack on Titan");
     } finally {
       unmount();
