@@ -63,7 +63,7 @@ type SelectResult = Promise<TableResponse> & {
   ) => Promise<TableResponse>;
 };
 
-type SelectBuilder = { select: (columns: string) => SelectResult };
+type SelectBuilder = { select: () => SelectResult };
 
 // Query-builder stub for `supabase.from(...)`: awaitable directly after
 // `select` and after `order`, matching the two shapes `fetchCatalog` uses. A

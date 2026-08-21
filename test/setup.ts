@@ -36,6 +36,9 @@ afterEach(() => {
   mock.clearAllMocks();
 });
 
+// Only the surface `src/state` and `src/api` actually reach for. Anything else
+// resolves to `undefined` at call time rather than erroring, so add to this as
+// the app grows rather than debugging a mystery `undefined is not a function`.
 mock.module("react-native", () => ({
   Platform: { OS: "ios" },
   AppState: { addEventListener: () => ({ remove: () => {} }) },
