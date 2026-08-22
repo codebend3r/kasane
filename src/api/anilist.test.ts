@@ -1,47 +1,18 @@
-import { afterEach, describe, expect, it } from "bun:test";
-import { getAnimeFranchise, getLatestAnime, hasAnimeSequels } from "./anilist";
+import { describe, expect, it } from "bun:test";
+import {
+  getAnimeFranchise,
+  getLatestAnime,
+  hasAnimeSequels,
+  type FranchiseRawNode,
+} from "./anilist";
 // `graphql-request` is replaced with this mock by the preload in
 // `test/setup.ts`, so every request below is served from fixtures.
-import { graphqlRequestMock } from "@/api/graphql.mock";
-import type { AniListMedia, MediaType, RelationEdge } from "@/types";
+import { graphqlRequestMock } from "@test/mocks/graphql";
+import { makeMedia } from "@test/fixtures/media";
 
-const makeMedia = ({
-  id,
-  type,
-  relations,
-}: {
-  id: number;
-  type: MediaType;
-  relations?: RelationEdge[];
-}): AniListMedia => ({
-  id,
-  type,
-  title: { romaji: `Media ${id}`, english: null, native: null },
-  coverImage: { large: "https://img.example/cover.png", color: null },
-  description: null,
-  episodes: null,
-  chapters: null,
-  volumes: null,
-  status: null,
-  format: null,
-  countryOfOrigin: null,
-  synonyms: [],
-  genres: [],
-  startDate: { year: null },
-  ...(relations ? { relations: { edges: relations } } : {}),
-});
-
-// Shape returned by `FRANCHISE_NODE_QUERY`.
-type FranchiseNodeFixture = {
-  id: number;
-  title: { romaji: string; english: string | null };
-  format: string | null;
-  episodes: number | null;
-  startDate: { year: number | null };
-  relations: {
-    edges: { relationType: string; node: { id: number; type: MediaType } }[];
-  };
-};
+// Typed against the real `FRANCHISE_NODE_QUERY` result so a change to the query
+// shape breaks the fixture rather than letting it drift.
+type FranchiseEdge = FranchiseRawNode["relations"]["edges"][number];
 
 const franchiseNode = ({
   id,
@@ -54,8 +25,8 @@ const franchiseNode = ({
   format: string | null;
   episodes: number | null;
   year: number | null;
-  edges?: { relationType: string; node: { id: number; type: MediaType } }[];
-}): FranchiseNodeFixture => ({
+  edges?: FranchiseEdge[];
+}): FranchiseRawNode => ({
   id,
   title: { romaji: `Season ${id}`, english: null },
   format,
@@ -65,10 +36,6 @@ const franchiseNode = ({
 });
 
 const page = (media: unknown[]) => ({ Page: { media } });
-
-afterEach(() => {
-  graphqlRequestMock.mockClear();
-});
 
 describe("hasAnimeSequels", () => {
   it("detects an anime sequel relation", () => {

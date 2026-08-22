@@ -4,7 +4,7 @@ import type { Session, User } from "@supabase/supabase-js";
 import { useAuth } from "./auth";
 // `@/api/supabase` (and the native modules it drags in) is replaced with these
 // mocks by the global preload in `test/setup.ts`.
-import { authMocks } from "@/api/supabase.mock";
+import { authMocks, authSubscribers } from "@test/mocks/supabase";
 
 const fakeUser: User = {
   id: "user-1",
@@ -42,11 +42,12 @@ describe("applySession", () => {
 });
 
 describe("auth state subscription", () => {
-  it("routes onAuthStateChange sessions into the store", () => {
-    const subscribe = authMocks.onAuthStateChange;
-    expect(subscribe).toHaveBeenCalledTimes(1);
+  it("subscribes exactly once, when the module is first imported", () => {
+    expect(authSubscribers).toHaveLength(1);
+  });
 
-    const callback = subscribe.mock.calls[0][0];
+  it("routes onAuthStateChange sessions into the store", () => {
+    const [callback] = authSubscribers;
     callback("SIGNED_IN", fakeSession);
     expect(useAuth.getState().status).toBe("signedIn");
 

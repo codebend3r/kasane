@@ -5,46 +5,8 @@ import {
   episodeToChapters,
   pairResults,
 } from "./index";
-import type {
-  AniListMedia,
-  MediaType,
-  RelationEdge,
-  SeriesMapping,
-} from "@/types";
-
-const makeMedia = ({
-  id,
-  type,
-  title,
-  episodes = null,
-  chapters = null,
-  startYear = null,
-  relations,
-}: {
-  id: number;
-  type: MediaType;
-  title?: string;
-  episodes?: number | null;
-  chapters?: number | null;
-  startYear?: number | null;
-  relations?: RelationEdge[];
-}): AniListMedia => ({
-  id,
-  type,
-  title: { romaji: title ?? `Media ${id}`, english: null, native: null },
-  coverImage: { large: "https://img.example/cover.png", color: null },
-  description: null,
-  episodes,
-  chapters,
-  volumes: null,
-  status: null,
-  format: null,
-  countryOfOrigin: null,
-  synonyms: [],
-  genres: [],
-  startDate: { year: startYear },
-  ...(relations ? { relations: { edges: relations } } : {}),
-});
+import { makeMedia } from "@test/fixtures/media";
+import type { SeriesMapping } from "@/types";
 
 // Season 2 starts at episode 15, leaving a gap at 13-14 (e.g. recap films),
 // and the manga has published past the adapted range.

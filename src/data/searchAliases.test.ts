@@ -1,9 +1,10 @@
-import { afterEach, describe, expect, it } from "bun:test";
+import { beforeEach, describe, expect, it } from "bun:test";
 import { applySearchAlias, setSearchAliases } from "./searchAliases";
 
-// The alias table is a module-level singleton shared across the test process —
-// always leave it empty for the next file.
-afterEach(() => {
+// The alias table is a module-level singleton shared by every test in this
+// file (files themselves are isolated — see `test/setup.ts`). Reset before,
+// not after, so the first test is protected too.
+beforeEach(() => {
   setSearchAliases({});
 });
 

@@ -14,7 +14,7 @@ kasane's whole product claim is that episode N maps to chapters X-Y. The functio
 `src/state/syncMerge.test.ts` is the reference. Match it:
 
 - Colocate as `<module>.test.ts` next to the source. Tests run on `bun test` (`bun run test`); `@/` resolves to `src/`. Import `describe`/`it`/`expect` (and `mock`/`spyOn`) from `bun:test` in every test file.
-- Native-only modules (`react-native`, AsyncStorage, `expo-linking`) and `@/api/supabase` are mocked in the preload `test/setup.ts` — bun has no `jest.mock` hoisting, so they must be mocked before any test file imports them. Drive the Supabase auth mocks via `@/api/supabase.mock`.
+- Native-only modules (`react-native`, AsyncStorage, `expo-linking`) and `@/api/supabase` are mocked in the preload `test/setup.ts` — bun has no `jest.mock` hoisting, so they must be mocked before any test file imports them. Drive the Supabase auth mocks via `@test/mocks/supabase`. Test-only modules live under `test/`, never in `src/`.
 - `bun run test` passes `--parallel`: each test file runs in its own worker process with its own global (`--parallel` implies `--isolate`), and the preload runs once per file. Module state does **not** leak between files. Do not rely on it leaking, and do not assume a bare `bun test` — which is still single-process — will catch the same bugs.
 - One `describe` per exported function, `it` names stating the behaviour, not the mechanism.
 - Build inputs as typed literals with an explicit type annotation, never a cast.
@@ -26,26 +26,28 @@ Repo rules apply to test files too: no `interface`, no `any`, no casts, `const` 
 
 ## Coverage
 
-`bun test` reports coverage on every run and enforces a floor of 25% lines and functions from `bunfig.toml`. That floor is applied **per file, not across the run** — one module below the bar fails the suite even when the total is far higher. Only files a test actually imports are measured, so an entirely unimported module is invisible rather than failing.
+`bun test` reports coverage on every run and enforces a floor from `bunfig.toml`. That floor is applied **per file, not across the run** — one module below the bar fails the suite even when the total is far higher. Only files a test actually imports are measured, so an entirely unimported module is invisible rather than failing. Because of that, the number is set by the weakest covered file, not the average; raising it means covering that file first.
 
 Coverage is a floor, not the goal. A module at 100% whose assertions are `toBeTruthy()` catches nothing. Before claiming a test is worth having, mutate the source it covers — flip a `<=` to `<`, drop a `.sort`, widen a filter — and confirm the suite goes red.
 
 ## What is worth testing, in priority order
 
-| Function                                                      | Cases that matter                                                                                                                                                                                                                |
-| ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `episodeToChapters`                                           | Exact lower and upper boundary of an arc; an episode inside a gap between arcs; an episode past the last adapted arc; arcs with `episodes: undefined` (unadapted tail) never matching.                                           |
-| `chapterToEpisodes`                                           | Same boundaries; a chapter in an unadapted arc returns `null` rather than the arc's chapters; a chapter beyond the last arc.                                                                                                     |
-| `pairResults`                                                 | A manga absorbing its anime adaptation; an anime with no source manga staying `anime-only`; several anime sharing one source manga collapsing to one `routeId` and keeping the **first**; badge assignment for all three values. |
-| `buildSyntheticMapping`                                       | Returns `null` with no relations, with no qualifying partner, and when either count is missing; picks the **earliest** partner by `startDate.year`; produces `[1, episodes]` to `[1, chapters]`.                                 |
-| `getAnimeFranchise`, `hasAnimeSequels` (`src/api/anilist.ts`) | Franchise-root detection and cumulative `totalTvEpisodes`. Feed fixture AniList payloads through `graphqlRequestMock`; do not hit the network.                                                                                   |
-| `rowToMapping` via `useCatalog` (`src/data/catalog.ts`)       | Supabase rows arriving out of `position` order must sort; null episode bounds must become `undefined`, not `[null, null]`. Feed rows through `fromMock`/`tableOf` from `@/api/supabase.mock`.                                    |
+| Function                                                      | Cases that matter                                                                                                                                                                                                                              |
+| ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `episodeToChapters`                                           | Exact lower and upper boundary of an arc; an episode inside a gap between arcs; an episode past the last adapted arc; arcs with `episodes: undefined` (unadapted tail) never matching.                                                         |
+| `chapterToEpisodes`                                           | Same boundaries; a chapter in an unadapted arc returns `null` rather than the arc's chapters; a chapter beyond the last arc.                                                                                                                   |
+| `pairResults`                                                 | A manga absorbing its anime adaptation; an anime with no source manga staying `anime-only`; several anime sharing one source manga collapsing to one `routeId` and keeping the **first**; badge assignment for all three values.               |
+| `buildSyntheticMapping`                                       | Returns `null` with no relations, with no qualifying partner, and when either count is missing; picks the **earliest** partner by `startDate.year`; produces `[1, episodes]` to `[1, chapters]`.                                               |
+| `getAnimeFranchise`, `hasAnimeSequels` (`src/api/anilist.ts`) | Franchise-root detection and cumulative `totalTvEpisodes`. Feed fixture AniList payloads through `graphqlRequestMock`; do not hit the network. Type fixtures against the exported query types (`FranchiseRawNode`), never a hand-copied shape. |
+| `rowToMapping` via `useCatalog` (`src/data/catalog.ts`)       | Supabase rows arriving out of `position` order must sort; null episode bounds must become `undefined`, not `[null, null]`. Feed rows through `fromMock`/`tableOf` from `@test/mocks/supabase`.                                                 |
 
 Both lookup helpers return the **first** matching arc. Overlapping arcs therefore make a lookup silently order-dependent, which is why `mapping-audit` treats overlap as an error. The tests pin that behaviour so a future refactor to `filter` does not change answers.
 
 ## Testing a hook
 
 `src/data/catalog.test.ts` is the reference for anything built on `useQuery`. Render the hook inside a `QueryClientProvider` with `retry: false` via `react-test-renderer`, and settle it by awaiting a **macrotask** (`setTimeout`) inside `act()` — a microtask flush alone resolves the first query in a file but not later ones.
+
+A settle helper must **throw** when it runs out of ticks. Returning quietly turns "the query never resolved" into a confusing assertion diff further down the test.
 
 ## One good example
 
@@ -90,4 +92,6 @@ describe("episodeToChapters", () => {
 | `as SeriesMapping` on a partial literal   | Banned by CLAUDE.md and hides the missing fields the function reads. Build the whole object.                                                                                              |
 | Asserting `toBeTruthy()` on a tuple       | `toEqual([41, 80])` catches a swapped pair; `toBeTruthy` does not.                                                                                                                        |
 | Leaving a module singleton set            | `setSearchAliases` and the zustand stores outlive the test. Reset them in `beforeEach`, so the file's own first test is protected too — `afterEach` only tidies up for whoever runs next. |
+| Calling `mockClear` in a test file        | The preload already clears call history after every test. A local reset is redundant, and clearing shared history breaks anything asserting on an import-time call.                       |
+| Asserting on an import-time `mock.calls`  | Module-scope side effects fire once per process, so the history may be cleared before your test runs. Record what you need as state on the mock — see `authSubscribers`.                  |
 | Chasing the coverage number               | Mutate the source and watch it go red. Percentage is a floor, not evidence.                                                                                                               |

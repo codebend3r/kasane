@@ -6,9 +6,9 @@ import type { GenreFilter } from "@/data/genreFilters";
 import type { MappingEntry, MovieEntry, SeriesMapping } from "@/types";
 import type { Database } from "@/types/supabase";
 
-type ArcRow = Database["public"]["Tables"]["arc_mappings"]["Row"];
-type MovieRow = Database["public"]["Tables"]["movies"]["Row"];
-type SeriesRow = Database["public"]["Tables"]["series"]["Row"] & {
+export type ArcRow = Database["public"]["Tables"]["arc_mappings"]["Row"];
+export type MovieRow = Database["public"]["Tables"]["movies"]["Row"];
+export type SeriesRow = Database["public"]["Tables"]["series"]["Row"] & {
   arc_mappings: ArcRow[];
   movies: MovieRow[];
 };

@@ -5,6 +5,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
+      "@test/*": ["test/*"],
       "@pkg": ["package.json"]
     },
     "types": ["bun", "node"],

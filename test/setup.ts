@@ -1,6 +1,6 @@
-import { mock } from "bun:test";
-import { supabaseMock } from "@/api/supabase.mock";
-import { GraphQLClientMock, gqlTag } from "@/api/graphql.mock";
+import { afterEach, mock } from "bun:test";
+import { supabaseMock } from "@test/mocks/supabase";
+import { GraphQLClientMock, gqlTag } from "@test/mocks/graphql";
 
 // Global test preload (wired up in `bunfig.toml`). bun evaluates real ESM, so
 // unlike jest there is no `jest.mock` hoisting: native-only modules must be
@@ -29,6 +29,16 @@ console.error = (...args: unknown[]) => {
   consoleError(...args);
 };
 
+// Call history is reset centrally so no test file hand-rolls its own
+// `mockClear`. Note this clears calls, not queued implementations: an unspent
+// `mockResolvedValueOnce` still carries into the next test in the file.
+afterEach(() => {
+  mock.clearAllMocks();
+});
+
+// Only the surface `src/state` and `src/api` actually reach for. Anything else
+// resolves to `undefined` at call time rather than erroring, so add to this as
+// the app grows rather than debugging a mystery `undefined is not a function`.
 mock.module("react-native", () => ({
   Platform: { OS: "ios" },
   AppState: { addEventListener: () => ({ remove: () => {} }) },
@@ -61,11 +71,11 @@ mock.module("expo-linking", () => ({
 }));
 
 // The Supabase client is mocked here rather than per test file, with the shared
-// mocks from `@/api/supabase.mock`.
+// mocks from `@test/mocks/supabase`.
 mock.module("@/api/supabase", () => ({ supabase: supabaseMock }));
 
 // `src/api/anilist.ts` builds a `GraphQLClient` at module scope; route it to
-// the shared request mock from `@/api/graphql.mock` so no test hits the
+// the shared request mock from `@test/mocks/graphql` so no test hits the
 // network.
 mock.module("graphql-request", () => ({
   GraphQLClient: GraphQLClientMock,
