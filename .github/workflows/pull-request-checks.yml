@@ -23,7 +23,6 @@ jobs:
   # The `system-check` script minus `build:web`, which `build` owns so that the
   # e2e chain does not queue behind linting.
   checks:
-    name: 🚦 Pull request checks
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -58,7 +57,6 @@ jobs:
   # bundle, not on the linters, and gating it behind them only delays the slowest
   # job in the workflow.
   build:
-    name: 🚦 Pull request checks
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -92,7 +90,6 @@ jobs:
   # against the real `dist/` the build job already produced, so it covers the
   # bundle that ships, including the SPA fallback and the MangaDex proxy.
   e2e:
-    name: 🚦 Pull request checks
     runs-on: ubuntu-latest
     needs: build
     timeout-minutes: 15
