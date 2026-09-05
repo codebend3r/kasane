@@ -2,8 +2,6 @@ name: 🧪 Pull request checks
 
 on:
   pull_request:
-  push:
-  workflow_dispatch:
 
 # Least privilege: this workflow only reads the repository. Set explicitly so it
 # stays read-only even if the repo or org default token permission is widened.
