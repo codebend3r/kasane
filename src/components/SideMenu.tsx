@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Animated,
   Pressable,
@@ -35,10 +35,17 @@ export function SideMenu() {
   // Kept mounted through the closing animation so the panel slides out rather
   // than vanishing.
   const [mounted, setMounted] = useState(open);
-  const slide = useRef(new Animated.Value(open ? 1 : 0)).current;
+  const [wasOpen, setWasOpen] = useState(open);
+  const [slide] = useState(() => new Animated.Value(open ? 1 : 0));
+
+  // Adjusting state during render rather than in an effect: the panel has to
+  // be mounted before the opening animation runs.
+  if (wasOpen !== open) {
+    setWasOpen(open);
+    if (open) setMounted(true);
+  }
 
   useEffect(() => {
-    if (open) setMounted(true);
     Animated.timing(slide, {
       toValue: open ? 1 : 0,
       duration: SLIDE_MS,

@@ -2,14 +2,12 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@test/*": ["test/*"],
-      "@pkg": ["package.json"]
+      "@/*": ["./src/*"],
+      "@test/*": ["./test/*"],
+      "@pkg": ["./package.json"]
     },
-    "types": ["bun", "node"],
-    "ignoreDeprecations": "6.0"
+    "types": ["bun", "node"]
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }

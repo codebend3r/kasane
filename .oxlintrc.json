@@ -26,7 +26,8 @@
     {
       "files": ["**/*.test.ts", "**/*.test.tsx"],
       "plugins": ["jest"],
-      "env": { "jest": true }
+      "env": { "jest": true },
+      "rules": { "react/globals": "off" }
     }
   ]
 }

@@ -124,10 +124,9 @@ function expandChapters(arc: MappingEntry): ChapterRow[] {
   const chCount = c2 - c1 + 1;
 
   if (!arc.episodes) {
-    return Array.from(
-      { length: chCount },
-      (_, i): ChapterRow => ({ chapter: c1 + i }),
-    );
+    return Array.from({ length: chCount }, (_, i): ChapterRow => ({
+      chapter: c1 + i,
+    }));
   }
 
   const [e1, e2] = arc.episodes;

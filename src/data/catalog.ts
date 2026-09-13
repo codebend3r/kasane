@@ -120,14 +120,12 @@ const fetchCatalog = async (): Promise<Catalog> => {
     return acc;
   }, {});
 
-  const genreFilters = genreRes.data.map(
-    (g): GenreFilter => ({
-      id: g.id,
-      label: g.label,
-      kind: g.kind === "tag" ? "tag" : "genre",
-      token: g.token,
-    }),
-  );
+  const genreFilters = genreRes.data.map((g): GenreFilter => ({
+    id: g.id,
+    label: g.label,
+    kind: g.kind === "tag" ? "tag" : "genre",
+    token: g.token,
+  }));
 
   return { mappings, aliases, genreFilters };
 };
