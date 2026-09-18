@@ -15,7 +15,7 @@ concurrency:
 # Pinned once. `bun run system-check` runs the same scripts locally against
 # whatever bun the machine has, so this is the only place CI's version is fixed.
 env:
-  BUN_VERSION: 1.3.14
+  BUN_VERSION: 1.4.2
 
 jobs:
   # The `system-check` script minus `build:web`, which `build` owns so that the
