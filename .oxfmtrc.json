@@ -1,5 +1,12 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
   "printWidth": 80,
-  "ignorePatterns": ["dist", "web-build", "src-tauri", ".expo", "*.toml"]
+  "ignorePatterns": [
+    "dist",
+    "web-build",
+    "src-tauri",
+    ".expo",
+    "graphify-out",
+    "*.toml"
+  ]
 }
