@@ -16,3 +16,8 @@ coveragePathIgnorePatterns = ["test/**"]
 [test.coverageThreshold]
 lines = 0.3
 functions = 0.5
+
+[install]
+# Every dependency is pinned to an exact version in package.json; this keeps
+# `bun add` from reintroducing a `^` range the next time one is added.
+exact = true
