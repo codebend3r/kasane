@@ -16,7 +16,6 @@ concurrency:
 # whatever bun the machine has, so this is the only place CI's version is fixed.
 env:
   BUN_VERSION: 1.4.2
-  ACTIONLINT_VERSION: 1.7.12
 
 jobs:
   # The `system-check` script minus `build:web`, which `build` owns so that the
@@ -48,14 +47,6 @@ jobs:
 
       - name: 🧹 Lint
         run: bun run lint
-
-      # actionlint is a Go binary, so it needs installing before `system-check`
-      # can call it. This is the official installer from rhysd/actionlint.
-      - name: 🎬 Install actionlint
-        run: |
-          set -euo pipefail
-          bash <(curl -sSfL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash) "${ACTIONLINT_VERSION}"
-          echo "${PWD}" >> "${GITHUB_PATH}"
 
       - name: 🎬 Lint workflows
         run: bun run lint:actions
