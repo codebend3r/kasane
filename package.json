@@ -13,7 +13,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
-    "lint:actions": "bash scripts/lint-actions.sh",
+    "lint:actions": "actionlint -color",
     "spellcheck": "typos",
     "spellcheck:fix": "typos --write-changes",
     "test": "bun test src --reporter=dots --parallel",

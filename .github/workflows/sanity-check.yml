@@ -14,6 +14,7 @@ concurrency:
 
 env:
   BUN_VERSION: 1.4.2
+  ACTIONLINT_VERSION: 1.7.12
 
 jobs:
   sanity-check:
@@ -33,6 +34,14 @@ jobs:
 
       - name: 📦 Install dependencies
         run: bun install --frozen-lockfile
+
+      # actionlint is a Go binary, so it needs installing before `system-check`
+      # can call it. This is the official installer from rhysd/actionlint.
+      - name: 🎬 Install actionlint
+        run: |
+          set -euo pipefail
+          bash <(curl -sSfL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash) "${ACTIONLINT_VERSION}"
+          echo "${PWD}" >> "${GITHUB_PATH}"
 
       - name: 🚦 Full check
         run: bun run system-check
