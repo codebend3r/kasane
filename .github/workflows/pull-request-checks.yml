@@ -48,6 +48,11 @@ jobs:
       - name: 🧹 Lint
         run: bun run lint
 
+      # actionlint is a Go binary with no npm package, so the script resolves one
+      # itself rather than this job adding a setup step the local run would not have.
+      - name: 🎬 Lint workflows
+        run: bun run lint:actions
+
       - name: 🧪 Test
         run: bun run test
 
