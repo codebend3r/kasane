@@ -14,12 +14,14 @@
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "lint:actions": "bash scripts/lint-actions.sh",
+    "spellcheck": "typos",
+    "spellcheck:fix": "typos --write-changes",
     "test": "bun test src --reporter=dots --parallel",
     "e2e": "playwright test",
     "e2e:install": "playwright install chromium",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
-    "system-check": "run-s typecheck format:check lint lint:actions test build:web",
+    "system-check": "run-s typecheck format:check lint lint:actions spellcheck test build:web",
     "prepare": "husky",
     "desktop:init": "tauri init",
     "desktop:dev": "tauri dev",
@@ -56,6 +58,7 @@
     "zustand": "5.0.15"
   },
   "devDependencies": {
+    "@ocular-d/typos-bin": "1.50.2",
     "@playwright/test": "1.63.0",
     "@tauri-apps/cli": "2.11.4",
     "@types/bun": "1.4.2",
@@ -70,5 +73,8 @@
   "engines": {
     "bun": ">=1.4.2"
   },
-  "packageManager": "bun@1.4.2"
+  "packageManager": "bun@1.4.2",
+  "trustedDependencies": [
+    "@ocular-d/typos-bin"
+  ]
 }
