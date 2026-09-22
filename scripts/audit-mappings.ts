@@ -264,7 +264,7 @@ const checkEpisodeContinuity = (
   // An unadapted arc between two adapted ones is a real and common shape: the
   // anime skipped that source material and resumed after it (Banished from the
   // Hero's Party skips LN volumes 6-7; My Stepmom's Daughter skips volume 3).
-  // It is worth surfacing, because it is also what a mis-ordered row looks like.
+  // It is worth surfacing, because it is also what a misordered row looks like.
   const sandwiched =
     firstNullIndex >= 0 &&
     arcs.slice(firstNullIndex).some((a) => a.episode_start !== null)

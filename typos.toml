@@ -1,0 +1,20 @@
+# Config for `typos` (crate-ci/typos), run as `bun run spellcheck`.
+#
+# typos only flags known misspellings rather than checking every word against a
+# dictionary, so there is no project word list to maintain here — anime titles,
+# `anilist`, `mangadex`, `zustand` and friends pass untouched. This file exists
+# only for the handful of real strings it reads as typos.
+
+[files]
+# `dist/`, `node_modules/` and the rest are already in .gitignore, which typos
+# honours by default. Nothing extra to exclude.
+ignore-hidden = false
+extend-exclude = [
+  ".git/",
+  "bun.lock",
+]
+
+[default.extend-words]
+# The ordinal suffix group in the season-title regexes (`st|nd|rd|th`), not a
+# truncated "and".
+nd = "nd"
