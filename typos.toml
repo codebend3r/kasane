@@ -18,3 +18,8 @@ extend-exclude = [
 # The ordinal suffix group in the season-title regexes (`st|nd|rd|th`), not a
 # truncated "and".
 nd = "nd"
+# Proper nouns in catalog migrations: Passione (JoJo Part 5's gang), Rin Asano
+# (Blade of the Immortal) and Comic Yuri Hime (a manga magazine).
+passione = "passione"
+rin = "rin"
+hime = "hime"
