@@ -105,5 +105,12 @@
   },
   "Gintama": {
     "chapter-gap": "arcs are mapped by named story arc, so standalone comedy lessons between them belong to no arc: 103 is the Kabuki-cho snow-sculpture contest and 273-274 is 'Prelude, Op 28, No. 15 - Raindrop'"
+  },
+  "Boruto: Naruto Next Generations": {
+    "episode-start-offset": "episodes 1-52 are the anime-original Academy and Graduation arcs; chapter 1 is first adapted in episode 53",
+    "episode-gap": "episodes 67-147, 152-180 and 221-286 are anime-original filler between the canon arcs, so they adapt no manga"
+  },
+  "Eyeshield 21": {
+    "episode-gap": "episodes 88-100 are the anime-original Cream Puff Cup and Kanto lead-in, so they adapt no manga"
   }
 }
