@@ -6,7 +6,7 @@ describe("hasBoundingRect", () => {
     expect(hasBoundingRect({ getBoundingClientRect: () => ({}) })).toBe(true);
   });
 
-  it("rejects native refs, nulls and look-alikes", () => {
+  it("rejects native refs, nulls and non-callable impostors", () => {
     expect(hasBoundingRect(null)).toBe(false);
     expect(hasBoundingRect({ measure: () => {} })).toBe(false);
     expect(hasBoundingRect({ getBoundingClientRect: "nope" })).toBe(false);
