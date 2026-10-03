@@ -11,6 +11,7 @@ import {
   ProgressMarkBanner,
   type MarkEvent,
 } from "@/components/ProgressMarkBanner";
+import { QuickLookup } from "@/components/QuickLookup";
 import { SeasonCoverage } from "@/components/SeasonCoverage";
 import { SeriesMovies } from "@/components/SeriesMovies";
 import { COLOR, FONT } from "@/theme";
@@ -123,6 +124,7 @@ export function MappingSection({
           onMarked={onMarked}
         />
       )}
+      <QuickLookup mapping={mapping} />
       {!!curatedMapping && <SeasonCoverage mapping={curatedMapping} />}
       {movies.length > 0 && <SeriesMovies movies={movies} />}
     </View>

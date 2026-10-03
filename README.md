@@ -124,9 +124,9 @@ app/                    # Expo Router routes
   _layout.tsx
   index.tsx             # home: browse + search
   login.tsx             # sign in / sign up
-  series/[id]/          # combined detail (+ arc/ drill-down)
-  anime/[id]/           # anime-side view (+ arc/)
-  manga/[id]/           # manga-side view (+ arc/)
+  series/[id]/          # series detail for either side's id (+ arc/ drill-down)
+  anime/[id]/           # redirects old links to series/[id]
+  manga/[id]/           # redirects old links to series/[id]
 src/
   api/                  # AniList GraphQL, MangaDex, Supabase clients
   components/           # SeriesCard, EpisodeChapterRail, VolumesGrid, ...

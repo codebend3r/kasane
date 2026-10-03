@@ -9,10 +9,11 @@ import {
 } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
-import { getMedia } from "@/api/anilist";
+import { getAnimeFranchise, getMedia, hasAnimeSequels } from "@/api/anilist";
 import { getMangaDexInfoByAniListId } from "@/api/mangadex";
 import { buildSyntheticMapping } from "@/data";
 import { useCatalog } from "@/data/catalog";
+import { FranchiseSeasons } from "@/components/FranchiseSeasons";
 import { MappingSection } from "@/components/MappingSection";
 import { SeriesHeader } from "@/components/SeriesHeader";
 import { TitlesList } from "@/components/TitlesList";
@@ -81,6 +82,13 @@ export default function SeriesDetail() {
     queryFn: () => getMangaDexInfoByAniListId(manga!.id, mangaPreferredTitle),
     enabled: !!manga && !!mangaPreferredTitle,
     staleTime: 60 * 60 * 1000,
+  });
+
+  const { data: franchise } = useQuery({
+    queryKey: ["franchise", anime?.id ?? 0],
+    queryFn: () => getAnimeFranchise(anime?.id ?? 0),
+    enabled: !!anime && hasAnimeSequels(anime),
+    staleTime: 24 * 60 * 60 * 1000,
   });
 
   const syntheticMapping = useMemo(
@@ -170,6 +178,10 @@ export default function SeriesDetail() {
         mobileCoverWidth={mobileCoverWidth}
         mobileCoverHeight={mobileCoverHeight}
       />
+
+      {!!anime && !!franchise && franchise.seasons.length > 1 && (
+        <FranchiseSeasons franchise={franchise} currentId={anime.id} />
+      )}
 
       <MappingSection
         mapping={mapping}
