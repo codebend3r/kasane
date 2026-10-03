@@ -17,11 +17,8 @@ import {
   type ArcSegment,
 } from "@/data/arcLayout";
 import type { SeriesProgress } from "@/state/progress";
-import {
-  HoverLabel,
-  hasBoundingRect,
-  useHoverLabel,
-} from "@/components/HoverLabel";
+import { HoverLabel, useHoverLabel } from "@/components/HoverLabel";
+import { hasBoundingRect } from "@/data/guards";
 
 const SIZE = 280;
 const RING_RATIO = 0.56;

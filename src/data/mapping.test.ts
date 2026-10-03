@@ -7,6 +7,7 @@ import {
   isAdapted,
   lastMappedChapter,
   lastMappedEpisode,
+  seasonCoverage,
   suggestPartnerMark,
 } from "./mapping";
 import type { MappingEntry, SeriesMapping } from "@/types";
@@ -207,5 +208,41 @@ describe("suggestPartnerMark", () => {
         otherPosition: 0,
       }),
     ).toBeNull();
+  });
+});
+
+describe("seasonCoverage", () => {
+  it("spans each season's episodes and chapters across its arcs", () => {
+    const seasons: SeriesMapping = {
+      ...mapping,
+      mappings: [
+        { episodes: [1, 12], chapters: [1, 40], season: 1 },
+        { episodes: [13, 25], chapters: [41, 70], season: 1 },
+        { episodes: [26, 37], chapters: [71, 90], season: 2 },
+        { chapters: [91, 120] },
+      ],
+    };
+    expect(seasonCoverage(seasons)).toEqual([
+      { label: "Season 1", episodes: [1, 25], chapters: [1, 70] },
+      { label: "Season 2", episodes: [26, 37], chapters: [71, 90] },
+    ]);
+  });
+
+  it("is empty when no arc carries a season", () => {
+    expect(seasonCoverage(mapping)).toEqual([]);
+  });
+
+  it("buckets untagged arcs as Other beside tagged ones", () => {
+    const mixed: SeriesMapping = {
+      ...mapping,
+      mappings: [
+        { episodes: [1, 12], chapters: [1, 40], season: 1 },
+        { episodes: [13, 14], chapters: [41, 42] },
+      ],
+    };
+    expect(seasonCoverage(mixed).map((s) => s.label)).toEqual([
+      "Season 1",
+      "Other",
+    ]);
   });
 });

@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { Link } from "expo-router";
 import type { AniListMedia, SeriesEntry } from "@/types";
-import { displayTitle, englishTitle } from "@/data/format";
+import { displayTitle, englishTitle, trimSeasonSuffix } from "@/data/format";
 import { BADGE_SHORT_LABEL, pairResults } from "@/data/pairing";
 import { usePreferences } from "@/state/preferences";
 import { ContinueSection } from "@/components/ContinueSection";
@@ -27,23 +27,6 @@ import { BADGE_COLOR, COLOR, FONT, pressFeedback } from "@/theme";
 const GRID_ITEM_WIDTH = 160;
 const GRID_ITEM_HEIGHT = 280;
 const GRID_GAP = 16;
-
-/** Drops "Season 2", "Final Season", "Part II", "Cour 2" and friends from a title. */
-export function trimSeasonSuffix(title: string): string {
-  const cleaned = title
-    .replace(
-      /\s*[:\-—–]\s*(?:the\s+)?(?:final\s+)?season(?:\s+[\divxlcm]+)?(?:\s+part\s+[\divxlcm]+)?\s*$/i,
-      "",
-    )
-    .replace(/\s+season\s+[\divxlcm]+\s*$/i, "")
-    .replace(/\s+\d+(?:st|nd|rd|th)\s+season\s*$/i, "")
-    .replace(/\s+(?:the\s+)?final\s+season\s*$/i, "")
-    .replace(/\s+part\s+[\divxlcm]+\s*$/i, "")
-    .replace(/\s+(?:\d+(?:st|nd|rd|th)\s+)?cour(?:\s+[\divxlcm]+)?\s*$/i, "")
-    .replace(/[:\-—–]\s*$/, "")
-    .trim();
-  return cleaned || title;
-}
 
 export function LatestReleases({
   data,

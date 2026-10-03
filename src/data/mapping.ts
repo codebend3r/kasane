@@ -95,3 +95,37 @@ export function suggestPartnerMark({
     ? { side: otherSide, position: suggested }
     : null;
 }
+
+/** One season's reach on both sides, across its adapted arcs. */
+export type SeasonSpan = {
+  label: string;
+  episodes: [number, number];
+  chapters: [number, number];
+};
+
+const seasonLabel = (arc: MappingEntry): string =>
+  arc.season ? `Season ${arc.season}` : "Other";
+
+/**
+ * Episode and chapter coverage per season, in the order seasons first appear.
+ * Empty when no arc carries a season, since one "Other" bucket says nothing.
+ */
+export function seasonCoverage(mapping: SeriesMapping): SeasonSpan[] {
+  const adapted = mapping.mappings.filter(isAdapted);
+  const labels = [...new Set(adapted.map(seasonLabel))];
+  if (labels.length === 1 && labels[0] === "Other") return [];
+  return labels.map((label) => {
+    const arcs = adapted.filter((a) => seasonLabel(a) === label);
+    return {
+      label,
+      episodes: [
+        Math.min(...arcs.map((a) => a.episodes[0])),
+        Math.max(...arcs.map((a) => a.episodes[1])),
+      ],
+      chapters: [
+        Math.min(...arcs.map((a) => a.chapters[0])),
+        Math.max(...arcs.map((a) => a.chapters[1])),
+      ],
+    };
+  });
+}

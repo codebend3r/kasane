@@ -5,6 +5,7 @@ import {
   formatAniListDate,
   formatAniListDateJa,
   localeLabel,
+  trimSeasonSuffix,
 } from "./format";
 
 describe("formatAniListDate", () => {
@@ -104,5 +105,31 @@ describe("displayTitle", () => {
     expect(
       displayTitle({ title: { ...title, native: null }, japanese: true }),
     ).toBe("Attack on Titan");
+  });
+});
+
+describe("trimSeasonSuffix", () => {
+  it("drops season, part and cour suffixes", () => {
+    expect(trimSeasonSuffix("Attack on Titan Season 3")).toBe(
+      "Attack on Titan",
+    );
+    expect(trimSeasonSuffix("Attack on Titan: The Final Season")).toBe(
+      "Attack on Titan",
+    );
+    expect(trimSeasonSuffix("Mob Psycho 100 2nd Season")).toBe(
+      "Mob Psycho 100",
+    );
+    expect(trimSeasonSuffix("Spy x Family Part 2")).toBe("Spy x Family");
+    expect(trimSeasonSuffix("Bocchi the Rock! Cour 2")).toBe(
+      "Bocchi the Rock!",
+    );
+  });
+
+  it("leaves a title with no suffix alone", () => {
+    expect(trimSeasonSuffix("Frieren")).toBe("Frieren");
+  });
+
+  it("keeps the title when the whole thing would be trimmed", () => {
+    expect(trimSeasonSuffix("Season 2")).toBe("Season 2");
   });
 });

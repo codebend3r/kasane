@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import type { MangaDexVolumeCover } from "@/types";
 import { localeLabel } from "@/data/format";
+import { groupCovers, type VolumeGroup } from "@/data/volumes";
 import { usePreferences } from "@/state/preferences";
 import {
   CoverCarousel,
@@ -24,44 +25,6 @@ const MOBILE_VARIANT_ROW_HEIGHT = 70;
 const MOBILE_CARD_HEIGHT =
   MOBILE_COVER_HEIGHT + MOBILE_LABELS_HEIGHT + MOBILE_VARIANT_ROW_HEIGHT;
 
-type VolumeGroup = {
-  volume: number;
-  primary: MangaDexVolumeCover;
-  variants: MangaDexVolumeCover[];
-};
-
-function groupCovers(
-  covers: MangaDexVolumeCover[],
-  japanese: boolean,
-): VolumeGroup[] {
-  const localeRank: Record<string, number> = japanese
-    ? { ja: 0, en: 1 }
-    : { en: 0, ja: 1 };
-  const groups = covers.reduce<Map<number, MangaDexVolumeCover[]>>((acc, c) => {
-    const n = Number(c.volume);
-    if (!Number.isFinite(n)) return acc;
-    const base = Math.floor(n);
-    const list = acc.get(base);
-    if (list) list.push(c);
-    else acc.set(base, [c]);
-    return acc;
-  }, new Map());
-  return Array.from(groups.entries())
-    .sort(([a], [b]) => a - b)
-    .map(([volume, list]) => {
-      const sorted = [...list].sort((a, b) => {
-        const aIsInt = !a.volume.includes(".");
-        const bIsInt = !b.volume.includes(".");
-        if (aIsInt !== bIsInt) return aIsInt ? -1 : 1;
-        const ra = localeRank[a.locale] ?? 99;
-        const rb = localeRank[b.locale] ?? 99;
-        if (ra !== rb) return ra - rb;
-        return a.volume.localeCompare(b.volume);
-      });
-      return { volume, primary: sorted[0], variants: sorted.slice(1) };
-    });
-}
-
 function coverKey(c: MangaDexVolumeCover): string {
   return `${c.volume}-${c.locale}`;
 }
@@ -69,7 +32,7 @@ function coverKey(c: MangaDexVolumeCover): string {
 export function VolumesGrid({ covers }: { covers: MangaDexVolumeCover[] }) {
   const japanese = usePreferences((s) => s.japanese);
   const groups = useMemo(
-    () => groupCovers(covers, japanese),
+    () => groupCovers({ covers, japanese }),
     [covers, japanese],
   );
   const [containerWidth, onLayout] = useLayoutWidth();

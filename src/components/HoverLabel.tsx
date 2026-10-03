@@ -1,18 +1,11 @@
 import { useRef, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { FONT } from "@/theme";
+import { hasBoundingRect } from "@/data/guards";
 import type { MouseLike } from "@/types";
 
 type HoverContent = { label: string; color: string; textColor: string };
 type Hover = HoverContent & { x: number; y: number };
-
-export function hasBoundingRect(
-  node: unknown,
-): node is { getBoundingClientRect: () => DOMRect } {
-  return (
-    typeof node === "object" && node !== null && "getBoundingClientRect" in node
-  );
-}
 
 export function useHoverLabel() {
   const containerRef = useRef<View>(null);

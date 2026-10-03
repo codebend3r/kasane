@@ -2,10 +2,9 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Stack } from "expo-router";
 import { Footer } from "@/components/Footer";
 import { Paragraph } from "@/components/Paragraph";
-import type { MappingEntry, SeriesMapping } from "@/types";
+import { expandChapters, expandEpisodes } from "@/data/arcDetail";
+import type { SeriesMapping } from "@/types";
 import { COLOR, FONT } from "@/theme";
-
-type ChapterRow = { chapter: number; episode?: number };
 
 export function ArcDetailView({
   mapping,
@@ -86,11 +85,11 @@ export function ArcDetailView({
                 </View>
                 <View style={styles.rowBody}>
                   <Text style={styles.rowTitle}>Chapter {ch.chapter}</Text>
-                  {ch.episode !== undefined ? (
-                    <Text style={styles.rowSub}>Anime ep {ch.episode}</Text>
-                  ) : (
-                    <Text style={styles.rowSub}>Unadapted</Text>
-                  )}
+                  <Text style={styles.rowSub}>
+                    {ch.episode === null
+                      ? "Unadapted"
+                      : `Anime ep ${ch.episode}`}
+                  </Text>
                 </View>
               </View>
             ))}
@@ -100,44 +99,6 @@ export function ArcDetailView({
       </ScrollView>
     </>
   );
-}
-
-function expandEpisodes(arc: MappingEntry) {
-  if (!arc.episodes) return [];
-  const [e1, e2] = arc.episodes;
-  const [c1, c2] = arc.chapters;
-  const epCount = e2 - e1 + 1;
-  const chCount = c2 - c1 + 1;
-  const chPerEp = chCount / epCount;
-
-  return Array.from({ length: epCount }, (_, i) => {
-    const episode = e1 + i;
-    const chapterStart = c1 + Math.floor(i * chPerEp);
-    const chapterEnd =
-      c1 + Math.max(Math.ceil((i + 1) * chPerEp) - 1, Math.floor(i * chPerEp));
-    return { episode, chapterStart, chapterEnd: Math.min(chapterEnd, c2) };
-  });
-}
-
-function expandChapters(arc: MappingEntry): ChapterRow[] {
-  const [c1, c2] = arc.chapters;
-  const chCount = c2 - c1 + 1;
-
-  if (!arc.episodes) {
-    return Array.from({ length: chCount }, (_, i): ChapterRow => ({
-      chapter: c1 + i,
-    }));
-  }
-
-  const [e1, e2] = arc.episodes;
-  const epCount = e2 - e1 + 1;
-  const epPerCh = epCount / chCount;
-
-  return Array.from({ length: chCount }, (_, i): ChapterRow => {
-    const chapter = c1 + i;
-    const episode = e1 + Math.min(Math.floor(i * epPerCh), epCount - 1);
-    return { chapter, episode };
-  });
 }
 
 const styles = StyleSheet.create({
