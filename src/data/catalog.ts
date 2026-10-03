@@ -4,14 +4,7 @@ import { supabase } from "@/api/supabase";
 import { setSearchAliases } from "@/data/searchAliases";
 import type { GenreFilter } from "@/data/genreFilters";
 import type { MappingEntry, MovieEntry, SeriesMapping } from "@/types";
-import type { Database } from "@/types/supabase";
-
-export type ArcRow = Database["public"]["Tables"]["arc_mappings"]["Row"];
-export type MovieRow = Database["public"]["Tables"]["movies"]["Row"];
-export type SeriesRow = Database["public"]["Tables"]["series"]["Row"] & {
-  arc_mappings: ArcRow[];
-  movies: MovieRow[];
-};
+import type { ArcRow, MovieRow, SeriesRow } from "@/types/catalog";
 
 export type Catalog = {
   mappings: SeriesMapping[];

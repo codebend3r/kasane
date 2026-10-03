@@ -12,11 +12,11 @@ import {
   useGenreFilters,
   useHydrateSearchAliases,
   useMapping,
-  type SeriesRow,
 } from "@/data/catalog";
 import { fromMock, tableOf } from "@test/mocks/supabase";
 import { applySearchAlias, setSearchAliases } from "@/data/searchAliases";
 import type { SeriesMapping } from "@/types";
+import type { SeriesRow } from "@/types/catalog";
 import type { Database } from "@/types/supabase";
 
 const aot: SeriesMapping = {

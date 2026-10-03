@@ -1,12 +1,8 @@
 import { AppState, Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createClient } from "@supabase/supabase-js";
+import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from "@/api/supabaseConfig";
 import type { Database } from "@/types/supabase";
-
-// Publishable key — safe to ship in the client bundle.
-const SUPABASE_URL = "https://obtgldkascmxbtpnvscn.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY =
-  "sb_publishable_4z9kuzXtE3PeVgbPDtQUWw_cSrKxsu-";
 
 export const supabase = createClient<Database>(
   SUPABASE_URL,
