@@ -26,7 +26,7 @@ export function findRelatedId(
  * manga's anime adaptation, or an anime's source manga.
  */
 export function partnerIdOf(media: AniListMedia): number | null {
-  const edges = media.relations?.edges ?? [];
+  const edges = media.relations.edges;
   return media.type === "MANGA"
     ? findRelatedId(edges, "ADAPTATION", "ANIME")
     : findRelatedId(edges, "SOURCE", "MANGA");
@@ -104,8 +104,6 @@ const PARTNER_RELATION_TYPES = new Set(["ADAPTATION", "SOURCE"]);
 export function buildSyntheticMapping(
   media: AniListMedia,
 ): SeriesMapping | null {
-  if (!media.relations) return null;
-
   const partnerType = media.type === "ANIME" ? "MANGA" : "ANIME";
 
   const candidates = media.relations.edges
@@ -115,19 +113,18 @@ export function buildSyntheticMapping(
       partnerType === "ANIME" ? !!e.node.episodes : !!e.node.chapters,
     );
 
-  if (candidates.length === 0) return null;
-
-  candidates.sort(
-    (a, b) =>
-      (a.node.startDate?.year ?? 9999) - (b.node.startDate?.year ?? 9999),
+  // The earliest partner by start year; an undated one sorts last.
+  const [earliest] = [...candidates].sort(
+    (a, b) => (a.node.startDate.year ?? 9999) - (b.node.startDate.year ?? 9999),
   );
-  const partner = candidates[0].node;
+  if (!earliest) return null;
+  const partner = earliest.node;
 
   const anime = media.type === "ANIME" ? media : partner;
   const manga = media.type === "MANGA" ? media : partner;
 
-  const episodes = anime.episodes ?? null;
-  const chapters = manga.chapters ?? null;
+  const episodes = anime.episodes;
+  const chapters = manga.chapters;
   if (!episodes || !chapters) return null;
 
   return {

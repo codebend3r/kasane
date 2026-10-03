@@ -21,7 +21,10 @@ describe("useMedia", () => {
   });
 
   it("fetches the entry once the id is known", async () => {
-    const anime = makeMedia({ id: 5114, type: "ANIME" });
+    const anime = {
+      ...makeMedia({ id: 5114, type: "ANIME" }),
+      description: null,
+    };
     graphqlRequestMock.mockResolvedValueOnce({ Media: anime });
     const { captures, unmount } = renderHook(() => useMedia(5114));
     try {

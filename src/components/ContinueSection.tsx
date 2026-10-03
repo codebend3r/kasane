@@ -18,7 +18,7 @@ export function ContinueSection() {
     if (!primary) return [];
     const known = new Set(ids);
     const collected = primary.flatMap((m) =>
-      (m.relations?.edges ?? [])
+      m.relations.edges
         .filter(
           (e) =>
             PARTNER_RELATIONS.has(e.relationType) &&

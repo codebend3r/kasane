@@ -24,7 +24,6 @@ export const makeMedia = ({
   type,
   title: { romaji: title ?? `Media ${id}`, english: null, native: null },
   coverImage: { large: "https://img.example/cover.png", color: null },
-  description: null,
   episodes,
   chapters,
   volumes: null,
@@ -34,7 +33,8 @@ export const makeMedia = ({
   synonyms: [],
   genres: [],
   startDate: { year: startYear },
-  ...(relations ? { relations: { edges: relations } } : {}),
+  endDate: { year: null },
+  relations: { edges: relations ?? [] },
 });
 
 /** One relation edge with every node field present, nulled unless given. */

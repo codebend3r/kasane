@@ -8,7 +8,7 @@ import {
 // `graphql-request` is replaced with this mock by the preload in
 // `test/setup.ts`, so every request below is served from fixtures.
 import { graphqlRequestMock } from "@test/mocks/graphql";
-import { makeMedia } from "@test/fixtures/media";
+import { makeEdge, makeMedia } from "@test/fixtures/media";
 
 // Typed against the real `FRANCHISE_NODE_QUERY` result so a change to the query
 // shape breaks the fixture rather than letting it drift.
@@ -42,7 +42,7 @@ describe("hasAnimeSequels", () => {
     const anime = makeMedia({
       id: 1,
       type: "ANIME",
-      relations: [{ relationType: "SEQUEL", node: { id: 2, type: "ANIME" } }],
+      relations: [makeEdge({ relationType: "SEQUEL", id: 2, type: "ANIME" })],
     });
     expect(hasAnimeSequels(anime)).toBe(true);
   });
@@ -51,7 +51,7 @@ describe("hasAnimeSequels", () => {
     const anime = makeMedia({
       id: 1,
       type: "ANIME",
-      relations: [{ relationType: "SEQUEL", node: { id: 2, type: "MANGA" } }],
+      relations: [makeEdge({ relationType: "SEQUEL", id: 2, type: "MANGA" })],
     });
     expect(hasAnimeSequels(anime)).toBe(false);
   });
@@ -60,7 +60,7 @@ describe("hasAnimeSequels", () => {
     const manga = makeMedia({
       id: 1,
       type: "MANGA",
-      relations: [{ relationType: "SEQUEL", node: { id: 2, type: "ANIME" } }],
+      relations: [makeEdge({ relationType: "SEQUEL", id: 2, type: "ANIME" })],
     });
     expect(hasAnimeSequels(manga)).toBe(false);
   });
@@ -161,20 +161,24 @@ describe("getLatestAnime franchise-root filtering", () => {
       id: 2,
       type: "ANIME",
       relations: [
-        {
+        makeEdge({
           relationType: "PREQUEL",
-          node: { id: 1, type: "ANIME", format: "TV" },
-        },
+          id: 1,
+          type: "ANIME",
+          format: "TV",
+        }),
       ],
     });
     const childOfUnknownFormat = makeMedia({
       id: 3,
       type: "ANIME",
       relations: [
-        {
+        makeEdge({
           relationType: "PARENT",
-          node: { id: 1, type: "ANIME", format: null },
-        },
+          id: 1,
+          type: "ANIME",
+          format: null,
+        }),
       ],
     });
     // A music-video "prequel" is not a real predecessor season.
@@ -182,10 +186,12 @@ describe("getLatestAnime franchise-root filtering", () => {
       id: 4,
       type: "ANIME",
       relations: [
-        {
+        makeEdge({
           relationType: "PREQUEL",
-          node: { id: 9, type: "ANIME", format: "MUSIC" },
-        },
+          id: 9,
+          type: "ANIME",
+          format: "MUSIC",
+        }),
       ],
     });
     // A manga prequel does not make the anime a non-root.
@@ -193,10 +199,12 @@ describe("getLatestAnime franchise-root filtering", () => {
       id: 5,
       type: "ANIME",
       relations: [
-        {
+        makeEdge({
           relationType: "PREQUEL",
-          node: { id: 8, type: "MANGA", format: "MANGA" },
-        },
+          id: 8,
+          type: "MANGA",
+          format: "MANGA",
+        }),
       ],
     });
 
@@ -210,7 +218,7 @@ describe("getLatestAnime franchise-root filtering", () => {
       ]),
     );
 
-    const latest = await getLatestAnime();
+    const latest = await getLatestAnime({ genreNotIn: null, tagNotIn: null });
     expect(latest.map((m) => m.id)).toEqual([1, 4, 5]);
   });
 });

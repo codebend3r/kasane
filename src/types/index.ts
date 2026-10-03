@@ -30,7 +30,6 @@ export type AniListMedia = {
     large: string;
     color: string | null;
   };
-  description: string | null;
   episodes: number | null;
   chapters: number | null;
   volumes: number | null;
@@ -40,9 +39,12 @@ export type AniListMedia = {
   synonyms: string[];
   genres: string[];
   startDate: AniListDate;
-  endDate?: AniListDate;
-  relations?: { edges: RelationEdge[] };
+  endDate: AniListDate;
+  relations: { edges: RelationEdge[] };
 };
+
+/** A media record from the detail query, which also carries the synopsis. */
+export type AniListMediaDetail = AniListMedia & { description: string | null };
 
 /** Just enough of a media record to render its poster. */
 export type MediaCover = {
@@ -58,11 +60,11 @@ export type RelationEdge = {
   node: {
     id: number;
     type: MediaType;
-    format?: string | null;
-    episodes?: number | null;
-    chapters?: number | null;
-    title?: { romaji: string; english: string | null };
-    startDate?: { year: number | null };
+    format: string | null;
+    episodes: number | null;
+    chapters: number | null;
+    title: { romaji: string; english: string | null };
+    startDate: { year: number | null };
   };
 };
 

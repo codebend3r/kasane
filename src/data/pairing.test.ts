@@ -5,20 +5,20 @@ import {
   partnerIdOf,
   seriesBadgeOf,
 } from "./pairing";
-import { makeMedia } from "@test/fixtures/media";
+import { makeEdge, makeMedia } from "@test/fixtures/media";
 
 describe("pairResults", () => {
   it("absorbs an anime into its source manga entry", () => {
     const anime = makeMedia({
       id: 1,
       type: "ANIME",
-      relations: [{ relationType: "SOURCE", node: { id: 2, type: "MANGA" } }],
+      relations: [makeEdge({ relationType: "SOURCE", id: 2, type: "MANGA" })],
     });
     const manga = makeMedia({
       id: 2,
       type: "MANGA",
       relations: [
-        { relationType: "ADAPTATION", node: { id: 1, type: "ANIME" } },
+        makeEdge({ relationType: "ADAPTATION", id: 1, type: "ANIME" }),
       ],
     });
 
@@ -47,7 +47,7 @@ describe("pairResults", () => {
     const anime = makeMedia({
       id: 1,
       type: "ANIME",
-      relations: [{ relationType: "SOURCE", node: { id: 99, type: "MANGA" } }],
+      relations: [makeEdge({ relationType: "SOURCE", id: 99, type: "MANGA" })],
     });
 
     expect(pairResults([anime])).toEqual([
@@ -59,12 +59,12 @@ describe("pairResults", () => {
     const seasonOne = makeMedia({
       id: 10,
       type: "ANIME",
-      relations: [{ relationType: "SOURCE", node: { id: 99, type: "MANGA" } }],
+      relations: [makeEdge({ relationType: "SOURCE", id: 99, type: "MANGA" })],
     });
     const seasonTwo = makeMedia({
       id: 11,
       type: "ANIME",
-      relations: [{ relationType: "SOURCE", node: { id: 99, type: "MANGA" } }],
+      relations: [makeEdge({ relationType: "SOURCE", id: 99, type: "MANGA" })],
     });
     const manga = makeMedia({ id: 99, type: "MANGA" });
 
@@ -84,7 +84,7 @@ describe("buildSyntheticMapping", () => {
   const autoNote =
     "Auto-estimated linear mapping — anime episode count distributed evenly across the manga chapter count. Real arc pacing is rarely uniform.";
 
-  it("returns null when the media has no relations", () => {
+  it("returns null when the media has no relations at all", () => {
     expect(
       buildSyntheticMapping(makeMedia({ id: 1, type: "ANIME" })),
     ).toBeNull();
@@ -97,20 +97,26 @@ describe("buildSyntheticMapping", () => {
       episodes: 12,
       relations: [
         // Wrong node type for an anime's partner.
-        {
+        makeEdge({
           relationType: "SOURCE",
-          node: { id: 2, type: "ANIME", episodes: 24 },
-        },
+          id: 2,
+          type: "ANIME",
+          episodes: 24,
+        }),
         // Right type but not a partner relation.
-        {
+        makeEdge({
           relationType: "SIDE_STORY",
-          node: { id: 3, type: "MANGA", chapters: 50 },
-        },
+          id: 3,
+          type: "MANGA",
+          chapters: 50,
+        }),
         // Partner relation but no chapter count to map against.
-        {
+        makeEdge({
           relationType: "SOURCE",
-          node: { id: 4, type: "MANGA", chapters: null },
-        },
+          id: 4,
+          type: "MANGA",
+          chapters: null,
+        }),
       ],
     });
     expect(buildSyntheticMapping(anime)).toBeNull();
@@ -122,10 +128,12 @@ describe("buildSyntheticMapping", () => {
       type: "ANIME",
       episodes: null,
       relations: [
-        {
+        makeEdge({
           relationType: "SOURCE",
-          node: { id: 2, type: "MANGA", chapters: 100 },
-        },
+          id: 2,
+          type: "MANGA",
+          chapters: 100,
+        }),
       ],
     });
     expect(buildSyntheticMapping(anime)).toBeNull();
@@ -138,15 +146,13 @@ describe("buildSyntheticMapping", () => {
       title: "Adapted",
       episodes: 24,
       relations: [
-        {
+        makeEdge({
           relationType: "SOURCE",
-          node: {
-            id: 2,
-            type: "MANGA",
-            chapters: 96,
-            startDate: { year: 2000 },
-          },
-        },
+          id: 2,
+          type: "MANGA",
+          chapters: 96,
+          startYear: 2000,
+        }),
       ],
     });
 
@@ -168,24 +174,20 @@ describe("buildSyntheticMapping", () => {
       title: "Source",
       chapters: 96,
       relations: [
-        {
+        makeEdge({
           relationType: "ADAPTATION",
-          node: {
-            id: 30,
-            type: "ANIME",
-            episodes: 12,
-            startDate: { year: 2015 },
-          },
-        },
-        {
+          id: 30,
+          type: "ANIME",
+          episodes: 12,
+          startYear: 2015,
+        }),
+        makeEdge({
           relationType: "ADAPTATION",
-          node: {
-            id: 20,
-            type: "ANIME",
-            episodes: 26,
-            startDate: { year: 1999 },
-          },
-        },
+          id: 20,
+          type: "ANIME",
+          episodes: 26,
+          startYear: 1999,
+        }),
       ],
     });
 
@@ -207,19 +209,19 @@ describe("buildSyntheticMapping", () => {
       title: "Source",
       chapters: 50,
       relations: [
-        {
+        makeEdge({
           relationType: "ADAPTATION",
-          node: { id: 40, type: "ANIME", episodes: 13 },
-        },
-        {
+          id: 40,
+          type: "ANIME",
+          episodes: 13,
+        }),
+        makeEdge({
           relationType: "ADAPTATION",
-          node: {
-            id: 41,
-            type: "ANIME",
-            episodes: 25,
-            startDate: { year: 2005 },
-          },
-        },
+          id: 41,
+          type: "ANIME",
+          episodes: 25,
+          startYear: 2005,
+        }),
       ],
     });
 
@@ -233,7 +235,7 @@ describe("partnerIdOf", () => {
       id: 2,
       type: "MANGA",
       relations: [
-        { relationType: "ADAPTATION", node: { id: 1, type: "ANIME" } },
+        makeEdge({ relationType: "ADAPTATION", id: 1, type: "ANIME" }),
       ],
     });
     expect(partnerIdOf(manga)).toBe(1);
@@ -243,7 +245,7 @@ describe("partnerIdOf", () => {
     const anime = makeMedia({
       id: 1,
       type: "ANIME",
-      relations: [{ relationType: "SOURCE", node: { id: 2, type: "MANGA" } }],
+      relations: [makeEdge({ relationType: "SOURCE", id: 2, type: "MANGA" })],
     });
     expect(partnerIdOf(anime)).toBe(2);
   });
@@ -254,7 +256,7 @@ describe("partnerIdOf", () => {
       id: 1,
       type: "ANIME",
       relations: [
-        { relationType: "ADAPTATION", node: { id: 2, type: "MANGA" } },
+        makeEdge({ relationType: "ADAPTATION", id: 2, type: "MANGA" }),
       ],
     });
     expect(partnerIdOf(anime)).toBeNull();
@@ -266,7 +268,7 @@ describe("seriesBadgeOf", () => {
     const anime = makeMedia({
       id: 1,
       type: "ANIME",
-      relations: [{ relationType: "SOURCE", node: { id: 2, type: "MANGA" } }],
+      relations: [makeEdge({ relationType: "SOURCE", id: 2, type: "MANGA" })],
     });
     expect(seriesBadgeOf(anime)).toBe("both");
   });

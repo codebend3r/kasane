@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, View } from "react-native";
-import type { AniListMedia, SeriesBadge } from "@/types";
+import type { AniListMediaDetail, SeriesBadge } from "@/types";
 import {
   displayTitle,
   englishTitle,
@@ -12,7 +12,7 @@ import { Paragraph } from "@/components/Paragraph";
 import { COLOR, FONT } from "@/theme";
 
 type SeriesHeaderProps = {
-  media: AniListMedia;
+  media: AniListMediaDetail;
   badge: SeriesBadge;
   /** Metadata line already assembled by the route: counts, format, dates. */
   subParts: string[];
@@ -70,7 +70,7 @@ export function SeriesHeader({
               : ""}
           </Text>
         )}
-        {!!media.endDate?.year && (
+        {!!media.endDate.year && (
           <Text style={styles.dates}>
             Ended {formatAniListDate(media.endDate)}
           </Text>

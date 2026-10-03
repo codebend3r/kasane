@@ -1,7 +1,9 @@
 import { GraphQLClient, gql } from "graphql-request";
 import { englishTitle } from "@/data/format";
+import type { SplitFilters } from "@/data/genreFilters";
 import type {
   AniListMedia,
+  AniListMediaDetail,
   AnimeFranchise,
   FranchiseSeason,
   MediaCover,
@@ -11,8 +13,11 @@ import type {
 const client = new GraphQLClient("https://graphql.anilist.co");
 
 // AniList caps a page at 50 entries.
-const COVER_PAGE_SIZE = 50;
+const PAGE_SIZE = 50;
+const SEARCH_PAGE_SIZE = 20;
 
+// One relations shape for every query, so a media record carries the same
+// partner facts — counts, title, start year — wherever it came from.
 const MEDIA_FIELDS = `
   id
   type
@@ -31,7 +36,15 @@ const MEDIA_FIELDS = `
   relations {
     edges {
       relationType(version: 2)
-      node { id type format episodes }
+      node {
+        id
+        type
+        format
+        episodes
+        chapters
+        title { romaji english }
+        startDate { year }
+      }
     }
   }
 `;
@@ -49,35 +62,17 @@ const NON_ROOT_BLOCKING_FORMATS = new Set([
 ]);
 
 function isFranchiseRoot(media: AniListMedia): boolean {
-  const edges = media.relations?.edges ?? [];
-  return !edges.some(
+  return !media.relations.edges.some(
     (e) =>
       PARENT_RELATIONS.has(e.relationType) &&
       e.node.type === media.type &&
-      (e.node.format == null || NON_ROOT_BLOCKING_FORMATS.has(e.node.format)),
+      (e.node.format === null || NON_ROOT_BLOCKING_FORMATS.has(e.node.format)),
   );
 }
 
-const SEARCH_TYPED_QUERY = gql`
-  query Search($query: String!, $type: MediaType!, $genreNotIn: [String], $tagNotIn: [String]) {
-    Page(perPage: 20) {
-      media(
-        search: $query
-        type: $type
-        sort: SEARCH_MATCH
-        isAdult: false
-        genre_not_in: $genreNotIn
-        tag_not_in: $tagNotIn
-      ) {
-        ${MEDIA_FIELDS}
-      }
-    }
-  }
-`;
-
-const SEARCH_ANY_QUERY = gql`
+const SEARCH_QUERY = gql`
   query Search($query: String!, $genreNotIn: [String], $tagNotIn: [String]) {
-    Page(perPage: 20) {
+    Page(perPage: ${SEARCH_PAGE_SIZE}) {
       media(
         search: $query
         sort: SEARCH_MATCH
@@ -93,7 +88,7 @@ const SEARCH_ANY_QUERY = gql`
 
 const LATEST_ANIME_QUERY = gql`
   query LatestAnime($genreNotIn: [String], $tagNotIn: [String]) {
-    Page(perPage: 50) {
+    Page(perPage: ${PAGE_SIZE}) {
       media(
         type: ANIME
         format: TV
@@ -111,7 +106,7 @@ const LATEST_ANIME_QUERY = gql`
 
 const MEDIA_BY_IDS_QUERY = gql`
   query MediaByIds($ids: [Int]!) {
-    Page(perPage: 50) {
+    Page(perPage: ${PAGE_SIZE}) {
       media(id_in: $ids) {
         ${MEDIA_FIELDS}
       }
@@ -122,105 +117,43 @@ const MEDIA_BY_IDS_QUERY = gql`
 const DETAIL_QUERY = gql`
   query Detail($id: Int!) {
     Media(id: $id) {
-      id
-      type
-      title {
-        romaji
-        english
-        native
-      }
-      coverImage {
-        large
-        color
-      }
+      ${MEDIA_FIELDS}
       description(asHtml: false)
-      episodes
-      chapters
-      volumes
-      status
-      format
-      countryOfOrigin
-      synonyms
-      genres
-      startDate {
-        year
-        month
-        day
-      }
-      endDate {
-        year
-        month
-        day
-      }
-      relations {
-        edges {
-          relationType(version: 2)
-          node {
-            id
-            type
-            format
-            episodes
-            chapters
-            title {
-              romaji
-              english
-            }
-            startDate {
-              year
-            }
-          }
-        }
-      }
     }
   }
 `;
 
-export async function searchMedia(
-  query: string,
-  type?: MediaType,
-  genreNotIn?: string[] | null,
-  tagNotIn?: string[] | null,
-): Promise<AniListMedia[]> {
+/** AniList search, with the hidden genres and tags excluded server-side. */
+export async function searchMedia({
+  query,
+  filters,
+}: {
+  query: string;
+  filters: SplitFilters;
+}): Promise<AniListMedia[]> {
   if (!query.trim()) return [];
-  const data = type
-    ? await client.request<{ Page: { media: AniListMedia[] } }>(
-        SEARCH_TYPED_QUERY,
-        {
-          query,
-          type,
-          genreNotIn: genreNotIn ?? null,
-          tagNotIn: tagNotIn ?? null,
-        },
-      )
-    : await client.request<{ Page: { media: AniListMedia[] } }>(
-        SEARCH_ANY_QUERY,
-        {
-          query,
-          genreNotIn: genreNotIn ?? null,
-          tagNotIn: tagNotIn ?? null,
-        },
-      );
+  const data = await client.request<{ Page: { media: AniListMedia[] } }>(
+    SEARCH_QUERY,
+    { query, ...filters },
+  );
   return data.Page.media;
 }
 
 export async function getLatestAnime(
-  genreNotIn?: string[] | null,
-  tagNotIn?: string[] | null,
+  filters: SplitFilters,
 ): Promise<AniListMedia[]> {
   const data = await client.request<{ Page: { media: AniListMedia[] } }>(
     LATEST_ANIME_QUERY,
-    {
-      genreNotIn: genreNotIn ?? null,
-      tagNotIn: tagNotIn ?? null,
-    },
+    { ...filters },
   );
   return data.Page.media.filter(isFranchiseRoot);
 }
 
-export async function getMedia(id: number): Promise<AniListMedia> {
-  const data = await client.request<{ Media: AniListMedia }>(DETAIL_QUERY, {
-    id,
-  });
+export async function getMedia(id: number): Promise<AniListMediaDetail> {
+  const data = await client.request<{ Media: AniListMediaDetail }>(
+    DETAIL_QUERY,
+    { id },
+  );
   return data.Media;
 }
 
@@ -228,16 +161,14 @@ export async function getMediaByIds(ids: number[]): Promise<AniListMedia[]> {
   if (ids.length === 0) return [];
   const data = await client.request<{ Page: { media: AniListMedia[] } }>(
     MEDIA_BY_IDS_QUERY,
-    {
-      ids,
-    },
+    { ids },
   );
   return data.Page.media;
 }
 
 const COVERS_BY_IDS_QUERY = gql`
   query CoversByIds($ids: [Int]!) {
-    Page(perPage: ${COVER_PAGE_SIZE}) {
+    Page(perPage: ${PAGE_SIZE}) {
       media(id_in: $ids) {
         id
         coverImage {
@@ -260,9 +191,8 @@ export async function getCoversByIds(
   ids: readonly number[],
 ): Promise<MediaCover[]> {
   const unique = [...new Set(ids)];
-  return Array.from(
-    { length: Math.ceil(unique.length / COVER_PAGE_SIZE) },
-    (_, i) => unique.slice(i * COVER_PAGE_SIZE, (i + 1) * COVER_PAGE_SIZE),
+  return Array.from({ length: Math.ceil(unique.length / PAGE_SIZE) }, (_, i) =>
+    unique.slice(i * PAGE_SIZE, (i + 1) * PAGE_SIZE),
   ).reduce<Promise<MediaCover[]>>(async (acc, batch) => {
     const covers = await acc;
     const page = await client.request<{ Page: { media: MediaCover[] } }>(
@@ -275,7 +205,7 @@ export async function getCoversByIds(
 
 const FRANCHISE_NODE_QUERY = gql`
   query FranchiseNode($ids: [Int]) {
-    Page(perPage: 50) {
+    Page(perPage: ${PAGE_SIZE}) {
       media(id_in: $ids, type: ANIME) {
         id
         title {
@@ -328,9 +258,7 @@ async function collectFranchiseNodes(
 
   const data = await client.request<{ Page: { media: FranchiseRawNode[] } }>(
     FRANCHISE_NODE_QUERY,
-    {
-      ids,
-    },
+    { ids },
   );
   const nextVisited = data.Page.media.reduce(
     (acc, node) => acc.set(node.id, node),
@@ -381,8 +309,7 @@ export async function getAnimeFranchise(
 
 export function hasAnimeSequels(media: AniListMedia): boolean {
   if (media.type !== "ANIME") return false;
-  const edges = media.relations?.edges ?? [];
-  return edges.some(
+  return media.relations.edges.some(
     (e) => e.relationType === "SEQUEL" && e.node.type === "ANIME",
   );
 }

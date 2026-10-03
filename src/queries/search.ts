@@ -22,8 +22,7 @@ export function useSearch({
   const term = applySearchAlias({ query, aliases: useSearchAliases() });
   return useQuery({
     queryKey: ["search", term, filters.genreNotIn, filters.tagNotIn],
-    queryFn: () =>
-      searchMedia(term, undefined, filters.genreNotIn, filters.tagNotIn),
+    queryFn: () => searchMedia({ query: term, filters }),
     enabled,
     staleTime: 5 * MINUTE_MS,
   });
@@ -39,7 +38,7 @@ export function useLatestAnime({
 }) {
   return useQuery({
     queryKey: ["latest-anime", filters.genreNotIn, filters.tagNotIn],
-    queryFn: () => getLatestAnime(filters.genreNotIn, filters.tagNotIn),
+    queryFn: () => getLatestAnime(filters),
     enabled,
     staleTime: HOUR_MS,
   });
