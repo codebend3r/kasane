@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
-import { useCatalog } from "@/data/catalog";
+import { useCatalog } from "@/queries/catalog";
 import { toMappedShow } from "@/data/mappedShows";
 import { useAuthEmail, useAuthStatus } from "@/state/auth";
 import { useInProgressEntries } from "@/state/progress";
-import { useCovers } from "@/data/covers";
+import { useCovers } from "@/queries/covers";
 import { ShowGrid } from "@/components/ShowGrid";
 import { Footer } from "@/components/Footer";
 import type { PressableState } from "@/types";

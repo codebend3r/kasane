@@ -8,16 +8,14 @@ import {
   View,
 } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import { useQuery } from "@tanstack/react-query";
-import { getAnimeFranchise, getMedia, hasAnimeSequels } from "@/api/anilist";
-import { getMangaDexInfoByAniListId } from "@/api/mangadex";
 import { lastMappedEpisode } from "@/data/mapping";
 import {
   buildSyntheticMapping,
   partnerIdOf,
   seriesBadgeOf,
 } from "@/data/pairing";
-import { useCatalog } from "@/data/catalog";
+import { useCatalog } from "@/queries/catalog";
+import { useFranchise, useMangaDex, useMedia } from "@/queries/media";
 import { FranchiseSeasons } from "@/components/FranchiseSeasons";
 import { MappingSection } from "@/components/MappingSection";
 import { SeriesHeader } from "@/components/SeriesHeader";
@@ -25,7 +23,7 @@ import { TitlesList } from "@/components/TitlesList";
 import { VolumesGrid } from "@/components/VolumesGrid";
 import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
 import { Footer } from "@/components/Footer";
-import { englishTitle, formatAniListDate } from "@/data/format";
+import { formatAniListDate } from "@/data/format";
 import { COLOR, FONT } from "@/theme";
 
 export default function SeriesDetail() {
@@ -36,11 +34,9 @@ export default function SeriesDetail() {
   const mobileCoverWidth = Math.min(windowWidth - 32, 420);
   const mobileCoverHeight = Math.round(mobileCoverWidth * (340 / 240));
 
-  const { data: media, isLoading } = useQuery({
-    queryKey: ["media", mediaId],
-    queryFn: () => getMedia(mediaId),
-    enabled: !Number.isNaN(mediaId),
-  });
+  const { data: media, isLoading } = useMedia(
+    Number.isNaN(mediaId) ? null : mediaId,
+  );
 
   const { findMapping, isLoaded: catalogLoaded } = useCatalog();
   const curatedMapping = findMapping(mediaId);
@@ -54,11 +50,7 @@ export default function SeriesDetail() {
         : curatedMapping.anilistAnimeId
       : partnerIdOf(media);
 
-  const { data: partner } = useQuery({
-    queryKey: ["media", partnerId],
-    queryFn: () => getMedia(partnerId!),
-    enabled: !!partnerId,
-  });
+  const { data: partner } = useMedia(partnerId);
 
   const manga =
     media?.type === "MANGA"
@@ -74,20 +66,8 @@ export default function SeriesDetail() {
         : null;
   const primary = manga ?? anime ?? null;
 
-  const mangaPreferredTitle = manga ? englishTitle(manga.title) : "";
-  const { data: mangadex, isFetching: mangadexLoading } = useQuery({
-    queryKey: ["mangadex", manga?.id, mangaPreferredTitle],
-    queryFn: () => getMangaDexInfoByAniListId(manga!.id, mangaPreferredTitle),
-    enabled: !!manga && !!mangaPreferredTitle,
-    staleTime: 60 * 60 * 1000,
-  });
-
-  const { data: franchise } = useQuery({
-    queryKey: ["franchise", anime?.id ?? 0],
-    queryFn: () => getAnimeFranchise(anime?.id ?? 0),
-    enabled: !!anime && hasAnimeSequels(anime),
-    staleTime: 24 * 60 * 60 * 1000,
-  });
+  const { data: mangadex, isFetching: mangadexLoading } = useMangaDex(manga);
+  const { data: franchise } = useFranchise(anime);
 
   const syntheticMapping = useMemo(
     () =>

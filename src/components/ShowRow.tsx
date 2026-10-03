@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import type { MappedShow } from "@/data/mappedShows";
-import type { Cover } from "@/data/covers";
+import type { Cover } from "@/queries/covers";
 import { Poster, showMeta } from "@/components/ShowTile";
 import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
 import type { PressableState } from "@/types";

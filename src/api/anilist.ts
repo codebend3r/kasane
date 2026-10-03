@@ -1,6 +1,5 @@
 import { GraphQLClient, gql } from "graphql-request";
 import { englishTitle } from "@/data/format";
-import { applySearchAlias } from "@/data/searchAliases";
 import type {
   AniListMedia,
   AnimeFranchise,
@@ -183,12 +182,11 @@ export async function searchMedia(
   tagNotIn?: string[] | null,
 ): Promise<AniListMedia[]> {
   if (!query.trim()) return [];
-  const resolved = applySearchAlias(query);
   const data = type
     ? await client.request<{ Page: { media: AniListMedia[] } }>(
         SEARCH_TYPED_QUERY,
         {
-          query: resolved,
+          query,
           type,
           genreNotIn: genreNotIn ?? null,
           tagNotIn: tagNotIn ?? null,
@@ -197,7 +195,7 @@ export async function searchMedia(
     : await client.request<{ Page: { media: AniListMedia[] } }>(
         SEARCH_ANY_QUERY,
         {
-          query: resolved,
+          query,
           genreNotIn: genreNotIn ?? null,
           tagNotIn: tagNotIn ?? null,
         },

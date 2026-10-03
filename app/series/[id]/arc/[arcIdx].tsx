@@ -1,6 +1,6 @@
 import { ActivityIndicator, Text, View, StyleSheet } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import { useCatalog } from "@/data/catalog";
+import { useCatalog } from "@/queries/catalog";
 import { ArcDetailView } from "@/components/ArcDetailView";
 import { COLOR, FONT } from "@/theme";
 

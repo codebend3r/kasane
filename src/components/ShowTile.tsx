@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import type { MappedShow } from "@/data/mappedShows";
-import type { Cover } from "@/data/covers";
+import type { Cover } from "@/queries/covers";
 import type { PressableState } from "@/types";
 import { COLOR, FONT } from "@/theme";
 

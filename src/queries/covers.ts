@@ -1,15 +1,12 @@
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getCoversByIds } from "@/api/anilist";
+import { WEEK_MS } from "@/queries/shared";
 
 export type Cover = { url: string; color: string | null };
 export type CoverMap = Record<number, Cover>;
 
 export const COVERS_QUERY_KEY = ["covers"] as const;
-
-// Cover art effectively never changes, and the batch costs a dozen AniList
-// calls, so keep it a week — the same window as the persisted catalog.
-const COVERS_STALE_MS = 7 * 24 * 60 * 60 * 1000;
 
 const EMPTY_COVERS: CoverMap = {};
 
@@ -22,15 +19,17 @@ const digest = (ids: readonly number[]): string =>
 /**
  * Poster art for a set of AniList media ids, keyed by id. Returns an empty map
  * until the fetch lands, so callers render their placeholder in the meantime.
+ *
+ * Cover art effectively never changes, and the batch costs a dozen AniList
+ * calls, so keep it a week — the same window as the persisted catalog.
  */
-export const useCovers = (ids: readonly number[]): CoverMap => {
-  const key = digest(ids);
+export function useCovers(ids: readonly number[]): CoverMap {
   const { data } = useQuery({
-    queryKey: [...COVERS_QUERY_KEY, key],
+    queryKey: [...COVERS_QUERY_KEY, digest(ids)],
     queryFn: () => getCoversByIds(ids),
     enabled: ids.length > 0,
-    staleTime: COVERS_STALE_MS,
-    gcTime: COVERS_STALE_MS,
+    staleTime: WEEK_MS,
+    gcTime: WEEK_MS,
   });
 
   return useMemo(
@@ -45,4 +44,4 @@ export const useCovers = (ids: readonly number[]): CoverMap => {
         : EMPTY_COVERS,
     [data],
   );
-};
+}

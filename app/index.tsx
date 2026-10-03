@@ -8,10 +8,9 @@ import {
   useWindowDimensions,
   View,
 } from "react-native";
-import { useQuery } from "@tanstack/react-query";
-import { getLatestAnime, searchMedia } from "@/api/anilist";
 import { pairResults } from "@/data/pairing";
-import { useCatalog, useGenreFilters } from "@/data/catalog";
+import { useCatalog, useGenreFilters } from "@/queries/catalog";
+import { useLatestAnime, useSearch } from "@/queries/search";
 import { splitHiddenForAniList } from "@/data/genreFilters";
 import { Footer } from "@/components/Footer";
 import { SeriesCard } from "@/components/SeriesCard";
@@ -44,10 +43,7 @@ export default function HomeScreen() {
     return () => clearTimeout(t);
   }, [hiddenGenres]);
 
-  const { genreNotIn, tagNotIn } = splitHiddenForAniList(
-    debouncedHidden,
-    genreFilters,
-  );
+  const filters = splitHiddenForAniList(debouncedHidden, genreFilters);
   const { width: windowWidth } = useWindowDimensions();
   const isMobile = windowWidth < MOBILE_WIDTH_BREAKPOINT;
 
@@ -62,17 +58,11 @@ export default function HomeScreen() {
     data: searchResults,
     isFetching,
     error,
-  } = useQuery({
-    queryKey: ["search", debouncedQuery, genreNotIn, tagNotIn],
-    queryFn: () => searchMedia(debouncedQuery, undefined, genreNotIn, tagNotIn),
-    enabled: isSearching,
-  });
+  } = useSearch({ query: debouncedQuery, filters, enabled: isSearching });
 
-  const { data: latestAnime, isFetching: latestFetching } = useQuery({
-    queryKey: ["latest-anime", genreNotIn, tagNotIn],
-    queryFn: () => getLatestAnime(genreNotIn, tagNotIn),
+  const { data: latestAnime, isFetching: latestFetching } = useLatestAnime({
+    filters,
     enabled: !isSearching,
-    staleTime: 60 * 60 * 1000,
   });
 
   const pairedResults = useMemo(

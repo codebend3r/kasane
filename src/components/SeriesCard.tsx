@@ -1,13 +1,12 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Link } from "expo-router";
-import { useQuery } from "@tanstack/react-query";
 import type { SeriesEntry } from "@/types";
 import { BADGE_COLOR, COLOR, FONT } from "@/theme";
-import { useMapping } from "@/data/catalog";
+import { useMapping } from "@/queries/catalog";
+import { useFranchise } from "@/queries/media";
 import { displayTitle } from "@/data/format";
 import { lastMappedEpisode } from "@/data/mapping";
 import { BADGE_LABEL } from "@/data/pairing";
-import { getAnimeFranchise, hasAnimeSequels } from "@/api/anilist";
 import { usePreferences } from "@/state/preferences";
 import { useSeriesProgress } from "@/state/progress";
 
@@ -36,13 +35,7 @@ export function SeriesCard({ entry }: { entry: SeriesEntry }) {
   const showProgressBar =
     (hasAnime && animeFrac !== null) || (hasManga && mangaFrac !== null);
 
-  const sequels = !!anime && hasAnimeSequels(anime);
-  const { data: franchise } = useQuery({
-    queryKey: ["franchise", anime?.id ?? 0],
-    queryFn: () => getAnimeFranchise(anime?.id ?? 0),
-    enabled: sequels,
-    staleTime: 24 * 60 * 60 * 1000,
-  });
+  const { data: franchise } = useFranchise(anime);
   const franchiseLabel =
     mappedEpisodeCount == null &&
     franchise &&

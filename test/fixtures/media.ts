@@ -36,3 +36,33 @@ export const makeMedia = ({
   startDate: { year: startYear },
   ...(relations ? { relations: { edges: relations } } : {}),
 });
+
+/** One relation edge with every node field present, nulled unless given. */
+export const makeEdge = ({
+  relationType,
+  id,
+  type,
+  format = null,
+  episodes = null,
+  chapters = null,
+  startYear = null,
+}: {
+  relationType: string;
+  id: number;
+  type: MediaType;
+  format?: string | null;
+  episodes?: number | null;
+  chapters?: number | null;
+  startYear?: number | null;
+}): RelationEdge => ({
+  relationType,
+  node: {
+    id,
+    type,
+    format,
+    episodes,
+    chapters,
+    title: { romaji: `Media ${id}`, english: null },
+    startDate: { year: startYear },
+  },
+});

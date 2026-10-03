@@ -1,27 +1,18 @@
 import { useMemo } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { useQuery } from "@tanstack/react-query";
-import { getMediaByIds } from "@/api/anilist";
 import { pairResults } from "@/data/pairing";
+import { useMediaByIds } from "@/queries/media";
 import { useInProgressEntries } from "@/state/progress";
 import { SeriesCard } from "@/components/SeriesCard";
 import type { AniListMedia, SeriesEntry } from "@/types";
 import { COLOR, FONT } from "@/theme";
 
-const STALE_MS = 60 * 60 * 1000;
 const PARTNER_RELATIONS = new Set(["ADAPTATION", "SOURCE"]);
 
 export function ContinueSection() {
   const entries = useInProgressEntries();
   const ids = useMemo(() => entries.map((e) => e.routeId), [entries]);
-  const idsKey = ids.join(",");
-
-  const { data: primary } = useQuery({
-    queryKey: ["continue-primary", idsKey],
-    queryFn: () => getMediaByIds(ids),
-    enabled: ids.length > 0,
-    staleTime: STALE_MS,
-  });
+  const { data: primary } = useMediaByIds(ids);
 
   const partnerIds = useMemo(() => {
     if (!primary) return [];
@@ -38,12 +29,7 @@ export function ContinueSection() {
     return Array.from(new Set(collected)).filter((id) => !known.has(id));
   }, [primary, ids]);
 
-  const { data: partners } = useQuery({
-    queryKey: ["continue-partners", partnerIds.join(",")],
-    queryFn: () => getMediaByIds(partnerIds),
-    enabled: partnerIds.length > 0,
-    staleTime: STALE_MS,
-  });
+  const { data: partners } = useMediaByIds(partnerIds);
 
   const ordered = useMemo<SeriesEntry[]>(() => {
     if (!primary) return [];

@@ -17,12 +17,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
-import {
-  CATALOG_QUERY_KEY,
-  useCatalogQuery,
-  useHydrateSearchAliases,
-} from "@/data/catalog";
-import { COVERS_QUERY_KEY } from "@/data/covers";
+import { CATALOG_QUERY_KEY, useCatalogQuery } from "@/queries/catalog";
+import { COVERS_QUERY_KEY } from "@/queries/covers";
+import { MINUTE_MS, WEEK_MS } from "@/queries/shared";
 import {
   useFonts,
   SpaceGrotesk_400Regular,
@@ -52,7 +49,7 @@ startLoginPrompt();
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: { staleTime: 5 * 60 * 1000, retry: 1 },
+    queries: { staleTime: 5 * MINUTE_MS, retry: 1 },
   },
 });
 
@@ -63,15 +60,15 @@ const persister = createAsyncStoragePersister({
   storage: AsyncStorage,
   key: "kasane-query-cache",
 });
-const CATALOG_CACHE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
+const PERSISTED_QUERIES: readonly string[] = [
+  CATALOG_QUERY_KEY[0],
+  COVERS_QUERY_KEY[0],
+];
 
-const PERSISTED_QUERIES: string[] = [CATALOG_QUERY_KEY[0], COVERS_QUERY_KEY[0]];
-
-// Warms the catalog at launch and keeps the search-alias table hydrated so
-// everything is ready before the first screen needs a mapping.
+// Warms the catalog at launch so it is ready before the first screen needs a
+// mapping or a search needs its aliases.
 function CatalogWarmup() {
   useCatalogQuery();
-  useHydrateSearchAliases();
   return null;
 }
 
@@ -202,7 +199,7 @@ export default function RootLayout() {
       client={queryClient}
       persistOptions={{
         persister,
-        maxAge: CATALOG_CACHE_MAX_AGE,
+        maxAge: WEEK_MS,
         dehydrateOptions: {
           shouldDehydrateQuery: (query) =>
             defaultShouldDehydrateQuery(query) &&

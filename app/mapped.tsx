@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { useCatalog } from "@/data/catalog";
+import { useCatalog } from "@/queries/catalog";
 import {
   DEFAULT_SORT,
   nextSort,
@@ -9,7 +9,7 @@ import {
   type MappedShowSort,
   type MappedShowSortField,
 } from "@/data/mappedShows";
-import { useCovers } from "@/data/covers";
+import { useCovers } from "@/queries/covers";
 import { ShowGrid } from "@/components/ShowGrid";
 import { ShowRow } from "@/components/ShowRow";
 import { Footer } from "@/components/Footer";
