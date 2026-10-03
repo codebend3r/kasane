@@ -1,15 +1,9 @@
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  useWindowDimensions,
-  View,
-} from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import type { MappedShow } from "@/data/mappedShows";
 import type { Cover } from "@/queries/covers";
 import { Poster, showMeta } from "@/components/ShowTile";
-import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
+import { useIsNarrow } from "@/components/useIsNarrow";
 import { COLOR, FONT, pressFeedback } from "@/theme";
 
 /**
@@ -27,8 +21,7 @@ export function ShowRow({
   trailing?: string;
 }) {
   const router = useRouter();
-  const { width } = useWindowDimensions();
-  const isNarrow = width < MOBILE_WIDTH_BREAKPOINT;
+  const isNarrow = useIsNarrow();
 
   return (
     <Pressable

@@ -9,8 +9,7 @@ import {
 } from "react-native";
 import { useRouter, usePathname } from "expo-router";
 import { MENU_LINKS, useSideMenu } from "@/state/sideMenu";
-import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
-import { COLOR, FONT, pressFeedback } from "@/theme";
+import { COLOR, FONT, NARROW_WIDTH, pressFeedback } from "@/theme";
 
 const PANEL_MAX_WIDTH = 320;
 const SLIDE_MS = 220;
@@ -26,7 +25,7 @@ export function SideMenu() {
   const pathname = usePathname();
   const { width } = useWindowDimensions();
 
-  const isMobile = width < MOBILE_WIDTH_BREAKPOINT;
+  const isMobile = width < NARROW_WIDTH;
   const panelWidth = isMobile
     ? Math.min(width * 0.82, PANEL_MAX_WIDTH)
     : PANEL_MAX_WIDTH;
@@ -173,7 +172,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 14,
     borderLeftWidth: 3,
-    borderLeftColor: "transparent",
+    borderLeftColor: COLOR.borderInactive,
   },
   linkActive: { backgroundColor: COLOR.surface, borderLeftColor: COLOR.accent },
   linkLabel: {

@@ -11,12 +11,9 @@ import type { MangaDexVolumeCover } from "@/types";
 import { localeLabel } from "@/data/format";
 import { groupCovers, type VolumeGroup } from "@/data/volumes";
 import { usePreferences } from "@/state/preferences";
-import {
-  CoverCarousel,
-  MOBILE_WIDTH_BREAKPOINT,
-} from "@/components/CoverCarousel";
+import { CoverCarousel } from "@/components/CoverCarousel";
 import { useLayoutWidth } from "@/components/useLayoutWidth";
-import { COLOR, FONT, pressFeedback } from "@/theme";
+import { COLOR, FONT, NARROW_WIDTH, pressFeedback } from "@/theme";
 
 const MOBILE_COVER_WIDTH = 140;
 const MOBILE_COVER_HEIGHT = 210;
@@ -37,8 +34,7 @@ export function VolumesGrid({ covers }: { covers: MangaDexVolumeCover[] }) {
   );
   const [containerWidth, onLayout] = useLayoutWidth();
 
-  const isMobile =
-    containerWidth > 0 && containerWidth < MOBILE_WIDTH_BREAKPOINT;
+  const isMobile = containerWidth > 0 && containerWidth < NARROW_WIDTH;
 
   if (containerWidth === 0) {
     return <View style={styles.measure} onLayout={onLayout} />;

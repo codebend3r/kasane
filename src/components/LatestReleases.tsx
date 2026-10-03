@@ -15,14 +15,11 @@ import { displayTitle, englishTitle, trimSeasonSuffix } from "@/data/format";
 import { BADGE_SHORT_LABEL, pairResults } from "@/data/pairing";
 import { usePreferences } from "@/state/preferences";
 import { ContinueSection } from "@/components/ContinueSection";
-import {
-  CoverCarousel,
-  MOBILE_WIDTH_BREAKPOINT,
-} from "@/components/CoverCarousel";
+import { CoverCarousel } from "@/components/CoverCarousel";
 import { Footer } from "@/components/Footer";
 import { useLayoutWidth } from "@/components/useLayoutWidth";
 import { releaseColumns, tileWidthFor } from "@/data/gridLayout";
-import { BADGE_COLOR, COLOR, FONT, pressFeedback } from "@/theme";
+import { BADGE_COLOR, COLOR, FONT, NARROW_WIDTH, pressFeedback } from "@/theme";
 
 const GRID_ITEM_WIDTH = 160;
 const GRID_ITEM_HEIGHT = 280;
@@ -36,7 +33,7 @@ export function LatestReleases({
   loading: boolean;
 }) {
   const { width: windowWidth } = useWindowDimensions();
-  const isMobile = windowWidth < MOBILE_WIDTH_BREAKPOINT;
+  const isMobile = windowWidth < NARROW_WIDTH;
   const [contentWidth, onContentLayout] = useLayoutWidth();
   const japanese = usePreferences((s) => s.japanese);
 

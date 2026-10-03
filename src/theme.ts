@@ -76,6 +76,8 @@ export const COLOR = {
 
   /** Black strip behind a volume's label block. */
   coverBackdrop: "#000000",
+  /** Reserves a side rule's width on an item that is not the active one. */
+  borderInactive: "transparent",
   /** Hairline outline around a volume cover. */
   coverBorder: "#ffffff",
   /** Dimmer behind the side menu drawer. */
@@ -137,6 +139,9 @@ export const pressFeedback = ({
 
 /** Films sit outside the arc sequence and always render in this colour. */
 export const MOVIE_COLOR = "#5cdfff";
+
+/** Windows narrower than this get the phone layout. */
+export const NARROW_WIDTH = 700;
 
 /**
  * Spacing scale for grid `gap` and container `padding`. The repo does not use

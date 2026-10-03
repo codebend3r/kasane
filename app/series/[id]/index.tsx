@@ -16,16 +16,15 @@ import { MappingSection } from "@/components/MappingSection";
 import { SeriesHeader } from "@/components/SeriesHeader";
 import { TitlesList } from "@/components/TitlesList";
 import { VolumesGrid } from "@/components/VolumesGrid";
-import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
 import { Footer } from "@/components/Footer";
 import { formatAniListDate } from "@/data/format";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, NARROW_WIDTH } from "@/theme";
 
 export default function SeriesDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const mediaId = Number(id);
   const { width: windowWidth } = useWindowDimensions();
-  const isMobile = windowWidth < MOBILE_WIDTH_BREAKPOINT;
+  const isMobile = windowWidth < NARROW_WIDTH;
   const mobileCoverWidth = Math.min(windowWidth - 32, 420);
   const mobileCoverHeight = Math.round(mobileCoverWidth * (340 / 240));
 

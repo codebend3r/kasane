@@ -9,8 +9,6 @@ import {
 } from "react-native";
 import { COLOR, FONT } from "@/theme";
 
-export const MOBILE_WIDTH_BREAKPOINT = 700;
-
 const DEFAULT_GAP = 12;
 const DOTS_MAX_ITEMS = 12;
 

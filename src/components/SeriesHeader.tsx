@@ -57,10 +57,12 @@ export function SeriesHeader({
             </View>
           )}
         </View>
-        <Text style={styles.title}>{title}</Text>
-        {!!(media.title.native && !japanese) && (
-          <Text style={styles.titleNative}>{media.title.native}</Text>
-        )}
+        <View style={styles.titleBlock}>
+          <Text style={styles.title}>{title}</Text>
+          {!!(media.title.native && !japanese) && (
+            <Text style={styles.titleNative}>{media.title.native}</Text>
+          )}
+        </View>
         <Text style={styles.sub}>{subParts.join("  ·  ")}</Text>
         {!!media.startDate.year && (
           <Text style={styles.dates}>
@@ -126,6 +128,9 @@ const styles = StyleSheet.create({
     fontFamily: FONT.bold,
   },
   mappedBadge: { backgroundColor: COLOR.highlight },
+  // Tighter than the meta column's gap, so the native title reads as part of
+  // the heading.
+  titleBlock: { gap: 4 },
   title: {
     color: COLOR.textPrimary,
     fontSize: 32,
@@ -137,7 +142,6 @@ const styles = StyleSheet.create({
     color: COLOR.textSecondary,
     fontSize: 18,
     fontFamily: FONT.medium,
-    marginTop: -2,
   },
   sub: {
     color: COLOR.textMuted,

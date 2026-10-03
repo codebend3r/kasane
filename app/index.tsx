@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  useWindowDimensions,
   View,
 } from "react-native";
 import { pairResults } from "@/data/pairing";
@@ -17,7 +16,7 @@ import { SeriesCard } from "@/components/SeriesCard";
 import { GenreFilters } from "@/components/GenreFilters";
 import { LatestReleases } from "@/components/LatestReleases";
 import { MappedOnlyToggle } from "@/components/MappedOnlyToggle";
-import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
+import { useIsNarrow } from "@/components/useIsNarrow";
 import { usePreferences } from "@/state/preferences";
 import { COLOR, FONT } from "@/theme";
 
@@ -44,8 +43,7 @@ export default function HomeScreen() {
   }, [hiddenGenres]);
 
   const filters = splitHiddenForAniList(debouncedHidden, genreFilters);
-  const { width: windowWidth } = useWindowDimensions();
-  const isMobile = windowWidth < MOBILE_WIDTH_BREAKPOINT;
+  const isMobile = useIsNarrow();
 
   useEffect(() => {
     const t = setTimeout(() => setDebouncedQuery(query), 300);

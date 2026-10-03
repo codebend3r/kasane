@@ -1,11 +1,5 @@
 import { useEffect } from "react";
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  useWindowDimensions,
-  View,
-} from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Stack, useRouter, usePathname } from "expo-router";
 import {
   defaultShouldDehydrateQuery,
@@ -35,7 +29,7 @@ import { startLoginPrompt } from "@/state/loginPrompt";
 import { LoginPrompt } from "@/components/LoginPrompt";
 import { useSideMenu } from "@/state/sideMenu";
 import { SideMenu } from "@/components/SideMenu";
-import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
+import { useIsNarrow } from "@/components/useIsNarrow";
 import { COLOR, FONT, pressFeedback } from "@/theme";
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
@@ -78,8 +72,7 @@ function GlobalHeader() {
   // The header packs six controls into one row; at phone widths the default
   // gaps push it past the viewport, so tighten the spacing rather than let the
   // page scroll sideways.
-  const { width: windowWidth } = useWindowDimensions();
-  const isNarrow = windowWidth < MOBILE_WIDTH_BREAKPOINT;
+  const isNarrow = useIsNarrow();
   const japanese = usePreferences((s) => s.japanese);
   const toggleJapanese = usePreferences((s) => s.toggleJapanese);
   const email = useAuthEmail();
