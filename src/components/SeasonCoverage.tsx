@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import { seasonCoverage } from "@/data/mapping";
 import type { SeriesMapping } from "@/types";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, SPACE } from "@/theme";
 
 export function SeasonCoverage({ mapping }: { mapping: SeriesMapping }) {
   const seasons = seasonCoverage(mapping);
@@ -25,11 +25,11 @@ export function SeasonCoverage({ mapping }: { mapping: SeriesMapping }) {
 }
 
 const styles = StyleSheet.create({
-  outer: { paddingTop: 4 },
+  outer: { paddingTop: SPACE.xs },
   block: {
-    padding: 12,
+    padding: SPACE.lg,
     backgroundColor: COLOR.surface,
-    gap: 6,
+    gap: SPACE.sm,
   },
   label: {
     color: COLOR.textMuted,
@@ -37,13 +37,13 @@ const styles = StyleSheet.create({
     letterSpacing: 1.4,
     textTransform: "uppercase",
     fontFamily: FONT.bold,
-    paddingBottom: 4,
+    paddingBottom: SPACE.xs,
   },
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "baseline",
-    gap: 12,
+    gap: SPACE.lg,
   },
   name: {
     color: COLOR.textPrimary,

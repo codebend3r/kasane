@@ -1,6 +1,13 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import type { MovieEntry, ProgressSide } from "@/types";
-import { COLOR, FONT, MOVIE_COLOR, arcColors, pressFeedback } from "@/theme";
+import {
+  COLOR,
+  FONT,
+  MOVIE_COLOR,
+  arcColors,
+  pressFeedback,
+  SPACE,
+} from "@/theme";
 import {
   describeChapters,
   describeEpisodes,
@@ -207,11 +214,11 @@ function ProgressOverlay({ frac }: { frac: number }) {
 }
 
 const styles = StyleSheet.create({
-  container: { gap: 8, width: "100%", position: "relative" },
+  container: { gap: SPACE.md, width: "100%", position: "relative" },
   label: {
     color: COLOR.textMuted,
     fontSize: 12,
-    paddingTop: 8,
+    paddingTop: SPACE.md,
     letterSpacing: 1.2,
     textTransform: "uppercase",
     fontFamily: FONT.semibold,
@@ -220,7 +227,7 @@ const styles = StyleSheet.create({
     color: COLOR.textMuted,
     fontSize: 11,
     letterSpacing: 1,
-    paddingTop: 4,
+    paddingTop: SPACE.xs,
     textTransform: "uppercase",
     fontFamily: FONT.semibold,
   },
@@ -234,7 +241,7 @@ const styles = StyleSheet.create({
   },
   bar: {
     height: BAR_HEIGHT,
-    paddingHorizontal: 10,
+    paddingHorizontal: SPACE.mdl,
     justifyContent: "center",
     minWidth: 0,
   },
@@ -257,7 +264,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   movieMarker: {
-    paddingHorizontal: 8,
+    paddingHorizontal: SPACE.md,
     justifyContent: "center",
   },
   movieMarkerText: {

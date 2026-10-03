@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Paragraph } from "@/components/Paragraph";
 import { expandChapters, expandEpisodes } from "@/data/arcDetail";
 import type { SeriesMapping } from "@/types";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, SPACE } from "@/theme";
 
 export function ArcDetailView({
   mapping,
@@ -103,10 +103,10 @@ export function ArcDetailView({
 
 const styles = StyleSheet.create({
   root: { flex: 1 },
-  content: { padding: 16, gap: 20 },
+  content: { padding: SPACE.xl, gap: SPACE.xxl },
   center: { flex: 1, alignItems: "center", justifyContent: "center" },
   empty: { color: COLOR.textMuted, fontFamily: FONT.regular },
-  head: { gap: 4 },
+  head: { gap: SPACE.xs },
   eyebrow: {
     color: COLOR.accent,
     fontSize: 12,
@@ -130,27 +130,27 @@ const styles = StyleSheet.create({
   note: {
     color: COLOR.textSecondary,
     fontSize: 13,
-    paddingTop: 6,
+    paddingTop: SPACE.sm,
     fontStyle: "italic",
     fontFamily: FONT.regular,
   },
-  columns: { flexDirection: "row", gap: 16, flexWrap: "wrap" },
-  column: { flex: 1, minWidth: 280, gap: 8 },
+  columns: { flexDirection: "row", gap: SPACE.xl, flexWrap: "wrap" },
+  column: { flex: 1, minWidth: 280, gap: SPACE.md },
   columnLabel: {
     color: COLOR.textMuted,
     fontSize: 12,
     letterSpacing: 1.2,
     textTransform: "uppercase",
-    paddingBottom: 4,
+    paddingBottom: SPACE.xs,
     fontFamily: FONT.semibold,
   },
   row: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
+    gap: SPACE.lg,
     backgroundColor: COLOR.surface,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
+    paddingHorizontal: SPACE.lg,
+    paddingVertical: SPACE.mdl,
   },
   indexBadge: {
     width: 36,
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: FONT.bold,
   },
-  rowBody: { flex: 1, gap: 2 },
+  rowBody: { flex: 1, gap: SPACE.xxs },
   rowTitle: {
     color: COLOR.textPrimary,
     fontSize: 15,
@@ -174,9 +174,9 @@ const styles = StyleSheet.create({
   rowSub: { color: COLOR.textMuted, fontSize: 12, fontFamily: FONT.regular },
   columnEmpty: {
     backgroundColor: COLOR.surface,
-    paddingHorizontal: 14,
-    paddingVertical: 16,
-    gap: 4,
+    paddingHorizontal: SPACE.lgx,
+    paddingVertical: SPACE.xl,
+    gap: SPACE.xs,
   },
   columnEmptyTitle: {
     color: COLOR.textPrimary,

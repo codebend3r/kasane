@@ -14,7 +14,7 @@ import { QuickLookup } from "@/components/QuickLookup";
 import { SeasonCoverage } from "@/components/SeasonCoverage";
 import { SeriesMovies } from "@/components/SeriesMovies";
 import { useMarkProgress } from "@/components/useMarkProgress";
-import { COLOR, FONT, pressFeedback } from "@/theme";
+import { COLOR, FONT, pressFeedback, SPACE, TEXT } from "@/theme";
 
 type MappingView = "rail" | "pie";
 
@@ -126,29 +126,24 @@ export function MappingSection({
 }
 
 const styles = StyleSheet.create({
-  mappingBlock: { gap: 10 },
+  mappingBlock: { gap: SPACE.mdl },
   sectionTitleRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
+    gap: SPACE.mdl,
     flexWrap: "wrap",
     justifyContent: "space-between",
   },
   sectionTitleLeft: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
+    gap: SPACE.mdl,
     flexWrap: "wrap",
   },
-  sectionTitle: {
-    color: COLOR.textPrimary,
-    fontSize: 20,
-    letterSpacing: -0.4,
-    fontFamily: FONT.bold,
-  },
+  sectionTitle: { ...TEXT.sectionTitle, color: COLOR.textPrimary },
   arcsBehindBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: SPACE.lg,
+    paddingVertical: SPACE.md,
     backgroundColor: COLOR.surfaceRaised,
     borderLeftWidth: 4,
     borderLeftColor: COLOR.notice,
@@ -160,8 +155,8 @@ const styles = StyleSheet.create({
     fontFamily: FONT.bold,
   },
   viewToggle: {
-    paddingHorizontal: 10,
-    paddingVertical: 6,
+    paddingHorizontal: SPACE.mdl,
+    paddingVertical: SPACE.sm,
     backgroundColor: COLOR.surface,
     borderLeftWidth: 2,
     borderLeftColor: COLOR.accent,

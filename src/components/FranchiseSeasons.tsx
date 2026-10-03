@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Link } from "expo-router";
 import type { AnimeFranchise } from "@/types";
-import { COLOR, FONT, pressFeedback } from "@/theme";
+import { COLOR, FONT, pressFeedback, SPACE, TEXT } from "@/theme";
 
 /**
  * Every season and side story in an anime franchise, with the TV total across
@@ -62,27 +62,22 @@ export function FranchiseSeasons({
 }
 
 const styles = StyleSheet.create({
-  seasons: { gap: 10 },
-  sectionTitle: {
-    color: COLOR.textPrimary,
-    fontSize: 20,
-    letterSpacing: -0.4,
-    fontFamily: FONT.bold,
-  },
+  seasons: { gap: SPACE.mdl },
+  sectionTitle: { ...TEXT.sectionTitle, color: COLOR.textPrimary },
   franchiseTotal: {
     color: COLOR.accent,
     fontSize: 13,
     letterSpacing: -0.2,
     fontFamily: FONT.semibold,
   },
-  seasonGrid: { flexDirection: "row", flexWrap: "wrap", gap: 10 },
+  seasonGrid: { flexDirection: "row", flexWrap: "wrap", gap: SPACE.mdl },
   seasonCard: {
     width: 220,
-    padding: 12,
+    padding: SPACE.lg,
     backgroundColor: COLOR.surface,
     borderLeftWidth: 3,
     borderLeftColor: COLOR.accent,
-    gap: 6,
+    gap: SPACE.sm,
   },
   seasonCardActive: {
     backgroundColor: COLOR.surfaceNotice,

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import type { MovieEntry } from "@/types";
-import { COLOR, FONT, MOVIE_COLOR } from "@/theme";
+import { COLOR, FONT, MOVIE_COLOR, SPACE, TEXT } from "@/theme";
 
 export function SeriesMovies({ movies }: { movies: MovieEntry[] }) {
   const ordered = [...movies].sort(
@@ -38,26 +38,21 @@ export function SeriesMovies({ movies }: { movies: MovieEntry[] }) {
 }
 
 const styles = StyleSheet.create({
-  container: { gap: 12 },
-  sectionTitle: {
-    color: COLOR.textPrimary,
-    fontSize: 20,
-    letterSpacing: -0.4,
-    fontFamily: FONT.bold,
-  },
-  list: { gap: 8 },
+  container: { gap: SPACE.lg },
+  sectionTitle: { ...TEXT.sectionTitle, color: COLOR.textPrimary },
+  list: { gap: SPACE.md },
   card: {
-    padding: 12,
+    padding: SPACE.lg,
     backgroundColor: COLOR.surface,
     borderLeftWidth: 2,
     borderLeftColor: MOVIE_COLOR,
-    gap: 4,
+    gap: SPACE.xs,
   },
   cardTop: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "baseline",
-    gap: 12,
+    gap: SPACE.lg,
     flexWrap: "wrap",
   },
   position: {

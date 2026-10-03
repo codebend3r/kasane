@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import Svg, { Circle, Line, Path } from "react-native-svg";
 import type { MouseLike, ProgressSide } from "@/types";
-import { COLOR, FONT, arcColors } from "@/theme";
+import { COLOR, FONT, arcColors, SPACE } from "@/theme";
 import {
   describeCoverage,
   fractionAt,
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   outer: {
     width: "100%",
     alignItems: "center",
-    paddingVertical: 12,
+    paddingVertical: SPACE.lg,
   },
   donut: {
     width: SIZE,
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLOR.background,
     alignItems: "center",
     justifyContent: "center",
-    gap: 2,
+    gap: SPACE.xxs,
   },
   percent: {
     color: COLOR.textPrimary,
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
     color: COLOR.textMuted,
     fontSize: 11,
     letterSpacing: 1,
-    paddingTop: 6,
+    paddingTop: SPACE.sm,
     textTransform: "uppercase",
     fontFamily: FONT.semibold,
   },

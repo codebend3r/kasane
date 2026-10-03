@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Paragraph } from "@/components/Paragraph";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, SPACE } from "@/theme";
 
 const TITLE = "No mapping available yet";
 
@@ -19,9 +19,9 @@ export function NoMappingNotice() {
 
 const styles = StyleSheet.create({
   notice: {
-    padding: 16,
+    padding: SPACE.xl,
     backgroundColor: COLOR.surface,
-    gap: 6,
+    gap: SPACE.sm,
   },
   title: { color: COLOR.notice, fontFamily: FONT.bold },
   body: {

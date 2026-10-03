@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Paragraph } from "@/components/Paragraph";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, SPACE } from "@/theme";
 
 const BODY =
   "Linear pacing — anime episode count distributed evenly across the manga " +
@@ -20,16 +20,16 @@ export function AutoEstimatedBanner() {
 
 const styles = StyleSheet.create({
   banner: {
-    padding: 14,
+    padding: SPACE.lgx,
     backgroundColor: COLOR.surfaceNotice,
     borderLeftWidth: 4,
     borderLeftColor: COLOR.notice,
-    gap: 8,
+    gap: SPACE.md,
   },
   badge: {
     alignSelf: "flex-start",
-    paddingHorizontal: 8,
-    paddingVertical: 3,
+    paddingHorizontal: SPACE.md,
+    paddingVertical: SPACE.xs,
     backgroundColor: COLOR.notice,
   },
   badgeText: {

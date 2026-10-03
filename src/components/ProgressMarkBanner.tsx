@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { COLOR, FONT, pressFeedback } from "@/theme";
+import { COLOR, FONT, pressFeedback, SPACE } from "@/theme";
 import type { MarkEvent } from "@/components/useMarkProgress";
 
 const AUTO_DISMISS_MS = 8000;
@@ -75,16 +75,16 @@ export function ProgressMarkBanner({
 
 const styles = StyleSheet.create({
   banner: {
-    padding: 14,
+    padding: SPACE.lgx,
     backgroundColor: COLOR.surface,
     borderLeftWidth: 4,
     borderLeftColor: COLOR.success,
-    gap: 8,
+    gap: SPACE.md,
   },
   row: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
+    gap: SPACE.lg,
   },
   headline: {
     flex: 1,
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.2,
   },
   closeBtn: {
-    paddingHorizontal: 4,
+    paddingHorizontal: SPACE.xs,
   },
   closeText: {
     color: COLOR.textMuted,
@@ -109,12 +109,12 @@ const styles = StyleSheet.create({
   },
   actionsRow: {
     flexDirection: "row",
-    gap: 8,
+    gap: SPACE.md,
     flexWrap: "wrap",
   },
   primaryBtn: {
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: SPACE.lg,
+    paddingVertical: SPACE.md,
     backgroundColor: COLOR.success,
   },
   primaryBtnText: {
@@ -125,8 +125,8 @@ const styles = StyleSheet.create({
     fontFamily: FONT.bold,
   },
   secondaryBtn: {
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: SPACE.lg,
+    paddingVertical: SPACE.md,
     backgroundColor: COLOR.surfaceRaised,
   },
   secondaryBtnText: {

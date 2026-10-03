@@ -1,4 +1,4 @@
-import type { PressableStateCallbackType } from "react-native";
+import type { PressableStateCallbackType, TextStyle } from "react-native";
 import type { ArcSegment } from "@/data/arcLayout";
 import type { SeriesBadge } from "@/types";
 
@@ -145,14 +145,59 @@ export const NARROW_WIDTH = 700;
 
 /**
  * Spacing scale for grid `gap` and container `padding`. The repo does not use
- * margins, so these two properties carry all layout spacing.
+ * margins, so these properties carry all layout spacing. `mdl` and `lgx` are
+ * the in-between steps existing controls rely on; the `page*` steps pad the
+ * ends of scrolling screens.
  */
 export const SPACE = {
+  xxs: 2,
   xs: 4,
   sm: 6,
   md: 8,
+  mdl: 10,
   lg: 12,
+  lgx: 14,
   xl: 16,
   xxl: 20,
   xxxl: 24,
+  page: 32,
+  pageEnd: 40,
+  pageEndTall: 48,
 } as const;
+
+/** Clearance above the footer, so it sits well apart from the last section. */
+export const FOOTER_OFFSET = 160;
+
+/**
+ * Text styles repeated across screens. Spread one into a `StyleSheet` entry and
+ * add the colour: `eyebrow: { ...TEXT.eyebrow, color: COLOR.accent }`.
+ */
+export const TEXT = {
+  /** Small uppercase label above a heading. */
+  eyebrow: {
+    fontFamily: FONT.bold,
+    fontSize: 11,
+    letterSpacing: 1.8,
+    textTransform: "uppercase",
+  },
+  /** Label on a filled or outlined button. */
+  buttonLabel: {
+    fontFamily: FONT.bold,
+    fontSize: 12,
+    letterSpacing: 1.4,
+    textTransform: "uppercase",
+  },
+  /** Label on a filter chip or toggle. */
+  chipLabel: {
+    fontFamily: FONT.bold,
+    fontSize: 12,
+    letterSpacing: 1.2,
+    textTransform: "uppercase",
+  },
+  /** Heading of a section within a screen. */
+  sectionTitle: { fontFamily: FONT.bold, fontSize: 20, letterSpacing: -0.4 },
+  /** Heading of a home-screen block or a form panel. */
+  blockTitle: { fontFamily: FONT.bold, fontSize: 22, letterSpacing: -0.4 },
+  /** Heading of a catalog screen. */
+  pageTitle: { fontFamily: FONT.bold, fontSize: 24, letterSpacing: -0.4 },
+} satisfies Record<string, TextStyle>;

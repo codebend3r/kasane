@@ -2,7 +2,7 @@ import { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import type { SeriesMapping } from "@/types";
 import { arcForChapter, episodeToChapters } from "@/data/mapping";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, SPACE } from "@/theme";
 
 export function QuickLookup({ mapping }: { mapping: SeriesMapping }) {
   const [epInput, setEpInput] = useState("");
@@ -77,18 +77,18 @@ export function QuickLookup({ mapping }: { mapping: SeriesMapping }) {
 }
 
 const styles = StyleSheet.create({
-  lookup: { gap: 12, paddingTop: 8 },
+  lookup: { gap: SPACE.lg, paddingTop: SPACE.md },
   sectionTitle: {
     color: COLOR.textPrimary,
     fontSize: 18,
-    paddingTop: 10,
+    paddingTop: SPACE.mdl,
     letterSpacing: -0.3,
     fontFamily: FONT.bold,
   },
   lookupRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    gap: SPACE.md,
     flexWrap: "wrap",
   },
   lookupLabel: {
@@ -99,8 +99,8 @@ const styles = StyleSheet.create({
   lookupInput: {
     backgroundColor: COLOR.surface,
     color: COLOR.textPrimary,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
+    paddingHorizontal: SPACE.mdl,
+    paddingVertical: SPACE.md,
     minWidth: 80,
     fontFamily: FONT.regular,
   },

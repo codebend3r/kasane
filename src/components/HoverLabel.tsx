@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { FONT } from "@/theme";
+import { FONT, SPACE } from "@/theme";
 import { hasBoundingRect } from "@/data/guards";
 import type { MouseLike } from "@/types";
 
@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingHorizontal: SPACE.md,
+    paddingVertical: SPACE.xs,
     maxWidth: 320,
     zIndex: 100,
   },
