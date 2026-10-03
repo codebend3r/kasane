@@ -43,13 +43,15 @@ export function EpisodeChapterRail({
   const { containerRef, hover, moveTo, clearHover } = useHoverLabel();
 
   const movieMarkers = movies.filter(hasAfterEpisode);
+  const animePosition = progress?.anime?.position ?? null;
+  const mangaPosition = progress?.manga?.position ?? null;
   const animeFrac =
-    progress?.anime && layout.anime.total > 0
-      ? fractionAt(layout.anime, progress.anime.position)
+    animePosition !== null && layout.anime.total > 0
+      ? fractionAt(layout.anime, animePosition)
       : null;
   const mangaFrac =
-    progress?.manga && layout.manga.total > 0
-      ? fractionAt(layout.manga, progress.manga.position)
+    mangaPosition !== null && layout.manga.total > 0
+      ? fractionAt(layout.manga, mangaPosition)
       : null;
 
   return (

@@ -65,9 +65,9 @@ export function EpisodeChapterPie({
   const axis = layout.manga;
   const degreesOf = (units: number): number => (units / axis.total) * 360;
 
-  const markerDeg = progress?.manga
-    ? fractionAt(axis, progress.manga.position) * 360
-    : 0;
+  const mangaPosition = progress?.manga?.position ?? null;
+  const markerDeg =
+    mangaPosition === null ? 0 : fractionAt(axis, mangaPosition) * 360;
   const showMarker = markerDeg > 0 && markerDeg < 360;
   const [markerOuterX, markerOuterY] = polar(markerDeg, R_OUTER);
   const [markerInnerX, markerInnerY] = polar(markerDeg, R_INNER);

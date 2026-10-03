@@ -61,8 +61,9 @@ export function useMarkProgress({
   };
 
   const acceptSuggestion = () => {
-    if (!event?.suggestion) return;
-    setSide(routeId, event.suggestion.side, event.suggestion.position);
+    const suggestion = event?.suggestion ?? null;
+    if (!suggestion) return;
+    setSide(routeId, suggestion.side, suggestion.position);
     dismiss();
   };
 

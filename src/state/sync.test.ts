@@ -41,14 +41,23 @@ const session = (userId: string): Session => ({
 
 // The account's rows as the fake server holds them, plus every write the
 // controller sent.
-const server = {
-  progress: new Map<string, ProgressRow>(),
-  preferences: null as PreferencesRow | null,
-  failWrites: false,
-  progressUpserts: [] as ProgressRow[][],
-  preferenceUpserts: [] as PreferencesRow[],
+type FakeServer = {
+  progress: Map<string, ProgressRow>;
+  preferences: PreferencesRow | null;
+  failWrites: boolean;
+  progressUpserts: ProgressRow[][];
+  preferenceUpserts: PreferencesRow[];
   // Resolves the progress read; swapped out by a test that needs to hold it.
-  releaseProgressRead: (respond: () => void) => respond(),
+  releaseProgressRead: (respond: () => void) => void;
+};
+
+const server: FakeServer = {
+  progress: new Map(),
+  preferences: null,
+  failWrites: false,
+  progressUpserts: [],
+  preferenceUpserts: [],
+  releaseProgressRead: (respond) => respond(),
 };
 
 const rowKey = (r: { route_id: number; side: string }) =>

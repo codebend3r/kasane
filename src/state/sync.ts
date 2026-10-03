@@ -125,7 +125,7 @@ const upsertPreferences = async (
 
 /** Records that the server now holds `patch`, unless the session moved on. */
 const advance = (userId: string, patch: Partial<Omit<Synced, "userId">>) => {
-  if (synced?.userId === userId) synced = { ...synced, ...patch };
+  if (synced && synced.userId === userId) synced = { ...synced, ...patch };
 };
 
 const pushProgress = async (): Promise<void> => {
@@ -145,7 +145,7 @@ const pushPreferences = async (): Promise<void> => {
   if (!synced) return;
   const { userId, preferences } = synced;
   const current = pickPreferences(usePreferences.getState());
-  if (preferences?.updatedAt === current.updatedAt) return;
+  if ((preferences?.updatedAt ?? null) === current.updatedAt) return;
   if (await upsertPreferences(userId, current)) {
     advance(userId, { preferences: current });
   }
@@ -164,7 +164,8 @@ const pull = async (uid: string): Promise<void> => {
       .maybeSingle(),
   ]);
 
-  if (synced?.userId !== uid) return; // session changed while the fetch was in flight
+  // The session changed while the fetch was in flight.
+  if ((synced?.userId ?? null) !== uid) return;
 
   if (!progressRes.error) {
     const remote = progressRes.data.flatMap(toProgressEntry);
