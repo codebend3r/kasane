@@ -148,11 +148,6 @@ export default function HomeScreen() {
   );
 }
 
-/**
- * One-tap "show everything / hide everything" for the genre chips. Writes the
- * whole selection at once, which also keeps a bulk change from fanning out into
- * one AniList request per genre.
- */
 const styles = StyleSheet.create({
   root: { flex: 1, padding: 16, gap: 16 },
   tagline: {

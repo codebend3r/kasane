@@ -95,6 +95,11 @@ export function GenreFilters({
   );
 }
 
+/**
+ * One-tap "show everything / hide everything" for the genre chips. Writes the
+ * whole selection at once, which also keeps a bulk change from fanning out into
+ * one AniList request per genre.
+ */
 function ToggleAllGenres({
   filters,
   hiddenGenres,
