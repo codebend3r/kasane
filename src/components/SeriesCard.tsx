@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { SeriesBadge, SeriesEntry } from "@/types";
 import { COLOR, FONT } from "@/theme";
 import { useMapping } from "@/data/catalog";
+import { lastMappedEpisode } from "@/data/mapping";
 import { getAnimeFranchise, hasAnimeSequels } from "@/api/anilist";
 import { usePreferences } from "@/state/preferences";
 import { useSeriesProgress } from "@/state/progress";
@@ -29,14 +30,7 @@ export function SeriesCard({ entry }: { entry: SeriesEntry }) {
     : (primary.title.english ?? primary.title.romaji);
 
   const mapping = useMapping(routeId);
-  const mappedEpisodeCount = mapping
-    ? (() => {
-        const eps = mapping.mappings
-          .map((m) => m.episodes?.[1] ?? null)
-          .filter((v): v is number => typeof v === "number");
-        return eps.length > 0 ? Math.max(...eps) : null;
-      })()
-    : null;
+  const mappedEpisodeCount = mapping ? lastMappedEpisode(mapping) : null;
   const hasMapping = mapping != null;
 
   const hasAnime = badge !== "manga-only";

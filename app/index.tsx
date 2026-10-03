@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import { getLatestAnime, searchMedia } from "@/api/anilist";
-import { pairResults } from "@/data";
+import { pairResults } from "@/data/pairing";
 import { useCatalog, useGenreFilters } from "@/data/catalog";
 import { splitHiddenForAniList } from "@/data/genreFilters";
 import { Footer } from "@/components/Footer";

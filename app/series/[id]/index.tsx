@@ -11,7 +11,8 @@ import { useLocalSearchParams } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 import { getAnimeFranchise, getMedia, hasAnimeSequels } from "@/api/anilist";
 import { getMangaDexInfoByAniListId } from "@/api/mangadex";
-import { buildSyntheticMapping } from "@/data";
+import { lastMappedEpisode } from "@/data/mapping";
+import { buildSyntheticMapping } from "@/data/pairing";
 import { useCatalog } from "@/data/catalog";
 import { FranchiseSeasons } from "@/components/FranchiseSeasons";
 import { MappingSection } from "@/components/MappingSection";
@@ -134,14 +135,8 @@ export default function SeriesDetail() {
 
   const totalVolumes = mangadex?.volumes ?? manga?.volumes ?? null;
   const totalChapters = mangadex?.chapters ?? manga?.chapters ?? null;
-  const totalEpisodes = mapping
-    ? (() => {
-        const eps = mapping.mappings
-          .map((m) => m.episodes?.[1])
-          .filter((v): v is number => typeof v === "number");
-        return eps.length > 0 ? Math.max(...eps) : (anime?.episodes ?? null);
-      })()
-    : (anime?.episodes ?? null);
+  const totalEpisodes =
+    (mapping ? lastMappedEpisode(mapping) : null) ?? anime?.episodes ?? null;
   const status = primary.status?.toLowerCase() ?? null;
   const showAnimeStats = badge !== "manga-only";
   const showMangaStats = badge !== "anime-only";

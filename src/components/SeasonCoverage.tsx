@@ -1,13 +1,14 @@
 import { useMemo } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { isAdapted, type AdaptedArc } from "@/data/mapping";
 import type { SeriesMapping } from "@/types";
 import { COLOR, FONT } from "@/theme";
 
 export function SeasonCoverage({ mapping }: { mapping: SeriesMapping }) {
   const seasonBuckets = useMemo(() => {
     const m = mapping.mappings
-      .filter((entry) => !!entry.episodes)
-      .reduce<Map<string, typeof mapping.mappings>>((acc, entry) => {
+      .filter(isAdapted)
+      .reduce<Map<string, AdaptedArc[]>>((acc, entry) => {
         const key = entry.season ? `Season ${entry.season}` : "Other";
         const list = acc.get(key);
         if (list) list.push(entry);
@@ -28,8 +29,8 @@ export function SeasonCoverage({ mapping }: { mapping: SeriesMapping }) {
         {seasonBuckets.map(([label, entries]) => {
           const minCh = Math.min(...entries.map((e) => e.chapters[0]));
           const maxCh = Math.max(...entries.map((e) => e.chapters[1]));
-          const minEp = Math.min(...entries.map((e) => e.episodes![0]));
-          const maxEp = Math.max(...entries.map((e) => e.episodes![1]));
+          const minEp = Math.min(...entries.map((e) => e.episodes[0]));
+          const maxEp = Math.max(...entries.map((e) => e.episodes[1]));
           return (
             <View key={label} style={styles.row}>
               <Text style={styles.name}>{label}</Text>

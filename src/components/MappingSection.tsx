@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import type { PressableState, SeriesBadge, SeriesMapping } from "@/types";
-import { chapterToEpisodes, episodeToChapters } from "@/data";
+import {
+  chapterToEpisodes,
+  episodeToChapters,
+  isAdapted,
+} from "@/data/mapping";
 import { useProgress, type ProgressSide } from "@/state/progress";
 import { AutoEstimatedBanner } from "@/components/AutoEstimatedBanner";
 import { EpisodeChapterPie } from "@/components/EpisodeChapterPie";
@@ -69,7 +73,7 @@ export function MappingSection({
   }
 
   const isAutoEstimated = !curatedMapping;
-  const arcsBehind = mapping.mappings.filter((m) => !m.episodes).length;
+  const arcsBehind = mapping.mappings.filter((m) => !isAdapted(m)).length;
   const movies = curatedMapping?.movies ?? [];
 
   return (

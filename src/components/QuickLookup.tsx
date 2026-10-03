@@ -1,7 +1,7 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import type { SeriesMapping } from "@/types";
-import { chapterToEpisodes, episodeToChapters } from "@/data";
+import { arcForChapter, episodeToChapters } from "@/data/mapping";
 import { COLOR, FONT } from "@/theme";
 
 export function QuickLookup({ mapping }: { mapping: SeriesMapping }) {
@@ -11,22 +11,11 @@ export function QuickLookup({ mapping }: { mapping: SeriesMapping }) {
   const epNum = Number(epInput);
   const chNum = Number(chInput);
 
-  const seasonForCh = useMemo(() => {
-    if (!chNum) return null;
-    const hit = mapping.mappings.find(
-      (m) => chNum >= m.chapters[0] && chNum <= m.chapters[1],
-    );
-    return hit?.season ?? null;
-  }, [chNum, mapping]);
-
-  const fromEp =
-    !Number.isNaN(epNum) && epNum > 0
-      ? episodeToChapters(mapping, epNum)
-      : null;
-  const fromCh =
-    !Number.isNaN(chNum) && chNum > 0
-      ? chapterToEpisodes(mapping, chNum)
-      : null;
+  // `NaN > 0` is false, so a non-numeric input reads as no answer.
+  const fromEp = epNum > 0 ? episodeToChapters(mapping, epNum) : null;
+  const chapterArc = chNum > 0 ? arcForChapter(mapping, chNum) : null;
+  const fromCh = chapterArc?.episodes ?? null;
+  const seasonForCh = chapterArc?.season ?? null;
 
   // Only curated mappings carry seasons, so an estimated one never shows a
   // badge it cannot back up.

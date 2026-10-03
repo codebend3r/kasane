@@ -1,3 +1,4 @@
+import { lastMappedChapter, lastMappedEpisode } from "@/data/mapping";
 import type { SeriesMapping } from "@/types";
 
 export type MappedShowSortField = "alpha" | "episodes" | "chapters";
@@ -32,11 +33,8 @@ export const toMappedShow = (m: SeriesMapping): MappedShow => ({
   routeId: m.anilistMangaId,
   coverId: m.anilistAnimeId,
   title: m.title,
-  episodes: m.mappings.reduce(
-    (acc, a) => (a.episodes ? Math.max(acc, a.episodes[1]) : acc),
-    0,
-  ),
-  chapters: m.mappings.reduce((acc, a) => Math.max(acc, a.chapters[1]), 0),
+  episodes: lastMappedEpisode(m) ?? 0,
+  chapters: lastMappedChapter(m),
   arcs: m.mappings.length,
 });
 

@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { Link } from "expo-router";
 import type { AniListMedia, PressableState, SeriesEntry } from "@/types";
-import { pairResults } from "@/data";
+import { pairResults } from "@/data/pairing";
 import { usePreferences } from "@/state/preferences";
 import { ContinueSection } from "@/components/ContinueSection";
 import {

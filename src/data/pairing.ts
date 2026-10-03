@@ -5,31 +5,10 @@ import type {
   SeriesMapping,
 } from "@/types";
 
-// Pure mapping helpers. The curated mappings themselves now live in Supabase
-// and are fetched via `@/data/catalog`; these functions operate on whatever
-// `SeriesMapping` they are handed (curated or synthetic).
+// Pairing AniList media with their partner on the other side: an anime with
+// its source manga, a manga with its adaptation.
 
-export function episodeToChapters(
-  mapping: SeriesMapping,
-  episode: number,
-): [number, number] | null {
-  const hit = mapping.mappings.find(
-    (m) => !!m.episodes && episode >= m.episodes[0] && episode <= m.episodes[1],
-  );
-  return hit ? hit.chapters : null;
-}
-
-export function chapterToEpisodes(
-  mapping: SeriesMapping,
-  chapter: number,
-): [number, number] | null {
-  const hit = mapping.mappings.find(
-    (m) => chapter >= m.chapters[0] && chapter <= m.chapters[1],
-  );
-  return hit?.episodes ?? null;
-}
-
-function findRelatedId(
+export function findRelatedId(
   edges: RelationEdge[],
   relationType: "SOURCE" | "ADAPTATION",
   nodeType: "ANIME" | "MANGA",

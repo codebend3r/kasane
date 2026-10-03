@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import { getMediaByIds } from "@/api/anilist";
-import { pairResults } from "@/data";
+import { pairResults } from "@/data/pairing";
 import { useInProgressEntries } from "@/state/progress";
 import { SeriesCard } from "@/components/SeriesCard";
 import type { AniListMedia, SeriesEntry } from "@/types";
