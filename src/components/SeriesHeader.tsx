@@ -1,15 +1,15 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import type { AniListMedia, SeriesBadge } from "@/types";
-import { formatAniListDate, formatAniListDateJa } from "@/data/format";
+import {
+  displayTitle,
+  englishTitle,
+  formatAniListDate,
+  formatAniListDateJa,
+} from "@/data/format";
+import { BADGE_LABEL } from "@/data/pairing";
 import { usePreferences } from "@/state/preferences";
 import { Paragraph } from "@/components/Paragraph";
 import { COLOR, FONT } from "@/theme";
-
-const BADGE_LABEL: Record<SeriesBadge, string> = {
-  both: "ANIME + MANGA",
-  "manga-only": "MANGA ONLY",
-  "anime-only": "ANIME ONLY",
-};
 
 type SeriesHeaderProps = {
   media: AniListMedia;
@@ -33,15 +33,13 @@ export function SeriesHeader({
 }: SeriesHeaderProps) {
   const japanese = usePreferences((s) => s.japanese);
 
-  const title = japanese
-    ? (media.title.native ?? media.title.english ?? media.title.romaji)
-    : (media.title.english ?? media.title.romaji);
+  const title = displayTitle({ title: media.title, japanese });
 
   return (
     <View style={[styles.header, isMobile && styles.headerMobile]}>
       <Image
         source={{ uri: media.coverImage.large }}
-        accessibilityLabel={`Cover art for ${media.title.english ?? media.title.romaji}`}
+        accessibilityLabel={`Cover art for ${englishTitle(media.title)}`}
         style={[
           styles.cover,
           isMobile && { width: mobileCoverWidth, height: mobileCoverHeight },

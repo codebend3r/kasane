@@ -13,7 +13,8 @@ import {
 } from "react-native";
 import { Link } from "expo-router";
 import type { AniListMedia, PressableState, SeriesEntry } from "@/types";
-import { pairResults } from "@/data/pairing";
+import { displayTitle, englishTitle } from "@/data/format";
+import { BADGE_SHORT_LABEL, pairResults } from "@/data/pairing";
 import { usePreferences } from "@/state/preferences";
 import { ContinueSection } from "@/components/ContinueSection";
 import {
@@ -21,19 +22,7 @@ import {
   MOBILE_WIDTH_BREAKPOINT,
 } from "@/components/CoverCarousel";
 import { Footer } from "@/components/Footer";
-import { COLOR, FONT } from "@/theme";
-
-const BADGE_COLOR: Record<SeriesEntry["badge"], string> = {
-  both: COLOR.accent,
-  "manga-only": COLOR.sideManga,
-  "anime-only": COLOR.sideAnime,
-};
-
-const BADGE_LABEL: Record<SeriesEntry["badge"], string> = {
-  both: "ANIME + MANGA",
-  "manga-only": "MANGA",
-  "anime-only": "ANIME",
-};
+import { BADGE_COLOR, COLOR, FONT } from "@/theme";
 
 const GRID_ITEM_WIDTH = 160;
 const GRID_ITEM_HEIGHT = 280;
@@ -104,7 +93,7 @@ export function LatestReleases({
     >
       <Pressable
         accessibilityRole="link"
-        accessibilityLabel={`${entry.primary.title.english ?? entry.primary.title.romaji}`}
+        accessibilityLabel={englishTitle(entry.primary.title)}
         style={({ hovered, pressed }: PressableState) => [
           styles.gridItem,
           { opacity: pressed ? 0.6 : hovered ? 0.9 : 1 },
@@ -129,16 +118,14 @@ export function LatestReleases({
               { backgroundColor: BADGE_COLOR[entry.badge] },
             ]}
           >
-            <Text style={styles.gridBadgeText}>{BADGE_LABEL[entry.badge]}</Text>
+            <Text style={styles.gridBadgeText}>
+              {BADGE_SHORT_LABEL[entry.badge]}
+            </Text>
           </View>
         </View>
         <Text style={styles.gridTitle} numberOfLines={2}>
           {trimSeasonSuffix(
-            japanese
-              ? (entry.primary.title.native ??
-                  entry.primary.title.english ??
-                  entry.primary.title.romaji)
-              : (entry.primary.title.english ?? entry.primary.title.romaji),
+            displayTitle({ title: entry.primary.title, japanese }),
           )}
         </Text>
       </Pressable>

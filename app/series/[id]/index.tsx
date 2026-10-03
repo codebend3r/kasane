@@ -12,7 +12,11 @@ import { useQuery } from "@tanstack/react-query";
 import { getAnimeFranchise, getMedia, hasAnimeSequels } from "@/api/anilist";
 import { getMangaDexInfoByAniListId } from "@/api/mangadex";
 import { lastMappedEpisode } from "@/data/mapping";
-import { buildSyntheticMapping } from "@/data/pairing";
+import {
+  buildSyntheticMapping,
+  partnerIdOf,
+  seriesBadgeOf,
+} from "@/data/pairing";
 import { useCatalog } from "@/data/catalog";
 import { FranchiseSeasons } from "@/components/FranchiseSeasons";
 import { MappingSection } from "@/components/MappingSection";
@@ -21,8 +25,7 @@ import { TitlesList } from "@/components/TitlesList";
 import { VolumesGrid } from "@/components/VolumesGrid";
 import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
 import { Footer } from "@/components/Footer";
-import { formatAniListDate } from "@/data/format";
-import type { SeriesBadge } from "@/types";
+import { englishTitle, formatAniListDate } from "@/data/format";
 import { COLOR, FONT } from "@/theme";
 
 export default function SeriesDetail() {
@@ -42,20 +45,14 @@ export default function SeriesDetail() {
   const { findMapping, isLoaded: catalogLoaded } = useCatalog();
   const curatedMapping = findMapping(mediaId);
 
-  const partnerId = useMemo(() => {
-    if (!media) return null;
-    if (curatedMapping) {
-      return media.id === curatedMapping.anilistAnimeId
+  // The curated mapping names the partner outright; otherwise trust AniList.
+  const partnerId = !media
+    ? null
+    : curatedMapping
+      ? media.id === curatedMapping.anilistAnimeId
         ? curatedMapping.anilistMangaId
-        : curatedMapping.anilistAnimeId;
-    }
-    const targetType = media.type === "MANGA" ? "ANIME" : "MANGA";
-    const targetRelation = media.type === "MANGA" ? "ADAPTATION" : "SOURCE";
-    const edge = media.relations?.edges.find(
-      (e) => e.relationType === targetRelation && e.node.type === targetType,
-    );
-    return edge?.node.id ?? null;
-  }, [media, curatedMapping]);
+        : curatedMapping.anilistAnimeId
+      : partnerIdOf(media);
 
   const { data: partner } = useQuery({
     queryKey: ["media", partnerId],
@@ -77,7 +74,7 @@ export default function SeriesDetail() {
         : null;
   const primary = manga ?? anime ?? null;
 
-  const mangaPreferredTitle = manga?.title.english ?? manga?.title.romaji ?? "";
+  const mangaPreferredTitle = manga ? englishTitle(manga.title) : "";
   const { data: mangadex, isFetching: mangadexLoading } = useQuery({
     queryKey: ["mangadex", manga?.id, mangaPreferredTitle],
     queryFn: () => getMangaDexInfoByAniListId(manga!.id, mangaPreferredTitle),
@@ -103,20 +100,6 @@ export default function SeriesDetail() {
 
   const routeId = manga?.id ?? anime?.id ?? mediaId;
 
-  const badge: SeriesBadge = useMemo(() => {
-    if (!media) return "manga-only";
-    if (media.type === "MANGA") {
-      const hasAdapter = media.relations?.edges.some(
-        (e) => e.relationType === "ADAPTATION" && e.node.type === "ANIME",
-      );
-      return hasAdapter ? "both" : "manga-only";
-    }
-    const hasSource = media.relations?.edges.some(
-      (e) => e.relationType === "SOURCE" && e.node.type === "MANGA",
-    );
-    return hasSource ? "both" : "anime-only";
-  }, [media]);
-
   if (isLoading) {
     return (
       <View style={styles.center}>
@@ -133,6 +116,7 @@ export default function SeriesDetail() {
     );
   }
 
+  const badge = seriesBadgeOf(media);
   const totalVolumes = mangadex?.volumes ?? manga?.volumes ?? null;
   const totalChapters = mangadex?.chapters ?? manga?.chapters ?? null;
   const totalEpisodes =

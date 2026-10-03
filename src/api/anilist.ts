@@ -1,4 +1,5 @@
 import { GraphQLClient, gql } from "graphql-request";
+import { englishTitle } from "@/data/format";
 import { applySearchAlias } from "@/data/searchAliases";
 import type {
   AniListMedia,
@@ -358,7 +359,7 @@ export async function getAnimeFranchise(
   const seasons: FranchiseSeason[] = nodes
     .map((n) => ({
       id: n.id,
-      title: n.title.english ?? n.title.romaji,
+      title: englishTitle(n.title),
       romajiTitle: n.title.romaji,
       format: n.format,
       episodes: n.episodes,

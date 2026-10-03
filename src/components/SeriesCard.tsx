@@ -1,33 +1,21 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Link } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
-import type { SeriesBadge, SeriesEntry } from "@/types";
-import { COLOR, FONT } from "@/theme";
+import type { SeriesEntry } from "@/types";
+import { BADGE_COLOR, COLOR, FONT } from "@/theme";
 import { useMapping } from "@/data/catalog";
+import { displayTitle } from "@/data/format";
 import { lastMappedEpisode } from "@/data/mapping";
+import { BADGE_LABEL } from "@/data/pairing";
 import { getAnimeFranchise, hasAnimeSequels } from "@/api/anilist";
 import { usePreferences } from "@/state/preferences";
 import { useSeriesProgress } from "@/state/progress";
-
-const BADGE_LABEL: Record<SeriesBadge, string> = {
-  both: "ANIME + MANGA",
-  "manga-only": "MANGA ONLY",
-  "anime-only": "ANIME ONLY",
-};
-
-const BADGE_COLOR: Record<SeriesBadge, string> = {
-  both: COLOR.accent,
-  "manga-only": COLOR.sideManga,
-  "anime-only": COLOR.sideAnime,
-};
 
 export function SeriesCard({ entry }: { entry: SeriesEntry }) {
   const { primary, anime, manga, badge, routeId } = entry;
   const japanese = usePreferences((s) => s.japanese);
   const progress = useSeriesProgress(routeId);
-  const title = japanese
-    ? (primary.title.native ?? primary.title.english ?? primary.title.romaji)
-    : (primary.title.english ?? primary.title.romaji);
+  const title = displayTitle({ title: primary.title, japanese });
 
   const mapping = useMapping(routeId);
   const mappedEpisodeCount = mapping ? lastMappedEpisode(mapping) : null;

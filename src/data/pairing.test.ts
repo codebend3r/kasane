@@ -1,5 +1,10 @@
 import { describe, expect, it } from "bun:test";
-import { buildSyntheticMapping, pairResults } from "./pairing";
+import {
+  buildSyntheticMapping,
+  pairResults,
+  partnerIdOf,
+  seriesBadgeOf,
+} from "./pairing";
 import { makeMedia } from "@test/fixtures/media";
 
 describe("pairResults", () => {
@@ -219,5 +224,59 @@ describe("buildSyntheticMapping", () => {
     });
 
     expect(buildSyntheticMapping(manga)?.anilistAnimeId ?? null).toBe(41);
+  });
+});
+
+describe("partnerIdOf", () => {
+  it("reads a manga's anime adaptation", () => {
+    const manga = makeMedia({
+      id: 2,
+      type: "MANGA",
+      relations: [
+        { relationType: "ADAPTATION", node: { id: 1, type: "ANIME" } },
+      ],
+    });
+    expect(partnerIdOf(manga)).toBe(1);
+  });
+
+  it("reads an anime's source manga", () => {
+    const anime = makeMedia({
+      id: 1,
+      type: "ANIME",
+      relations: [{ relationType: "SOURCE", node: { id: 2, type: "MANGA" } }],
+    });
+    expect(partnerIdOf(anime)).toBe(2);
+  });
+
+  it("ignores a relation pointing the wrong way", () => {
+    // An anime's ADAPTATION edge is a spin-off, not its source.
+    const anime = makeMedia({
+      id: 1,
+      type: "ANIME",
+      relations: [
+        { relationType: "ADAPTATION", node: { id: 2, type: "MANGA" } },
+      ],
+    });
+    expect(partnerIdOf(anime)).toBeNull();
+  });
+});
+
+describe("seriesBadgeOf", () => {
+  it("is both when the media has a partner", () => {
+    const anime = makeMedia({
+      id: 1,
+      type: "ANIME",
+      relations: [{ relationType: "SOURCE", node: { id: 2, type: "MANGA" } }],
+    });
+    expect(seriesBadgeOf(anime)).toBe("both");
+  });
+
+  it("names the media's own side when it has no partner", () => {
+    expect(seriesBadgeOf(makeMedia({ id: 1, type: "ANIME" }))).toBe(
+      "anime-only",
+    );
+    expect(seriesBadgeOf(makeMedia({ id: 2, type: "MANGA" }))).toBe(
+      "manga-only",
+    );
   });
 });

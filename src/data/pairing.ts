@@ -1,6 +1,8 @@
+import { englishTitle } from "@/data/format";
 import type {
   AniListMedia,
   RelationEdge,
+  SeriesBadge,
   SeriesEntry,
   SeriesMapping,
 } from "@/types";
@@ -19,6 +21,36 @@ export function findRelatedId(
   return hit?.node.id ?? null;
 }
 
+/**
+ * `media`'s partner on the other side, read from its own AniList relations: a
+ * manga's anime adaptation, or an anime's source manga.
+ */
+export function partnerIdOf(media: AniListMedia): number | null {
+  const edges = media.relations?.edges ?? [];
+  return media.type === "MANGA"
+    ? findRelatedId(edges, "ADAPTATION", "ANIME")
+    : findRelatedId(edges, "SOURCE", "MANGA");
+}
+
+/** Which sides a series has, judged from one of its media. */
+export function seriesBadgeOf(media: AniListMedia): SeriesBadge {
+  if (partnerIdOf(media) !== null) return "both";
+  return media.type === "MANGA" ? "manga-only" : "anime-only";
+}
+
+export const BADGE_LABEL: Record<SeriesBadge, string> = {
+  both: "ANIME + MANGA",
+  "manga-only": "MANGA ONLY",
+  "anime-only": "ANIME ONLY",
+};
+
+/** For a badge laid over cover art, where "ONLY" does not fit. */
+export const BADGE_SHORT_LABEL: Record<SeriesBadge, string> = {
+  both: "ANIME + MANGA",
+  "manga-only": "MANGA",
+  "anime-only": "ANIME",
+};
+
 export function pairResults(media: AniListMedia[]): SeriesEntry[] {
   const byId = new Map<number, AniListMedia>(
     media.map((m): [number, AniListMedia] => [m.id, m]),
@@ -27,40 +59,31 @@ export function pairResults(media: AniListMedia[]): SeriesEntry[] {
   const absorbed = new Set(
     media
       .filter((m) => m.type === "ANIME")
-      .map((m) => findRelatedId(m.relations?.edges ?? [], "SOURCE", "MANGA"))
+      .map(partnerIdOf)
       .filter((id): id is number => id !== null && byId.has(id)),
   );
 
   const entries = media
     .filter((m) => !absorbed.has(m.id))
     .map((m): SeriesEntry => {
+      const partnerId = partnerIdOf(m);
       if (m.type === "MANGA") {
-        const adapterId = findRelatedId(
-          m.relations?.edges ?? [],
-          "ADAPTATION",
-          "ANIME",
-        );
-        const anime = adapterId ? (byId.get(adapterId) ?? null) : null;
+        const anime = partnerId ? (byId.get(partnerId) ?? null) : null;
         return {
           routeId: m.id,
           primary: m,
           manga: m,
           anime,
-          badge: adapterId ? "both" : "manga-only",
+          badge: seriesBadgeOf(m),
         };
       }
-      const sourceMangaId = findRelatedId(
-        m.relations?.edges ?? [],
-        "SOURCE",
-        "MANGA",
-      );
-      const manga = sourceMangaId ? (byId.get(sourceMangaId) ?? null) : null;
+      const manga = partnerId ? (byId.get(partnerId) ?? null) : null;
       return {
-        routeId: sourceMangaId ?? m.id,
+        routeId: partnerId ?? m.id,
         primary: manga ?? m,
         manga,
         anime: m,
-        badge: sourceMangaId ? "both" : "anime-only",
+        badge: seriesBadgeOf(m),
       };
     });
 
@@ -110,7 +133,7 @@ export function buildSyntheticMapping(
   return {
     anilistAnimeId: anime.id,
     anilistMangaId: manga.id,
-    title: media.title.english ?? media.title.romaji ?? "Series",
+    title: englishTitle(media.title),
     sourceNotes:
       "Auto-estimated linear mapping — anime episode count distributed evenly across the manga chapter count. Real arc pacing is rarely uniform.",
     mappings: [

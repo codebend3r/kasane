@@ -1,3 +1,5 @@
+import type { SeriesBadge } from "@/types";
+
 export const FONT = {
   regular: "SpaceGrotesk_400Regular",
   medium: "SpaceGrotesk_500Medium",
@@ -81,6 +83,13 @@ export const COLOR = {
   /** Dims the not-yet-consumed part of the rail and the pie. */
   overlayUnconsumed: "rgba(12,12,14,0.55)",
 } as const;
+
+/** Fill of the badge naming which sides a series has. */
+export const BADGE_COLOR: Record<SeriesBadge, string> = {
+  both: COLOR.accent,
+  "manga-only": COLOR.sideManga,
+  "anime-only": COLOR.sideAnime,
+};
 
 /**
  * Categorical palette for arc segments, indexed by arc position and wrapped with

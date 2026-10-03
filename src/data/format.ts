@@ -1,4 +1,24 @@
-import type { AniListDate } from "@/types";
+import type { AniListDate, AniListMedia } from "@/types";
+
+type MediaTitle = AniListMedia["title"];
+
+/** The English title, falling back to romaji when AniList has none. */
+export function englishTitle(
+  title: Pick<MediaTitle, "romaji" | "english">,
+): string {
+  return title.english ?? title.romaji;
+}
+
+/** The title in the reader's chosen language. */
+export function displayTitle({
+  title,
+  japanese,
+}: {
+  title: MediaTitle;
+  japanese: boolean;
+}): string {
+  return japanese ? (title.native ?? englishTitle(title)) : englishTitle(title);
+}
 
 const MONTHS_EN = [
   "Jan",
