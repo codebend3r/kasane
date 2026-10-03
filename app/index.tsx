@@ -5,22 +5,20 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  useWindowDimensions,
   View,
 } from "react-native";
-import { useQuery } from "@tanstack/react-query";
-import { getLatestAnime, searchMedia } from "@/api/anilist";
-import { pairResults } from "@/data";
-import { useCatalog, useGenreFilters } from "@/data/catalog";
+import { pairResults } from "@/data/pairing";
+import { useCatalog, useGenreFilters } from "@/queries/catalog";
+import { useLatestAnime, useSearch } from "@/queries/search";
 import { splitHiddenForAniList } from "@/data/genreFilters";
 import { Footer } from "@/components/Footer";
 import { SeriesCard } from "@/components/SeriesCard";
 import { GenreFilters } from "@/components/GenreFilters";
 import { LatestReleases } from "@/components/LatestReleases";
 import { MappedOnlyToggle } from "@/components/MappedOnlyToggle";
-import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
+import { useIsNarrow } from "@/components/useIsNarrow";
 import { usePreferences } from "@/state/preferences";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, SPACE } from "@/theme";
 
 export default function HomeScreen() {
   const [query, setQuery] = useState("");
@@ -44,12 +42,8 @@ export default function HomeScreen() {
     return () => clearTimeout(t);
   }, [hiddenGenres]);
 
-  const { genreNotIn, tagNotIn } = splitHiddenForAniList(
-    debouncedHidden,
-    genreFilters,
-  );
-  const { width: windowWidth } = useWindowDimensions();
-  const isMobile = windowWidth < MOBILE_WIDTH_BREAKPOINT;
+  const filters = splitHiddenForAniList(debouncedHidden, genreFilters);
+  const isMobile = useIsNarrow();
 
   useEffect(() => {
     const t = setTimeout(() => setDebouncedQuery(query), 300);
@@ -62,17 +56,11 @@ export default function HomeScreen() {
     data: searchResults,
     isFetching,
     error,
-  } = useQuery({
-    queryKey: ["search", debouncedQuery, genreNotIn, tagNotIn],
-    queryFn: () => searchMedia(debouncedQuery, undefined, genreNotIn, tagNotIn),
-    enabled: isSearching,
-  });
+  } = useSearch({ query: debouncedQuery, filters, enabled: isSearching });
 
-  const { data: latestAnime, isFetching: latestFetching } = useQuery({
-    queryKey: ["latest-anime", genreNotIn, tagNotIn],
-    queryFn: () => getLatestAnime(genreNotIn, tagNotIn),
+  const { data: latestAnime, isFetching: latestFetching } = useLatestAnime({
+    filters,
     enabled: !isSearching,
-    staleTime: 60 * 60 * 1000,
   });
 
   const pairedResults = useMemo(
@@ -160,13 +148,8 @@ export default function HomeScreen() {
   );
 }
 
-/**
- * One-tap "show everything / hide everything" for the genre chips. Writes the
- * whole selection at once, which also keeps a bulk change from fanning out into
- * one AniList request per genre.
- */
 const styles = StyleSheet.create({
-  root: { flex: 1, padding: 16, gap: 16 },
+  root: { flex: 1, padding: SPACE.xl, gap: SPACE.xl },
   tagline: {
     color: COLOR.textSecondary,
     fontSize: 16,
@@ -176,16 +159,16 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: COLOR.surface,
     color: COLOR.textPrimary,
-    paddingHorizontal: 24,
-    paddingVertical: 24,
+    paddingHorizontal: SPACE.xxxl,
+    paddingVertical: SPACE.xxxl,
     fontSize: 22,
     lineHeight: 28,
     fontFamily: FONT.medium,
     borderLeftWidth: 4,
     borderLeftColor: COLOR.accent,
   },
-  spinnerWrap: { paddingTop: 24 },
-  emptyWrap: { paddingTop: 32 },
+  spinnerWrap: { paddingTop: SPACE.xxxl },
+  emptyWrap: { paddingTop: SPACE.page },
   empty: {
     color: COLOR.textMuted,
     textAlign: "center",

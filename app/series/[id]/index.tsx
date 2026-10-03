@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import {
   ActivityIndicator,
   ScrollView,
@@ -8,58 +7,44 @@ import {
   View,
 } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import { useQuery } from "@tanstack/react-query";
-import { getMedia } from "@/api/anilist";
-import { getMangaDexInfoByAniListId } from "@/api/mangadex";
-import { buildSyntheticMapping } from "@/data";
-import { useCatalog } from "@/data/catalog";
+import { lastMappedEpisode } from "@/data/mapping";
+import { partnerIdOf, seriesBadgeOf } from "@/data/pairing";
+import { useResolvedMapping } from "@/queries/catalog";
+import { useFranchise, useMangaDex, useMedia } from "@/queries/media";
+import { FranchiseSeasons } from "@/components/FranchiseSeasons";
 import { MappingSection } from "@/components/MappingSection";
 import { SeriesHeader } from "@/components/SeriesHeader";
 import { TitlesList } from "@/components/TitlesList";
 import { VolumesGrid } from "@/components/VolumesGrid";
-import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
 import { Footer } from "@/components/Footer";
 import { formatAniListDate } from "@/data/format";
-import type { SeriesBadge } from "@/types";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, NARROW_WIDTH, SPACE, TEXT } from "@/theme";
 
 export default function SeriesDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const mediaId = Number(id);
   const { width: windowWidth } = useWindowDimensions();
-  const isMobile = windowWidth < MOBILE_WIDTH_BREAKPOINT;
+  const isMobile = windowWidth < NARROW_WIDTH;
   const mobileCoverWidth = Math.min(windowWidth - 32, 420);
   const mobileCoverHeight = Math.round(mobileCoverWidth * (340 / 240));
 
-  const { data: media, isLoading } = useQuery({
-    queryKey: ["media", mediaId],
-    queryFn: () => getMedia(mediaId),
-    enabled: !Number.isNaN(mediaId),
-  });
+  const { data: media, isLoading } = useMedia(
+    Number.isNaN(mediaId) ? null : mediaId,
+  );
 
-  const { findMapping, isLoaded: catalogLoaded } = useCatalog();
-  const curatedMapping = findMapping(mediaId);
+  const resolved = useResolvedMapping(media ?? null);
+  const curated = resolved?.source === "curated" ? resolved.mapping : null;
 
-  const partnerId = useMemo(() => {
-    if (!media) return null;
-    if (curatedMapping) {
-      return media.id === curatedMapping.anilistAnimeId
-        ? curatedMapping.anilistMangaId
-        : curatedMapping.anilistAnimeId;
-    }
-    const targetType = media.type === "MANGA" ? "ANIME" : "MANGA";
-    const targetRelation = media.type === "MANGA" ? "ADAPTATION" : "SOURCE";
-    const edge = media.relations?.edges.find(
-      (e) => e.relationType === targetRelation && e.node.type === targetType,
-    );
-    return edge?.node.id ?? null;
-  }, [media, curatedMapping]);
+  // The curated mapping names the partner outright; otherwise trust AniList.
+  const partnerId = !media
+    ? null
+    : curated
+      ? media.id === curated.anilistAnimeId
+        ? curated.anilistMangaId
+        : curated.anilistAnimeId
+      : partnerIdOf(media);
 
-  const { data: partner } = useQuery({
-    queryKey: ["media", partnerId],
-    queryFn: () => getMedia(partnerId!),
-    enabled: !!partnerId,
-  });
+  const { data: partner } = useMedia(partnerId);
 
   const manga =
     media?.type === "MANGA"
@@ -75,38 +60,10 @@ export default function SeriesDetail() {
         : null;
   const primary = manga ?? anime ?? null;
 
-  const mangaPreferredTitle = manga?.title.english ?? manga?.title.romaji ?? "";
-  const { data: mangadex, isFetching: mangadexLoading } = useQuery({
-    queryKey: ["mangadex", manga?.id, mangaPreferredTitle],
-    queryFn: () => getMangaDexInfoByAniListId(manga!.id, mangaPreferredTitle),
-    enabled: !!manga && !!mangaPreferredTitle,
-    staleTime: 60 * 60 * 1000,
-  });
-
-  const syntheticMapping = useMemo(
-    () =>
-      media && catalogLoaded && !curatedMapping
-        ? buildSyntheticMapping(media)
-        : null,
-    [media, catalogLoaded, curatedMapping],
-  );
-  const mapping = curatedMapping ?? syntheticMapping;
+  const { data: mangadex, isFetching: mangadexLoading } = useMangaDex(manga);
+  const { data: franchise } = useFranchise(anime);
 
   const routeId = manga?.id ?? anime?.id ?? mediaId;
-
-  const badge: SeriesBadge = useMemo(() => {
-    if (!media) return "manga-only";
-    if (media.type === "MANGA") {
-      const hasAdapter = media.relations?.edges.some(
-        (e) => e.relationType === "ADAPTATION" && e.node.type === "ANIME",
-      );
-      return hasAdapter ? "both" : "manga-only";
-    }
-    const hasSource = media.relations?.edges.some(
-      (e) => e.relationType === "SOURCE" && e.node.type === "MANGA",
-    );
-    return hasSource ? "both" : "anime-only";
-  }, [media]);
 
   if (isLoading) {
     return (
@@ -124,16 +81,13 @@ export default function SeriesDetail() {
     );
   }
 
+  const badge = seriesBadgeOf(media);
   const totalVolumes = mangadex?.volumes ?? manga?.volumes ?? null;
   const totalChapters = mangadex?.chapters ?? manga?.chapters ?? null;
-  const totalEpisodes = mapping
-    ? (() => {
-        const eps = mapping.mappings
-          .map((m) => m.episodes?.[1])
-          .filter((v): v is number => typeof v === "number");
-        return eps.length > 0 ? Math.max(...eps) : (anime?.episodes ?? null);
-      })()
-    : (anime?.episodes ?? null);
+  const totalEpisodes =
+    (resolved ? lastMappedEpisode(resolved.mapping) : null) ??
+    anime?.episodes ??
+    null;
   const status = primary.status?.toLowerCase() ?? null;
   const showAnimeStats = badge !== "manga-only";
   const showMangaStats = badge !== "anime-only";
@@ -143,7 +97,7 @@ export default function SeriesDetail() {
     subParts.push(`${totalChapters ?? "?"} ch`);
     subParts.push(`${totalVolumes ?? "?"} vol`);
   }
-  const movies = curatedMapping?.movies ?? [];
+  const movies = resolved?.mapping.movies ?? [];
   if (showAnimeStats) {
     subParts.push(`${totalEpisodes ?? "?"} eps`);
     if (movies.length > 0) {
@@ -165,15 +119,18 @@ export default function SeriesDetail() {
         media={primary}
         badge={badge}
         subParts={subParts}
-        isMapped={!!curatedMapping}
+        isMapped={!!curated}
         isMobile={isMobile}
         mobileCoverWidth={mobileCoverWidth}
         mobileCoverHeight={mobileCoverHeight}
       />
 
+      {!!anime && !!franchise && franchise.seasons.length > 1 && (
+        <FranchiseSeasons franchise={franchise} currentId={anime.id} />
+      )}
+
       <MappingSection
-        mapping={mapping}
-        curatedMapping={curatedMapping}
+        resolved={resolved}
         routeId={routeId}
         totalChapters={totalChapters}
         badge={badge}
@@ -215,20 +172,23 @@ export default function SeriesDetail() {
 
 const styles = StyleSheet.create({
   root: { flex: 1 },
-  content: { padding: 16, gap: 24, paddingBottom: 48 },
-  center: { flex: 1, alignItems: "center", justifyContent: "center" },
-  sectionTitle: {
-    color: COLOR.textPrimary,
-    fontSize: 20,
-    letterSpacing: -0.4,
-    fontFamily: FONT.bold,
+  content: {
+    padding: SPACE.xl,
+    gap: SPACE.xxxl,
+    paddingBottom: SPACE.pageEndTall,
   },
-  empty: { color: COLOR.textMuted, fontFamily: FONT.regular, paddingTop: 8 },
-  spinnerWrap: { paddingTop: 12 },
-  volumesBlock: { gap: 12 },
-  sourcesWrap: { paddingTop: 8 },
+  center: { flex: 1, alignItems: "center", justifyContent: "center" },
+  sectionTitle: { ...TEXT.sectionTitle, color: COLOR.textPrimary },
+  empty: {
+    color: COLOR.textMuted,
+    fontFamily: FONT.regular,
+    paddingTop: SPACE.md,
+  },
+  spinnerWrap: { paddingTop: SPACE.lg },
+  volumesBlock: { gap: SPACE.lg },
+  sourcesWrap: { paddingTop: SPACE.md },
   sources: {
-    paddingTop: 12,
+    paddingTop: SPACE.lg,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: COLOR.surfaceRaised,
   },

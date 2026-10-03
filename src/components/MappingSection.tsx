@@ -1,26 +1,25 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import type { PressableState, SeriesBadge, SeriesMapping } from "@/types";
-import { chapterToEpisodes, episodeToChapters } from "@/data";
-import { useProgress, type ProgressSide } from "@/state/progress";
+import { useRouter } from "expo-router";
+import type { ResolvedMapping, SeriesBadge } from "@/types";
+import { buildArcLayout } from "@/data/arcLayout";
+import { isAdapted } from "@/data/mapping";
+import { useSeriesProgress } from "@/state/progress";
 import { AutoEstimatedBanner } from "@/components/AutoEstimatedBanner";
 import { EpisodeChapterPie } from "@/components/EpisodeChapterPie";
 import { EpisodeChapterRail } from "@/components/EpisodeChapterRail";
 import { NoMappingNotice } from "@/components/NoMappingNotice";
-import {
-  ProgressMarkBanner,
-  type MarkEvent,
-} from "@/components/ProgressMarkBanner";
+import { ProgressMarkBanner } from "@/components/ProgressMarkBanner";
+import { QuickLookup } from "@/components/QuickLookup";
 import { SeasonCoverage } from "@/components/SeasonCoverage";
 import { SeriesMovies } from "@/components/SeriesMovies";
-import { COLOR, FONT } from "@/theme";
+import { useMarkProgress } from "@/components/useMarkProgress";
+import { COLOR, FONT, pressFeedback, SPACE, TEXT } from "@/theme";
 
 type MappingView = "rail" | "pie";
 
 type MappingSectionProps = {
-  mapping: SeriesMapping | null;
-  /** Present only when the mapping is curated rather than auto-estimated. */
-  curatedMapping: SeriesMapping | null;
+  resolved: ResolvedMapping | null;
   routeId: number;
   totalChapters: number | null;
   badge: SeriesBadge;
@@ -29,8 +28,7 @@ type MappingSectionProps = {
 };
 
 export function MappingSection({
-  mapping,
-  curatedMapping,
+  resolved,
   routeId,
   totalChapters,
   badge,
@@ -39,37 +37,35 @@ export function MappingSection({
   const [mappingView, setMappingView] = useState<MappingView>(
     isMobile ? "pie" : "rail",
   );
-  const [markEvent, setMarkEvent] = useState<MarkEvent | null>(null);
+  const router = useRouter();
+  const progress = useSeriesProgress(routeId);
+  const marking = useMarkProgress({
+    routeId,
+    mapping: resolved?.mapping ?? null,
+  });
+  const layout = useMemo(
+    () =>
+      resolved
+        ? buildArcLayout({ mapping: resolved.mapping, totalChapters })
+        : null,
+    [resolved, totalChapters],
+  );
 
-  const onMarked = (
-    side: ProgressSide,
-    position: number,
-    previous?: number,
-  ) => {
-    const otherSide: ProgressSide = side === "anime" ? "manga" : "anime";
-    const otherPosition =
-      useProgress.getState().byRouteId[routeId]?.[otherSide]?.position ?? 0;
-    const range = mapping
-      ? side === "anime"
-        ? episodeToChapters(mapping, position)
-        : chapterToEpisodes(mapping, position)
-      : null;
-    const suggested = range?.[1];
-    const suggestion =
-      typeof suggested === "number" && suggested > otherPosition
-        ? { side: otherSide, position: suggested }
-        : undefined;
-    setMarkEvent({ side, position, previous, suggestion });
+  const openArc = (arcIndex: number) => {
+    router.push({
+      pathname: "/series/[id]/arc/[arcIdx]",
+      params: { id: String(routeId), arcIdx: String(arcIndex) },
+    });
   };
 
-  if (!mapping) {
+  if (!resolved || !layout) {
     if (badge === "anime-only") return null;
     return <NoMappingNotice />;
   }
 
-  const isAutoEstimated = !curatedMapping;
-  const arcsBehind = mapping.mappings.filter((m) => !m.episodes).length;
-  const movies = curatedMapping?.movies ?? [];
+  const { mapping, source } = resolved;
+  const arcsBehind = mapping.mappings.filter((m) => !isAdapted(m)).length;
+  const movies = mapping.movies ?? [];
 
   return (
     <View style={styles.mappingBlock}>
@@ -90,69 +86,64 @@ export function MappingSection({
           accessibilityLabel={
             mappingView === "rail" ? "Show pie chart view" : "Show rail view"
           }
-          style={({ hovered, pressed }: PressableState) => [
-            styles.viewToggle,
-            { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
-          ]}
+          style={(state) => [styles.viewToggle, pressFeedback(state)]}
         >
           <Text style={styles.viewToggleIcon}>
             {mappingView === "rail" ? "◐" : "▤"}
           </Text>
         </Pressable>
       </View>
-      {isAutoEstimated && <AutoEstimatedBanner />}
-      {!!markEvent && (
+      {source === "estimated" && <AutoEstimatedBanner />}
+      {!!marking.event && (
         <ProgressMarkBanner
-          event={markEvent}
-          routeId={routeId}
-          onDismiss={() => setMarkEvent(null)}
+          event={marking.event}
+          onUndo={marking.undo}
+          onAcceptSuggestion={marking.acceptSuggestion}
+          onDismiss={marking.dismiss}
         />
       )}
       {mappingView === "rail" ? (
         <EpisodeChapterRail
-          mapping={mapping}
-          seriesId={String(routeId)}
-          totalChapters={totalChapters}
-          onMarked={onMarked}
+          layout={layout}
+          movies={movies}
+          progress={progress}
+          onMark={marking.mark}
+          onOpenArc={openArc}
         />
       ) : (
         <EpisodeChapterPie
-          mapping={mapping}
-          seriesId={String(routeId)}
-          totalChapters={totalChapters}
-          onMarked={onMarked}
+          layout={layout}
+          progress={progress}
+          onMark={marking.mark}
+          onOpenArc={openArc}
         />
       )}
-      {!!curatedMapping && <SeasonCoverage mapping={curatedMapping} />}
+      <QuickLookup mapping={mapping} />
+      {source === "curated" && <SeasonCoverage mapping={mapping} />}
       {movies.length > 0 && <SeriesMovies movies={movies} />}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  mappingBlock: { gap: 10 },
+  mappingBlock: { gap: SPACE.mdl },
   sectionTitleRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
+    gap: SPACE.mdl,
     flexWrap: "wrap",
     justifyContent: "space-between",
   },
   sectionTitleLeft: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
+    gap: SPACE.mdl,
     flexWrap: "wrap",
   },
-  sectionTitle: {
-    color: COLOR.textPrimary,
-    fontSize: 20,
-    letterSpacing: -0.4,
-    fontFamily: FONT.bold,
-  },
+  sectionTitle: { ...TEXT.sectionTitle, color: COLOR.textPrimary },
   arcsBehindBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: SPACE.lg,
+    paddingVertical: SPACE.md,
     backgroundColor: COLOR.surfaceRaised,
     borderLeftWidth: 4,
     borderLeftColor: COLOR.notice,
@@ -164,8 +155,8 @@ const styles = StyleSheet.create({
     fontFamily: FONT.bold,
   },
   viewToggle: {
-    paddingHorizontal: 10,
-    paddingVertical: 6,
+    paddingHorizontal: SPACE.mdl,
+    paddingVertical: SPACE.sm,
     backgroundColor: COLOR.surface,
     borderLeftWidth: 2,
     borderLeftColor: COLOR.accent,

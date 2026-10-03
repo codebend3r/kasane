@@ -18,7 +18,7 @@
 - `app/` holds expo-router routes and nothing else. One screen per file.
 - `src/components/` holds shared UI. A component here must work on both the anime and manga side of a series.
 - `src/data/` holds pure functions. No React, no network, no module-level state.
-- `src/state/` holds zustand stores. `src/api/` holds network clients. `src/types/` holds shared types.
+- `src/state/` holds zustand stores. `src/api/` holds network clients. `src/queries/` holds every `useQuery` hook. `src/types/` holds shared types.
 - `src/theme.ts` is the only file allowed to contain a raw colour value.
 - Route files stay under ~300 lines. Past that, extract the pieces into `src/components/`.
 
@@ -64,6 +64,7 @@
 ## Data fetching
 
 - Every remote read goes through `useQuery`. Never fetch inside `useEffect`.
+- Every `useQuery` lives in a hook under `src/queries/`, which owns its key and `staleTime`. Screens and components call the hook.
 - Query keys are arrays whose first element is a literal string. Every value the request varies on goes in the key.
 - Always set `staleTime` explicitly. Never rely on the default.
 - Gate a query with `enabled`, never by calling the hook conditionally.
@@ -78,7 +79,7 @@
 
 ## Testing and verification
 
-- Everything in `src/data/`, `src/state/`, and `src/api/` needs a colocated `*.test.ts`. Type guards always get one.
+- Everything in `src/data/`, `src/state/`, `src/queries/`, and `src/api/` needs a colocated `*.test.ts`. Type guards always get one.
 - Browser-level journeys go in `e2e/` as Playwright specs.
 - Run `bun run system-check` before calling any change done. Never claim it passes without showing the output.
 

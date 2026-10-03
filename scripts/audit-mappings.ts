@@ -22,47 +22,14 @@
 import * as fs from "fs";
 import * as path from "path";
 import { createClient } from "@supabase/supabase-js";
-
-const SUPABASE_URL = "https://obtgldkascmxbtpnvscn.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY =
-  "sb_publishable_4z9kuzXtE3PeVgbPDtQUWw_cSrKxsu-";
+import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from "@/api/supabaseConfig";
+import type { ArcRow, MovieRow, SeriesRow } from "@/types/catalog";
+import type { Database } from "@/types/supabase";
 
 const ANILIST_URL = "https://graphql.anilist.co";
 const ANILIST_PAGE_SIZE = 50;
 const ANILIST_PAUSE_MS = 1200;
 const POSTGREST_PAGE = 1000;
-
-type ArcRow = {
-  position: number;
-  episode_start: number | null;
-  episode_end: number | null;
-  chapter_start: number;
-  chapter_end: number;
-  arc: string | null;
-  season: number | null;
-  note: string | null;
-};
-
-type MovieRow = {
-  position: number;
-  anilist_id: number | null;
-  title: string;
-  year: number;
-  chapter_start: number | null;
-  chapter_end: number | null;
-  after_episode: number | null;
-  note: string | null;
-};
-
-type SeriesRow = {
-  id: number;
-  anilist_anime_id: number;
-  anilist_manga_id: number;
-  title: string;
-  source_notes: string | null;
-  arc_mappings: ArcRow[];
-  movies: MovieRow[];
-};
 
 type Severity = "error" | "warn" | "info";
 
@@ -633,14 +600,16 @@ const SEVERITY_ICON: Record<Severity, string> = {
 };
 
 const fetchCatalog = async (): Promise<SeriesRow[]> => {
-  const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+  const supabase = createClient<Database>(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY,
+  );
   const page = async (offset: number): Promise<SeriesRow[]> => {
     const { data, error } = await supabase
       .from("series")
       .select("*, arc_mappings(*), movies(*)")
       .order("id", { ascending: true })
-      .range(offset, offset + POSTGREST_PAGE - 1)
-      .returns<SeriesRow[]>();
+      .range(offset, offset + POSTGREST_PAGE - 1);
     if (error) throw new Error(`catalog fetch failed: ${error.message}`);
     const rows = data ?? [];
     return rows.length < POSTGREST_PAGE

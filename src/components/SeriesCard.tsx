@@ -1,42 +1,23 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Link } from "expo-router";
-import { useQuery } from "@tanstack/react-query";
-import type { SeriesBadge, SeriesEntry } from "@/types";
-import { COLOR, FONT } from "@/theme";
-import { useMapping } from "@/data/catalog";
-import { getAnimeFranchise, hasAnimeSequels } from "@/api/anilist";
+import type { SeriesEntry } from "@/types";
+import { BADGE_COLOR, COLOR, FONT, SPACE } from "@/theme";
+import { useMapping } from "@/queries/catalog";
+import { useFranchise } from "@/queries/media";
+import { displayTitle } from "@/data/format";
+import { lastMappedEpisode } from "@/data/mapping";
+import { BADGE_LABEL } from "@/data/pairing";
 import { usePreferences } from "@/state/preferences";
 import { useSeriesProgress } from "@/state/progress";
-
-const BADGE_LABEL: Record<SeriesBadge, string> = {
-  both: "ANIME + MANGA",
-  "manga-only": "MANGA ONLY",
-  "anime-only": "ANIME ONLY",
-};
-
-const BADGE_COLOR: Record<SeriesBadge, string> = {
-  both: COLOR.accent,
-  "manga-only": COLOR.sideManga,
-  "anime-only": COLOR.sideAnime,
-};
 
 export function SeriesCard({ entry }: { entry: SeriesEntry }) {
   const { primary, anime, manga, badge, routeId } = entry;
   const japanese = usePreferences((s) => s.japanese);
   const progress = useSeriesProgress(routeId);
-  const title = japanese
-    ? (primary.title.native ?? primary.title.english ?? primary.title.romaji)
-    : (primary.title.english ?? primary.title.romaji);
+  const title = displayTitle({ title: primary.title, japanese });
 
   const mapping = useMapping(routeId);
-  const mappedEpisodeCount = mapping
-    ? (() => {
-        const eps = mapping.mappings
-          .map((m) => m.episodes?.[1] ?? null)
-          .filter((v): v is number => typeof v === "number");
-        return eps.length > 0 ? Math.max(...eps) : null;
-      })()
-    : null;
+  const mappedEpisodeCount = mapping ? lastMappedEpisode(mapping) : null;
   const hasMapping = mapping != null;
 
   const hasAnime = badge !== "manga-only";
@@ -54,13 +35,7 @@ export function SeriesCard({ entry }: { entry: SeriesEntry }) {
   const showProgressBar =
     (hasAnime && animeFrac !== null) || (hasManga && mangaFrac !== null);
 
-  const sequels = !!anime && hasAnimeSequels(anime);
-  const { data: franchise } = useQuery({
-    queryKey: ["franchise", anime?.id ?? 0],
-    queryFn: () => getAnimeFranchise(anime?.id ?? 0),
-    enabled: sequels,
-    staleTime: 24 * 60 * 60 * 1000,
-  });
+  const { data: franchise } = useFranchise(anime);
   const franchiseLabel =
     mappedEpisodeCount == null &&
     franchise &&
@@ -180,16 +155,16 @@ function ProgressBar({
 
 const styles = StyleSheet.create({
   card: {
-    gap: 6,
-    padding: 12,
+    gap: SPACE.sm,
+    padding: SPACE.lg,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: COLOR.surfaceRaised,
   },
-  cardRow: { flexDirection: "row", gap: 12 },
+  cardRow: { flexDirection: "row", gap: SPACE.lg },
   cover: { width: 60, height: 84 },
   meta: { flex: 1, justifyContent: "center" },
-  badges: { alignSelf: "center", gap: 4 },
-  progressTrack: { gap: 2 },
+  badges: { alignSelf: "center", gap: SPACE.xs },
+  progressTrack: { gap: SPACE.xxs },
   progressBand: {
     height: 3,
     backgroundColor: COLOR.progressTrack,
@@ -199,8 +174,8 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   badge: {
-    paddingHorizontal: 8,
-    paddingVertical: 3,
+    paddingHorizontal: SPACE.md,
+    paddingVertical: SPACE.xs,
     alignSelf: "flex-end",
   },
   mappedBadge: { backgroundColor: COLOR.success },
@@ -219,7 +194,7 @@ const styles = StyleSheet.create({
   sub: {
     color: COLOR.textMuted,
     fontSize: 12,
-    paddingTop: 4,
+    paddingTop: SPACE.xs,
     letterSpacing: 0.8,
     textTransform: "uppercase",
     fontFamily: FONT.semibold,

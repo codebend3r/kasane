@@ -30,21 +30,31 @@ test.describe("catalog", () => {
 
 test.describe("series detail", () => {
   // Fullmetal Alchemist: Brotherhood — a stable, fully mapped catalog entry.
-  const ANIME_ROUTE = "/anime/5114";
+  const ANIME_ID = 5114;
+  const SERIES_ROUTE = `/series/${ANIME_ID}`;
 
-  test("shows the episode-to-chapter rail", async ({ page }) => {
-    await page.goto(ANIME_ROUTE);
+  test("shows the episode-to-chapter map", async ({ page }) => {
+    await page.goto(SERIES_ROUTE);
+    await expect(page.getByText(/episode ↔ chapter map/i)).toBeVisible();
     await expect(page.getByText(/quick lookup/i)).toBeVisible();
   });
 
   test("quick lookup answers an episode with a chapter range", async ({
     page,
   }) => {
-    await page.goto(ANIME_ROUTE);
+    await page.goto(SERIES_ROUTE);
     const input = page.getByPlaceholder(/e\.g\./).first();
     await expect(input).toBeVisible();
     await input.fill("12");
     await expect(page.getByText(/chapters?\s*\d+/i).first()).toBeVisible();
+  });
+
+  test("legacy side-specific links land on the series screen", async ({
+    page,
+  }) => {
+    await page.goto(`/anime/${ANIME_ID}`);
+    await expect(page).toHaveURL(new RegExp(`${SERIES_ROUTE}$`));
+    await expect(page.getByText(/quick lookup/i)).toBeVisible();
   });
 });
 

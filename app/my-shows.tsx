@@ -1,15 +1,14 @@
 import { useMemo } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
-import { useCatalog } from "@/data/catalog";
+import { useCatalog } from "@/queries/catalog";
 import { toMappedShow } from "@/data/mappedShows";
 import { useAuthEmail, useAuthStatus } from "@/state/auth";
 import { useInProgressEntries } from "@/state/progress";
-import { useCovers } from "@/data/covers";
+import { useCovers } from "@/queries/covers";
 import { ShowGrid } from "@/components/ShowGrid";
 import { Footer } from "@/components/Footer";
-import type { PressableState } from "@/types";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, pressFeedback, SPACE, TEXT } from "@/theme";
 
 export default function MyShowsScreen() {
   const router = useRouter();
@@ -62,10 +61,7 @@ export default function MyShowsScreen() {
             onPress={() => router.push("/login")}
             accessibilityRole="link"
             accessibilityLabel="Sign in to save your shows"
-            style={({ hovered, pressed }: PressableState) => [
-              styles.calloutButton,
-              { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
-            ]}
+            style={(state) => [styles.calloutButton, pressFeedback(state)]}
           >
             <Text style={styles.calloutButtonText}>Sign in to save</Text>
           </Pressable>
@@ -91,36 +87,19 @@ export default function MyShowsScreen() {
 
 const styles = StyleSheet.create({
   root: { flex: 1 },
-  content: { gap: 12, padding: 16, paddingBottom: 40 },
-  eyebrow: {
-    color: COLOR.accent,
-    fontSize: 11,
-    letterSpacing: 1.8,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-  },
-  title: {
-    color: COLOR.textPrimary,
-    fontSize: 24,
-    letterSpacing: -0.4,
-    fontFamily: FONT.bold,
-  },
+  content: { gap: SPACE.lg, padding: SPACE.xl, paddingBottom: SPACE.pageEnd },
+  eyebrow: { ...TEXT.eyebrow, color: COLOR.accent },
+  title: { ...TEXT.pageTitle, color: COLOR.textPrimary },
   blurb: { color: COLOR.textMuted, fontSize: 14, fontFamily: FONT.regular },
   callout: {
     maxWidth: 620,
-    gap: 10,
-    padding: 16,
+    gap: SPACE.mdl,
+    padding: SPACE.xl,
     backgroundColor: COLOR.surfaceCallout,
     borderLeftWidth: 4,
     borderLeftColor: COLOR.danger,
   },
-  calloutEyebrow: {
-    color: COLOR.danger,
-    fontSize: 11,
-    letterSpacing: 1.8,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-  },
+  calloutEyebrow: { ...TEXT.eyebrow, color: COLOR.danger },
   calloutTitle: {
     color: COLOR.textPrimary,
     fontSize: 16,
@@ -134,17 +113,11 @@ const styles = StyleSheet.create({
   },
   calloutButton: {
     alignSelf: "flex-start",
-    paddingHorizontal: 16,
-    paddingVertical: 10,
+    paddingHorizontal: SPACE.xl,
+    paddingVertical: SPACE.mdl,
     backgroundColor: COLOR.danger,
   },
-  calloutButtonText: {
-    color: COLOR.background,
-    fontSize: 12,
-    letterSpacing: 1.4,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-  },
+  calloutButtonText: { ...TEXT.buttonLabel, color: COLOR.background },
   synced: { color: COLOR.success, fontSize: 13, fontFamily: FONT.medium },
   muted: {
     color: COLOR.textMuted,

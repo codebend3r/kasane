@@ -13,10 +13,8 @@
  *   bun run scripts/coverage-gaps.ts --json
  */
 import { createClient } from "@supabase/supabase-js";
-
-const SUPABASE_URL = "https://obtgldkascmxbtpnvscn.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY =
-  "sb_publishable_4z9kuzXtE3PeVgbPDtQUWw_cSrKxsu-";
+import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from "@/api/supabaseConfig";
+import type { Database } from "@/types/supabase";
 
 const ANILIST_URL = "https://graphql.anilist.co";
 const PER_PAGE = 50;
@@ -111,13 +109,13 @@ const normalise = (title: string): string =>
     .trim();
 
 const fetchCurated = async (): Promise<Curated> => {
-  const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+  const supabase = createClient<Database>(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY,
+  );
   const { data, error } = await supabase
     .from("series")
-    .select("anilist_anime_id, anilist_manga_id, title")
-    .returns<
-      { anilist_anime_id: number; anilist_manga_id: number; title: string }[]
-    >();
+    .select("anilist_anime_id, anilist_manga_id, title");
   if (error) throw new Error(`catalog fetch failed: ${error.message}`);
   const rows = data ?? [];
   return {

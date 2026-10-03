@@ -1,10 +1,13 @@
-import type { ProgressSide, SeriesProgress } from "@/state/progress";
+import type { PreferencesData } from "@/state/preferences";
+import type { ProgressByRoute } from "@/state/progress";
+import type { ProgressSide } from "@/types";
 
-// Pure reconciliation helpers shared by the cloud-sync controller. Kept free of
+// Pure reconciliation helpers for the cloud-sync controller. Kept free of
 // react-native / supabase imports so they can be unit tested in isolation.
+// Remote rows are converted to these shapes at the Supabase boundary in
+// `sync.ts`, so nothing here deals in column names or ISO strings.
 
-export type ProgressByRoute = Record<number, SeriesProgress>;
-
+/** One side of one series' progress, the unit `user_progress` stores. */
 export type ProgressEntry = {
   routeId: number;
   side: ProgressSide;
@@ -12,19 +15,15 @@ export type ProgressEntry = {
   updatedAt: number;
 };
 
-// Shape of a `user_progress` row as returned by PostgREST.
-export type RemoteProgressRow = {
-  route_id: number;
-  side: ProgressSide;
-  position: number;
-  updated_at: string;
-};
-
 const SIDES: readonly ProgressSide[] = ["anime", "manga"];
-const rowKey = (routeId: number, side: ProgressSide): string =>
-  `${routeId}:${side}`;
 
-const flatten = (byRoute: ProgressByRoute): ProgressEntry[] =>
+const keyOf = (e: Pick<ProgressEntry, "routeId" | "side">): string =>
+  `${e.routeId}:${e.side}`;
+
+const byKey = (entries: readonly ProgressEntry[]): Map<string, ProgressEntry> =>
+  new Map(entries.map((e) => [keyOf(e), e]));
+
+export const flattenProgress = (byRoute: ProgressByRoute): ProgressEntry[] =>
   Object.entries(byRoute).flatMap(([routeId, progress]) =>
     SIDES.flatMap((side) => {
       const pointer = progress[side];
@@ -41,76 +40,38 @@ const flatten = (byRoute: ProgressByRoute): ProgressEntry[] =>
     }),
   );
 
-const rebuild = (entries: ProgressEntry[]): ProgressByRoute =>
-  entries.reduce<ProgressByRoute>((acc, e) => {
-    acc[e.routeId] = {
-      ...acc[e.routeId],
-      [e.side]: { position: e.position, updatedAt: e.updatedAt },
-    };
-    return acc;
-  }, {});
-
-export type ProgressMerge = {
-  // The reconciled state to write back into the local store.
-  merged: ProgressByRoute;
-  // Entries where the local copy is newer (or the server lacks it) — upsert.
-  toPush: ProgressEntry[];
-};
+export const rebuildProgress = (
+  entries: readonly ProgressEntry[],
+): ProgressByRoute =>
+  entries.reduce<ProgressByRoute>(
+    (acc, e) => ({
+      ...acc,
+      [e.routeId]: {
+        ...acc[e.routeId],
+        [e.side]: { position: e.position, updatedAt: e.updatedAt },
+      },
+    }),
+    {},
+  );
 
 /**
- * Merges local progress with the server's rows, last-write-wins per
+ * Merges local progress with the server's entries, last-write-wins per
  * (routeId, side). Union of both sides; ties keep the local value.
  */
 export const mergeProgress = (
   local: ProgressByRoute,
-  remote: RemoteProgressRow[],
-): ProgressMerge => {
-  const localByKey = new Map(
-    flatten(local).map((e) => [rowKey(e.routeId, e.side), e]),
+  remote: readonly ProgressEntry[],
+): ProgressByRoute => {
+  const localEntries = flattenProgress(local);
+  const localByKey = byKey(localEntries);
+  const remoteByKey = byKey(remote);
+  const localKept = localEntries.filter(
+    (l) => (remoteByKey.get(keyOf(l))?.updatedAt ?? -1) <= l.updatedAt,
   );
-  const remoteByKey = new Map(
-    remote.map((r): [string, ProgressEntry] => [
-      rowKey(r.route_id, r.side),
-      {
-        routeId: r.route_id,
-        side: r.side,
-        position: r.position,
-        updatedAt: Date.parse(r.updated_at),
-      },
-    ]),
+  const remoteWins = remote.filter(
+    (r) => (localByKey.get(keyOf(r))?.updatedAt ?? -1) < r.updatedAt,
   );
-
-  type Decision = {
-    winner: ProgressEntry;
-    fromLocal: boolean;
-    remote: ProgressEntry | undefined;
-  };
-
-  const keys = new Set([...localByKey.keys(), ...remoteByKey.keys()]);
-  const decisions = [...keys].flatMap((k): Decision[] => {
-    const l = localByKey.get(k);
-    const r = remoteByKey.get(k);
-    if (l && r) {
-      return [
-        l.updatedAt >= r.updatedAt
-          ? { winner: l, fromLocal: true, remote: r }
-          : { winner: r, fromLocal: false, remote: r },
-      ];
-    }
-    if (l) return [{ winner: l, fromLocal: true, remote: undefined }];
-    if (r) return [{ winner: r, fromLocal: false, remote: r }];
-    return [];
-  });
-
-  return {
-    merged: rebuild(decisions.map((d) => d.winner)),
-    toPush: decisions
-      .filter(
-        (d) =>
-          d.fromLocal && (!d.remote || d.winner.updatedAt > d.remote.updatedAt),
-      )
-      .map((d) => d.winner),
-  };
+  return rebuildProgress([...localKept, ...remoteWins]);
 };
 
 export type ProgressSideDelete = { routeId: number; side: ProgressSide };
@@ -125,59 +86,27 @@ export const diffProgress = (
   prev: ProgressByRoute,
   next: ProgressByRoute,
 ): ProgressDelta => {
-  const prevByKey = new Map(
-    flatten(prev).map((e) => [rowKey(e.routeId, e.side), e]),
-  );
-  const nextByKey = new Map(
-    flatten(next).map((e) => [rowKey(e.routeId, e.side), e]),
-  );
+  const prevByKey = byKey(flattenProgress(prev));
+  const nextEntries = flattenProgress(next);
+  const nextByKey = byKey(nextEntries);
 
-  const upserts = [...nextByKey.values()].filter((n) => {
-    const p = prevByKey.get(rowKey(n.routeId, n.side));
+  const upserts = nextEntries.filter((n) => {
+    const p = prevByKey.get(keyOf(n));
     return !p || p.position !== n.position || p.updatedAt !== n.updatedAt;
   });
   const deletes = [...prevByKey.values()]
-    .filter((p) => !nextByKey.has(rowKey(p.routeId, p.side)))
+    .filter((p) => !nextByKey.has(keyOf(p)))
     .map((p) => ({ routeId: p.routeId, side: p.side }));
 
   return { upserts, deletes };
 };
 
-export type LocalPreferences = {
-  japanese: boolean;
-  hiddenGenres: string[];
-  updatedAt: number;
-};
-
-// Shape of the `user_preferences` row as returned by PostgREST (null when the
-// user has none yet).
-export type RemotePreferences = {
-  japanese: boolean;
-  hidden_genres: string[];
-  updated_at: string;
-} | null;
-
-export type PreferencesMerge = {
-  merged: LocalPreferences;
-  pushLocal: boolean;
-};
-
-/** Last-write-wins for the single preferences row. */
+/**
+ * Last-write-wins for the single preferences row. `remote` is null when the
+ * user has no row yet, in which case the local copy stands.
+ */
 export const mergePreferences = (
-  local: LocalPreferences,
-  remote: RemotePreferences,
-): PreferencesMerge => {
-  if (!remote) return { merged: local, pushLocal: true };
-  const remoteUpdatedAt = Date.parse(remote.updated_at);
-  if (remoteUpdatedAt > local.updatedAt) {
-    return {
-      merged: {
-        japanese: remote.japanese,
-        hiddenGenres: remote.hidden_genres,
-        updatedAt: remoteUpdatedAt,
-      },
-      pushLocal: false,
-    };
-  }
-  return { merged: local, pushLocal: local.updatedAt > remoteUpdatedAt };
-};
+  local: PreferencesData,
+  remote: PreferencesData | null,
+): PreferencesData =>
+  remote && remote.updatedAt > local.updatedAt ? remote : local;

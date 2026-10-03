@@ -1,37 +1,12 @@
-import { ActivityIndicator, Text, View, StyleSheet } from "react-native";
-import { useLocalSearchParams } from "expo-router";
-import { useCatalog } from "@/data/catalog";
-import { ArcDetailView } from "@/components/ArcDetailView";
-import { COLOR, FONT } from "@/theme";
+import { Redirect, useLocalSearchParams } from "expo-router";
 
-export default function AnimeArcDetail() {
+// The series arc route resolves either side's AniList id; this one only
+// survives to keep old links working.
+export default function LegacyArcRedirect() {
   const { id, arcIdx } = useLocalSearchParams<{ id: string; arcIdx: string }>();
-  const mediaId = Number(id);
-  const arcIndex = Number(arcIdx);
-
-  const { findMapping, isLoaded } = useCatalog();
-  const mapping = findMapping(mediaId);
-
-  if (!isLoaded) {
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator color={COLOR.accent} />
-      </View>
-    );
-  }
-
-  if (!mapping) {
-    return (
-      <View style={styles.center}>
-        <Text style={styles.empty}>Mapping not found.</Text>
-      </View>
-    );
-  }
-
-  return <ArcDetailView mapping={mapping} arcIndex={arcIndex} />;
+  return (
+    <Redirect
+      href={{ pathname: "/series/[id]/arc/[arcIdx]", params: { id, arcIdx } }}
+    />
+  );
 }
-
-const styles = StyleSheet.create({
-  center: { flex: 1, alignItems: "center", justifyContent: "center" },
-  empty: { color: COLOR.textMuted, fontFamily: FONT.regular },
-});

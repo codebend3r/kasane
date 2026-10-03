@@ -7,11 +7,9 @@ import {
   Text,
   View,
 } from "react-native";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, SPACE } from "@/theme";
 
-export const MOBILE_WIDTH_BREAKPOINT = 700;
-
-const DEFAULT_GAP = 12;
+const DEFAULT_GAP = SPACE.lg;
 const DOTS_MAX_ITEMS = 12;
 
 type CoverCarouselProps<T> = {
@@ -107,11 +105,11 @@ function CarouselIndicator({
 }
 
 const styles = StyleSheet.create({
-  root: { gap: 10 },
+  root: { gap: SPACE.mdl },
   dotsRow: {
     flexDirection: "row",
     justifyContent: "center",
-    gap: 6,
+    gap: SPACE.sm,
   },
   dot: {
     width: 6,

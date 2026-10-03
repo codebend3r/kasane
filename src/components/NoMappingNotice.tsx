@@ -1,33 +1,27 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Paragraph } from "@/components/Paragraph";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, SPACE } from "@/theme";
 
-const DEFAULT_TITLE = "No mapping available yet";
+const TITLE = "No mapping available yet";
 
-const DEFAULT_BODY =
+const BODY =
   "We couldn't find an anime↔manga adaptation pair on AniList for this " +
   "entry, and no curated mapping exists for it yet.";
 
-export function NoMappingNotice({
-  title,
-  body,
-}: {
-  title?: string;
-  body?: string;
-}) {
+export function NoMappingNotice() {
   return (
     <View style={styles.notice}>
-      <Text style={styles.title}>{title ?? DEFAULT_TITLE}</Text>
-      <Paragraph style={styles.body}>{body ?? DEFAULT_BODY}</Paragraph>
+      <Text style={styles.title}>{TITLE}</Text>
+      <Paragraph style={styles.body}>{BODY}</Paragraph>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   notice: {
-    padding: 16,
+    padding: SPACE.xl,
     backgroundColor: COLOR.surface,
-    gap: 6,
+    gap: SPACE.sm,
   },
   title: { color: COLOR.notice, fontFamily: FONT.bold },
   body: {

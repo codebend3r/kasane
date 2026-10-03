@@ -2,18 +2,27 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-type State = {
+/** The part of the store that is persisted and synced to the account. */
+export type PreferencesData = {
   japanese: boolean;
-  toggleJapanese: () => void;
-
   hiddenGenres: string[];
+  // Last local edit, in epoch ms. Drives last-write-wins against the cloud copy.
+  updatedAt: number;
+};
+
+/** Just the data fields, so persistence and sync never write the actions. */
+export const pickPreferences = ({
+  japanese,
+  hiddenGenres,
+  updatedAt,
+}: PreferencesData): PreferencesData => ({ japanese, hiddenGenres, updatedAt });
+
+type State = PreferencesData & {
+  toggleJapanese: () => void;
   toggleHiddenGenre: (id: string) => void;
   // Replaces the whole selection in one write, so "show/hide all" is a single
   // state change rather than one per chip.
   setHiddenGenres: (ids: string[]) => void;
-
-  // Last local edit, in epoch ms. Drives last-write-wins against the cloud copy.
-  updatedAt: number;
 };
 
 export const usePreferences = create<State>()(
@@ -40,11 +49,7 @@ export const usePreferences = create<State>()(
     {
       name: "kasane-preferences",
       storage: createJSONStorage(() => AsyncStorage),
-      partialize: (s) => ({
-        japanese: s.japanese,
-        hiddenGenres: s.hiddenGenres,
-        updatedAt: s.updatedAt,
-      }),
+      partialize: (s) => pickPreferences(s),
     },
   ),
 );

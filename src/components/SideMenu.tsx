@@ -9,9 +9,7 @@ import {
 } from "react-native";
 import { useRouter, usePathname } from "expo-router";
 import { MENU_LINKS, useSideMenu } from "@/state/sideMenu";
-import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
-import type { PressableState } from "@/types";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, NARROW_WIDTH, pressFeedback, SPACE } from "@/theme";
 
 const PANEL_MAX_WIDTH = 320;
 const SLIDE_MS = 220;
@@ -27,7 +25,7 @@ export function SideMenu() {
   const pathname = usePathname();
   const { width } = useWindowDimensions();
 
-  const isMobile = width < MOBILE_WIDTH_BREAKPOINT;
+  const isMobile = width < NARROW_WIDTH;
   const panelWidth = isMobile
     ? Math.min(width * 0.82, PANEL_MAX_WIDTH)
     : PANEL_MAX_WIDTH;
@@ -86,9 +84,7 @@ export function SideMenu() {
             hitSlop={10}
             accessibilityRole="button"
             accessibilityLabel="Close menu"
-            style={({ hovered, pressed }: PressableState) => [
-              { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
-            ]}
+            style={(state) => [pressFeedback(state)]}
           >
             <Text style={styles.close}>✕</Text>
           </Pressable>
@@ -107,10 +103,10 @@ export function SideMenu() {
                 accessibilityRole="link"
                 accessibilityLabel={link.label}
                 accessibilityState={{ selected: active }}
-                style={({ hovered, pressed }: PressableState) => [
+                style={(state) => [
                   styles.link,
                   active && styles.linkActive,
-                  { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
+                  pressFeedback(state),
                 ]}
               >
                 <Text
@@ -159,9 +155,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 20,
-    paddingTop: 24,
-    paddingBottom: 16,
+    paddingHorizontal: SPACE.xxl,
+    paddingTop: SPACE.xxxl,
+    paddingBottom: SPACE.xl,
   },
   panelTitle: {
     color: COLOR.textPrimary,
@@ -170,13 +166,13 @@ const styles = StyleSheet.create({
     fontFamily: FONT.bold,
   },
   close: { color: COLOR.textMuted, fontSize: 18, fontFamily: FONT.bold },
-  links: { gap: 4, paddingHorizontal: 12 },
+  links: { gap: SPACE.xs, paddingHorizontal: SPACE.lg },
   link: {
-    gap: 3,
-    paddingHorizontal: 12,
-    paddingVertical: 14,
+    gap: SPACE.xs,
+    paddingHorizontal: SPACE.lg,
+    paddingVertical: SPACE.lgx,
     borderLeftWidth: 3,
-    borderLeftColor: "transparent",
+    borderLeftColor: COLOR.borderInactive,
   },
   linkActive: { backgroundColor: COLOR.surface, borderLeftColor: COLOR.accent },
   linkLabel: {

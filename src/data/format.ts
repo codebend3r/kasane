@@ -1,4 +1,24 @@
-import type { AniListDate } from "@/types";
+import type { AniListDate, AniListMedia } from "@/types";
+
+type MediaTitle = AniListMedia["title"];
+
+/** The English title, falling back to romaji when AniList has none. */
+export function englishTitle(
+  title: Pick<MediaTitle, "romaji" | "english">,
+): string {
+  return title.english ?? title.romaji;
+}
+
+/** The title in the reader's chosen language. */
+export function displayTitle({
+  title,
+  japanese,
+}: {
+  title: MediaTitle;
+  japanese: boolean;
+}): string {
+  return japanese ? (title.native ?? englishTitle(title)) : englishTitle(title);
+}
 
 const MONTHS_EN = [
   "Jan",
@@ -78,4 +98,21 @@ const LOCALE_NAMES: Record<string, string> = {
 
 export function localeLabel(locale: string): string {
   return LOCALE_NAMES[locale.toLowerCase()] ?? locale.toUpperCase();
+}
+
+/** Drops "Season 2", "Final Season", "Part II", "Cour 2" and friends from a title. */
+export function trimSeasonSuffix(title: string): string {
+  const cleaned = title
+    .replace(
+      /\s*[:\-—–]\s*(?:the\s+)?(?:final\s+)?season(?:\s+[\divxlcm]+)?(?:\s+part\s+[\divxlcm]+)?\s*$/i,
+      "",
+    )
+    .replace(/\s+season\s+[\divxlcm]+\s*$/i, "")
+    .replace(/\s+\d+(?:st|nd|rd|th)\s+season\s*$/i, "")
+    .replace(/\s+(?:the\s+)?final\s+season\s*$/i, "")
+    .replace(/\s+part\s+[\divxlcm]+\s*$/i, "")
+    .replace(/\s+(?:\d+(?:st|nd|rd|th)\s+)?cour(?:\s+[\divxlcm]+)?\s*$/i, "")
+    .replace(/[:\-—–]\s*$/, "")
+    .trim();
+  return cleaned || title;
 }

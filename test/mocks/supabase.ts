@@ -76,7 +76,9 @@ export const tableOf = (rows: unknown[]): SelectBuilder => {
   };
 };
 
-export const fromMock = mock<(table: string) => SelectBuilder>(() => {
+// Typed loosely on purpose: a test serves whichever table builders the module
+// under test reaches for (`tableOf` for catalog reads, richer fakes for sync).
+export const fromMock = mock<(table: string) => object>(() => {
   throw new Error(
     "unexpected supabase query — set an implementation on fromMock",
   );

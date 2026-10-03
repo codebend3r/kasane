@@ -2,20 +2,18 @@ import { useMemo, useState } from "react";
 import {
   Animated,
   Image,
-  type LayoutChangeEvent,
   Pressable,
   StyleSheet,
   Text,
   View,
 } from "react-native";
-import type { MangaDexVolumeCover, PressableState } from "@/types";
+import type { MangaDexVolumeCover } from "@/types";
 import { localeLabel } from "@/data/format";
+import { groupCovers, type VolumeGroup } from "@/data/volumes";
 import { usePreferences } from "@/state/preferences";
-import {
-  CoverCarousel,
-  MOBILE_WIDTH_BREAKPOINT,
-} from "@/components/CoverCarousel";
-import { COLOR, FONT } from "@/theme";
+import { CoverCarousel } from "@/components/CoverCarousel";
+import { useLayoutWidth } from "@/components/useLayoutWidth";
+import { COLOR, FONT, NARROW_WIDTH, pressFeedback, SPACE } from "@/theme";
 
 const MOBILE_COVER_WIDTH = 140;
 const MOBILE_COVER_HEIGHT = 210;
@@ -24,44 +22,6 @@ const MOBILE_VARIANT_ROW_HEIGHT = 70;
 const MOBILE_CARD_HEIGHT =
   MOBILE_COVER_HEIGHT + MOBILE_LABELS_HEIGHT + MOBILE_VARIANT_ROW_HEIGHT;
 
-type VolumeGroup = {
-  volume: number;
-  primary: MangaDexVolumeCover;
-  variants: MangaDexVolumeCover[];
-};
-
-function groupCovers(
-  covers: MangaDexVolumeCover[],
-  japanese: boolean,
-): VolumeGroup[] {
-  const localeRank: Record<string, number> = japanese
-    ? { ja: 0, en: 1 }
-    : { en: 0, ja: 1 };
-  const groups = covers.reduce<Map<number, MangaDexVolumeCover[]>>((acc, c) => {
-    const n = Number(c.volume);
-    if (!Number.isFinite(n)) return acc;
-    const base = Math.floor(n);
-    const list = acc.get(base);
-    if (list) list.push(c);
-    else acc.set(base, [c]);
-    return acc;
-  }, new Map());
-  return Array.from(groups.entries())
-    .sort(([a], [b]) => a - b)
-    .map(([volume, list]) => {
-      const sorted = [...list].sort((a, b) => {
-        const aIsInt = !a.volume.includes(".");
-        const bIsInt = !b.volume.includes(".");
-        if (aIsInt !== bIsInt) return aIsInt ? -1 : 1;
-        const ra = localeRank[a.locale] ?? 99;
-        const rb = localeRank[b.locale] ?? 99;
-        if (ra !== rb) return ra - rb;
-        return a.volume.localeCompare(b.volume);
-      });
-      return { volume, primary: sorted[0], variants: sorted.slice(1) };
-    });
-}
-
 function coverKey(c: MangaDexVolumeCover): string {
   return `${c.volume}-${c.locale}`;
 }
@@ -69,17 +29,12 @@ function coverKey(c: MangaDexVolumeCover): string {
 export function VolumesGrid({ covers }: { covers: MangaDexVolumeCover[] }) {
   const japanese = usePreferences((s) => s.japanese);
   const groups = useMemo(
-    () => groupCovers(covers, japanese),
+    () => groupCovers({ covers, japanese }),
     [covers, japanese],
   );
-  const [containerWidth, setContainerWidth] = useState(0);
+  const [containerWidth, onLayout] = useLayoutWidth();
 
-  const onLayout = (e: LayoutChangeEvent) => {
-    setContainerWidth(e.nativeEvent.layout.width);
-  };
-
-  const isMobile =
-    containerWidth > 0 && containerWidth < MOBILE_WIDTH_BREAKPOINT;
+  const isMobile = containerWidth > 0 && containerWidth < NARROW_WIDTH;
 
   if (containerWidth === 0) {
     return <View style={styles.measure} onLayout={onLayout} />;
@@ -166,11 +121,14 @@ function VolumeCard({
           setIsHovered(false);
           animateTo(1);
         }}
-        style={({ pressed }: PressableState) => [
-          { width, opacity: pressed ? 0.7 : 1 },
+        style={(state) => [
+          { width },
+          pressFeedback({ pressed: state.pressed }),
         ]}
       >
-        <Animated.View style={[{ width, gap: 4 }, { transform: [{ scale }] }]}>
+        <Animated.View
+          style={[{ width, gap: SPACE.xs }, { transform: [{ scale }] }]}
+        >
           <View style={{ width, height: coverHeight, position: "relative" }}>
             <Image
               source={{ uri: primary.thumbUrl }}
@@ -198,10 +156,7 @@ function VolumeCard({
               onPress={() => setSelectedKey(coverKey(v))}
               accessibilityRole="button"
               accessibilityLabel={`Show the ${localeLabel(v.locale)} cover for volume ${v.volume}`}
-              style={({ hovered, pressed }: PressableState) => [
-                styles.variantCell,
-                { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
-              ]}
+              style={(state) => [styles.variantCell, pressFeedback(state)]}
             >
               <Image
                 source={{ uri: v.thumbUrl }}
@@ -228,10 +183,10 @@ const styles = StyleSheet.create({
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 12,
+    gap: SPACE.lg,
   },
   card: {
-    gap: 4,
+    gap: SPACE.xs,
     position: "relative",
     zIndex: 1,
   },
@@ -247,8 +202,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 6,
     right: 6,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
+    paddingHorizontal: SPACE.sm,
+    paddingVertical: SPACE.xxs,
     backgroundColor: COLOR.accentTranslucent,
   },
   variantBadgeText: {
@@ -260,12 +215,12 @@ const styles = StyleSheet.create({
   variantRow: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 6,
-    paddingTop: 4,
+    gap: SPACE.sm,
+    paddingTop: SPACE.xs,
   },
   variantCell: {
     width: 36,
-    gap: 2,
+    gap: SPACE.xxs,
   },
   variantThumb: {
     width: 36,
@@ -280,8 +235,8 @@ const styles = StyleSheet.create({
   },
   labels: {
     backgroundColor: COLOR.coverBackdrop,
-    padding: 6,
-    gap: 2,
+    padding: SPACE.sm,
+    gap: SPACE.xxs,
   },
   number: {
     color: COLOR.textPrimary,

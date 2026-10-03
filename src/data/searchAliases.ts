@@ -1,16 +1,20 @@
-// Search aliases now live in the `search_aliases` table and are loaded at
-// launch by the catalog fetch (see `useHydrateSearchAliases`). Until that
-// resolves the table is empty and queries pass through unchanged.
-let aliases: Record<string, string> = {};
+// Search aliases live in the `search_aliases` table and arrive with the
+// catalog. Callers pass the table in, so the resolved term — not a hidden
+// module variable — is what a search query keys on.
 
-export function setSearchAliases(next: Record<string, string>): void {
-  aliases = next;
-}
-
-export function applySearchAlias(query: string): string {
-  const key = query
+const aliasKey = (query: string): string =>
+  query
     .trim()
     .toLowerCase()
     .replace(/[^a-z0-9]/g, "");
-  return aliases[key] ?? query;
+
+/** The aliased search term, or `query` untouched when no alias matches. */
+export function applySearchAlias({
+  query,
+  aliases,
+}: {
+  query: string;
+  aliases: Readonly<Record<string, string>>;
+}): string {
+  return aliases[aliasKey(query)] ?? query;
 }

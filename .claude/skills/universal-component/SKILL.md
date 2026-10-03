@@ -5,9 +5,9 @@ description: Use when adding a component to kasane, when a route file grows past
 
 # Universal Component
 
-kasane renders the same domain from three route families (`/anime/[id]`, `/manga/[id]`, `/series/[id]`) on four platforms. Shared UI that lives inside one route file gets copy-pasted into the next one and then drifts.
+kasane renders one series screen (`/series/[id]`, which takes either side's AniList id) on four platforms. `/anime/[id]` and `/manga/[id]` survive only as redirects for old links. Shared UI that lives inside one route file gets copy-pasted into the next one and then drifts.
 
-**This has already happened.** `VolumesGrid` and `SeasonCoverage` exist in `src/components/` **and** again as private functions inside `app/manga/[id]/index.tsx`. `QuickLookup` is duplicated across `app/manga/[id]/index.tsx` and `app/anime/[id]/index.tsx`, and the two copies have already diverged: the manga one resolves a season badge, the anime one accepts a null mapping. Neither is a superset.
+**This has already happened.** The anime, manga and series screens were once three forks of one screen. Their `QuickLookup` copies diverged, progress was keyed on different ids depending on which screen marked it, and the features users relied on ended up on screens nothing linked to. They were folded back into `/series/[id]`; do not reintroduce a side-specific screen.
 
 ## The rule
 
@@ -43,7 +43,8 @@ A route file should read as: resolve params, fetch, compose. When it does anythi
 
 - Named exports only; `export function Name({ ... }: { ... })` with the props type inline for small components, or a `type NameProps = { ... }` above for larger ones. Never `interface`.
 - Optional props always pair `?.` with `??`, per CLAUDE.md.
-- Pressable style callbacks use the `PressableState` type from `@/types`, not `any`. Several existing call sites in `app/_layout.tsx` still use `any`; fix them when you touch them.
+- Pressable style callbacks spread `pressFeedback(state)` from `@/theme` for their press and hover feedback. The callback state is inferred; `hovered` comes from `src/types/react-native-augment.d.ts`.
+- Pure logic a component needs (layout maths, grouping, formatting) goes in `src/data/` with a test, and the component calls it.
 - Spacing via container `gap`/`padding`. No margins.
 
 ## Common mistakes

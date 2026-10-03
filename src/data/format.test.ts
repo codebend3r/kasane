@@ -1,5 +1,12 @@
 import { describe, expect, it } from "bun:test";
-import { formatAniListDate, formatAniListDateJa, localeLabel } from "./format";
+import {
+  displayTitle,
+  englishTitle,
+  formatAniListDate,
+  formatAniListDateJa,
+  localeLabel,
+  trimSeasonSuffix,
+} from "./format";
 
 describe("formatAniListDate", () => {
   it("returns empty string for missing year", () => {
@@ -59,5 +66,70 @@ describe("localeLabel", () => {
 
   it("falls back to uppercase for unknown locales", () => {
     expect(localeLabel("xx")).toBe("XX");
+  });
+});
+
+describe("englishTitle", () => {
+  it("prefers the English title", () => {
+    expect(
+      englishTitle({
+        romaji: "Shingeki no Kyojin",
+        english: "Attack on Titan",
+      }),
+    ).toBe("Attack on Titan");
+  });
+
+  it("falls back to romaji when AniList has no English title", () => {
+    expect(englishTitle({ romaji: "Mushishi", english: null })).toBe(
+      "Mushishi",
+    );
+  });
+});
+
+describe("displayTitle", () => {
+  const title = {
+    romaji: "Shingeki no Kyojin",
+    english: "Attack on Titan",
+    native: "進撃の巨人",
+  };
+
+  it("shows the English title by default", () => {
+    expect(displayTitle({ title, japanese: false })).toBe("Attack on Titan");
+  });
+
+  it("shows the native title in Japanese mode", () => {
+    expect(displayTitle({ title, japanese: true })).toBe("進撃の巨人");
+  });
+
+  it("falls back to the English title in Japanese mode with no native title", () => {
+    expect(
+      displayTitle({ title: { ...title, native: null }, japanese: true }),
+    ).toBe("Attack on Titan");
+  });
+});
+
+describe("trimSeasonSuffix", () => {
+  it("drops season, part and cour suffixes", () => {
+    expect(trimSeasonSuffix("Attack on Titan Season 3")).toBe(
+      "Attack on Titan",
+    );
+    expect(trimSeasonSuffix("Attack on Titan: The Final Season")).toBe(
+      "Attack on Titan",
+    );
+    expect(trimSeasonSuffix("Mob Psycho 100 2nd Season")).toBe(
+      "Mob Psycho 100",
+    );
+    expect(trimSeasonSuffix("Spy x Family Part 2")).toBe("Spy x Family");
+    expect(trimSeasonSuffix("Bocchi the Rock! Cour 2")).toBe(
+      "Bocchi the Rock!",
+    );
+  });
+
+  it("leaves a title with no suffix alone", () => {
+    expect(trimSeasonSuffix("Frieren")).toBe("Frieren");
+  });
+
+  it("keeps the title when the whole thing would be trimmed", () => {
+    expect(trimSeasonSuffix("Season 2")).toBe("Season 2");
   });
 });

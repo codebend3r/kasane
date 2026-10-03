@@ -1,19 +1,11 @@
 import { useRef, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { FONT } from "@/theme";
-
-export type MouseLike = { nativeEvent: { clientX: number; clientY: number } };
+import { FONT, SPACE } from "@/theme";
+import { hasBoundingRect } from "@/data/guards";
+import type { MouseLike } from "@/types";
 
 type HoverContent = { label: string; color: string; textColor: string };
 type Hover = HoverContent & { x: number; y: number };
-
-export function hasBoundingRect(
-  node: unknown,
-): node is { getBoundingClientRect: () => DOMRect } {
-  return (
-    typeof node === "object" && node !== null && "getBoundingClientRect" in node
-  );
-}
 
 export function useHoverLabel() {
   const containerRef = useRef<View>(null);
@@ -66,8 +58,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingHorizontal: SPACE.md,
+    paddingVertical: SPACE.xs,
     maxWidth: 320,
     zIndex: 100,
   },

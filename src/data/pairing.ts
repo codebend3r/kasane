@@ -1,35 +1,16 @@
+import { englishTitle } from "@/data/format";
 import type {
   AniListMedia,
   RelationEdge,
+  SeriesBadge,
   SeriesEntry,
   SeriesMapping,
 } from "@/types";
 
-// Pure mapping helpers. The curated mappings themselves now live in Supabase
-// and are fetched via `@/data/catalog`; these functions operate on whatever
-// `SeriesMapping` they are handed (curated or synthetic).
+// Pairing AniList media with their partner on the other side: an anime with
+// its source manga, a manga with its adaptation.
 
-export function episodeToChapters(
-  mapping: SeriesMapping,
-  episode: number,
-): [number, number] | null {
-  const hit = mapping.mappings.find(
-    (m) => !!m.episodes && episode >= m.episodes[0] && episode <= m.episodes[1],
-  );
-  return hit ? hit.chapters : null;
-}
-
-export function chapterToEpisodes(
-  mapping: SeriesMapping,
-  chapter: number,
-): [number, number] | null {
-  const hit = mapping.mappings.find(
-    (m) => chapter >= m.chapters[0] && chapter <= m.chapters[1],
-  );
-  return hit?.episodes ?? null;
-}
-
-function findRelatedId(
+export function findRelatedId(
   edges: RelationEdge[],
   relationType: "SOURCE" | "ADAPTATION",
   nodeType: "ANIME" | "MANGA",
@@ -40,6 +21,36 @@ function findRelatedId(
   return hit?.node.id ?? null;
 }
 
+/**
+ * `media`'s partner on the other side, read from its own AniList relations: a
+ * manga's anime adaptation, or an anime's source manga.
+ */
+export function partnerIdOf(media: AniListMedia): number | null {
+  const edges = media.relations.edges;
+  return media.type === "MANGA"
+    ? findRelatedId(edges, "ADAPTATION", "ANIME")
+    : findRelatedId(edges, "SOURCE", "MANGA");
+}
+
+/** Which sides a series has, judged from one of its media. */
+export function seriesBadgeOf(media: AniListMedia): SeriesBadge {
+  if (partnerIdOf(media) !== null) return "both";
+  return media.type === "MANGA" ? "manga-only" : "anime-only";
+}
+
+export const BADGE_LABEL: Record<SeriesBadge, string> = {
+  both: "ANIME + MANGA",
+  "manga-only": "MANGA ONLY",
+  "anime-only": "ANIME ONLY",
+};
+
+/** For a badge laid over cover art, where "ONLY" does not fit. */
+export const BADGE_SHORT_LABEL: Record<SeriesBadge, string> = {
+  both: "ANIME + MANGA",
+  "manga-only": "MANGA",
+  "anime-only": "ANIME",
+};
+
 export function pairResults(media: AniListMedia[]): SeriesEntry[] {
   const byId = new Map<number, AniListMedia>(
     media.map((m): [number, AniListMedia] => [m.id, m]),
@@ -48,40 +59,31 @@ export function pairResults(media: AniListMedia[]): SeriesEntry[] {
   const absorbed = new Set(
     media
       .filter((m) => m.type === "ANIME")
-      .map((m) => findRelatedId(m.relations?.edges ?? [], "SOURCE", "MANGA"))
+      .map(partnerIdOf)
       .filter((id): id is number => id !== null && byId.has(id)),
   );
 
   const entries = media
     .filter((m) => !absorbed.has(m.id))
     .map((m): SeriesEntry => {
+      const partnerId = partnerIdOf(m);
       if (m.type === "MANGA") {
-        const adapterId = findRelatedId(
-          m.relations?.edges ?? [],
-          "ADAPTATION",
-          "ANIME",
-        );
-        const anime = adapterId ? (byId.get(adapterId) ?? null) : null;
+        const anime = partnerId ? (byId.get(partnerId) ?? null) : null;
         return {
           routeId: m.id,
           primary: m,
           manga: m,
           anime,
-          badge: adapterId ? "both" : "manga-only",
+          badge: seriesBadgeOf(m),
         };
       }
-      const sourceMangaId = findRelatedId(
-        m.relations?.edges ?? [],
-        "SOURCE",
-        "MANGA",
-      );
-      const manga = sourceMangaId ? (byId.get(sourceMangaId) ?? null) : null;
+      const manga = partnerId ? (byId.get(partnerId) ?? null) : null;
       return {
-        routeId: sourceMangaId ?? m.id,
+        routeId: partnerId ?? m.id,
         primary: manga ?? m,
         manga,
         anime: m,
-        badge: sourceMangaId ? "both" : "anime-only",
+        badge: seriesBadgeOf(m),
       };
     });
 
@@ -102,8 +104,6 @@ const PARTNER_RELATION_TYPES = new Set(["ADAPTATION", "SOURCE"]);
 export function buildSyntheticMapping(
   media: AniListMedia,
 ): SeriesMapping | null {
-  if (!media.relations) return null;
-
   const partnerType = media.type === "ANIME" ? "MANGA" : "ANIME";
 
   const candidates = media.relations.edges
@@ -113,25 +113,24 @@ export function buildSyntheticMapping(
       partnerType === "ANIME" ? !!e.node.episodes : !!e.node.chapters,
     );
 
-  if (candidates.length === 0) return null;
-
-  candidates.sort(
-    (a, b) =>
-      (a.node.startDate?.year ?? 9999) - (b.node.startDate?.year ?? 9999),
+  // The earliest partner by start year; an undated one sorts last.
+  const [earliest] = [...candidates].sort(
+    (a, b) => (a.node.startDate.year ?? 9999) - (b.node.startDate.year ?? 9999),
   );
-  const partner = candidates[0].node;
+  if (!earliest) return null;
+  const partner = earliest.node;
 
   const anime = media.type === "ANIME" ? media : partner;
   const manga = media.type === "MANGA" ? media : partner;
 
-  const episodes = anime.episodes ?? null;
-  const chapters = manga.chapters ?? null;
+  const episodes = anime.episodes;
+  const chapters = manga.chapters;
   if (!episodes || !chapters) return null;
 
   return {
     anilistAnimeId: anime.id,
     anilistMangaId: manga.id,
-    title: media.title.english ?? media.title.romaji ?? "Series",
+    title: englishTitle(media.title),
     sourceNotes:
       "Auto-estimated linear mapping — anime episode count distributed evenly across the manga chapter count. Real arc pacing is rarely uniform.",
     mappings: [

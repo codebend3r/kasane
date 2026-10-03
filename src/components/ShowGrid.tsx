@@ -1,6 +1,6 @@
 import { StyleSheet, useWindowDimensions, View } from "react-native";
 import type { MappedShow } from "@/data/mappedShows";
-import type { CoverMap } from "@/data/covers";
+import type { CoverMap } from "@/queries/covers";
 import { GRID_GAP, GRID_PAGE_PADDING, gridLayout } from "@/data/gridLayout";
 import { ShowTile } from "@/components/ShowTile";
 
@@ -18,7 +18,7 @@ export function ShowGrid({
   covers: CoverMap;
 }) {
   const { width } = useWindowDimensions();
-  const { tileWidth } = gridLayout(width - GRID_PAGE_PADDING);
+  const { tileWidth } = gridLayout({ available: width - GRID_PAGE_PADDING });
 
   return (
     <View style={styles.grid}>

@@ -1,126 +1,94 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import type { SeriesMapping } from "@/types";
-import { chapterToEpisodes, episodeToChapters } from "@/data";
-import { COLOR, FONT } from "@/theme";
+import { arcForChapter, episodeToChapters } from "@/data/mapping";
+import { COLOR, FONT, SPACE } from "@/theme";
 
-type QuickLookupProps = {
-  mapping: SeriesMapping | null;
-  /** Which row reads first. The anime side leads with episodes, manga with chapters. */
-  lead?: "episode" | "chapter";
-  /** Show the season badge beside a chapter result. Only curated mappings carry seasons. */
-  showSeason?: boolean;
-};
-
-export function QuickLookup({
-  mapping,
-  lead = "episode",
-  showSeason = false,
-}: QuickLookupProps) {
+export function QuickLookup({ mapping }: { mapping: SeriesMapping }) {
   const [epInput, setEpInput] = useState("");
   const [chInput, setChInput] = useState("");
 
   const epNum = Number(epInput);
   const chNum = Number(chInput);
 
-  const seasonForCh = useMemo(() => {
-    if (!mapping || !chNum) return null;
-    const hit = mapping.mappings.find(
-      (m) => chNum >= m.chapters[0] && chNum <= m.chapters[1],
-    );
-    return hit?.season ?? null;
-  }, [chNum, mapping]);
+  // `NaN > 0` is false, so a non-numeric input reads as no answer.
+  const fromEp = epNum > 0 ? episodeToChapters(mapping, epNum) : null;
+  const chapterArc = chNum > 0 ? arcForChapter(mapping, chNum) : null;
+  const fromCh = chapterArc?.episodes ?? null;
+  const seasonForCh = chapterArc?.season ?? null;
 
-  if (!mapping) return null;
-
-  const fromEp =
-    !Number.isNaN(epNum) && epNum > 0
-      ? episodeToChapters(mapping, epNum)
-      : null;
-  const fromCh =
-    !Number.isNaN(chNum) && chNum > 0
-      ? chapterToEpisodes(mapping, chNum)
-      : null;
-
-  const seasonSuffix = showSeason && seasonForCh ? ` (S${seasonForCh})` : "";
-  const seasonSpoken =
-    showSeason && seasonForCh ? `, season ${seasonForCh}` : "";
-
-  const episodeRow = (
-    <View style={styles.lookupRow}>
-      <Text style={styles.lookupLabel}>I finished episode</Text>
-      <TextInput
-        value={epInput}
-        onChangeText={setEpInput}
-        keyboardType="number-pad"
-        style={styles.lookupInput}
-        placeholder="e.g. 12"
-        accessibilityLabel="I finished episode"
-        placeholderTextColor={COLOR.textFaint}
-      />
-      <Text
-        style={styles.lookupResult}
-        accessibilityRole="text"
-        accessibilityLiveRegion="polite"
-        accessibilityLabel={
-          fromEp ? `chapters ${fromEp[0]} to ${fromEp[1]}` : "no match"
-        }
-      >
-        → {fromEp ? `chapters ${fromEp[0]}–${fromEp[1]}` : "—"}
-      </Text>
-    </View>
-  );
-
-  const chapterRow = (
-    <View style={styles.lookupRow}>
-      <Text style={styles.lookupLabel}>I finished chapter</Text>
-      <TextInput
-        value={chInput}
-        onChangeText={setChInput}
-        keyboardType="number-pad"
-        style={styles.lookupInput}
-        placeholder="e.g. 38"
-        accessibilityLabel="I finished chapter"
-        placeholderTextColor={COLOR.textFaint}
-      />
-      <Text
-        style={styles.lookupResult}
-        accessibilityRole="text"
-        accessibilityLiveRegion="polite"
-        accessibilityLabel={
-          fromCh
-            ? `episodes ${fromCh[0]} to ${fromCh[1]}${seasonSpoken}`
-            : "no match"
-        }
-      >
-        → {fromCh ? `episodes ${fromCh[0]}–${fromCh[1]}` : "—"}
-        {seasonSuffix}
-      </Text>
-    </View>
-  );
+  // Only curated mappings carry seasons, so an estimated one never shows a
+  // badge it cannot back up.
+  const seasonSuffix = seasonForCh ? ` (S${seasonForCh})` : "";
+  const seasonSpoken = seasonForCh ? `, season ${seasonForCh}` : "";
 
   return (
     <View style={styles.lookup}>
       <Text style={styles.sectionTitle}>Quick lookup</Text>
-      {lead === "episode" ? episodeRow : chapterRow}
-      {lead === "episode" ? chapterRow : episodeRow}
+      <View style={styles.lookupRow}>
+        <Text style={styles.lookupLabel}>I finished episode</Text>
+        <TextInput
+          value={epInput}
+          onChangeText={setEpInput}
+          keyboardType="number-pad"
+          style={styles.lookupInput}
+          placeholder="e.g. 12"
+          accessibilityLabel="I finished episode"
+          placeholderTextColor={COLOR.textFaint}
+        />
+        <Text
+          style={styles.lookupResult}
+          accessibilityRole="text"
+          accessibilityLiveRegion="polite"
+          accessibilityLabel={
+            fromEp ? `chapters ${fromEp[0]} to ${fromEp[1]}` : "no match"
+          }
+        >
+          → {fromEp ? `chapters ${fromEp[0]}–${fromEp[1]}` : "—"}
+        </Text>
+      </View>
+      <View style={styles.lookupRow}>
+        <Text style={styles.lookupLabel}>I finished chapter</Text>
+        <TextInput
+          value={chInput}
+          onChangeText={setChInput}
+          keyboardType="number-pad"
+          style={styles.lookupInput}
+          placeholder="e.g. 38"
+          accessibilityLabel="I finished chapter"
+          placeholderTextColor={COLOR.textFaint}
+        />
+        <Text
+          style={styles.lookupResult}
+          accessibilityRole="text"
+          accessibilityLiveRegion="polite"
+          accessibilityLabel={
+            fromCh
+              ? `episodes ${fromCh[0]} to ${fromCh[1]}${seasonSpoken}`
+              : "no match"
+          }
+        >
+          → {fromCh ? `episodes ${fromCh[0]}–${fromCh[1]}` : "—"}
+          {seasonSuffix}
+        </Text>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  lookup: { gap: 12, paddingTop: 8 },
+  lookup: { gap: SPACE.lg, paddingTop: SPACE.md },
   sectionTitle: {
     color: COLOR.textPrimary,
     fontSize: 18,
-    paddingTop: 10,
+    paddingTop: SPACE.mdl,
     letterSpacing: -0.3,
     fontFamily: FONT.bold,
   },
   lookupRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    gap: SPACE.md,
     flexWrap: "wrap",
   },
   lookupLabel: {
@@ -131,8 +99,8 @@ const styles = StyleSheet.create({
   lookupInput: {
     backgroundColor: COLOR.surface,
     color: COLOR.textPrimary,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
+    paddingHorizontal: SPACE.mdl,
+    paddingVertical: SPACE.md,
     minWidth: 80,
     fontFamily: FONT.regular,
   },

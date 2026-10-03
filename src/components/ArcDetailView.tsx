@@ -2,10 +2,9 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Stack } from "expo-router";
 import { Footer } from "@/components/Footer";
 import { Paragraph } from "@/components/Paragraph";
-import type { MappingEntry, SeriesMapping } from "@/types";
-import { COLOR, FONT } from "@/theme";
-
-type ChapterRow = { chapter: number; episode?: number };
+import { expandChapters, expandEpisodes } from "@/data/arcDetail";
+import type { SeriesMapping } from "@/types";
+import { COLOR, FONT, SPACE } from "@/theme";
 
 export function ArcDetailView({
   mapping,
@@ -86,11 +85,11 @@ export function ArcDetailView({
                 </View>
                 <View style={styles.rowBody}>
                   <Text style={styles.rowTitle}>Chapter {ch.chapter}</Text>
-                  {ch.episode !== undefined ? (
-                    <Text style={styles.rowSub}>Anime ep {ch.episode}</Text>
-                  ) : (
-                    <Text style={styles.rowSub}>Unadapted</Text>
-                  )}
+                  <Text style={styles.rowSub}>
+                    {ch.episode === null
+                      ? "Unadapted"
+                      : `Anime ep ${ch.episode}`}
+                  </Text>
                 </View>
               </View>
             ))}
@@ -102,50 +101,12 @@ export function ArcDetailView({
   );
 }
 
-function expandEpisodes(arc: MappingEntry) {
-  if (!arc.episodes) return [];
-  const [e1, e2] = arc.episodes;
-  const [c1, c2] = arc.chapters;
-  const epCount = e2 - e1 + 1;
-  const chCount = c2 - c1 + 1;
-  const chPerEp = chCount / epCount;
-
-  return Array.from({ length: epCount }, (_, i) => {
-    const episode = e1 + i;
-    const chapterStart = c1 + Math.floor(i * chPerEp);
-    const chapterEnd =
-      c1 + Math.max(Math.ceil((i + 1) * chPerEp) - 1, Math.floor(i * chPerEp));
-    return { episode, chapterStart, chapterEnd: Math.min(chapterEnd, c2) };
-  });
-}
-
-function expandChapters(arc: MappingEntry): ChapterRow[] {
-  const [c1, c2] = arc.chapters;
-  const chCount = c2 - c1 + 1;
-
-  if (!arc.episodes) {
-    return Array.from({ length: chCount }, (_, i): ChapterRow => ({
-      chapter: c1 + i,
-    }));
-  }
-
-  const [e1, e2] = arc.episodes;
-  const epCount = e2 - e1 + 1;
-  const epPerCh = epCount / chCount;
-
-  return Array.from({ length: chCount }, (_, i): ChapterRow => {
-    const chapter = c1 + i;
-    const episode = e1 + Math.min(Math.floor(i * epPerCh), epCount - 1);
-    return { chapter, episode };
-  });
-}
-
 const styles = StyleSheet.create({
   root: { flex: 1 },
-  content: { padding: 16, gap: 20 },
+  content: { padding: SPACE.xl, gap: SPACE.xxl },
   center: { flex: 1, alignItems: "center", justifyContent: "center" },
   empty: { color: COLOR.textMuted, fontFamily: FONT.regular },
-  head: { gap: 4 },
+  head: { gap: SPACE.xs },
   eyebrow: {
     color: COLOR.accent,
     fontSize: 12,
@@ -169,27 +130,27 @@ const styles = StyleSheet.create({
   note: {
     color: COLOR.textSecondary,
     fontSize: 13,
-    paddingTop: 6,
+    paddingTop: SPACE.sm,
     fontStyle: "italic",
     fontFamily: FONT.regular,
   },
-  columns: { flexDirection: "row", gap: 16, flexWrap: "wrap" },
-  column: { flex: 1, minWidth: 280, gap: 8 },
+  columns: { flexDirection: "row", gap: SPACE.xl, flexWrap: "wrap" },
+  column: { flex: 1, minWidth: 280, gap: SPACE.md },
   columnLabel: {
     color: COLOR.textMuted,
     fontSize: 12,
     letterSpacing: 1.2,
     textTransform: "uppercase",
-    paddingBottom: 4,
+    paddingBottom: SPACE.xs,
     fontFamily: FONT.semibold,
   },
   row: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
+    gap: SPACE.lg,
     backgroundColor: COLOR.surface,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
+    paddingHorizontal: SPACE.lg,
+    paddingVertical: SPACE.mdl,
   },
   indexBadge: {
     width: 36,
@@ -204,7 +165,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: FONT.bold,
   },
-  rowBody: { flex: 1, gap: 2 },
+  rowBody: { flex: 1, gap: SPACE.xxs },
   rowTitle: {
     color: COLOR.textPrimary,
     fontSize: 15,
@@ -213,9 +174,9 @@ const styles = StyleSheet.create({
   rowSub: { color: COLOR.textMuted, fontSize: 12, fontFamily: FONT.regular },
   columnEmpty: {
     backgroundColor: COLOR.surface,
-    paddingHorizontal: 14,
-    paddingVertical: 16,
-    gap: 4,
+    paddingHorizontal: SPACE.lgx,
+    paddingVertical: SPACE.xl,
+    gap: SPACE.xs,
   },
   columnEmptyTitle: {
     color: COLOR.textPrimary,

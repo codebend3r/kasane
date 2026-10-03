@@ -32,7 +32,7 @@ Target visible copy the app owns. React Native Web renders deeply nested unlabel
 
 Once the `accessibility` skill has annotated a surface, switch its tests to `getByRole` with the accessible name. That makes the e2e suite double as an a11y regression check: a lost `accessibilityLabel` fails a test.
 
-Pick a **stable, fully mapped** catalog entry for detail-route tests (`/anime/5114`, Fullmetal Alchemist: Brotherhood). Do not assert on remote AniList or MangaDex copy: titles, descriptions, and cover URLs change upstream and would make the suite flaky.
+Pick a **stable, fully mapped** catalog entry for detail-route tests (`/series/5114`, Fullmetal Alchemist: Brotherhood). Do not assert on remote AniList or MangaDex copy: titles, descriptions, and cover URLs change upstream and would make the suite flaky.
 
 ## What belongs here
 

@@ -1,10 +1,13 @@
 export type MediaType = "ANIME" | "MANGA";
 
-export type PressableState = {
-  pressed: boolean;
-  hovered?: boolean;
-  focused?: boolean;
-};
+/** The two sides of a series a reader tracks progress on. */
+export type ProgressSide = "anime" | "manga";
+
+/** A position on one side, such as "chapter 80" or "episode 24". */
+export type SidePosition = { side: ProgressSide; position: number };
+
+/** The pointer fields react-native-web puts on a forwarded mouse event. */
+export type MouseLike = { nativeEvent: { clientX: number; clientY: number } };
 
 export type AniListDate = {
   year: number | null;
@@ -24,7 +27,6 @@ export type AniListMedia = {
     large: string;
     color: string | null;
   };
-  description: string | null;
   episodes: number | null;
   chapters: number | null;
   volumes: number | null;
@@ -34,9 +36,12 @@ export type AniListMedia = {
   synonyms: string[];
   genres: string[];
   startDate: AniListDate;
-  endDate?: AniListDate;
-  relations?: { edges: RelationEdge[] };
+  endDate: AniListDate;
+  relations: { edges: RelationEdge[] };
 };
+
+/** A media record from the detail query, which also carries the synopsis. */
+export type AniListMediaDetail = AniListMedia & { description: string | null };
 
 /** Just enough of a media record to render its poster. */
 export type MediaCover = {
@@ -52,11 +57,11 @@ export type RelationEdge = {
   node: {
     id: number;
     type: MediaType;
-    format?: string | null;
-    episodes?: number | null;
-    chapters?: number | null;
-    title?: { romaji: string; english: string | null };
-    startDate?: { year: number | null };
+    format: string | null;
+    episodes: number | null;
+    chapters: number | null;
+    title: { romaji: string; english: string | null };
+    startDate: { year: number | null };
   };
 };
 
@@ -84,6 +89,15 @@ export type SeriesMapping = {
   mappings: MappingEntry[];
   movies?: MovieEntry[];
   sourceNotes?: string;
+};
+
+/**
+ * The mapping a series screen shows, and where it came from: hand-curated in
+ * the catalog, or estimated linearly from AniList's episode and chapter counts.
+ */
+export type ResolvedMapping = {
+  source: "curated" | "estimated";
+  mapping: SeriesMapping;
 };
 
 export type SeriesBadge = "both" | "manga-only" | "anime-only";

@@ -2,8 +2,7 @@ import { useMemo } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-
-export type ProgressSide = "anime" | "manga";
+import type { ProgressSide } from "@/types";
 
 export type SidePointer = {
   position: number;
@@ -15,8 +14,11 @@ export type SeriesProgress = {
   manga?: SidePointer;
 };
 
+/** Every series' progress, keyed by the series route id. */
+export type ProgressByRoute = Record<number, SeriesProgress>;
+
 type State = {
-  byRouteId: Record<number, SeriesProgress>;
+  byRouteId: ProgressByRoute;
   setSide: (routeId: number, side: ProgressSide, position: number) => void;
   clearSide: (routeId: number, side: ProgressSide) => void;
   clearSeries: (routeId: number) => void;

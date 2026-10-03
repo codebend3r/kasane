@@ -1,104 +1,57 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { useRouter } from "expo-router";
-import type { MovieEntry, PressableState, SeriesMapping } from "@/types";
-import { ARC_COLORS, COLOR, FONT, MOVIE_COLOR } from "@/theme";
+import type { MovieEntry, ProgressSide } from "@/types";
 import {
-  useProgress,
-  useSeriesProgress,
-  type ProgressSide,
-} from "@/state/progress";
-import { HoverLabel, useHoverLabel, type MouseLike } from "./HoverLabel";
+  COLOR,
+  FONT,
+  MOVIE_COLOR,
+  arcColors,
+  pressFeedback,
+  SPACE,
+} from "@/theme";
+import {
+  describeChapters,
+  describeEpisodes,
+  fractionAt,
+  segmentLabel,
+  type ArcLayout,
+} from "@/data/arcLayout";
+import type { SeriesProgress } from "@/state/progress";
+import { HoverLabel, useHoverLabel } from "@/components/HoverLabel";
 
 const BAR_HEIGHT = 44;
 const LONG_PRESS_MS = 320;
 
-// The rail is pure colour and geometry, so a screen reader needs the same
-// facts in words. Label the group; the arc detail route carries the per-arc
-// breakdown, so individual bars stay out of the accessibility tree.
-const arcName = (arc: string | undefined, from: number, to: number): string =>
-  arc ?? `${from} to ${to}`;
+const hasAfterEpisode = (
+  movie: MovieEntry,
+): movie is MovieEntry & { afterEpisode: number } =>
+  typeof movie.afterEpisode === "number";
 
-const episodeSummary = (mapping: SeriesMapping): string => {
-  const parts = mapping.mappings.flatMap((m) =>
-    m.episodes
-      ? [
-          `${arcName(m.arc, m.episodes[0], m.episodes[1])}, episodes ${m.episodes[0]} to ${m.episodes[1]}`,
-        ]
-      : [],
-  );
-  return `Anime episodes by arc. ${parts.join(". ")}`;
-};
-
-const chapterSummary = (mapping: SeriesMapping): string => {
-  const parts = mapping.mappings.map((m) => {
-    const label = arcName(m.arc, m.chapters[0], m.chapters[1]);
-    const range = `chapters ${m.chapters[0]} to ${m.chapters[1]}`;
-    return m.episodes
-      ? `${label}, ${range}`
-      : `${label}, ${range}, not yet adapted`;
-  });
-  return `Manga chapters by arc. ${parts.join(". ")}`;
-};
-
+/** Tap a bar to mark through its end; long-press to open the arc. */
 export function EpisodeChapterRail({
-  mapping,
-  seriesId,
-  totalChapters,
-  onMarked,
+  layout,
+  movies,
+  progress,
+  onMark,
+  onOpenArc,
 }: {
-  mapping: SeriesMapping;
-  seriesId: string;
-  totalChapters?: number | null;
-  onMarked?: (side: ProgressSide, position: number, previous?: number) => void;
+  layout: ArcLayout;
+  movies: readonly MovieEntry[];
+  progress: SeriesProgress | undefined;
+  onMark: (side: ProgressSide, position: number) => void;
+  onOpenArc: (arcIndex: number) => void;
 }) {
-  const router = useRouter();
   const { containerRef, hover, moveTo, clearHover } = useHoverLabel();
-  const routeId = Number(seriesId);
-  const setSide = useProgress((s) => s.setSide);
-  const progress = useSeriesProgress(routeId);
 
-  const goToArc = (arcIdx: number) => {
-    router.push({
-      pathname: "/series/[id]/arc/[arcIdx]",
-      params: { id: seriesId, arcIdx: String(arcIdx) },
-    });
-  };
-
-  const markSide = (side: ProgressSide, position: number) => {
-    const previous =
-      useProgress.getState().byRouteId[routeId]?.[side]?.position;
-    setSide(routeId, side, position);
-    onMarked?.(side, position, previous);
-  };
-
-  const hasUnadapted = mapping.mappings.some((m) => !m.episodes);
-  const maxCoveredChapter = Math.max(
-    ...mapping.mappings.map((m) => m.chapters[1]),
-  );
-  const showTail =
-    !hasUnadapted &&
-    typeof totalChapters === "number" &&
-    totalChapters > maxCoveredChapter;
-  const tailSpan = showTail ? totalChapters! - maxCoveredChapter : 0;
-
-  const animeTotal = mapping.mappings.reduce(
-    (acc, m) => (m.episodes ? Math.max(acc, m.episodes[1]) : acc),
-    0,
-  );
-  const mangaTotal = showTail ? totalChapters! : maxCoveredChapter;
-
-  const movieMarkers = (mapping.movies ?? []).filter(
-    (movie): movie is MovieEntry & { afterEpisode: number } =>
-      typeof movie.afterEpisode === "number",
-  );
-
+  const movieMarkers = movies.filter(hasAfterEpisode);
+  const animePosition = progress?.anime?.position ?? null;
+  const mangaPosition = progress?.manga?.position ?? null;
   const animeFrac =
-    progress?.anime && animeTotal > 0
-      ? Math.min(progress.anime.position, animeTotal) / animeTotal
+    animePosition !== null && layout.anime.total > 0
+      ? fractionAt(layout.anime, animePosition)
       : null;
   const mangaFrac =
-    progress?.manga && mangaTotal > 0
-      ? Math.min(progress.manga.position, mangaTotal) / mangaTotal
+    mangaPosition !== null && layout.manga.total > 0
+      ? fractionAt(layout.manga, mangaPosition)
       : null;
 
   return (
@@ -107,37 +60,35 @@ export function EpisodeChapterRail({
       <View
         style={styles.rail}
         accessibilityRole="summary"
-        accessibilityLabel={episodeSummary(mapping)}
+        accessibilityLabel={describeEpisodes(layout)}
       >
-        {mapping.mappings.map((m, idx) => {
-          if (!m.episodes) return null;
-          const eps = m.episodes;
-          const span = eps[1] - eps[0] + 1;
-          const label = m.arc ?? `${eps[0]}–${eps[1]}`;
-          const color = ARC_COLORS[idx % ARC_COLORS.length];
+        {layout.anime.segments.map((seg) => {
+          const label = segmentLabel(seg);
+          const { fill, text } = arcColors(seg);
           return (
             <Pressable
-              key={`ep-${idx}`}
+              key={`ep-${seg.arcIndex}`}
               accessibilityElementsHidden
               importantForAccessibility="no-hide-descendants"
-              onPress={() => markSide("anime", eps[1])}
-              onLongPress={() => goToArc(idx)}
+              onPress={() => onMark("anime", seg.to)}
+              onLongPress={() =>
+                seg.arcIndex !== null && onOpenArc(seg.arcIndex)
+              }
               delayLongPress={LONG_PRESS_MS}
               onHoverOut={clearHover}
-              // @ts-expect-error react-native-web forwards onMouseMove to the DOM
-              onMouseMove={(e: MouseLike) =>
-                moveTo({ label, color, textColor: COLOR.textOnBright }, e)
+              onMouseMove={(e) =>
+                moveTo({ label, color: fill, textColor: text }, e)
               }
-              style={({ hovered, pressed }: PressableState) => [
+              style={(state) => [
                 styles.bar,
                 {
-                  flex: span,
-                  backgroundColor: color,
-                  opacity: pressed ? 0.7 : hovered ? 0.9 : 1,
+                  flex: seg.span,
+                  backgroundColor: fill,
                 },
+                pressFeedback(state),
               ]}
             >
-              <Text style={styles.barText} numberOfLines={1}>
+              <Text style={[styles.barText, { color: text }]} numberOfLines={1}>
                 {label}
               </Text>
             </Pressable>
@@ -145,7 +96,7 @@ export function EpisodeChapterRail({
         })}
         {animeFrac !== null && <ProgressOverlay frac={animeFrac} />}
       </View>
-      {movieMarkers.length > 0 && animeTotal > 0 && (
+      {movieMarkers.length > 0 && layout.anime.total > 0 && (
         <View style={styles.movieLane}>
           {movieMarkers.map((movie, idx) => {
             const label = `${movie.title} (${movie.year})${
@@ -159,7 +110,7 @@ export function EpisodeChapterRail({
                 style={[
                   styles.movieAnchor,
                   {
-                    left: `${Math.min(movie.afterEpisode / animeTotal, 1) * 100}%`,
+                    left: `${fractionAt(layout.anime, movie.afterEpisode) * 100}%`,
                   },
                 ]}
               >
@@ -167,8 +118,7 @@ export function EpisodeChapterRail({
                   accessibilityRole="text"
                   accessibilityLabel={label}
                   onHoverOut={clearHover}
-                  // @ts-expect-error react-native-web forwards onMouseMove to the DOM
-                  onMouseMove={(e: MouseLike) =>
+                  onMouseMove={(e) =>
                     moveTo(
                       {
                         label,
@@ -192,56 +142,55 @@ export function EpisodeChapterRail({
       <View
         style={styles.rail}
         accessibilityRole="summary"
-        accessibilityLabel={chapterSummary(mapping)}
+        accessibilityLabel={describeChapters(layout)}
       >
-        {mapping.mappings.map((m, idx) => {
-          const span = m.chapters[1] - m.chapters[0] + 1;
-          const unadapted = !m.episodes;
-          const bg = unadapted
-            ? COLOR.surfaceRaised
-            : ARC_COLORS[idx % ARC_COLORS.length];
-          const textStyle = unadapted
-            ? styles.unadaptedBarText
-            : styles.barText;
-          const popoverTextColor = unadapted
-            ? COLOR.textMuted
-            : COLOR.textOnBright;
-          const label = m.arc ?? `${m.chapters[0]}–${m.chapters[1]}`;
+        {layout.manga.segments.map((seg) => {
+          const label = segmentLabel(seg);
+          const { fill, text } = arcColors(seg);
+          const arcIndex = seg.arcIndex;
+          // The unmapped tail is context, not an arc: nothing to mark or open.
+          if (arcIndex === null) {
+            return (
+              <View
+                key="tail"
+                style={[styles.bar, { flex: seg.span, backgroundColor: fill }]}
+              >
+                <Text
+                  style={[styles.barText, { color: text }]}
+                  numberOfLines={1}
+                >
+                  {label}
+                </Text>
+              </View>
+            );
+          }
           return (
             <Pressable
-              key={`ch-${idx}`}
+              key={`ch-${arcIndex}`}
               accessibilityElementsHidden
               importantForAccessibility="no-hide-descendants"
-              onPress={() => markSide("manga", m.chapters[1])}
-              onLongPress={() => goToArc(idx)}
+              onPress={() => onMark("manga", seg.to)}
+              onLongPress={() => onOpenArc(arcIndex)}
               delayLongPress={LONG_PRESS_MS}
               onHoverOut={clearHover}
-              // @ts-expect-error react-native-web forwards onMouseMove to the DOM
-              onMouseMove={(e: MouseLike) =>
-                moveTo({ label, color: bg, textColor: popoverTextColor }, e)
+              onMouseMove={(e) =>
+                moveTo({ label, color: fill, textColor: text }, e)
               }
-              style={({ hovered, pressed }: PressableState) => [
+              style={(state) => [
                 styles.bar,
                 {
-                  flex: span,
-                  backgroundColor: bg,
-                  opacity: pressed ? 0.7 : hovered ? 0.9 : 1,
+                  flex: seg.span,
+                  backgroundColor: fill,
                 },
+                pressFeedback(state),
               ]}
             >
-              <Text style={textStyle} numberOfLines={1}>
+              <Text style={[styles.barText, { color: text }]} numberOfLines={1}>
                 {label}
               </Text>
             </Pressable>
           );
         })}
-        {showTail && (
-          <View style={[styles.bar, styles.tailBar, { flex: tailSpan }]}>
-            <Text style={styles.tailBarText} numberOfLines={1}>
-              {maxCoveredChapter + 1}–{totalChapters}
-            </Text>
-          </View>
-        )}
         {mangaFrac !== null && <ProgressOverlay frac={mangaFrac} />}
       </View>
 
@@ -267,11 +216,11 @@ function ProgressOverlay({ frac }: { frac: number }) {
 }
 
 const styles = StyleSheet.create({
-  container: { gap: 8, width: "100%", position: "relative" },
+  container: { gap: SPACE.md, width: "100%", position: "relative" },
   label: {
     color: COLOR.textMuted,
     fontSize: 12,
-    paddingTop: 8,
+    paddingTop: SPACE.md,
     letterSpacing: 1.2,
     textTransform: "uppercase",
     fontFamily: FONT.semibold,
@@ -280,7 +229,7 @@ const styles = StyleSheet.create({
     color: COLOR.textMuted,
     fontSize: 11,
     letterSpacing: 1,
-    paddingTop: 4,
+    paddingTop: SPACE.xs,
     textTransform: "uppercase",
     fontFamily: FONT.semibold,
   },
@@ -294,21 +243,11 @@ const styles = StyleSheet.create({
   },
   bar: {
     height: BAR_HEIGHT,
-    paddingHorizontal: 10,
+    paddingHorizontal: SPACE.mdl,
     justifyContent: "center",
     minWidth: 0,
   },
   barText: {
-    color: COLOR.textOnBright,
-    fontSize: 13,
-    letterSpacing: -0.2,
-    fontFamily: FONT.bold,
-  },
-  tailBar: {
-    backgroundColor: COLOR.surfaceRaised,
-  },
-  tailBarText: {
-    color: COLOR.textMuted,
     fontSize: 13,
     letterSpacing: -0.2,
     fontFamily: FONT.bold,
@@ -327,19 +266,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   movieMarker: {
-    paddingHorizontal: 8,
+    paddingHorizontal: SPACE.md,
     justifyContent: "center",
   },
   movieMarkerText: {
     color: MOVIE_COLOR,
     fontSize: 11,
     lineHeight: 18,
-    fontFamily: FONT.bold,
-  },
-  unadaptedBarText: {
-    color: COLOR.textMuted,
-    fontSize: 13,
-    letterSpacing: -0.2,
     fontFamily: FONT.bold,
   },
   unconsumedOverlay: {

@@ -1,32 +1,21 @@
 import { useEffect } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { COLOR, FONT } from "@/theme";
-import { useProgress, type ProgressSide } from "@/state/progress";
+import { COLOR, FONT, pressFeedback, SPACE } from "@/theme";
+import type { MarkEvent } from "@/components/useMarkProgress";
 
 const AUTO_DISMISS_MS = 8000;
 
-export type MarkEvent = {
-  side: ProgressSide;
-  position: number;
-  previous?: number;
-  suggestion?: {
-    side: ProgressSide;
-    position: number;
-  };
-};
-
 export function ProgressMarkBanner({
   event,
-  routeId,
+  onUndo,
+  onAcceptSuggestion,
   onDismiss,
 }: {
   event: MarkEvent;
-  routeId: number;
+  onUndo: () => void;
+  onAcceptSuggestion: () => void;
   onDismiss: () => void;
 }) {
-  const setSide = useProgress((s) => s.setSide);
-  const clearSide = useProgress((s) => s.clearSide);
-
   useEffect(() => {
     const t = setTimeout(onDismiss, AUTO_DISMISS_MS);
     return () => clearTimeout(t);
@@ -34,21 +23,6 @@ export function ProgressMarkBanner({
 
   const sideLabel = event.side === "anime" ? "ep" : "ch";
   const otherLabel = event.suggestion?.side === "anime" ? "ep" : "ch";
-
-  const undo = () => {
-    if (typeof event.previous === "number") {
-      setSide(routeId, event.side, event.previous);
-    } else {
-      clearSide(routeId, event.side);
-    }
-    onDismiss();
-  };
-
-  const acceptSuggestion = () => {
-    if (!event.suggestion) return;
-    setSide(routeId, event.suggestion.side, event.suggestion.position);
-    onDismiss();
-  };
 
   return (
     <View style={styles.banner}>
@@ -62,10 +36,7 @@ export function ProgressMarkBanner({
           hitSlop={10}
           accessibilityRole="button"
           accessibilityLabel="Dismiss"
-          style={({ pressed }) => [
-            styles.closeBtn,
-            { opacity: pressed ? 0.6 : 1 },
-          ]}
+          style={(state) => [styles.closeBtn, pressFeedback(state)]}
         >
           <Text style={styles.closeText}>×</Text>
         </Pressable>
@@ -79,13 +50,10 @@ export function ProgressMarkBanner({
       <View style={styles.actionsRow}>
         {!!event.suggestion && (
           <Pressable
-            onPress={acceptSuggestion}
+            onPress={onAcceptSuggestion}
             accessibilityRole="button"
             accessibilityLabel={`Mark ${event.suggestion.side} progress`}
-            style={({ pressed }) => [
-              styles.primaryBtn,
-              { opacity: pressed ? 0.7 : 1 },
-            ]}
+            style={(state) => [styles.primaryBtn, pressFeedback(state)]}
           >
             <Text style={styles.primaryBtnText}>
               Mark {event.suggestion.side}
@@ -93,13 +61,10 @@ export function ProgressMarkBanner({
           </Pressable>
         )}
         <Pressable
-          onPress={undo}
+          onPress={onUndo}
           accessibilityRole="button"
           accessibilityLabel="Undo this progress mark"
-          style={({ pressed }) => [
-            styles.secondaryBtn,
-            { opacity: pressed ? 0.7 : 1 },
-          ]}
+          style={(state) => [styles.secondaryBtn, pressFeedback(state)]}
         >
           <Text style={styles.secondaryBtnText}>Undo</Text>
         </Pressable>
@@ -110,16 +75,16 @@ export function ProgressMarkBanner({
 
 const styles = StyleSheet.create({
   banner: {
-    padding: 14,
+    padding: SPACE.lgx,
     backgroundColor: COLOR.surface,
     borderLeftWidth: 4,
     borderLeftColor: COLOR.success,
-    gap: 8,
+    gap: SPACE.md,
   },
   row: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
+    gap: SPACE.lg,
   },
   headline: {
     flex: 1,
@@ -129,7 +94,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.2,
   },
   closeBtn: {
-    paddingHorizontal: 4,
+    paddingHorizontal: SPACE.xs,
   },
   closeText: {
     color: COLOR.textMuted,
@@ -144,12 +109,12 @@ const styles = StyleSheet.create({
   },
   actionsRow: {
     flexDirection: "row",
-    gap: 8,
+    gap: SPACE.md,
     flexWrap: "wrap",
   },
   primaryBtn: {
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: SPACE.lg,
+    paddingVertical: SPACE.md,
     backgroundColor: COLOR.success,
   },
   primaryBtnText: {
@@ -160,8 +125,8 @@ const styles = StyleSheet.create({
     fontFamily: FONT.bold,
   },
   secondaryBtn: {
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: SPACE.lg,
+    paddingVertical: SPACE.md,
     backgroundColor: COLOR.surfaceRaised,
   },
   secondaryBtnText: {

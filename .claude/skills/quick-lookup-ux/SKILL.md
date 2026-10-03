@@ -7,7 +7,7 @@ description: Use when changing what kasane tells a user about where they are in 
 
 Two of the README's three journeys end at one answer: _I finished X, where do I go next?_ Quick Lookup is where that answer is delivered, and it currently renders `—` for every case where the app does not know. Those cases are not all the same, and a dash tells the user nothing about which one they hit.
 
-This skill owns the **behaviour contract**. The component itself is governed by `universal-component`; the two existing copies in `app/anime/[id]/index.tsx` and `app/manga/[id]/index.tsx` have already diverged and should be unified before extending either.
+This skill owns the **behaviour contract**. The component itself is governed by `universal-component`; it exists once, in `src/components/QuickLookup.tsx`, and `MappingSection` renders it on the series screen. Extend that copy — never fork a second one.
 
 ## The answer states
 

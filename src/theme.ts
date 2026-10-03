@@ -1,3 +1,7 @@
+import type { PressableStateCallbackType, TextStyle } from "react-native";
+import type { ArcSegment } from "@/data/arcLayout";
+import type { SeriesBadge } from "@/types";
+
 export const FONT = {
   regular: "SpaceGrotesk_400Regular",
   medium: "SpaceGrotesk_500Medium",
@@ -72,6 +76,8 @@ export const COLOR = {
 
   /** Black strip behind a volume's label block. */
   coverBackdrop: "#000000",
+  /** Reserves a side rule's width on an item that is not the active one. */
+  borderInactive: "transparent",
   /** Hairline outline around a volume cover. */
   coverBorder: "#ffffff",
   /** Dimmer behind the side menu drawer. */
@@ -81,6 +87,13 @@ export const COLOR = {
   /** Dims the not-yet-consumed part of the rail and the pie. */
   overlayUnconsumed: "rgba(12,12,14,0.55)",
 } as const;
+
+/** Fill of the badge naming which sides a series has. */
+export const BADGE_COLOR: Record<SeriesBadge, string> = {
+  both: COLOR.accent,
+  "manga-only": COLOR.sideManga,
+  "anime-only": COLOR.sideAnime,
+};
 
 /**
  * Categorical palette for arc segments, indexed by arc position and wrapped with
@@ -98,19 +111,93 @@ export const ARC_COLORS = [
   "#ff9d5c",
 ] as const;
 
+/**
+ * Fill and text colour of one arc segment in the rail or the pie. Adapted arcs
+ * take their `ARC_COLORS` slot by catalog position; unadapted arcs and the
+ * unmapped tail are grey.
+ */
+export const arcColors = (
+  segment: Pick<ArcSegment, "arcIndex" | "adapted">,
+): { fill: string; text: string } =>
+  segment.adapted && segment.arcIndex !== null
+    ? {
+        fill: ARC_COLORS[segment.arcIndex % ARC_COLORS.length],
+        text: COLOR.textOnBright,
+      }
+    : { fill: COLOR.surfaceRaised, text: COLOR.textMuted };
+
+/**
+ * The one press feedback every `Pressable` uses: dim while pressed, a little
+ * on hover. Spread into a style callback: `(state) => [styles.x, pressFeedback(state)]`.
+ */
+export const pressFeedback = ({
+  pressed,
+  hovered,
+}: PressableStateCallbackType): { opacity: number } => ({
+  opacity: pressed ? 0.7 : hovered ? 0.9 : 1,
+});
+
 /** Films sit outside the arc sequence and always render in this colour. */
 export const MOVIE_COLOR = "#5cdfff";
 
+/** Windows narrower than this get the phone layout. */
+export const NARROW_WIDTH = 700;
+
 /**
  * Spacing scale for grid `gap` and container `padding`. The repo does not use
- * margins, so these two properties carry all layout spacing.
+ * margins, so these properties carry all layout spacing. `mdl` and `lgx` are
+ * the in-between steps existing controls rely on; the `page*` steps pad the
+ * ends of scrolling screens.
  */
 export const SPACE = {
+  xxs: 2,
   xs: 4,
   sm: 6,
   md: 8,
+  mdl: 10,
   lg: 12,
+  lgx: 14,
   xl: 16,
   xxl: 20,
   xxxl: 24,
+  page: 32,
+  pageEnd: 40,
+  pageEndTall: 48,
 } as const;
+
+/** Clearance above the footer, so it sits well apart from the last section. */
+export const FOOTER_OFFSET = 160;
+
+/**
+ * Text styles repeated across screens. Spread one into a `StyleSheet` entry and
+ * add the colour: `eyebrow: { ...TEXT.eyebrow, color: COLOR.accent }`.
+ */
+export const TEXT = {
+  /** Small uppercase label above a heading. */
+  eyebrow: {
+    fontFamily: FONT.bold,
+    fontSize: 11,
+    letterSpacing: 1.8,
+    textTransform: "uppercase",
+  },
+  /** Label on a filled or outlined button. */
+  buttonLabel: {
+    fontFamily: FONT.bold,
+    fontSize: 12,
+    letterSpacing: 1.4,
+    textTransform: "uppercase",
+  },
+  /** Label on a filter chip or toggle. */
+  chipLabel: {
+    fontFamily: FONT.bold,
+    fontSize: 12,
+    letterSpacing: 1.2,
+    textTransform: "uppercase",
+  },
+  /** Heading of a section within a screen. */
+  sectionTitle: { fontFamily: FONT.bold, fontSize: 20, letterSpacing: -0.4 },
+  /** Heading of a home-screen block or a form panel. */
+  blockTitle: { fontFamily: FONT.bold, fontSize: 22, letterSpacing: -0.4 },
+  /** Heading of a catalog screen. */
+  pageTitle: { fontFamily: FONT.bold, fontSize: 24, letterSpacing: -0.4 },
+} satisfies Record<string, TextStyle>;

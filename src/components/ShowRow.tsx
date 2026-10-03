@@ -1,17 +1,10 @@
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  useWindowDimensions,
-  View,
-} from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import type { MappedShow } from "@/data/mappedShows";
-import type { Cover } from "@/data/covers";
+import type { Cover } from "@/queries/covers";
 import { Poster, showMeta } from "@/components/ShowTile";
-import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
-import type { PressableState } from "@/types";
-import { COLOR, FONT } from "@/theme";
+import { useIsNarrow } from "@/components/useIsNarrow";
+import { COLOR, FONT, pressFeedback, SPACE } from "@/theme";
 
 /**
  * List-view counterpart to `ShowTile`: poster in the leftmost column, then the
@@ -28,18 +21,14 @@ export function ShowRow({
   trailing?: string;
 }) {
   const router = useRouter();
-  const { width } = useWindowDimensions();
-  const isNarrow = width < MOBILE_WIDTH_BREAKPOINT;
+  const isNarrow = useIsNarrow();
 
   return (
     <Pressable
       onPress={() => router.push(`/series/${show.routeId}`)}
       accessibilityRole="link"
       accessibilityLabel={`${show.title}. ${showMeta(show)}`}
-      style={({ hovered, pressed }: PressableState) => [
-        styles.row,
-        { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
-      ]}
+      style={(state) => [styles.row, pressFeedback(state)]}
     >
       <Poster cover={cover} style={styles.poster} />
       <View style={styles.titleCell}>
@@ -65,8 +54,8 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
-    padding: 8,
+    gap: SPACE.lg,
+    padding: SPACE.md,
     backgroundColor: COLOR.surface,
     borderLeftWidth: 3,
     borderLeftColor: COLOR.accent,
@@ -74,7 +63,7 @@ const styles = StyleSheet.create({
   poster: { width: 40, height: 60 },
   // Rows span the page, but the title column stops growing so the counts stay
   // beside the titles on a wide monitor instead of a screen-width away.
-  titleCell: { flex: 1, maxWidth: 620, gap: 2 },
+  titleCell: { flex: 1, maxWidth: 620, gap: SPACE.xxs },
   title: { color: COLOR.textPrimary, fontSize: 14, fontFamily: FONT.semibold },
   meta: { color: COLOR.textMuted, fontSize: 11, fontFamily: FONT.medium },
   trailing: { color: COLOR.success, fontSize: 11, fontFamily: FONT.bold },

@@ -1,17 +1,13 @@
-import { useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/api/supabase";
-import { setSearchAliases } from "@/data/searchAliases";
 import type { GenreFilter } from "@/data/genreFilters";
 import type { MappingEntry, MovieEntry, SeriesMapping } from "@/types";
+import type { ArcRow, MovieRow, SeriesRow } from "@/types/catalog";
 import type { Database } from "@/types/supabase";
 
-export type ArcRow = Database["public"]["Tables"]["arc_mappings"]["Row"];
-export type MovieRow = Database["public"]["Tables"]["movies"]["Row"];
-export type SeriesRow = Database["public"]["Tables"]["series"]["Row"] & {
-  arc_mappings: ArcRow[];
-  movies: MovieRow[];
-};
+type AliasRow = Pick<
+  Database["public"]["Tables"]["search_aliases"]["Row"],
+  "alias" | "target"
+>;
+type GenreRow = Database["public"]["Tables"]["genre_filters"]["Row"];
 
 export type Catalog = {
   mappings: SeriesMapping[];
@@ -19,43 +15,8 @@ export type Catalog = {
   genreFilters: GenreFilter[];
 };
 
-// Media-id -> series index, derived on demand rather than stored on `Catalog`.
-//
-// This query is persisted to AsyncStorage as JSON, and a `Map` does not survive
-// that round trip — `JSON.stringify(new Map())` is `{}`. Storing the index made
-// every cold launch restore it as a plain object, so `.get(...)` threw and took
-// the series screen down with it. Deriving it keeps it a real Map, and keeps
-// the persisted payload from carrying a second copy of every mapping.
-//
-// Keyed on the `mappings` array identity, so the index is rebuilt only when
-// react-query hands back a new payload.
-const indexCache = new WeakMap<SeriesMapping[], Map<number, SeriesMapping>>();
-
-const EMPTY_MAPPINGS: SeriesMapping[] = [];
-
-export const indexByMediaId = (
-  mappings: SeriesMapping[],
-): Map<number, SeriesMapping> => {
-  const cached = indexCache.get(mappings);
-  if (cached) return cached;
-  // Both the anime and manga id resolve to the series. First-listed wins so a
-  // shared manga id keeps the old `findMappingByMediaId` array-order tie-break
-  // (series are fetched ordered by id, i.e. original ALL_MAPPINGS order).
-  const index = mappings.reduce((acc, m) => {
-    if (!acc.has(m.anilistAnimeId)) acc.set(m.anilistAnimeId, m);
-    if (!acc.has(m.anilistMangaId)) acc.set(m.anilistMangaId, m);
-    return acc;
-  }, new Map<number, SeriesMapping>());
-  indexCache.set(mappings, index);
-  return index;
-};
-
-export const CATALOG_QUERY_KEY = ["catalog"] as const;
-
-// Refetch at most hourly; keep the persisted copy for a week so a cold launch
-// renders instantly (and offline) from cache while a background refresh runs.
-const CATALOG_STALE_MS = 60 * 60 * 1000;
-const CATALOG_GC_MS = 7 * 24 * 60 * 60 * 1000;
+const byPosition = <T extends { position: number }>(rows: readonly T[]): T[] =>
+  [...rows].sort((a, b) => a.position - b.position);
 
 const toArc = (a: ArcRow): MappingEntry => ({
   chapters: [a.chapter_start, a.chapter_end],
@@ -80,97 +41,42 @@ const toMovie = (m: MovieRow): MovieEntry => ({
   note: m.note ?? undefined,
 });
 
-const rowToMapping = (row: SeriesRow): SeriesMapping => {
-  const movies = [...row.movies]
-    .sort((a, b) => a.position - b.position)
-    .map(toMovie);
+/** A `series` row with its embedded arcs and films, as the app models it. */
+export const rowToMapping = (row: SeriesRow): SeriesMapping => {
+  const movies = byPosition(row.movies).map(toMovie);
   return {
     anilistAnimeId: row.anilist_anime_id,
     anilistMangaId: row.anilist_manga_id,
     title: row.title,
     sourceNotes: row.source_notes ?? undefined,
-    mappings: [...row.arc_mappings]
-      .sort((a, b) => a.position - b.position)
-      .map(toArc),
+    mappings: byPosition(row.arc_mappings).map(toArc),
     movies: movies.length > 0 ? movies : undefined,
   };
 };
 
-const fetchCatalog = async (): Promise<Catalog> => {
-  const [seriesRes, aliasRes, genreRes] = await Promise.all([
-    supabase
-      .from("series")
-      .select("*, arc_mappings(*), movies(*)")
-      .order("id", { ascending: true }),
-    supabase.from("search_aliases").select("alias, target"),
-    supabase
-      .from("genre_filters")
-      .select("*")
-      .order("sort_order", { ascending: true }),
-  ]);
+export const toAliasTable = (
+  rows: readonly AliasRow[],
+): Record<string, string> =>
+  Object.fromEntries(rows.map((a) => [a.alias, a.target]));
 
-  if (seriesRes.error) throw seriesRes.error;
-  if (aliasRes.error) throw aliasRes.error;
-  if (genreRes.error) throw genreRes.error;
+/** Unknown kinds from the database degrade to "genre" rather than failing. */
+export const toGenreFilter = (g: GenreRow): GenreFilter => ({
+  id: g.id,
+  label: g.label,
+  kind: g.kind === "tag" ? "tag" : "genre",
+  token: g.token,
+});
 
-  const mappings = seriesRes.data.map(rowToMapping);
-
-  const aliases = aliasRes.data.reduce<Record<string, string>>((acc, a) => {
-    acc[a.alias] = a.target;
+/**
+ * Media-id -> series index. Both the anime and the manga id resolve to the
+ * series; when two series share an id the first-listed wins, and series arrive
+ * ordered by id, so the older catalog entry keeps the lookup.
+ */
+export const indexByMediaId = (
+  mappings: readonly SeriesMapping[],
+): Map<number, SeriesMapping> =>
+  mappings.reduce((acc, m) => {
+    if (!acc.has(m.anilistAnimeId)) acc.set(m.anilistAnimeId, m);
+    if (!acc.has(m.anilistMangaId)) acc.set(m.anilistMangaId, m);
     return acc;
-  }, {});
-
-  const genreFilters = genreRes.data.map((g): GenreFilter => ({
-    id: g.id,
-    label: g.label,
-    kind: g.kind === "tag" ? "tag" : "genre",
-    token: g.token,
-  }));
-
-  return { mappings, aliases, genreFilters };
-};
-
-export const useCatalogQuery = () =>
-  useQuery({
-    queryKey: CATALOG_QUERY_KEY,
-    queryFn: fetchCatalog,
-    staleTime: CATALOG_STALE_MS,
-    gcTime: CATALOG_GC_MS,
-  });
-
-export type CatalogAccess = {
-  findMapping: (mediaId: number) => SeriesMapping | null;
-  mappings: SeriesMapping[];
-  isLoaded: boolean;
-};
-
-export const useCatalog = (): CatalogAccess => {
-  const { data, isSuccess } = useCatalogQuery();
-  const mappings = data?.mappings ?? EMPTY_MAPPINGS;
-  return {
-    findMapping: (mediaId) => indexByMediaId(mappings).get(mediaId) ?? null,
-    mappings,
-    isLoaded: isSuccess,
-  };
-};
-
-export const useMapping = (mediaId: number): SeriesMapping | null => {
-  const { data } = useCatalogQuery();
-  return indexByMediaId(data?.mappings ?? EMPTY_MAPPINGS).get(mediaId) ?? null;
-};
-
-export const useGenreFilters = (): GenreFilter[] => {
-  const { data } = useCatalogQuery();
-  return data?.genreFilters ?? [];
-};
-
-// Pushes the DB-backed alias table into the module singleton read by the
-// (non-React) AniList query functions. Reads from query data — not the fetch —
-// so it also runs on a cache-restored start where fetchCatalog never fires.
-// Call once, high in the tree.
-export const useHydrateSearchAliases = (): void => {
-  const { data } = useCatalogQuery();
-  useEffect(() => {
-    if (data) setSearchAliases(data.aliases);
-  }, [data]);
-};
+  }, new Map<number, SeriesMapping>());
