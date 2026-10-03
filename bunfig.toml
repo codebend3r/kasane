@@ -9,13 +9,13 @@ coveragePathIgnorePatterns = ["test/**"]
 # actually imports are measured.
 #
 # So the bar is set by the weakest file, not the average — today that is
-# `src/api/mangadex.ts` (31% lines / 53% funcs), whose `getMangaDexInfoByAniListId`
-# has no test yet. Parked just under it so any regression trips the suite,
-# rather than at a round number no existing file could fail. Raise both once
-# that export is covered.
+# `src/api/mangadex.ts` (53% lines / 74% funcs), whose network paths in
+# `getMangaDexInfoByAniListId` are covered only through their parsers. Parked
+# just under it so any regression trips the suite, rather than at a round
+# number no existing file could fail. Raise both once that export is covered.
 [test.coverageThreshold]
-lines = 0.3
-functions = 0.5
+lines = 0.5
+functions = 0.7
 
 [install]
 # Every dependency is pinned to an exact version in package.json; this keeps
