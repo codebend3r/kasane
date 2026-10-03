@@ -3,8 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchCatalog } from "@/api/catalog";
 import { indexByMediaId, type Catalog } from "@/data/catalog";
 import type { GenreFilter } from "@/data/genreFilters";
+import { buildSyntheticMapping } from "@/data/pairing";
 import { HOUR_MS, WEEK_MS } from "@/queries/shared";
-import type { SeriesMapping } from "@/types";
+import type { AniListMedia, ResolvedMapping, SeriesMapping } from "@/types";
 
 export const CATALOG_QUERY_KEY = ["catalog"] as const;
 
@@ -65,6 +66,25 @@ export function useMapping(mediaId: number): SeriesMapping | null {
 export function useGenreFilters(): GenreFilter[] {
   const { data } = useCatalogQuery();
   return data?.genreFilters ?? EMPTY_FILTERS;
+}
+
+/**
+ * The mapping to show for `media`: the curated catalog entry when there is
+ * one, otherwise a linear estimate. Waits for the catalog before estimating,
+ * so a curated series never flashes its estimate first.
+ */
+export function useResolvedMapping(
+  media: AniListMedia | null,
+): ResolvedMapping | null {
+  const { findMapping, isLoaded } = useCatalog();
+  return useMemo(() => {
+    if (!media) return null;
+    const curated = findMapping(media.id);
+    if (curated) return { source: "curated", mapping: curated };
+    if (!isLoaded) return null;
+    const estimated = buildSyntheticMapping(media);
+    return estimated ? { source: "estimated", mapping: estimated } : null;
+  }, [media, findMapping, isLoaded]);
 }
 
 /** Empty until the catalog lands, so a search passes through un-aliased. */

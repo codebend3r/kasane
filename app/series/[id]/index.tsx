@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import {
   ActivityIndicator,
   ScrollView,
@@ -9,12 +8,8 @@ import {
 } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { lastMappedEpisode } from "@/data/mapping";
-import {
-  buildSyntheticMapping,
-  partnerIdOf,
-  seriesBadgeOf,
-} from "@/data/pairing";
-import { useCatalog } from "@/queries/catalog";
+import { partnerIdOf, seriesBadgeOf } from "@/data/pairing";
+import { useResolvedMapping } from "@/queries/catalog";
 import { useFranchise, useMangaDex, useMedia } from "@/queries/media";
 import { FranchiseSeasons } from "@/components/FranchiseSeasons";
 import { MappingSection } from "@/components/MappingSection";
@@ -38,16 +33,16 @@ export default function SeriesDetail() {
     Number.isNaN(mediaId) ? null : mediaId,
   );
 
-  const { findMapping, isLoaded: catalogLoaded } = useCatalog();
-  const curatedMapping = findMapping(mediaId);
+  const resolved = useResolvedMapping(media ?? null);
+  const curated = resolved?.source === "curated" ? resolved.mapping : null;
 
   // The curated mapping names the partner outright; otherwise trust AniList.
   const partnerId = !media
     ? null
-    : curatedMapping
-      ? media.id === curatedMapping.anilistAnimeId
-        ? curatedMapping.anilistMangaId
-        : curatedMapping.anilistAnimeId
+    : curated
+      ? media.id === curated.anilistAnimeId
+        ? curated.anilistMangaId
+        : curated.anilistAnimeId
       : partnerIdOf(media);
 
   const { data: partner } = useMedia(partnerId);
@@ -68,15 +63,6 @@ export default function SeriesDetail() {
 
   const { data: mangadex, isFetching: mangadexLoading } = useMangaDex(manga);
   const { data: franchise } = useFranchise(anime);
-
-  const syntheticMapping = useMemo(
-    () =>
-      media && catalogLoaded && !curatedMapping
-        ? buildSyntheticMapping(media)
-        : null,
-    [media, catalogLoaded, curatedMapping],
-  );
-  const mapping = curatedMapping ?? syntheticMapping;
 
   const routeId = manga?.id ?? anime?.id ?? mediaId;
 
@@ -100,7 +86,9 @@ export default function SeriesDetail() {
   const totalVolumes = mangadex?.volumes ?? manga?.volumes ?? null;
   const totalChapters = mangadex?.chapters ?? manga?.chapters ?? null;
   const totalEpisodes =
-    (mapping ? lastMappedEpisode(mapping) : null) ?? anime?.episodes ?? null;
+    (resolved ? lastMappedEpisode(resolved.mapping) : null) ??
+    anime?.episodes ??
+    null;
   const status = primary.status?.toLowerCase() ?? null;
   const showAnimeStats = badge !== "manga-only";
   const showMangaStats = badge !== "anime-only";
@@ -110,7 +98,7 @@ export default function SeriesDetail() {
     subParts.push(`${totalChapters ?? "?"} ch`);
     subParts.push(`${totalVolumes ?? "?"} vol`);
   }
-  const movies = curatedMapping?.movies ?? [];
+  const movies = resolved?.mapping.movies ?? [];
   if (showAnimeStats) {
     subParts.push(`${totalEpisodes ?? "?"} eps`);
     if (movies.length > 0) {
@@ -132,7 +120,7 @@ export default function SeriesDetail() {
         media={primary}
         badge={badge}
         subParts={subParts}
-        isMapped={!!curatedMapping}
+        isMapped={!!curated}
         isMobile={isMobile}
         mobileCoverWidth={mobileCoverWidth}
         mobileCoverHeight={mobileCoverHeight}
@@ -143,8 +131,7 @@ export default function SeriesDetail() {
       )}
 
       <MappingSection
-        mapping={mapping}
-        curatedMapping={curatedMapping}
+        resolved={resolved}
         routeId={routeId}
         totalChapters={totalChapters}
         badge={badge}

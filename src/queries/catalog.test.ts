@@ -3,9 +3,11 @@ import {
   useCatalog,
   useGenreFilters,
   useMapping,
+  useResolvedMapping,
   useSearchAliases,
 } from "@/queries/catalog";
 import { serveCatalog, seriesMapping } from "@test/fixtures/catalog";
+import { makeEdge, makeMedia } from "@test/fixtures/media";
 import { last, renderHook, settle } from "@test/renderHook";
 
 describe("useCatalog", () => {
@@ -86,6 +88,63 @@ describe("useSearchAliases", () => {
         "the aliases to load",
       );
       expect(last(captures)).toEqual({ aot: "Attack on Titan" });
+    } finally {
+      unmount();
+    }
+  });
+});
+
+describe("useResolvedMapping", () => {
+  it("is the curated entry when the catalog maps the media", async () => {
+    serveCatalog({});
+    const anime = makeMedia({ id: 16498, type: "ANIME" });
+    const { captures, unmount } = renderHook(() => useResolvedMapping(anime));
+    try {
+      await settle(() => last(captures) !== null, "the curated mapping");
+      expect(last(captures)).toEqual({
+        source: "curated",
+        mapping: seriesMapping,
+      });
+    } finally {
+      unmount();
+    }
+  });
+
+  it("estimates from AniList counts once the catalog has no entry", async () => {
+    serveCatalog({});
+    const anime = makeMedia({
+      id: 1,
+      type: "ANIME",
+      title: "Uncurated",
+      episodes: 12,
+      relations: [
+        makeEdge({
+          relationType: "SOURCE",
+          id: 2,
+          type: "MANGA",
+          chapters: 40,
+        }),
+      ],
+    });
+    const { captures, unmount } = renderHook(() => useResolvedMapping(anime));
+    try {
+      // Nothing is estimated before the catalog says the series is uncurated.
+      expect(captures[0]).toBeNull();
+      await settle(() => last(captures) !== null, "the estimate");
+      expect(last(captures)?.source).toBe("estimated");
+      expect(last(captures)?.mapping.mappings).toEqual([
+        { episodes: [1, 12], chapters: [1, 40], arc: "Full series (auto)" },
+      ]);
+    } finally {
+      unmount();
+    }
+  });
+
+  it("is null without media", () => {
+    serveCatalog({});
+    const { captures, unmount } = renderHook(() => useResolvedMapping(null));
+    try {
+      expect(last(captures)).toBeNull();
     } finally {
       unmount();
     }

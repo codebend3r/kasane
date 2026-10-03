@@ -86,6 +86,15 @@ export type SeriesMapping = {
   sourceNotes?: string;
 };
 
+/**
+ * The mapping a series screen shows, and where it came from: hand-curated in
+ * the catalog, or estimated linearly from AniList's episode and chapter counts.
+ */
+export type ResolvedMapping = {
+  source: "curated" | "estimated";
+  mapping: SeriesMapping;
+};
+
 export type SeriesBadge = "both" | "manga-only" | "anime-only";
 
 export type SeriesEntry = {

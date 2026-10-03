@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import type { PressableState, SeriesBadge, SeriesMapping } from "@/types";
+import type { PressableState, ResolvedMapping, SeriesBadge } from "@/types";
 import {
   chapterToEpisodes,
   episodeToChapters,
@@ -23,9 +23,7 @@ import { COLOR, FONT } from "@/theme";
 type MappingView = "rail" | "pie";
 
 type MappingSectionProps = {
-  mapping: SeriesMapping | null;
-  /** Present only when the mapping is curated rather than auto-estimated. */
-  curatedMapping: SeriesMapping | null;
+  resolved: ResolvedMapping | null;
   routeId: number;
   totalChapters: number | null;
   badge: SeriesBadge;
@@ -34,8 +32,7 @@ type MappingSectionProps = {
 };
 
 export function MappingSection({
-  mapping,
-  curatedMapping,
+  resolved,
   routeId,
   totalChapters,
   badge,
@@ -54,10 +51,10 @@ export function MappingSection({
     const otherSide: ProgressSide = side === "anime" ? "manga" : "anime";
     const otherPosition =
       useProgress.getState().byRouteId[routeId]?.[otherSide]?.position ?? 0;
-    const range = mapping
+    const range = resolved
       ? side === "anime"
-        ? episodeToChapters(mapping, position)
-        : chapterToEpisodes(mapping, position)
+        ? episodeToChapters(resolved.mapping, position)
+        : chapterToEpisodes(resolved.mapping, position)
       : null;
     const suggested = range?.[1];
     const suggestion =
@@ -67,14 +64,14 @@ export function MappingSection({
     setMarkEvent({ side, position, previous, suggestion });
   };
 
-  if (!mapping) {
+  if (!resolved) {
     if (badge === "anime-only") return null;
     return <NoMappingNotice />;
   }
 
-  const isAutoEstimated = !curatedMapping;
+  const { mapping, source } = resolved;
   const arcsBehind = mapping.mappings.filter((m) => !isAdapted(m)).length;
-  const movies = curatedMapping?.movies ?? [];
+  const movies = mapping.movies ?? [];
 
   return (
     <View style={styles.mappingBlock}>
@@ -105,7 +102,7 @@ export function MappingSection({
           </Text>
         </Pressable>
       </View>
-      {isAutoEstimated && <AutoEstimatedBanner />}
+      {source === "estimated" && <AutoEstimatedBanner />}
       {!!markEvent && (
         <ProgressMarkBanner
           event={markEvent}
@@ -129,7 +126,7 @@ export function MappingSection({
         />
       )}
       <QuickLookup mapping={mapping} />
-      {!!curatedMapping && <SeasonCoverage mapping={curatedMapping} />}
+      {source === "curated" && <SeasonCoverage mapping={mapping} />}
       {movies.length > 0 && <SeriesMovies movies={movies} />}
     </View>
   );
