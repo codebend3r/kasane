@@ -13,15 +13,15 @@ Read the diff first (`git diff main...HEAD`, or the working diff if there is no 
 
 These are not preferences. Flag every violation.
 
-| Rule                             | What to look for                                                                                                                                                                             |
-| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Never `interface`                | `interface Foo` anywhere. Must be `type Foo = `.                                                                                                                                             |
-| Never `any`, never cast          | `: any`, `as Foo`, `as unknown as`. Requires a type guard instead. `app/_layout.tsx` still has `({ pressed }: any)` where `PressableState` exists — flag it if the diff touches those lines. |
-| `const` over `let`/`var`         | Any new `let` that is not genuinely reassigned.                                                                                                                                              |
-| No `for`, `for/in`, `for/of`     | Must use `map`/`filter`/`reduce`/`flatMap`.                                                                                                                                                  |
-| `!!value` for boolean conversion | `Boolean(x)` or truthiness coercion where a bool is wanted.                                                                                                                                  |
-| `?.` always paired with `??`     | Any optional chain used as a value without a fallback.                                                                                                                                       |
-| Never margins                    | `margin`, `marginTop`, etc. in a `StyleSheet`. Must be container `gap`/`padding`.                                                                                                            |
+| Rule                             | What to look for                                                                                                                                                                                                                                    |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Never `interface`                | `interface Foo` anywhere. Must be `type Foo = `.                                                                                                                                                                                                    |
+| Never `any`, never cast          | `: any`, `as Foo`, `as unknown as`. Requires a type guard instead. Pressable style callbacks take the inferred state and spread `pressFeedback(state)`; `hovered` is declared in `src/types/react-native-augment.d.ts`, so no annotation is needed. |
+| `const` over `let`/`var`         | Any new `let` that is not genuinely reassigned.                                                                                                                                                                                                     |
+| No `for`, `for/in`, `for/of`     | Must use `map`/`filter`/`reduce`/`flatMap`.                                                                                                                                                                                                         |
+| `!!value` for boolean conversion | `Boolean(x)` or truthiness coercion where a bool is wanted.                                                                                                                                                                                         |
+| `?.` always paired with `??`     | Any optional chain used as a value without a fallback.                                                                                                                                                                                              |
+| Never margins                    | `margin`, `marginTop`, etc. in a `StyleSheet`. Must be container `gap`/`padding`.                                                                                                                                                                   |
 
 ## Repo structure rules
 

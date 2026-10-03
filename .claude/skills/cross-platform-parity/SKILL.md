@@ -26,7 +26,7 @@ Ask these before assuming a change is done:
 - **Network** — does the URL depend on origin? Web proxies, native does not, desktop is neither.
 - **Storage** — is the key namespaced? Web and desktop share an origin-scoped store; a collision between `kasane-progress`, `kasane-preferences`, and `kasane-query-cache` would be silent.
 - **Navigation** — does the deep link work from cold start? Web needs the SPA fallback, native needs the `kasane` scheme from `app.json`, desktop needs both.
-- **Input** — is there a hover or keyboard affordance? Web and desktop have pointers and tab focus; native does not. `PressableState.hovered` is web-only.
+- **Input** — is there a hover or keyboard affordance? Web and desktop have pointers and tab focus; native does not. `hovered` on the Pressable style-callback state is web-only (declared in `src/types/react-native-augment.d.ts`).
 - **Layout** — does it assume a viewport? Desktop windows resize freely, phones do not.
 - **Fonts** — `expo-font` loads before `SplashScreen.hideAsync()`; a new font must be added to the `useFonts` call in `app/_layout.tsx` or text renders invisible on native.
 

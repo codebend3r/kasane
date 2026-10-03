@@ -72,7 +72,7 @@ git push --follow-tags
 
 - Load the deployed site and confirm the catalog fetch succeeds; a Supabase RLS change can break reads without failing the build.
 - Confirm a cold load renders from the persisted TanStack Query cache (the catalog is cached for 7 days).
-- Confirm a deep link such as `/anime/5114` resolves, which exercises the SPA fallback.
+- Confirm a deep link such as `/series/5114` resolves, which exercises the SPA fallback.
 
 ## Common mistakes
 
