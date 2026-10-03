@@ -18,7 +18,7 @@ import { TitlesList } from "@/components/TitlesList";
 import { VolumesGrid } from "@/components/VolumesGrid";
 import { Footer } from "@/components/Footer";
 import { formatAniListDate } from "@/data/format";
-import { COLOR, FONT, NARROW_WIDTH } from "@/theme";
+import { COLOR, FONT, NARROW_WIDTH, SPACE, TEXT } from "@/theme";
 
 export default function SeriesDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -172,20 +172,23 @@ export default function SeriesDetail() {
 
 const styles = StyleSheet.create({
   root: { flex: 1 },
-  content: { padding: 16, gap: 24, paddingBottom: 48 },
-  center: { flex: 1, alignItems: "center", justifyContent: "center" },
-  sectionTitle: {
-    color: COLOR.textPrimary,
-    fontSize: 20,
-    letterSpacing: -0.4,
-    fontFamily: FONT.bold,
+  content: {
+    padding: SPACE.xl,
+    gap: SPACE.xxxl,
+    paddingBottom: SPACE.pageEndTall,
   },
-  empty: { color: COLOR.textMuted, fontFamily: FONT.regular, paddingTop: 8 },
-  spinnerWrap: { paddingTop: 12 },
-  volumesBlock: { gap: 12 },
-  sourcesWrap: { paddingTop: 8 },
+  center: { flex: 1, alignItems: "center", justifyContent: "center" },
+  sectionTitle: { ...TEXT.sectionTitle, color: COLOR.textPrimary },
+  empty: {
+    color: COLOR.textMuted,
+    fontFamily: FONT.regular,
+    paddingTop: SPACE.md,
+  },
+  spinnerWrap: { paddingTop: SPACE.lg },
+  volumesBlock: { gap: SPACE.lg },
+  sourcesWrap: { paddingTop: SPACE.md },
   sources: {
-    paddingTop: 12,
+    paddingTop: SPACE.lg,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: COLOR.surfaceRaised,
   },

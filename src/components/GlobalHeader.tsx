@@ -4,7 +4,7 @@ import { useIsNarrow } from "@/components/useIsNarrow";
 import { useAuthEmail } from "@/state/auth";
 import { usePreferences } from "@/state/preferences";
 import { useSideMenu } from "@/state/sideMenu";
-import { COLOR, FONT, pressFeedback } from "@/theme";
+import { COLOR, FONT, pressFeedback, SPACE } from "@/theme";
 
 /**
  * The bar above every screen: menu, back, wordmark, the title-language toggle
@@ -100,19 +100,19 @@ const styles = StyleSheet.create({
   bar: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 16,
-    paddingHorizontal: 16,
-    paddingTop: 24,
-    paddingBottom: 12,
+    gap: SPACE.xl,
+    paddingHorizontal: SPACE.xl,
+    paddingTop: SPACE.xxxl,
+    paddingBottom: SPACE.lg,
   },
-  barNarrow: { gap: 8, paddingHorizontal: 10 },
+  barNarrow: { gap: SPACE.md, paddingHorizontal: SPACE.mdl },
   back: {
     width: 44,
     height: 44,
     alignItems: "center",
     justifyContent: "center",
   },
-  menuButton: { paddingVertical: 2, paddingHorizontal: 2 },
+  menuButton: { paddingVertical: SPACE.xxs, paddingHorizontal: SPACE.xxs },
   menuIcon: { color: COLOR.textPrimary, fontSize: 20, fontFamily: FONT.bold },
   backArrow: {
     color: COLOR.accent,
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     lineHeight: 32,
   },
   wordmarkPressable: {
-    gap: 4,
+    gap: SPACE.xs,
     flexShrink: 1,
   },
   // Scaled down rather than allowed to shrink-wrap, which broke "Kasane"
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     lineHeight: 68,
     letterSpacing: -2,
     fontFamily: FONT.display,
-    paddingBottom: 2,
+    paddingBottom: SPACE.xxs,
   },
   subheading: {
     color: COLOR.textSecondary,
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     letterSpacing: 6,
     textTransform: "uppercase",
     fontFamily: FONT.bold,
-    paddingBottom: 6,
+    paddingBottom: SPACE.sm,
   },
   subAccent: {
     color: COLOR.accent,
@@ -154,9 +154,9 @@ const styles = StyleSheet.create({
   },
   spacer: { flex: 1 },
   langToggle: {
-    paddingHorizontal: 14,
-    paddingTop: 12,
-    paddingBottom: 8,
+    paddingHorizontal: SPACE.lgx,
+    paddingTop: SPACE.lg,
+    paddingBottom: SPACE.md,
     backgroundColor: COLOR.accent,
     alignSelf: "flex-start",
   },
@@ -167,9 +167,9 @@ const styles = StyleSheet.create({
     fontFamily: FONT.bold,
   },
   accountPill: {
-    paddingHorizontal: 14,
-    paddingTop: 12,
-    paddingBottom: 8,
+    paddingHorizontal: SPACE.lgx,
+    paddingTop: SPACE.lg,
+    paddingBottom: SPACE.md,
     backgroundColor: COLOR.surface,
     borderLeftWidth: 2,
     borderLeftColor: COLOR.accent,

@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import { useAuth, useAuthEmail, useAuthStatus } from "@/state/auth";
-import { COLOR, FONT, pressFeedback } from "@/theme";
+import { COLOR, FONT, pressFeedback, SPACE, TEXT } from "@/theme";
 
 type Mode = "signIn" | "signUp";
 
@@ -187,27 +187,16 @@ function AuthForm() {
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1, padding: 16, alignItems: "center" },
+  root: { flex: 1, padding: SPACE.xl, alignItems: "center" },
   panel: {
     width: "100%",
     maxWidth: 420,
-    gap: 16,
-    paddingTop: 32,
+    gap: SPACE.xl,
+    paddingTop: SPACE.page,
   },
-  stack: { gap: 16 },
-  eyebrow: {
-    color: COLOR.accent,
-    fontSize: 11,
-    letterSpacing: 1.8,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-  },
-  title: {
-    color: COLOR.textPrimary,
-    fontSize: 22,
-    letterSpacing: -0.4,
-    fontFamily: FONT.bold,
-  },
+  stack: { gap: SPACE.xl },
+  eyebrow: { ...TEXT.eyebrow, color: COLOR.accent },
+  title: { ...TEXT.blockTitle, color: COLOR.textPrimary },
   emailLine: {
     color: COLOR.textSecondary,
     fontSize: 16,
@@ -222,8 +211,8 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: COLOR.surface,
     color: COLOR.textPrimary,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
+    paddingHorizontal: SPACE.xl,
+    paddingVertical: SPACE.lgx,
     fontSize: 16,
     fontFamily: FONT.medium,
     borderLeftWidth: 4,
@@ -236,7 +225,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: "center",
-    paddingVertical: 14,
+    paddingVertical: SPACE.lgx,
     backgroundColor: COLOR.accent,
   },
   buttonDisabled: { backgroundColor: COLOR.border },

@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { useLoginPrompt } from "@/state/loginPrompt";
-import { COLOR, FONT, pressFeedback } from "@/theme";
+import { COLOR, FONT, pressFeedback, SPACE, TEXT } from "@/theme";
 
 /**
  * Bottom-right toaster reminding signed-out users to log in so their progress
@@ -55,24 +55,18 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 0,
     bottom: 0,
-    padding: 16,
+    padding: SPACE.xl,
     alignItems: "flex-end",
   },
   toast: {
     maxWidth: 340,
-    gap: 10,
-    padding: 16,
+    gap: SPACE.mdl,
+    padding: SPACE.xl,
     backgroundColor: COLOR.surface,
     borderLeftWidth: 4,
     borderLeftColor: COLOR.accent,
   },
-  eyebrow: {
-    color: COLOR.accent,
-    fontSize: 11,
-    letterSpacing: 1.8,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-  },
+  eyebrow: { ...TEXT.eyebrow, color: COLOR.accent },
   body: {
     color: COLOR.textSecondary,
     fontSize: 14,
@@ -82,24 +76,18 @@ const styles = StyleSheet.create({
   actions: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
-    paddingTop: 2,
+    gap: SPACE.lg,
+    paddingTop: SPACE.xxs,
   },
   primary: {
-    paddingHorizontal: 16,
-    paddingVertical: 10,
+    paddingHorizontal: SPACE.xl,
+    paddingVertical: SPACE.mdl,
     backgroundColor: COLOR.accent,
   },
-  primaryText: {
-    color: COLOR.background,
-    fontSize: 12,
-    letterSpacing: 1.4,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-  },
+  primaryText: { ...TEXT.buttonLabel, color: COLOR.background },
   secondary: {
-    paddingHorizontal: 8,
-    paddingVertical: 10,
+    paddingHorizontal: SPACE.md,
+    paddingVertical: SPACE.mdl,
   },
   secondaryText: {
     color: COLOR.textMuted,

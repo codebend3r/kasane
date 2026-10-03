@@ -14,7 +14,7 @@ import { ShowGrid } from "@/components/ShowGrid";
 import { ShowRow } from "@/components/ShowRow";
 import { Footer } from "@/components/Footer";
 import { Pressable } from "react-native";
-import { COLOR, FONT, pressFeedback } from "@/theme";
+import { COLOR, FONT, pressFeedback, SPACE, TEXT } from "@/theme";
 
 type ViewMode = "grid" | "list";
 
@@ -165,36 +165,19 @@ function ViewButton({
 
 const styles = StyleSheet.create({
   root: { flex: 1 },
-  content: { gap: 12, padding: 16, paddingBottom: 40 },
-  eyebrow: {
-    color: COLOR.accent,
-    fontSize: 11,
-    letterSpacing: 1.8,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-  },
-  title: {
-    color: COLOR.textPrimary,
-    fontSize: 24,
-    letterSpacing: -0.4,
-    fontFamily: FONT.bold,
-  },
+  content: { gap: SPACE.lg, padding: SPACE.xl, paddingBottom: SPACE.pageEnd },
+  eyebrow: { ...TEXT.eyebrow, color: COLOR.accent },
+  title: { ...TEXT.pageTitle, color: COLOR.textPrimary },
   blurb: { color: COLOR.textMuted, fontSize: 14, fontFamily: FONT.regular },
   sortRow: {
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "center",
     justifyContent: "space-between",
-    gap: 12,
-    paddingTop: 4,
+    gap: SPACE.lg,
+    paddingTop: SPACE.xs,
   },
-  count: {
-    color: COLOR.textMuted,
-    fontSize: 12,
-    letterSpacing: 1.2,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-  },
+  count: { ...TEXT.chipLabel, color: COLOR.textMuted },
   // Shrinkable so the four controls wrap onto a second line on a phone
   // instead of running off the edge of the viewport.
   sortButtons: {
@@ -202,11 +185,11 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "flex-end",
     flexShrink: 1,
-    gap: 8,
+    gap: SPACE.md,
   },
   sortButton: {
-    paddingHorizontal: 14,
-    paddingVertical: 6,
+    paddingHorizontal: SPACE.lgx,
+    paddingVertical: SPACE.sm,
     backgroundColor: COLOR.surface,
   },
   sortButtonActive: { backgroundColor: COLOR.accent },
@@ -220,13 +203,13 @@ const styles = StyleSheet.create({
   sortTextActive: { color: COLOR.background },
   // Set apart from the sort pills so the two controls do not read as one
   // group; it wraps to its own line once the row runs out of room.
-  viewToggle: { flexDirection: "row", gap: 2, paddingLeft: 8 },
+  viewToggle: { flexDirection: "row", gap: SPACE.xxs, paddingLeft: SPACE.md },
   viewButton: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+    paddingHorizontal: SPACE.lg,
+    paddingVertical: SPACE.sm,
     backgroundColor: COLOR.surface,
   },
   viewButtonActive: { backgroundColor: COLOR.highlight },
-  list: { gap: 4 },
+  list: { gap: SPACE.xs },
   muted: { color: COLOR.textMuted, fontSize: 14, fontFamily: FONT.regular },
 });

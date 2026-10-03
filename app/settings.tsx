@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, Text } from "react-native";
 import { Footer } from "@/components/Footer";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, SPACE, TEXT } from "@/theme";
 
 export default function SettingsScreen() {
   return (
@@ -15,19 +15,8 @@ export default function SettingsScreen() {
 
 const styles = StyleSheet.create({
   root: { flex: 1 },
-  content: { gap: 12, padding: 16, paddingBottom: 40 },
-  eyebrow: {
-    color: COLOR.accent,
-    fontSize: 11,
-    letterSpacing: 1.8,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-  },
-  title: {
-    color: COLOR.textPrimary,
-    fontSize: 24,
-    letterSpacing: -0.4,
-    fontFamily: FONT.bold,
-  },
+  content: { gap: SPACE.lg, padding: SPACE.xl, paddingBottom: SPACE.pageEnd },
+  eyebrow: { ...TEXT.eyebrow, color: COLOR.accent },
+  title: { ...TEXT.pageTitle, color: COLOR.textPrimary },
   muted: { color: COLOR.textMuted, fontSize: 14, fontFamily: FONT.regular },
 });

@@ -1,6 +1,6 @@
 import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import { version } from "@pkg";
-import { COLOR, FONT, pressFeedback } from "@/theme";
+import { COLOR, pressFeedback, FOOTER_OFFSET, SPACE, TEXT } from "@/theme";
 
 export function Footer() {
   return (
@@ -34,40 +34,16 @@ const styles = StyleSheet.create({
   bar: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
-    paddingHorizontal: 16,
-    paddingTop: 160,
-    paddingBottom: 20,
+    gap: SPACE.md,
+    paddingHorizontal: SPACE.xl,
+    paddingTop: FOOTER_OFFSET,
+    paddingBottom: SPACE.xxl,
     borderTopWidth: 1,
     borderTopColor: COLOR.surface,
   },
-  copy: {
-    color: COLOR.textMuted,
-    fontSize: 12,
-    letterSpacing: 1.4,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-  },
-  link: {
-    color: COLOR.textPrimary,
-    fontSize: 12,
-    letterSpacing: 1.4,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-  },
+  copy: { ...TEXT.buttonLabel, color: COLOR.textMuted },
+  link: { ...TEXT.buttonLabel, color: COLOR.textPrimary },
   spacer: { flex: 1 },
-  version: {
-    color: COLOR.textMuted,
-    fontSize: 12,
-    letterSpacing: 1.4,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-  },
-  github: {
-    color: COLOR.accent,
-    fontSize: 12,
-    letterSpacing: 1.4,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-  },
+  version: { ...TEXT.buttonLabel, color: COLOR.textMuted },
+  github: { ...TEXT.buttonLabel, color: COLOR.accent },
 });

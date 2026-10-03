@@ -18,7 +18,7 @@ import { LatestReleases } from "@/components/LatestReleases";
 import { MappedOnlyToggle } from "@/components/MappedOnlyToggle";
 import { useIsNarrow } from "@/components/useIsNarrow";
 import { usePreferences } from "@/state/preferences";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, SPACE } from "@/theme";
 
 export default function HomeScreen() {
   const [query, setQuery] = useState("");
@@ -149,7 +149,7 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1, padding: 16, gap: 16 },
+  root: { flex: 1, padding: SPACE.xl, gap: SPACE.xl },
   tagline: {
     color: COLOR.textSecondary,
     fontSize: 16,
@@ -159,16 +159,16 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: COLOR.surface,
     color: COLOR.textPrimary,
-    paddingHorizontal: 24,
-    paddingVertical: 24,
+    paddingHorizontal: SPACE.xxxl,
+    paddingVertical: SPACE.xxxl,
     fontSize: 22,
     lineHeight: 28,
     fontFamily: FONT.medium,
     borderLeftWidth: 4,
     borderLeftColor: COLOR.accent,
   },
-  spinnerWrap: { paddingTop: 24 },
-  emptyWrap: { paddingTop: 32 },
+  spinnerWrap: { paddingTop: SPACE.xxxl },
+  emptyWrap: { paddingTop: SPACE.page },
   empty: {
     color: COLOR.textMuted,
     textAlign: "center",

@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useRouter, usePathname } from "expo-router";
 import { MENU_LINKS, useSideMenu } from "@/state/sideMenu";
-import { COLOR, FONT, NARROW_WIDTH, pressFeedback } from "@/theme";
+import { COLOR, FONT, NARROW_WIDTH, pressFeedback, SPACE } from "@/theme";
 
 const PANEL_MAX_WIDTH = 320;
 const SLIDE_MS = 220;
@@ -155,9 +155,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 20,
-    paddingTop: 24,
-    paddingBottom: 16,
+    paddingHorizontal: SPACE.xxl,
+    paddingTop: SPACE.xxxl,
+    paddingBottom: SPACE.xl,
   },
   panelTitle: {
     color: COLOR.textPrimary,
@@ -166,11 +166,11 @@ const styles = StyleSheet.create({
     fontFamily: FONT.bold,
   },
   close: { color: COLOR.textMuted, fontSize: 18, fontFamily: FONT.bold },
-  links: { gap: 4, paddingHorizontal: 12 },
+  links: { gap: SPACE.xs, paddingHorizontal: SPACE.lg },
   link: {
-    gap: 3,
-    paddingHorizontal: 12,
-    paddingVertical: 14,
+    gap: SPACE.xs,
+    paddingHorizontal: SPACE.lg,
+    paddingVertical: SPACE.lgx,
     borderLeftWidth: 3,
     borderLeftColor: COLOR.borderInactive,
   },
