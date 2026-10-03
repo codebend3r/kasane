@@ -1,8 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { useLoginPrompt } from "@/state/loginPrompt";
-import type { PressableState } from "@/types";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, pressFeedback } from "@/theme";
 
 /**
  * Bottom-right toaster reminding signed-out users to log in so their progress
@@ -32,10 +31,7 @@ export function LoginPrompt() {
             }}
             accessibilityRole="link"
             accessibilityLabel="Log in"
-            style={({ hovered, pressed }: PressableState) => [
-              styles.primary,
-              { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
-            ]}
+            style={(state) => [styles.primary, pressFeedback(state)]}
           >
             <Text style={styles.primaryText}>Log in</Text>
           </Pressable>
@@ -44,10 +40,7 @@ export function LoginPrompt() {
             hitSlop={6}
             accessibilityRole="button"
             accessibilityLabel="Dismiss the log in prompt"
-            style={({ hovered, pressed }: PressableState) => [
-              styles.secondary,
-              { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
-            ]}
+            style={(state) => [styles.secondary, pressFeedback(state)]}
           >
             <Text style={styles.secondaryText}>Not now</Text>
           </Pressable>

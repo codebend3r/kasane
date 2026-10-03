@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, pressFeedback } from "@/theme";
 import type { MarkEvent } from "@/components/useMarkProgress";
 
 const AUTO_DISMISS_MS = 8000;
@@ -36,10 +36,7 @@ export function ProgressMarkBanner({
           hitSlop={10}
           accessibilityRole="button"
           accessibilityLabel="Dismiss"
-          style={({ pressed }) => [
-            styles.closeBtn,
-            { opacity: pressed ? 0.6 : 1 },
-          ]}
+          style={(state) => [styles.closeBtn, pressFeedback(state)]}
         >
           <Text style={styles.closeText}>×</Text>
         </Pressable>
@@ -56,10 +53,7 @@ export function ProgressMarkBanner({
             onPress={onAcceptSuggestion}
             accessibilityRole="button"
             accessibilityLabel={`Mark ${event.suggestion.side} progress`}
-            style={({ pressed }) => [
-              styles.primaryBtn,
-              { opacity: pressed ? 0.7 : 1 },
-            ]}
+            style={(state) => [styles.primaryBtn, pressFeedback(state)]}
           >
             <Text style={styles.primaryBtnText}>
               Mark {event.suggestion.side}
@@ -70,10 +64,7 @@ export function ProgressMarkBanner({
           onPress={onUndo}
           accessibilityRole="button"
           accessibilityLabel="Undo this progress mark"
-          style={({ pressed }) => [
-            styles.secondaryBtn,
-            { opacity: pressed ? 0.7 : 1 },
-          ]}
+          style={(state) => [styles.secondaryBtn, pressFeedback(state)]}
         >
           <Text style={styles.secondaryBtnText}>Undo</Text>
         </Pressable>

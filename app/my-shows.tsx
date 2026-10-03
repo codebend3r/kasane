@@ -8,8 +8,7 @@ import { useInProgressEntries } from "@/state/progress";
 import { useCovers } from "@/queries/covers";
 import { ShowGrid } from "@/components/ShowGrid";
 import { Footer } from "@/components/Footer";
-import type { PressableState } from "@/types";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, pressFeedback } from "@/theme";
 
 export default function MyShowsScreen() {
   const router = useRouter();
@@ -62,10 +61,7 @@ export default function MyShowsScreen() {
             onPress={() => router.push("/login")}
             accessibilityRole="link"
             accessibilityLabel="Sign in to save your shows"
-            style={({ hovered, pressed }: PressableState) => [
-              styles.calloutButton,
-              { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
-            ]}
+            style={(state) => [styles.calloutButton, pressFeedback(state)]}
           >
             <Text style={styles.calloutButtonText}>Sign in to save</Text>
           </Pressable>

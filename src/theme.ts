@@ -1,3 +1,4 @@
+import type { PressableStateCallbackType } from "react-native";
 import type { ArcSegment } from "@/data/arcLayout";
 import type { SeriesBadge } from "@/types";
 
@@ -122,6 +123,17 @@ export const arcColors = (
         text: COLOR.textOnBright,
       }
     : { fill: COLOR.surfaceRaised, text: COLOR.textMuted };
+
+/**
+ * The one press feedback every `Pressable` uses: dim while pressed, a little
+ * on hover. Spread into a style callback: `(state) => [styles.x, pressFeedback(state)]`.
+ */
+export const pressFeedback = ({
+  pressed,
+  hovered,
+}: PressableStateCallbackType): { opacity: number } => ({
+  opacity: pressed ? 0.7 : hovered ? 0.9 : 1,
+});
 
 /** Films sit outside the arc sequence and always render in this colour. */
 export const MOVIE_COLOR = "#5cdfff";

@@ -10,8 +10,7 @@ import {
 import { useRouter } from "expo-router";
 import type { MappedShow } from "@/data/mappedShows";
 import type { Cover } from "@/queries/covers";
-import type { PressableState } from "@/types";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, pressFeedback } from "@/theme";
 
 /** `12 eps · 42 ch`, or just the chapters when nothing is adapted yet. */
 export const showMeta = (show: MappedShow): string =>
@@ -35,10 +34,7 @@ export function ShowTile({
       onPress={() => router.push(`/series/${show.routeId}`)}
       accessibilityRole="link"
       accessibilityLabel={`${show.title}. ${showMeta(show)}`}
-      style={({ hovered, pressed }: PressableState) => [
-        styles.tile,
-        { width, opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
-      ]}
+      style={(state) => [styles.tile, { width }, pressFeedback(state)]}
     >
       <Poster cover={cover} style={styles.poster} />
       <View style={styles.body}>

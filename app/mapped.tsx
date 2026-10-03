@@ -13,9 +13,8 @@ import { useCovers } from "@/queries/covers";
 import { ShowGrid } from "@/components/ShowGrid";
 import { ShowRow } from "@/components/ShowRow";
 import { Footer } from "@/components/Footer";
-import type { PressableState } from "@/types";
 import { Pressable } from "react-native";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, pressFeedback } from "@/theme";
 
 type ViewMode = "grid" | "list";
 
@@ -120,10 +119,10 @@ function SortButton({
       onPress={() => onPress(field)}
       accessibilityRole="button"
       accessibilityLabel={`Sort by ${label}`}
-      style={({ hovered, pressed }: PressableState) => [
+      style={(state) => [
         styles.sortButton,
         active && styles.sortButtonActive,
-        { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
+        pressFeedback(state),
       ]}
     >
       <Text style={[styles.sortText, active && styles.sortTextActive]}>
@@ -151,10 +150,10 @@ function ViewButton({
       onPress={() => onPress(mode)}
       accessibilityRole="button"
       accessibilityLabel={`${label} view`}
-      style={({ hovered, pressed }: PressableState) => [
+      style={(state) => [
         styles.viewButton,
         active && styles.viewButtonActive,
-        { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
+        pressFeedback(state),
       ]}
     >
       <Text style={[styles.sortText, active && styles.sortTextActive]}>

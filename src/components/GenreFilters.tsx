@@ -6,9 +6,8 @@ import {
   Text,
   View,
 } from "react-native";
-import type { PressableState } from "@/types";
 import type { GenreFilter } from "@/data/genreFilters";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, pressFeedback } from "@/theme";
 
 type GenreFiltersProps = {
   filters: readonly GenreFilter[];
@@ -39,10 +38,7 @@ export function GenreFilters({
         accessibilityRole="button"
         accessibilityLabel="Filter genres"
         accessibilityState={{ expanded: open }}
-        style={({ hovered, pressed }: PressableState) => [
-          styles.filterToggle,
-          { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
-        ]}
+        style={(state) => [styles.filterToggle, pressFeedback(state)]}
       >
         <Text style={styles.filterToggleText}>
           {hiddenCount > 0
@@ -114,10 +110,7 @@ function ToggleAllGenres({
       onPress={() => onSetHidden(allHidden ? [] : filters.map((f) => f.id))}
       accessibilityRole="button"
       accessibilityLabel={allHidden ? "Show all genres" : "Hide all genres"}
-      style={({ hovered, pressed }: PressableState) => [
-        styles.toggleAllChip,
-        { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
-      ]}
+      style={(state) => [styles.toggleAllChip, pressFeedback(state)]}
     >
       <Text style={styles.toggleAllText}>
         {allHidden ? "Show all" : "Hide all"}
@@ -162,10 +155,7 @@ function GenreFilterSheet({
               hitSlop={12}
               accessibilityRole="button"
               accessibilityLabel="Done filtering genres"
-              style={({ pressed }: PressableState) => [
-                styles.sheetDone,
-                { opacity: pressed ? 0.7 : 1 },
-              ]}
+              style={(state) => [styles.sheetDone, pressFeedback(state)]}
             >
               <Text style={styles.sheetDoneText}>Done</Text>
             </Pressable>
@@ -183,10 +173,7 @@ function GenreFilterSheet({
                   accessibilityRole="checkbox"
                   accessibilityLabel={`Show ${f.label}`}
                   accessibilityState={{ checked: included }}
-                  style={({ pressed }: PressableState) => [
-                    styles.sheetRow,
-                    { opacity: pressed ? 0.7 : 1 },
-                  ]}
+                  style={(state) => [styles.sheetRow, pressFeedback(state)]}
                 >
                   <View
                     style={[

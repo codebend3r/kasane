@@ -6,7 +6,7 @@ import {
   type GestureResponderEvent,
 } from "react-native";
 import Svg, { Circle, Line, Path } from "react-native-svg";
-import type { PressableState, ProgressSide } from "@/types";
+import type { MouseLike, ProgressSide } from "@/types";
 import { COLOR, FONT, arcColors } from "@/theme";
 import {
   describeCoverage,
@@ -21,8 +21,7 @@ import {
   HoverLabel,
   hasBoundingRect,
   useHoverLabel,
-  type MouseLike,
-} from "./HoverLabel";
+} from "@/components/HoverLabel";
 
 const SIZE = 280;
 const RING_RATIO = 0.56;
@@ -135,12 +134,8 @@ export function EpisodeChapterPie({
         onLongPress={onLongPress}
         delayLongPress={LONG_PRESS_MS}
         onHoverOut={clearHover}
-        // @ts-expect-error react-native-web forwards onMouseMove to the DOM
         onMouseMove={onMouseMove}
-        style={({ hovered }: PressableState) => [
-          styles.donut,
-          { opacity: hovered ? 0.96 : 1 },
-        ]}
+        style={({ hovered }) => [styles.donut, { opacity: hovered ? 0.96 : 1 }]}
       >
         <Svg width={SIZE} height={SIZE} viewBox="-1 -1 2 2">
           {slices.length === 1 ? (

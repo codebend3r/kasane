@@ -12,7 +12,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { Link } from "expo-router";
-import type { AniListMedia, PressableState, SeriesEntry } from "@/types";
+import type { AniListMedia, SeriesEntry } from "@/types";
 import { displayTitle, englishTitle } from "@/data/format";
 import { BADGE_SHORT_LABEL, pairResults } from "@/data/pairing";
 import { usePreferences } from "@/state/preferences";
@@ -22,7 +22,7 @@ import {
   MOBILE_WIDTH_BREAKPOINT,
 } from "@/components/CoverCarousel";
 import { Footer } from "@/components/Footer";
-import { BADGE_COLOR, COLOR, FONT } from "@/theme";
+import { BADGE_COLOR, COLOR, FONT, pressFeedback } from "@/theme";
 
 const GRID_ITEM_WIDTH = 160;
 const GRID_ITEM_HEIGHT = 280;
@@ -94,10 +94,7 @@ export function LatestReleases({
       <Pressable
         accessibilityRole="link"
         accessibilityLabel={englishTitle(entry.primary.title)}
-        style={({ hovered, pressed }: PressableState) => [
-          styles.gridItem,
-          { opacity: pressed ? 0.6 : hovered ? 0.9 : 1 },
-        ]}
+        style={(state) => [styles.gridItem, pressFeedback(state)]}
       >
         <View style={styles.gridCoverWrap}>
           <Image

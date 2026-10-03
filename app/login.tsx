@@ -8,8 +8,7 @@ import {
   View,
 } from "react-native";
 import { useAuth, useAuthEmail, useAuthStatus } from "@/state/auth";
-import type { PressableState } from "@/types";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, pressFeedback } from "@/theme";
 
 type Mode = "signIn" | "signUp";
 
@@ -64,10 +63,7 @@ function AccountView() {
         onPress={onSignOut}
         accessibilityRole="button"
         accessibilityLabel="Sign out"
-        style={({ hovered, pressed }: PressableState) => [
-          styles.button,
-          { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
-        ]}
+        style={(state) => [styles.button, pressFeedback(state)]}
       >
         <Text style={styles.buttonText}>Sign out</Text>
       </Pressable>
@@ -123,10 +119,7 @@ function AuthForm() {
           }}
           accessibilityRole="button"
           accessibilityLabel="Back to sign in"
-          style={({ hovered, pressed }: PressableState) => [
-            styles.button,
-            { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
-          ]}
+          style={(state) => [styles.button, pressFeedback(state)]}
         >
           <Text style={styles.buttonText}>Back to sign in</Text>
         </Pressable>
@@ -168,10 +161,10 @@ function AuthForm() {
         accessibilityRole="button"
         accessibilityLabel={copy.submit}
         accessibilityState={{ disabled: !canSubmit, busy }}
-        style={({ hovered, pressed }: PressableState) => [
+        style={(state) => [
           styles.button,
           !canSubmit && styles.buttonDisabled,
-          { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
+          pressFeedback(state),
         ]}
       >
         {busy ? (
@@ -185,9 +178,7 @@ function AuthForm() {
         hitSlop={6}
         accessibilityRole="button"
         accessibilityLabel={copy.switchLabel}
-        style={({ hovered, pressed }: PressableState) => [
-          { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
-        ]}
+        style={(state) => [pressFeedback(state)]}
       >
         <Text style={styles.switchLabel}>{copy.switchLabel}</Text>
       </Pressable>

@@ -8,14 +8,14 @@ import {
   Text,
   View,
 } from "react-native";
-import type { MangaDexVolumeCover, PressableState } from "@/types";
+import type { MangaDexVolumeCover } from "@/types";
 import { localeLabel } from "@/data/format";
 import { usePreferences } from "@/state/preferences";
 import {
   CoverCarousel,
   MOBILE_WIDTH_BREAKPOINT,
 } from "@/components/CoverCarousel";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, pressFeedback } from "@/theme";
 
 const MOBILE_COVER_WIDTH = 140;
 const MOBILE_COVER_HEIGHT = 210;
@@ -166,8 +166,9 @@ function VolumeCard({
           setIsHovered(false);
           animateTo(1);
         }}
-        style={({ pressed }: PressableState) => [
-          { width, opacity: pressed ? 0.7 : 1 },
+        style={(state) => [
+          { width },
+          pressFeedback({ pressed: state.pressed }),
         ]}
       >
         <Animated.View style={[{ width, gap: 4 }, { transform: [{ scale }] }]}>
@@ -198,10 +199,7 @@ function VolumeCard({
               onPress={() => setSelectedKey(coverKey(v))}
               accessibilityRole="button"
               accessibilityLabel={`Show the ${localeLabel(v.locale)} cover for volume ${v.volume}`}
-              style={({ hovered, pressed }: PressableState) => [
-                styles.variantCell,
-                { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
-              ]}
+              style={(state) => [styles.variantCell, pressFeedback(state)]}
             >
               <Image
                 source={{ uri: v.thumbUrl }}

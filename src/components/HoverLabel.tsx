@@ -1,8 +1,7 @@
 import { useRef, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { FONT } from "@/theme";
-
-export type MouseLike = { nativeEvent: { clientX: number; clientY: number } };
+import type { MouseLike } from "@/types";
 
 type HoverContent = { label: string; color: string; textColor: string };
 type Hover = HoverContent & { x: number; y: number };

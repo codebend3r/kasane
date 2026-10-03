@@ -1,7 +1,6 @@
 import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import { version } from "@pkg";
-import { COLOR, FONT } from "@/theme";
-import type { PressableState } from "@/types";
+import { COLOR, FONT, pressFeedback } from "@/theme";
 
 export function Footer() {
   return (
@@ -12,9 +11,7 @@ export function Footer() {
         hitSlop={6}
         accessibilityRole="link"
         accessibilityLabel="CJ Rivas on GitHub"
-        style={({ hovered, pressed }: PressableState) => [
-          { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
-        ]}
+        style={(state) => [pressFeedback(state)]}
       >
         <Text style={styles.link}>CJ Rivas</Text>
       </Pressable>
@@ -25,9 +22,7 @@ export function Footer() {
         hitSlop={6}
         accessibilityRole="link"
         accessibilityLabel="Open the Kasane source on GitHub"
-        style={({ hovered, pressed }: PressableState) => [
-          { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
-        ]}
+        style={(state) => [pressFeedback(state)]}
       >
         <Text style={styles.github}>GitHub →</Text>
       </Pressable>

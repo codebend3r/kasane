@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
-import type { PressableState, ResolvedMapping, SeriesBadge } from "@/types";
+import type { ResolvedMapping, SeriesBadge } from "@/types";
 import { buildArcLayout } from "@/data/arcLayout";
 import { isAdapted } from "@/data/mapping";
 import { useSeriesProgress } from "@/state/progress";
@@ -14,7 +14,7 @@ import { QuickLookup } from "@/components/QuickLookup";
 import { SeasonCoverage } from "@/components/SeasonCoverage";
 import { SeriesMovies } from "@/components/SeriesMovies";
 import { useMarkProgress } from "@/components/useMarkProgress";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, pressFeedback } from "@/theme";
 
 type MappingView = "rail" | "pie";
 
@@ -86,10 +86,7 @@ export function MappingSection({
           accessibilityLabel={
             mappingView === "rail" ? "Show pie chart view" : "Show rail view"
           }
-          style={({ hovered, pressed }: PressableState) => [
-            styles.viewToggle,
-            { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
-          ]}
+          style={(state) => [styles.viewToggle, pressFeedback(state)]}
         >
           <Text style={styles.viewToggleIcon}>
             {mappingView === "rail" ? "◐" : "▤"}

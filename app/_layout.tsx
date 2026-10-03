@@ -36,8 +36,7 @@ import { LoginPrompt } from "@/components/LoginPrompt";
 import { useSideMenu } from "@/state/sideMenu";
 import { SideMenu } from "@/components/SideMenu";
 import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
-import type { PressableState } from "@/types";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, pressFeedback } from "@/theme";
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
 
@@ -94,10 +93,7 @@ function GlobalHeader() {
         hitSlop={10}
         accessibilityRole="button"
         accessibilityLabel="Open menu"
-        style={({ hovered, pressed }: PressableState) => [
-          headerStyles.menuButton,
-          { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
-        ]}
+        style={(state) => [headerStyles.menuButton, pressFeedback(state)]}
       >
         <Text style={headerStyles.menuIcon}>☰</Text>
       </Pressable>
@@ -107,10 +103,7 @@ function GlobalHeader() {
           hitSlop={12}
           accessibilityRole="button"
           accessibilityLabel="Go back"
-          style={({ pressed }: PressableState) => [
-            headerStyles.back,
-            { opacity: pressed ? 0.6 : 1 },
-          ]}
+          style={(state) => [headerStyles.back, pressFeedback(state)]}
         >
           <Text style={headerStyles.backArrow}>←</Text>
         </Pressable>
@@ -120,9 +113,9 @@ function GlobalHeader() {
         hitSlop={8}
         accessibilityRole="link"
         accessibilityLabel="Kasane, go to home"
-        style={({ hovered, pressed }: PressableState) => [
+        style={(state) => [
           headerStyles.wordmarkPressable,
-          { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
+          pressFeedback(state),
         ]}
       >
         <Text
@@ -151,10 +144,7 @@ function GlobalHeader() {
         accessibilityRole="switch"
         accessibilityLabel="Show titles in Japanese"
         accessibilityState={{ checked: japanese }}
-        style={({ hovered, pressed }: PressableState) => [
-          headerStyles.langToggle,
-          { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
-        ]}
+        style={(state) => [headerStyles.langToggle, pressFeedback(state)]}
       >
         <Text style={headerStyles.langToggleText}>
           {japanese ? "JP" : "EN"}
@@ -166,10 +156,7 @@ function GlobalHeader() {
         accessibilityLabel={
           email ? `Account, signed in as ${email}` : "Sign in"
         }
-        style={({ hovered, pressed }: PressableState) => [
-          headerStyles.accountPill,
-          { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
-        ]}
+        style={(state) => [headerStyles.accountPill, pressFeedback(state)]}
       >
         <Text style={headerStyles.accountPillText}>
           {email ? email.charAt(0).toUpperCase() : "Sign in"}

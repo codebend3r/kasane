@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Link } from "expo-router";
-import type { AnimeFranchise, PressableState } from "@/types";
-import { COLOR, FONT } from "@/theme";
+import type { AnimeFranchise } from "@/types";
+import { COLOR, FONT, pressFeedback } from "@/theme";
 
 /**
  * Every season and side story in an anime franchise, with the TV total across
@@ -35,10 +35,10 @@ export function FranchiseSeasons({
               <Pressable
                 accessibilityRole="link"
                 accessibilityLabel={`${s.title}${isCurrent ? ", current season" : ""}`}
-                style={({ hovered, pressed }: PressableState) => [
+                style={(state) => [
                   styles.seasonCard,
                   isCurrent && styles.seasonCardActive,
-                  { opacity: pressed ? 0.6 : hovered ? 0.9 : 1 },
+                  pressFeedback(state),
                 ]}
               >
                 <Text style={styles.seasonCardTitle} numberOfLines={2}>

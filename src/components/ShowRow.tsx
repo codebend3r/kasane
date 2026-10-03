@@ -10,8 +10,7 @@ import type { MappedShow } from "@/data/mappedShows";
 import type { Cover } from "@/queries/covers";
 import { Poster, showMeta } from "@/components/ShowTile";
 import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
-import type { PressableState } from "@/types";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, pressFeedback } from "@/theme";
 
 /**
  * List-view counterpart to `ShowTile`: poster in the leftmost column, then the
@@ -36,10 +35,7 @@ export function ShowRow({
       onPress={() => router.push(`/series/${show.routeId}`)}
       accessibilityRole="link"
       accessibilityLabel={`${show.title}. ${showMeta(show)}`}
-      style={({ hovered, pressed }: PressableState) => [
-        styles.row,
-        { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
-      ]}
+      style={(state) => [styles.row, pressFeedback(state)]}
     >
       <Poster cover={cover} style={styles.poster} />
       <View style={styles.titleCell}>

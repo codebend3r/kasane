@@ -6,11 +6,8 @@ export type ProgressSide = "anime" | "manga";
 /** A position on one side, such as "chapter 80" or "episode 24". */
 export type SidePosition = { side: ProgressSide; position: number };
 
-export type PressableState = {
-  pressed: boolean;
-  hovered?: boolean;
-  focused?: boolean;
-};
+/** The pointer fields react-native-web puts on a forwarded mouse event. */
+export type MouseLike = { nativeEvent: { clientX: number; clientY: number } };
 
 export type AniListDate = {
   year: number | null;

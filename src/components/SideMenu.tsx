@@ -10,8 +10,7 @@ import {
 import { useRouter, usePathname } from "expo-router";
 import { MENU_LINKS, useSideMenu } from "@/state/sideMenu";
 import { MOBILE_WIDTH_BREAKPOINT } from "@/components/CoverCarousel";
-import type { PressableState } from "@/types";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, pressFeedback } from "@/theme";
 
 const PANEL_MAX_WIDTH = 320;
 const SLIDE_MS = 220;
@@ -86,9 +85,7 @@ export function SideMenu() {
             hitSlop={10}
             accessibilityRole="button"
             accessibilityLabel="Close menu"
-            style={({ hovered, pressed }: PressableState) => [
-              { opacity: pressed ? 0.6 : hovered ? 0.85 : 1 },
-            ]}
+            style={(state) => [pressFeedback(state)]}
           >
             <Text style={styles.close}>✕</Text>
           </Pressable>
@@ -107,10 +104,10 @@ export function SideMenu() {
                 accessibilityRole="link"
                 accessibilityLabel={link.label}
                 accessibilityState={{ selected: active }}
-                style={({ hovered, pressed }: PressableState) => [
+                style={(state) => [
                   styles.link,
                   active && styles.linkActive,
-                  { opacity: pressed ? 0.7 : hovered ? 0.9 : 1 },
+                  pressFeedback(state),
                 ]}
               >
                 <Text

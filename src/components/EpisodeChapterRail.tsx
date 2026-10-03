@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import type { MovieEntry, PressableState, ProgressSide } from "@/types";
-import { COLOR, FONT, MOVIE_COLOR, arcColors } from "@/theme";
+import type { MovieEntry, ProgressSide } from "@/types";
+import { COLOR, FONT, MOVIE_COLOR, arcColors, pressFeedback } from "@/theme";
 import {
   describeChapters,
   describeEpisodes,
@@ -9,7 +9,7 @@ import {
   type ArcLayout,
 } from "@/data/arcLayout";
 import type { SeriesProgress } from "@/state/progress";
-import { HoverLabel, useHoverLabel, type MouseLike } from "./HoverLabel";
+import { HoverLabel, useHoverLabel } from "@/components/HoverLabel";
 
 const BAR_HEIGHT = 44;
 const LONG_PRESS_MS = 320;
@@ -67,17 +67,16 @@ export function EpisodeChapterRail({
               }
               delayLongPress={LONG_PRESS_MS}
               onHoverOut={clearHover}
-              // @ts-expect-error react-native-web forwards onMouseMove to the DOM
-              onMouseMove={(e: MouseLike) =>
+              onMouseMove={(e) =>
                 moveTo({ label, color: fill, textColor: text }, e)
               }
-              style={({ hovered, pressed }: PressableState) => [
+              style={(state) => [
                 styles.bar,
                 {
                   flex: seg.span,
                   backgroundColor: fill,
-                  opacity: pressed ? 0.7 : hovered ? 0.9 : 1,
                 },
+                pressFeedback(state),
               ]}
             >
               <Text style={[styles.barText, { color: text }]} numberOfLines={1}>
@@ -110,8 +109,7 @@ export function EpisodeChapterRail({
                   accessibilityRole="text"
                   accessibilityLabel={label}
                   onHoverOut={clearHover}
-                  // @ts-expect-error react-native-web forwards onMouseMove to the DOM
-                  onMouseMove={(e: MouseLike) =>
+                  onMouseMove={(e) =>
                     moveTo(
                       {
                         label,
@@ -166,17 +164,16 @@ export function EpisodeChapterRail({
               onLongPress={() => onOpenArc(arcIndex)}
               delayLongPress={LONG_PRESS_MS}
               onHoverOut={clearHover}
-              // @ts-expect-error react-native-web forwards onMouseMove to the DOM
-              onMouseMove={(e: MouseLike) =>
+              onMouseMove={(e) =>
                 moveTo({ label, color: fill, textColor: text }, e)
               }
-              style={({ hovered, pressed }: PressableState) => [
+              style={(state) => [
                 styles.bar,
                 {
                   flex: seg.span,
                   backgroundColor: fill,
-                  opacity: pressed ? 0.7 : hovered ? 0.9 : 1,
                 },
+                pressFeedback(state),
               ]}
             >
               <Text style={[styles.barText, { color: text }]} numberOfLines={1}>
