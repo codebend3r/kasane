@@ -2,8 +2,7 @@ import { useMemo } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-
-export type ProgressSide = "anime" | "manga";
+import type { ProgressSide } from "@/types";
 
 export type SidePointer = {
   position: number;

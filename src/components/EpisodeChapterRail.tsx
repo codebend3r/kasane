@@ -1,6 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { useRouter } from "expo-router";
-import type { MovieEntry, PressableState } from "@/types";
+import type { MovieEntry, PressableState, ProgressSide } from "@/types";
 import { COLOR, FONT, MOVIE_COLOR, arcColors } from "@/theme";
 import {
   describeChapters,
@@ -9,11 +8,7 @@ import {
   segmentLabel,
   type ArcLayout,
 } from "@/data/arcLayout";
-import {
-  useProgress,
-  useSeriesProgress,
-  type ProgressSide,
-} from "@/state/progress";
+import type { SeriesProgress } from "@/state/progress";
 import { HoverLabel, useHoverLabel, type MouseLike } from "./HoverLabel";
 
 const BAR_HEIGHT = 44;
@@ -24,35 +19,21 @@ const hasAfterEpisode = (
 ): movie is MovieEntry & { afterEpisode: number } =>
   typeof movie.afterEpisode === "number";
 
+/** Tap a bar to mark through its end; long-press to open the arc. */
 export function EpisodeChapterRail({
   layout,
   movies,
-  routeId,
-  onMarked,
+  progress,
+  onMark,
+  onOpenArc,
 }: {
   layout: ArcLayout;
   movies: readonly MovieEntry[];
-  routeId: number;
-  onMarked?: (side: ProgressSide, position: number, previous?: number) => void;
+  progress: SeriesProgress | undefined;
+  onMark: (side: ProgressSide, position: number) => void;
+  onOpenArc: (arcIndex: number) => void;
 }) {
-  const router = useRouter();
   const { containerRef, hover, moveTo, clearHover } = useHoverLabel();
-  const setSide = useProgress((s) => s.setSide);
-  const progress = useSeriesProgress(routeId);
-
-  const goToArc = (arcIdx: number) => {
-    router.push({
-      pathname: "/series/[id]/arc/[arcIdx]",
-      params: { id: String(routeId), arcIdx: String(arcIdx) },
-    });
-  };
-
-  const markSide = (side: ProgressSide, position: number) => {
-    const previous =
-      useProgress.getState().byRouteId[routeId]?.[side]?.position;
-    setSide(routeId, side, position);
-    onMarked?.(side, position, previous);
-  };
 
   const movieMarkers = movies.filter(hasAfterEpisode);
   const animeFrac =
@@ -80,8 +61,10 @@ export function EpisodeChapterRail({
               key={`ep-${seg.arcIndex}`}
               accessibilityElementsHidden
               importantForAccessibility="no-hide-descendants"
-              onPress={() => markSide("anime", seg.to)}
-              onLongPress={() => seg.arcIndex !== null && goToArc(seg.arcIndex)}
+              onPress={() => onMark("anime", seg.to)}
+              onLongPress={() =>
+                seg.arcIndex !== null && onOpenArc(seg.arcIndex)
+              }
               delayLongPress={LONG_PRESS_MS}
               onHoverOut={clearHover}
               // @ts-expect-error react-native-web forwards onMouseMove to the DOM
@@ -179,8 +162,8 @@ export function EpisodeChapterRail({
               key={`ch-${arcIndex}`}
               accessibilityElementsHidden
               importantForAccessibility="no-hide-descendants"
-              onPress={() => markSide("manga", seg.to)}
-              onLongPress={() => goToArc(arcIndex)}
+              onPress={() => onMark("manga", seg.to)}
+              onLongPress={() => onOpenArc(arcIndex)}
               delayLongPress={LONG_PRESS_MS}
               onHoverOut={clearHover}
               // @ts-expect-error react-native-web forwards onMouseMove to the DOM

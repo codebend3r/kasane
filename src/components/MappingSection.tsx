@@ -1,24 +1,19 @@
 import { useMemo, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useRouter } from "expo-router";
 import type { PressableState, ResolvedMapping, SeriesBadge } from "@/types";
 import { buildArcLayout } from "@/data/arcLayout";
-import {
-  chapterToEpisodes,
-  episodeToChapters,
-  isAdapted,
-} from "@/data/mapping";
-import { useProgress, type ProgressSide } from "@/state/progress";
+import { isAdapted } from "@/data/mapping";
+import { useSeriesProgress } from "@/state/progress";
 import { AutoEstimatedBanner } from "@/components/AutoEstimatedBanner";
 import { EpisodeChapterPie } from "@/components/EpisodeChapterPie";
 import { EpisodeChapterRail } from "@/components/EpisodeChapterRail";
 import { NoMappingNotice } from "@/components/NoMappingNotice";
-import {
-  ProgressMarkBanner,
-  type MarkEvent,
-} from "@/components/ProgressMarkBanner";
+import { ProgressMarkBanner } from "@/components/ProgressMarkBanner";
 import { QuickLookup } from "@/components/QuickLookup";
 import { SeasonCoverage } from "@/components/SeasonCoverage";
 import { SeriesMovies } from "@/components/SeriesMovies";
+import { useMarkProgress } from "@/components/useMarkProgress";
 import { COLOR, FONT } from "@/theme";
 
 type MappingView = "rail" | "pie";
@@ -42,7 +37,12 @@ export function MappingSection({
   const [mappingView, setMappingView] = useState<MappingView>(
     isMobile ? "pie" : "rail",
   );
-  const [markEvent, setMarkEvent] = useState<MarkEvent | null>(null);
+  const router = useRouter();
+  const progress = useSeriesProgress(routeId);
+  const marking = useMarkProgress({
+    routeId,
+    mapping: resolved?.mapping ?? null,
+  });
   const layout = useMemo(
     () =>
       resolved
@@ -51,25 +51,11 @@ export function MappingSection({
     [resolved, totalChapters],
   );
 
-  const onMarked = (
-    side: ProgressSide,
-    position: number,
-    previous?: number,
-  ) => {
-    const otherSide: ProgressSide = side === "anime" ? "manga" : "anime";
-    const otherPosition =
-      useProgress.getState().byRouteId[routeId]?.[otherSide]?.position ?? 0;
-    const range = resolved
-      ? side === "anime"
-        ? episodeToChapters(resolved.mapping, position)
-        : chapterToEpisodes(resolved.mapping, position)
-      : null;
-    const suggested = range?.[1];
-    const suggestion =
-      typeof suggested === "number" && suggested > otherPosition
-        ? { side: otherSide, position: suggested }
-        : undefined;
-    setMarkEvent({ side, position, previous, suggestion });
+  const openArc = (arcIndex: number) => {
+    router.push({
+      pathname: "/series/[id]/arc/[arcIdx]",
+      params: { id: String(routeId), arcIdx: String(arcIndex) },
+    });
   };
 
   if (!resolved || !layout) {
@@ -111,25 +97,28 @@ export function MappingSection({
         </Pressable>
       </View>
       {source === "estimated" && <AutoEstimatedBanner />}
-      {!!markEvent && (
+      {!!marking.event && (
         <ProgressMarkBanner
-          event={markEvent}
-          routeId={routeId}
-          onDismiss={() => setMarkEvent(null)}
+          event={marking.event}
+          onUndo={marking.undo}
+          onAcceptSuggestion={marking.acceptSuggestion}
+          onDismiss={marking.dismiss}
         />
       )}
       {mappingView === "rail" ? (
         <EpisodeChapterRail
           layout={layout}
           movies={movies}
-          routeId={routeId}
-          onMarked={onMarked}
+          progress={progress}
+          onMark={marking.mark}
+          onOpenArc={openArc}
         />
       ) : (
         <EpisodeChapterPie
           layout={layout}
-          routeId={routeId}
-          onMarked={onMarked}
+          progress={progress}
+          onMark={marking.mark}
+          onOpenArc={openArc}
         />
       )}
       <QuickLookup mapping={mapping} />

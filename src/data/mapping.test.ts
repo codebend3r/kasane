@@ -7,6 +7,7 @@ import {
   isAdapted,
   lastMappedChapter,
   lastMappedEpisode,
+  suggestPartnerMark,
 } from "./mapping";
 import type { MappingEntry, SeriesMapping } from "@/types";
 
@@ -163,5 +164,48 @@ describe("lastMappedEpisode", () => {
 describe("lastMappedChapter", () => {
   it("is the highest chapter across every arc, adapted or not", () => {
     expect(lastMappedChapter(mapping)).toBe(120);
+  });
+});
+
+describe("suggestPartnerMark", () => {
+  it("suggests the last chapter an episode reaches", () => {
+    expect(
+      suggestPartnerMark({
+        mapping,
+        mark: { side: "anime", position: 15 },
+        otherPosition: 0,
+      }),
+    ).toEqual({ side: "manga", position: 80 });
+  });
+
+  it("suggests the last episode of the arc a chapter is in", () => {
+    expect(
+      suggestPartnerMark({
+        mapping,
+        mark: { side: "manga", position: 20 },
+        otherPosition: 3,
+      }),
+    ).toEqual({ side: "anime", position: 12 });
+  });
+
+  it("stays quiet when the other side is already that far", () => {
+    expect(
+      suggestPartnerMark({
+        mapping,
+        mark: { side: "anime", position: 12 },
+        otherPosition: 40,
+      }),
+    ).toBeNull();
+  });
+
+  it("stays quiet when the mapping has no answer", () => {
+    // Chapter 100 sits in an arc the anime has not reached.
+    expect(
+      suggestPartnerMark({
+        mapping,
+        mark: { side: "manga", position: 100 },
+        otherPosition: 0,
+      }),
+    ).toBeNull();
   });
 });

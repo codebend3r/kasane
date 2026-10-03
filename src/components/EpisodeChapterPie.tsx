@@ -5,9 +5,8 @@ import {
   View,
   type GestureResponderEvent,
 } from "react-native";
-import { useRouter } from "expo-router";
 import Svg, { Circle, Line, Path } from "react-native-svg";
-import type { PressableState } from "@/types";
+import type { PressableState, ProgressSide } from "@/types";
 import { COLOR, FONT, arcColors } from "@/theme";
 import {
   describeCoverage,
@@ -17,11 +16,7 @@ import {
   type ArcLayout,
   type ArcSegment,
 } from "@/data/arcLayout";
-import {
-  useProgress,
-  useSeriesProgress,
-  type ProgressSide,
-} from "@/state/progress";
+import type { SeriesProgress } from "@/state/progress";
 import {
   HoverLabel,
   hasBoundingRect,
@@ -57,19 +52,19 @@ const annularSectorPath = (startDeg: number, endDeg: number): string => {
   ].join(" ");
 };
 
+/** Tap a slice to mark through its last chapter; long-press to open the arc. */
 export function EpisodeChapterPie({
   layout,
-  routeId,
-  onMarked,
+  progress,
+  onMark,
+  onOpenArc,
 }: {
   layout: ArcLayout;
-  routeId: number;
-  onMarked?: (side: ProgressSide, position: number, previous?: number) => void;
+  progress: SeriesProgress | undefined;
+  onMark: (side: ProgressSide, position: number) => void;
+  onOpenArc: (arcIndex: number) => void;
 }) {
-  const router = useRouter();
   const { containerRef, hover, moveTo, clearHover } = useHoverLabel();
-  const setSide = useProgress((s) => s.setSide);
-  const progress = useSeriesProgress(routeId);
 
   const axis = layout.manga;
   const degreesOf = (units: number): number => (units / axis.total) * 360;
@@ -80,13 +75,6 @@ export function EpisodeChapterPie({
   const showMarker = markerDeg > 0 && markerDeg < 360;
   const [markerOuterX, markerOuterY] = polar(markerDeg, R_OUTER);
   const [markerInnerX, markerInnerY] = polar(markerDeg, R_INNER);
-
-  const markProgress = (side: ProgressSide, position: number) => {
-    const previous =
-      useProgress.getState().byRouteId[routeId]?.[side]?.position;
-    setSide(routeId, side, position);
-    onMarked?.(side, position, previous);
-  };
 
   const sliceFromLocal = (
     x: number,
@@ -108,18 +96,14 @@ export function EpisodeChapterPie({
     const { locationX, locationY } = e.nativeEvent;
     const slice = sliceFromLocal(locationX, locationY, SIZE);
     if (!slice) return;
-    markProgress("manga", slice.to);
+    onMark("manga", slice.to);
   };
 
   const onLongPress = (e: GestureResponderEvent) => {
     const { locationX, locationY } = e.nativeEvent;
     const arcIndex =
       sliceFromLocal(locationX, locationY, SIZE)?.arcIndex ?? null;
-    if (arcIndex === null) return;
-    router.push({
-      pathname: "/series/[id]/arc/[arcIdx]",
-      params: { id: String(routeId), arcIdx: String(arcIndex) },
-    });
+    if (arcIndex !== null) onOpenArc(arcIndex);
   };
 
   const onMouseMove = (e: MouseLike) => {

@@ -1,32 +1,21 @@
 import { useEffect } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { COLOR, FONT } from "@/theme";
-import { useProgress, type ProgressSide } from "@/state/progress";
+import type { MarkEvent } from "@/components/useMarkProgress";
 
 const AUTO_DISMISS_MS = 8000;
 
-export type MarkEvent = {
-  side: ProgressSide;
-  position: number;
-  previous?: number;
-  suggestion?: {
-    side: ProgressSide;
-    position: number;
-  };
-};
-
 export function ProgressMarkBanner({
   event,
-  routeId,
+  onUndo,
+  onAcceptSuggestion,
   onDismiss,
 }: {
   event: MarkEvent;
-  routeId: number;
+  onUndo: () => void;
+  onAcceptSuggestion: () => void;
   onDismiss: () => void;
 }) {
-  const setSide = useProgress((s) => s.setSide);
-  const clearSide = useProgress((s) => s.clearSide);
-
   useEffect(() => {
     const t = setTimeout(onDismiss, AUTO_DISMISS_MS);
     return () => clearTimeout(t);
@@ -34,21 +23,6 @@ export function ProgressMarkBanner({
 
   const sideLabel = event.side === "anime" ? "ep" : "ch";
   const otherLabel = event.suggestion?.side === "anime" ? "ep" : "ch";
-
-  const undo = () => {
-    if (typeof event.previous === "number") {
-      setSide(routeId, event.side, event.previous);
-    } else {
-      clearSide(routeId, event.side);
-    }
-    onDismiss();
-  };
-
-  const acceptSuggestion = () => {
-    if (!event.suggestion) return;
-    setSide(routeId, event.suggestion.side, event.suggestion.position);
-    onDismiss();
-  };
 
   return (
     <View style={styles.banner}>
@@ -79,7 +53,7 @@ export function ProgressMarkBanner({
       <View style={styles.actionsRow}>
         {!!event.suggestion && (
           <Pressable
-            onPress={acceptSuggestion}
+            onPress={onAcceptSuggestion}
             accessibilityRole="button"
             accessibilityLabel={`Mark ${event.suggestion.side} progress`}
             style={({ pressed }) => [
@@ -93,7 +67,7 @@ export function ProgressMarkBanner({
           </Pressable>
         )}
         <Pressable
-          onPress={undo}
+          onPress={onUndo}
           accessibilityRole="button"
           accessibilityLabel="Undo this progress mark"
           style={({ pressed }) => [

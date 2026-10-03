@@ -1,4 +1,9 @@
-import type { MappingEntry, SeriesMapping } from "@/types";
+import type {
+  MappingEntry,
+  ProgressSide,
+  SeriesMapping,
+  SidePosition,
+} from "@/types";
 
 // Arc lookups over a `SeriesMapping`, curated or synthetic. Every function here
 // reads the arcs in catalog order, so when two arcs overlap the first one wins.
@@ -63,4 +68,30 @@ export function lastMappedChapter(mapping: SeriesMapping): number {
     (max, arc) => Math.max(max, arc.chapters[1]),
     0,
   );
+}
+
+/**
+ * After marking `position` on `side`, the matching place on the other side —
+ * the last chapter an episode reaches, or the last episode a chapter is in —
+ * when that is further than the reader has marked there. Null when the mapping
+ * has no answer or the other side is already past it.
+ */
+export function suggestPartnerMark({
+  mapping,
+  mark,
+  otherPosition,
+}: {
+  mapping: SeriesMapping;
+  mark: SidePosition;
+  otherPosition: number;
+}): SidePosition | null {
+  const otherSide: ProgressSide = mark.side === "anime" ? "manga" : "anime";
+  const range =
+    mark.side === "anime"
+      ? episodeToChapters(mapping, mark.position)
+      : chapterToEpisodes(mapping, mark.position);
+  const suggested = range?.[1] ?? null;
+  return suggested !== null && suggested > otherPosition
+    ? { side: otherSide, position: suggested }
+    : null;
 }

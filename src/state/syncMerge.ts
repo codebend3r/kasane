@@ -1,4 +1,5 @@
-import type { ProgressSide, SeriesProgress } from "@/state/progress";
+import type { SeriesProgress } from "@/state/progress";
+import type { ProgressSide } from "@/types";
 
 // Pure reconciliation helpers shared by the cloud-sync controller. Kept free of
 // react-native / supabase imports so they can be unit tested in isolation.

@@ -1,5 +1,11 @@
 export type MediaType = "ANIME" | "MANGA";
 
+/** The two sides of a series a reader tracks progress on. */
+export type ProgressSide = "anime" | "manga";
+
+/** A position on one side, such as "chapter 80" or "episode 24". */
+export type SidePosition = { side: ProgressSide; position: number };
+
 export type PressableState = {
   pressed: boolean;
   hovered?: boolean;
