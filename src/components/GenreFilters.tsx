@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 import type { GenreFilter } from "@/data/genreFilters";
-import { COLOR, FONT, pressFeedback } from "@/theme";
+import { COLOR, FONT, pressFeedback, SPACE, TEXT } from "@/theme";
 
 type GenreFiltersProps = {
   filters: readonly GenreFilter[];
@@ -203,27 +203,21 @@ const styles = StyleSheet.create({
   genreFilters: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 8,
-    rowGap: 8,
+    gap: SPACE.md,
+    rowGap: SPACE.md,
   },
   filterToggle: {
     flexDirection: "row",
     alignItems: "center",
     alignSelf: "flex-start",
-    gap: 8,
-    paddingHorizontal: 14,
-    paddingVertical: 8,
+    gap: SPACE.md,
+    paddingHorizontal: SPACE.lgx,
+    paddingVertical: SPACE.md,
     backgroundColor: COLOR.surface,
     borderLeftWidth: 2,
     borderLeftColor: COLOR.accent,
   },
-  filterToggleText: {
-    color: COLOR.textSecondary,
-    fontSize: 12,
-    letterSpacing: 1.2,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-  },
+  filterToggleText: { ...TEXT.chipLabel, color: COLOR.textSecondary },
   filterToggleChevron: {
     color: COLOR.accent,
     fontSize: 12,
@@ -239,9 +233,9 @@ const styles = StyleSheet.create({
   sheet: {
     backgroundColor: COLOR.surface,
     maxHeight: "75%",
-    paddingTop: 8,
-    paddingBottom: 24,
-    gap: 12,
+    paddingTop: SPACE.md,
+    paddingBottom: SPACE.xxxl,
+    gap: SPACE.lg,
   },
   sheetHandle: {
     alignSelf: "center",
@@ -252,9 +246,9 @@ const styles = StyleSheet.create({
   sheetHeader: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 20,
-    paddingTop: 4,
-    gap: 16,
+    paddingHorizontal: SPACE.xxl,
+    paddingTop: SPACE.xs,
+    gap: SPACE.xl,
   },
   sheetTitle: {
     flex: 1,
@@ -264,24 +258,18 @@ const styles = StyleSheet.create({
     letterSpacing: -0.2,
   },
   sheetDone: {
-    paddingHorizontal: 14,
-    paddingVertical: 8,
+    paddingHorizontal: SPACE.lgx,
+    paddingVertical: SPACE.md,
     backgroundColor: COLOR.accent,
   },
-  sheetDoneText: {
-    color: COLOR.background,
-    fontSize: 12,
-    letterSpacing: 1.4,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-  },
-  sheetScroll: { paddingHorizontal: 20 },
-  sheetScrollContent: { paddingBottom: 12, gap: 4 },
+  sheetDoneText: { ...TEXT.buttonLabel, color: COLOR.background },
+  sheetScroll: { paddingHorizontal: SPACE.xxl },
+  sheetScrollContent: { paddingBottom: SPACE.lg, gap: SPACE.xs },
   sheetRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 14,
-    paddingVertical: 12,
+    gap: SPACE.lgx,
+    paddingVertical: SPACE.lg,
   },
   sheetCheckbox: {
     width: 24,
@@ -309,31 +297,19 @@ const styles = StyleSheet.create({
     letterSpacing: -0.1,
   },
   filterChip: {
-    paddingHorizontal: 14,
-    paddingVertical: 6,
+    paddingHorizontal: SPACE.lgx,
+    paddingVertical: SPACE.sm,
     backgroundColor: COLOR.surface,
   },
   filterChipActive: { backgroundColor: COLOR.accent },
-  filterText: {
-    color: COLOR.textMuted,
-    fontSize: 12,
-    letterSpacing: 1.2,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-  },
+  filterText: { ...TEXT.chipLabel, color: COLOR.textMuted },
   filterTextActive: { color: COLOR.background },
   toggleAllChip: {
-    paddingHorizontal: 14,
-    paddingVertical: 6,
+    paddingHorizontal: SPACE.lgx,
+    paddingVertical: SPACE.sm,
     backgroundColor: COLOR.surface,
     borderWidth: 1,
     borderColor: COLOR.accent,
   },
-  toggleAllText: {
-    color: COLOR.accent,
-    fontSize: 12,
-    letterSpacing: 1.2,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-  },
+  toggleAllText: { ...TEXT.chipLabel, color: COLOR.accent },
 });

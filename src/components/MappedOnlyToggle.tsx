@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { COLOR, FONT, pressFeedback } from "@/theme";
+import { COLOR, FONT, pressFeedback, SPACE } from "@/theme";
 
 /** Checkbox-style switch for "only show series with a chapter map". */
 export function MappedOnlyToggle({
@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     alignSelf: "flex-start",
-    gap: 8,
-    paddingVertical: 4,
+    gap: SPACE.md,
+    paddingVertical: SPACE.xs,
   },
   checkbox: {
     width: 18,

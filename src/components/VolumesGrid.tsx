@@ -13,7 +13,7 @@ import { groupCovers, type VolumeGroup } from "@/data/volumes";
 import { usePreferences } from "@/state/preferences";
 import { CoverCarousel } from "@/components/CoverCarousel";
 import { useLayoutWidth } from "@/components/useLayoutWidth";
-import { COLOR, FONT, NARROW_WIDTH, pressFeedback } from "@/theme";
+import { COLOR, FONT, NARROW_WIDTH, pressFeedback, SPACE } from "@/theme";
 
 const MOBILE_COVER_WIDTH = 140;
 const MOBILE_COVER_HEIGHT = 210;
@@ -126,7 +126,9 @@ function VolumeCard({
           pressFeedback({ pressed: state.pressed }),
         ]}
       >
-        <Animated.View style={[{ width, gap: 4 }, { transform: [{ scale }] }]}>
+        <Animated.View
+          style={[{ width, gap: SPACE.xs }, { transform: [{ scale }] }]}
+        >
           <View style={{ width, height: coverHeight, position: "relative" }}>
             <Image
               source={{ uri: primary.thumbUrl }}
@@ -181,10 +183,10 @@ const styles = StyleSheet.create({
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 12,
+    gap: SPACE.lg,
   },
   card: {
-    gap: 4,
+    gap: SPACE.xs,
     position: "relative",
     zIndex: 1,
   },
@@ -200,8 +202,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 6,
     right: 6,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
+    paddingHorizontal: SPACE.sm,
+    paddingVertical: SPACE.xxs,
     backgroundColor: COLOR.accentTranslucent,
   },
   variantBadgeText: {
@@ -213,12 +215,12 @@ const styles = StyleSheet.create({
   variantRow: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 6,
-    paddingTop: 4,
+    gap: SPACE.sm,
+    paddingTop: SPACE.xs,
   },
   variantCell: {
     width: 36,
-    gap: 2,
+    gap: SPACE.xxs,
   },
   variantThumb: {
     width: 36,
@@ -233,8 +235,8 @@ const styles = StyleSheet.create({
   },
   labels: {
     backgroundColor: COLOR.coverBackdrop,
-    padding: 6,
-    gap: 2,
+    padding: SPACE.sm,
+    gap: SPACE.xxs,
   },
   number: {
     color: COLOR.textPrimary,

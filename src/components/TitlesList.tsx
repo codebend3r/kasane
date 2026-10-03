@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import type { MangaDexTitle } from "@/types";
 import { localeLabel } from "@/data/format";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, SPACE, TEXT } from "@/theme";
 
 export function TitlesList({ titles }: { titles: MangaDexTitle[] }) {
   if (titles.length <= 1) return null;
@@ -22,19 +22,14 @@ export function TitlesList({ titles }: { titles: MangaDexTitle[] }) {
 }
 
 const styles = StyleSheet.create({
-  sectionTitle: {
-    color: COLOR.textPrimary,
-    fontSize: 20,
-    letterSpacing: -0.4,
-    fontFamily: FONT.bold,
-  },
-  titlesBlock: { gap: 8 },
-  titlesList: { gap: 6 },
+  sectionTitle: { ...TEXT.sectionTitle, color: COLOR.textPrimary },
+  titlesBlock: { gap: SPACE.md },
+  titlesList: { gap: SPACE.sm },
   titleRow: {
     flexDirection: "row",
-    gap: 12,
+    gap: SPACE.lg,
     alignItems: "baseline",
-    paddingVertical: 4,
+    paddingVertical: SPACE.xs,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: COLOR.surfaceRaised,
   },

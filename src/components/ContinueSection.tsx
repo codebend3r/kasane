@@ -5,7 +5,7 @@ import { useMediaByIds } from "@/queries/media";
 import { useInProgressEntries } from "@/state/progress";
 import { SeriesCard } from "@/components/SeriesCard";
 import type { AniListMedia, SeriesEntry } from "@/types";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, SPACE, TEXT } from "@/theme";
 
 const PARTNER_RELATIONS = new Set(["ADAPTATION", "SOURCE"]);
 
@@ -59,20 +59,9 @@ export function ContinueSection() {
 }
 
 const styles = StyleSheet.create({
-  section: { gap: 8 },
-  header: { gap: 2 },
-  eyebrow: {
-    color: COLOR.success,
-    fontSize: 11,
-    letterSpacing: 1.8,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-  },
-  title: {
-    color: COLOR.textPrimary,
-    fontSize: 22,
-    letterSpacing: -0.4,
-    fontFamily: FONT.bold,
-  },
+  section: { gap: SPACE.md },
+  header: { gap: SPACE.xxs },
+  eyebrow: { ...TEXT.eyebrow, color: COLOR.success },
+  title: { ...TEXT.blockTitle, color: COLOR.textPrimary },
   list: { gap: 0 },
 });

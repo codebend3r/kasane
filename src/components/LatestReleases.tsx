@@ -19,11 +19,19 @@ import { CoverCarousel } from "@/components/CoverCarousel";
 import { Footer } from "@/components/Footer";
 import { useLayoutWidth } from "@/components/useLayoutWidth";
 import { releaseColumns, tileWidthFor } from "@/data/gridLayout";
-import { BADGE_COLOR, COLOR, FONT, NARROW_WIDTH, pressFeedback } from "@/theme";
+import {
+  BADGE_COLOR,
+  COLOR,
+  FONT,
+  NARROW_WIDTH,
+  pressFeedback,
+  SPACE,
+  TEXT,
+} from "@/theme";
 
 const GRID_ITEM_WIDTH = 160;
 const GRID_ITEM_HEIGHT = 280;
-const GRID_GAP = 16;
+const GRID_GAP = SPACE.xl;
 
 export function LatestReleases({
   data,
@@ -138,30 +146,19 @@ export function LatestReleases({
 }
 
 const styles = StyleSheet.create({
-  spinnerWrap: { paddingTop: 24 },
-  latestScroll: { paddingBottom: 32, gap: 16 },
-  latestHeader: { gap: 2 },
+  spinnerWrap: { paddingTop: SPACE.xxxl },
+  latestScroll: { paddingBottom: SPACE.page, gap: SPACE.xl },
+  latestHeader: { gap: SPACE.xxs },
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
     gap: GRID_GAP,
     alignItems: "flex-start",
   },
-  latestEyebrow: {
-    color: COLOR.accent,
-    fontSize: 11,
-    letterSpacing: 1.8,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-  },
-  latestTitle: {
-    color: COLOR.textPrimary,
-    fontSize: 22,
-    letterSpacing: -0.4,
-    fontFamily: FONT.bold,
-  },
+  latestEyebrow: { ...TEXT.eyebrow, color: COLOR.accent },
+  latestTitle: { ...TEXT.blockTitle, color: COLOR.textPrimary },
   gridItem: {
-    gap: 8,
+    gap: SPACE.md,
   },
   gridCoverWrap: {
     width: "100%",
@@ -176,8 +173,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 6,
     left: 6,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
+    paddingHorizontal: SPACE.sm,
+    paddingVertical: SPACE.xxs,
   },
   gridBadgeText: {
     color: COLOR.background,

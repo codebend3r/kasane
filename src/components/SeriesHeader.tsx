@@ -9,7 +9,7 @@ import {
 import { BADGE_LABEL } from "@/data/pairing";
 import { usePreferences } from "@/state/preferences";
 import { Paragraph } from "@/components/Paragraph";
-import { COLOR, FONT } from "@/theme";
+import { COLOR, FONT, SPACE } from "@/theme";
 
 type SeriesHeaderProps = {
   media: AniListMediaDetail;
@@ -97,7 +97,7 @@ export function SeriesHeader({
 }
 
 const styles = StyleSheet.create({
-  header: { flexDirection: "row", gap: 16 },
+  header: { flexDirection: "row", gap: SPACE.xl },
   headerMobile: { flexDirection: "column", alignItems: "center" },
   cover: { width: 240, height: 340, backgroundColor: COLOR.coverPlaceholder },
   coverAnimeOnly: {
@@ -107,18 +107,18 @@ const styles = StyleSheet.create({
     cornerBottomRightShape: "bevel",
     overflow: "hidden",
   },
-  headerMeta: { flex: 1, gap: 6, minWidth: 240 },
+  headerMeta: { flex: 1, gap: SPACE.sm, minWidth: 240 },
   headerMetaMobile: { flex: 0, minWidth: 0, alignSelf: "stretch" },
   badgeRow: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 6,
-    paddingBottom: 2,
+    gap: SPACE.sm,
+    paddingBottom: SPACE.xxs,
   },
   badge: {
     alignSelf: "flex-start",
-    paddingHorizontal: 8,
-    paddingVertical: 3,
+    paddingHorizontal: SPACE.md,
+    paddingVertical: SPACE.xs,
     backgroundColor: COLOR.accent,
   },
   badgeText: {
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   mappedBadge: { backgroundColor: COLOR.highlight },
   // Tighter than the meta column's gap, so the native title reads as part of
   // the heading.
-  titleBlock: { gap: 4 },
+  titleBlock: { gap: SPACE.xs },
   title: {
     color: COLOR.textPrimary,
     fontSize: 32,
@@ -149,17 +149,22 @@ const styles = StyleSheet.create({
     letterSpacing: 1.4,
     textTransform: "uppercase",
     fontFamily: FONT.semibold,
-    paddingTop: 2,
+    paddingTop: SPACE.xxs,
   },
   dates: {
     color: COLOR.textSecondary,
     fontSize: 13,
     fontFamily: FONT.medium,
   },
-  tagRow: { flexDirection: "row", flexWrap: "wrap", gap: 6, paddingTop: 4 },
+  tagRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: SPACE.sm,
+    paddingTop: SPACE.xs,
+  },
   tag: {
-    paddingHorizontal: 8,
-    paddingVertical: 3,
+    paddingHorizontal: SPACE.md,
+    paddingVertical: SPACE.xs,
     backgroundColor: COLOR.surface,
     borderLeftWidth: 2,
     borderLeftColor: COLOR.accent,
@@ -175,7 +180,7 @@ const styles = StyleSheet.create({
     color: COLOR.textSecondary,
     fontSize: 14,
     lineHeight: 20,
-    paddingTop: 8,
+    paddingTop: SPACE.md,
     fontFamily: FONT.regular,
   },
 });

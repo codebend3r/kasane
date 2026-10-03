@@ -10,7 +10,7 @@ import {
 import { useRouter } from "expo-router";
 import type { MappedShow } from "@/data/mappedShows";
 import type { Cover } from "@/queries/covers";
-import { COLOR, FONT, pressFeedback } from "@/theme";
+import { COLOR, FONT, pressFeedback, SPACE } from "@/theme";
 
 /** `12 eps · 42 ch`, or just the chapters when nothing is adapted yet. */
 export const showMeta = (show: MappedShow): string =>
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
   poster: { width: "100%", aspectRatio: 2 / 3 },
   posterEmpty: { backgroundColor: COLOR.tilePlaceholder },
-  body: { gap: 4, padding: 10 },
+  body: { gap: SPACE.xs, padding: SPACE.mdl },
   tileTitle: {
     color: COLOR.textPrimary,
     fontSize: 13,

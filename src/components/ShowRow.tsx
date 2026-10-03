@@ -4,7 +4,7 @@ import type { MappedShow } from "@/data/mappedShows";
 import type { Cover } from "@/queries/covers";
 import { Poster, showMeta } from "@/components/ShowTile";
 import { useIsNarrow } from "@/components/useIsNarrow";
-import { COLOR, FONT, pressFeedback } from "@/theme";
+import { COLOR, FONT, pressFeedback, SPACE } from "@/theme";
 
 /**
  * List-view counterpart to `ShowTile`: poster in the leftmost column, then the
@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
-    padding: 8,
+    gap: SPACE.lg,
+    padding: SPACE.md,
     backgroundColor: COLOR.surface,
     borderLeftWidth: 3,
     borderLeftColor: COLOR.accent,
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   poster: { width: 40, height: 60 },
   // Rows span the page, but the title column stops growing so the counts stay
   // beside the titles on a wide monitor instead of a screen-width away.
-  titleCell: { flex: 1, maxWidth: 620, gap: 2 },
+  titleCell: { flex: 1, maxWidth: 620, gap: SPACE.xxs },
   title: { color: COLOR.textPrimary, fontSize: 14, fontFamily: FONT.semibold },
   meta: { color: COLOR.textMuted, fontSize: 11, fontFamily: FONT.medium },
   trailing: { color: COLOR.success, fontSize: 11, fontFamily: FONT.bold },

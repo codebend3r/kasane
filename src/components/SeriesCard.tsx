@@ -1,7 +1,7 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Link } from "expo-router";
 import type { SeriesEntry } from "@/types";
-import { BADGE_COLOR, COLOR, FONT } from "@/theme";
+import { BADGE_COLOR, COLOR, FONT, SPACE } from "@/theme";
 import { useMapping } from "@/queries/catalog";
 import { useFranchise } from "@/queries/media";
 import { displayTitle } from "@/data/format";
@@ -155,16 +155,16 @@ function ProgressBar({
 
 const styles = StyleSheet.create({
   card: {
-    gap: 6,
-    padding: 12,
+    gap: SPACE.sm,
+    padding: SPACE.lg,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: COLOR.surfaceRaised,
   },
-  cardRow: { flexDirection: "row", gap: 12 },
+  cardRow: { flexDirection: "row", gap: SPACE.lg },
   cover: { width: 60, height: 84 },
   meta: { flex: 1, justifyContent: "center" },
-  badges: { alignSelf: "center", gap: 4 },
-  progressTrack: { gap: 2 },
+  badges: { alignSelf: "center", gap: SPACE.xs },
+  progressTrack: { gap: SPACE.xxs },
   progressBand: {
     height: 3,
     backgroundColor: COLOR.progressTrack,
@@ -174,8 +174,8 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   badge: {
-    paddingHorizontal: 8,
-    paddingVertical: 3,
+    paddingHorizontal: SPACE.md,
+    paddingVertical: SPACE.xs,
     alignSelf: "flex-end",
   },
   mappedBadge: { backgroundColor: COLOR.success },
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
   sub: {
     color: COLOR.textMuted,
     fontSize: 12,
-    paddingTop: 4,
+    paddingTop: SPACE.xs,
     letterSpacing: 0.8,
     textTransform: "uppercase",
     fontFamily: FONT.semibold,
