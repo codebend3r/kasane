@@ -14,8 +14,11 @@ export type SeriesProgress = {
   manga?: SidePointer;
 };
 
+/** Every series' progress, keyed by the series route id. */
+export type ProgressByRoute = Record<number, SeriesProgress>;
+
 type State = {
-  byRouteId: Record<number, SeriesProgress>;
+  byRouteId: ProgressByRoute;
   setSide: (routeId: number, side: ProgressSide, position: number) => void;
   clearSide: (routeId: number, side: ProgressSide) => void;
   clearSeries: (routeId: number) => void;
