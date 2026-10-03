@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import {
   Pressable,
   StyleSheet,
@@ -8,8 +7,16 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import Svg, { Circle, Line, Path } from "react-native-svg";
-import type { PressableState, SeriesMapping } from "@/types";
-import { ARC_COLORS, COLOR, FONT } from "@/theme";
+import type { PressableState } from "@/types";
+import { COLOR, FONT, arcColors } from "@/theme";
+import {
+  describeCoverage,
+  fractionAt,
+  segmentAt,
+  segmentLabel,
+  type ArcLayout,
+  type ArcSegment,
+} from "@/data/arcLayout";
 import {
   useProgress,
   useSeriesProgress,
@@ -27,16 +34,6 @@ const RING_RATIO = 0.56;
 const HOLE = SIZE * RING_RATIO;
 const R_OUTER = 1;
 const R_INNER = RING_RATIO;
-
-type Slice = {
-  arcIdx: number;
-  startDeg: number;
-  endDeg: number;
-  color: string;
-  textColor: string;
-  label: string;
-  chapterEnd: number;
-};
 
 const LONG_PRESS_MS = 320;
 
@@ -61,95 +58,25 @@ const annularSectorPath = (startDeg: number, endDeg: number): string => {
 };
 
 export function EpisodeChapterPie({
-  mapping,
-  seriesId,
-  totalChapters,
+  layout,
+  routeId,
   onMarked,
 }: {
-  mapping: SeriesMapping;
-  seriesId: string;
-  totalChapters?: number | null;
+  layout: ArcLayout;
+  routeId: number;
   onMarked?: (side: ProgressSide, position: number, previous?: number) => void;
 }) {
   const router = useRouter();
   const { containerRef, hover, moveTo, clearHover } = useHoverLabel();
-  const routeId = Number(seriesId);
   const setSide = useProgress((s) => s.setSide);
   const progress = useSeriesProgress(routeId);
 
-  const { slices, percentAdapted, mangaTotal } = useMemo(() => {
-    const hasUnadapted = mapping.mappings.some((m) => !m.episodes);
-    const maxCoveredChapter = Math.max(
-      ...mapping.mappings.map((m) => m.chapters[1]),
-    );
-    const showTail =
-      !hasUnadapted &&
-      typeof totalChapters === "number" &&
-      totalChapters > maxCoveredChapter;
-    const tailSpan = showTail ? totalChapters! - maxCoveredChapter : 0;
+  const axis = layout.manga;
+  const degreesOf = (units: number): number => (units / axis.total) * 360;
 
-    const arcSpans = mapping.mappings.map(
-      (m) => m.chapters[1] - m.chapters[0] + 1,
-    );
-    const mappingSpan = arcSpans.reduce((acc, n) => acc + n, 0);
-    const totalSpan = mappingSpan + tailSpan;
-
-    const { built } = mapping.mappings.reduce<{
-      cursor: number;
-      built: Slice[];
-    }>(
-      (acc, m, idx) => {
-        const span = arcSpans[idx];
-        const startDeg = (acc.cursor / totalSpan) * 360;
-        const nextCursor = acc.cursor + span;
-        const endDeg = (nextCursor / totalSpan) * 360;
-        const unadapted = !m.episodes;
-        const slice: Slice = {
-          arcIdx: idx,
-          startDeg,
-          endDeg,
-          color: unadapted
-            ? COLOR.surfaceRaised
-            : ARC_COLORS[idx % ARC_COLORS.length],
-          textColor: unadapted ? COLOR.textMuted : COLOR.textOnBright,
-          label: m.arc ?? `${m.chapters[0]}–${m.chapters[1]}`,
-          chapterEnd: m.chapters[1],
-        };
-        return { cursor: nextCursor, built: [...acc.built, slice] };
-      },
-      { cursor: 0, built: [] },
-    );
-
-    const tail: Slice[] = showTail
-      ? [
-          {
-            arcIdx: -1,
-            startDeg: ((totalSpan - tailSpan) / totalSpan) * 360,
-            endDeg: 360,
-            color: COLOR.surfaceRaised,
-            textColor: COLOR.textMuted,
-            label: `${maxCoveredChapter + 1}–${totalChapters}`,
-            chapterEnd: totalChapters ?? maxCoveredChapter,
-          },
-        ]
-      : [];
-
-    const all = [...built, ...tail];
-
-    const adaptedSpan = mapping.mappings.reduce(
-      (acc, m, idx) => (m.episodes ? acc + arcSpans[idx] : acc),
-      0,
-    );
-    const percent = Math.round((adaptedSpan / mappingSpan) * 100);
-
-    return { slices: all, percentAdapted: percent, mangaTotal: totalSpan };
-  }, [mapping, totalChapters]);
-
-  const mangaPos = progress?.manga?.position ?? 0;
-  const markerDeg =
-    mangaTotal > 0 && mangaPos > 0
-      ? Math.min((mangaPos / mangaTotal) * 360, 360)
-      : 0;
+  const markerDeg = progress?.manga
+    ? fractionAt(axis, progress.manga.position) * 360
+    : 0;
   const showMarker = markerDeg > 0 && markerDeg < 360;
   const [markerOuterX, markerOuterY] = polar(markerDeg, R_OUTER);
   const [markerInnerX, markerInnerY] = polar(markerDeg, R_INNER);
@@ -165,7 +92,7 @@ export function EpisodeChapterPie({
     x: number,
     y: number,
     boxSize: number,
-  ): Slice | null => {
+  ): ArcSegment | null => {
     const dx = x - boxSize / 2;
     const dy = y - boxSize / 2;
     const dist = Math.sqrt(dx * dx + dy * dy);
@@ -174,23 +101,24 @@ export function EpisodeChapterPie({
     if (dist > outer || dist < inner) return null;
     const raw = (Math.atan2(dy, dx) * 180) / Math.PI;
     const angle = (raw + 90 + 360) % 360;
-    return slices.find((s) => angle >= s.startDeg && angle < s.endDeg) ?? null;
+    return segmentAt(axis, angle / 360);
   };
 
   const onPress = (e: GestureResponderEvent) => {
     const { locationX, locationY } = e.nativeEvent;
     const slice = sliceFromLocal(locationX, locationY, SIZE);
     if (!slice) return;
-    markProgress("manga", slice.chapterEnd);
+    markProgress("manga", slice.to);
   };
 
   const onLongPress = (e: GestureResponderEvent) => {
     const { locationX, locationY } = e.nativeEvent;
-    const slice = sliceFromLocal(locationX, locationY, SIZE);
-    if (!slice || slice.arcIdx < 0) return;
+    const arcIndex =
+      sliceFromLocal(locationX, locationY, SIZE)?.arcIndex ?? null;
+    if (arcIndex === null) return;
     router.push({
       pathname: "/series/[id]/arc/[arcIdx]",
-      params: { id: seriesId, arcIdx: String(slice.arcIdx) },
+      params: { id: String(routeId), arcIdx: String(arcIndex) },
     });
   };
 
@@ -207,22 +135,18 @@ export function EpisodeChapterPie({
       clearHover();
       return;
     }
-    moveTo(
-      { label: slice.label, color: slice.color, textColor: slice.textColor },
-      e,
-    );
+    const { fill, text } = arcColors(slice);
+    moveTo({ label: segmentLabel(slice), color: fill, textColor: text }, e);
   };
 
-  const fullCircle = slices.length === 1;
+  const slices = axis.segments;
 
   return (
     <View style={styles.outer}>
       <Pressable
         ref={containerRef}
         accessibilityRole="summary"
-        accessibilityLabel={`Arc coverage. ${percentAdapted}% of the mapped chapters are adapted. ${slices
-          .map((s) => `${s.label}, up to chapter ${s.chapterEnd}`)
-          .join(". ")}`}
+        accessibilityLabel={describeCoverage(layout)}
         onPress={onPress}
         onLongPress={onLongPress}
         delayLongPress={LONG_PRESS_MS}
@@ -235,21 +159,24 @@ export function EpisodeChapterPie({
         ]}
       >
         <Svg width={SIZE} height={SIZE} viewBox="-1 -1 2 2">
-          {fullCircle ? (
+          {slices.length === 1 ? (
             <Circle
               cx={0}
               cy={0}
               r={(R_OUTER + R_INNER) / 2}
               fill="none"
-              stroke={slices[0].color}
+              stroke={arcColors(slices[0]).fill}
               strokeWidth={R_OUTER - R_INNER}
             />
           ) : (
             slices.map((s) => (
               <Path
-                key={`${s.arcIdx}-${s.startDeg}`}
-                d={annularSectorPath(s.startDeg, s.endDeg)}
-                fill={s.color}
+                key={`${s.arcIndex ?? "tail"}-${s.offset}`}
+                d={annularSectorPath(
+                  degreesOf(s.offset),
+                  degreesOf(s.offset + s.span),
+                )}
+                fill={arcColors(s).fill}
               />
             ))
           )}
@@ -272,7 +199,7 @@ export function EpisodeChapterPie({
           )}
         </Svg>
         <View style={styles.hole} pointerEvents="none">
-          <Text style={styles.percent}>{percentAdapted}%</Text>
+          <Text style={styles.percent}>{layout.percentAdapted}%</Text>
           <Text style={styles.percentLabel}>ADAPTED</Text>
         </View>
         <HoverLabel hover={hover} />

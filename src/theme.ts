@@ -1,3 +1,4 @@
+import type { ArcSegment } from "@/data/arcLayout";
 import type { SeriesBadge } from "@/types";
 
 export const FONT = {
@@ -106,6 +107,21 @@ export const ARC_COLORS = [
   "#9dff5c",
   "#ff9d5c",
 ] as const;
+
+/**
+ * Fill and text colour of one arc segment in the rail or the pie. Adapted arcs
+ * take their `ARC_COLORS` slot by catalog position; unadapted arcs and the
+ * unmapped tail are grey.
+ */
+export const arcColors = (
+  segment: Pick<ArcSegment, "arcIndex" | "adapted">,
+): { fill: string; text: string } =>
+  segment.adapted && segment.arcIndex !== null
+    ? {
+        fill: ARC_COLORS[segment.arcIndex % ARC_COLORS.length],
+        text: COLOR.textOnBright,
+      }
+    : { fill: COLOR.surfaceRaised, text: COLOR.textMuted };
 
 /** Films sit outside the arc sequence and always render in this colour. */
 export const MOVIE_COLOR = "#5cdfff";

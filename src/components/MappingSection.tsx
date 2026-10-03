@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import type { PressableState, ResolvedMapping, SeriesBadge } from "@/types";
+import { buildArcLayout } from "@/data/arcLayout";
 import {
   chapterToEpisodes,
   episodeToChapters,
@@ -42,6 +43,13 @@ export function MappingSection({
     isMobile ? "pie" : "rail",
   );
   const [markEvent, setMarkEvent] = useState<MarkEvent | null>(null);
+  const layout = useMemo(
+    () =>
+      resolved
+        ? buildArcLayout({ mapping: resolved.mapping, totalChapters })
+        : null,
+    [resolved, totalChapters],
+  );
 
   const onMarked = (
     side: ProgressSide,
@@ -64,7 +72,7 @@ export function MappingSection({
     setMarkEvent({ side, position, previous, suggestion });
   };
 
-  if (!resolved) {
+  if (!resolved || !layout) {
     if (badge === "anime-only") return null;
     return <NoMappingNotice />;
   }
@@ -112,16 +120,15 @@ export function MappingSection({
       )}
       {mappingView === "rail" ? (
         <EpisodeChapterRail
-          mapping={mapping}
-          seriesId={String(routeId)}
-          totalChapters={totalChapters}
+          layout={layout}
+          movies={movies}
+          routeId={routeId}
           onMarked={onMarked}
         />
       ) : (
         <EpisodeChapterPie
-          mapping={mapping}
-          seriesId={String(routeId)}
-          totalChapters={totalChapters}
+          layout={layout}
+          routeId={routeId}
           onMarked={onMarked}
         />
       )}
