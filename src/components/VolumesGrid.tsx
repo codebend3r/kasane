@@ -2,7 +2,6 @@ import { useMemo, useState } from "react";
 import {
   Animated,
   Image,
-  type LayoutChangeEvent,
   Pressable,
   StyleSheet,
   Text,
@@ -15,6 +14,7 @@ import {
   CoverCarousel,
   MOBILE_WIDTH_BREAKPOINT,
 } from "@/components/CoverCarousel";
+import { useLayoutWidth } from "@/components/useLayoutWidth";
 import { COLOR, FONT, pressFeedback } from "@/theme";
 
 const MOBILE_COVER_WIDTH = 140;
@@ -72,11 +72,7 @@ export function VolumesGrid({ covers }: { covers: MangaDexVolumeCover[] }) {
     () => groupCovers(covers, japanese),
     [covers, japanese],
   );
-  const [containerWidth, setContainerWidth] = useState(0);
-
-  const onLayout = (e: LayoutChangeEvent) => {
-    setContainerWidth(e.nativeEvent.layout.width);
-  };
+  const [containerWidth, onLayout] = useLayoutWidth();
 
   const isMobile =
     containerWidth > 0 && containerWidth < MOBILE_WIDTH_BREAKPOINT;

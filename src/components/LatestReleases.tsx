@@ -1,14 +1,12 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
   ActivityIndicator,
   Image,
-  type LayoutChangeEvent,
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
   View,
-  type ViewStyle,
   useWindowDimensions,
 } from "react-native";
 import { Link } from "expo-router";
@@ -22,25 +20,13 @@ import {
   MOBILE_WIDTH_BREAKPOINT,
 } from "@/components/CoverCarousel";
 import { Footer } from "@/components/Footer";
+import { useLayoutWidth } from "@/components/useLayoutWidth";
+import { releaseColumns, tileWidthFor } from "@/data/gridLayout";
 import { BADGE_COLOR, COLOR, FONT, pressFeedback } from "@/theme";
 
 const GRID_ITEM_WIDTH = 160;
 const GRID_ITEM_HEIGHT = 280;
 const GRID_GAP = 16;
-
-const COLUMN_BREAKPOINTS = [
-  { minWidth: 2400, columns: 12 },
-  { minWidth: 2000, columns: 9 },
-  { minWidth: 1700, columns: 8 },
-  { minWidth: 1450, columns: 7 },
-  { minWidth: 1200, columns: 6 },
-  { minWidth: 1000, columns: 5 },
-  { minWidth: 800, columns: 4 },
-  { minWidth: 0, columns: 3 },
-] as const;
-
-const columnsForWidth = (width: number): number =>
-  COLUMN_BREAKPOINTS.find((b) => width >= b.minWidth)?.columns ?? 3;
 
 /** Drops "Season 2", "Final Season", "Part II", "Cour 2" and friends from a title. */
 export function trimSeasonSuffix(title: string): string {
@@ -68,20 +54,21 @@ export function LatestReleases({
 }) {
   const { width: windowWidth } = useWindowDimensions();
   const isMobile = windowWidth < MOBILE_WIDTH_BREAKPOINT;
-  const [carouselWidth, setCarouselWidth] = useState(0);
+  const [contentWidth, onContentLayout] = useLayoutWidth();
   const japanese = usePreferences((s) => s.japanese);
-
-  const onCarouselLayout = (e: LayoutChangeEvent) => {
-    setCarouselWidth(e.nativeEvent.layout.width);
-  };
 
   const entries = useMemo(() => pairResults(data), [data]);
 
-  const columns = isMobile ? 0 : columnsForWidth(windowWidth);
-  const visible =
-    !isMobile && columns > 0
-      ? entries.slice(0, Math.floor(entries.length / columns) * columns)
-      : entries;
+  // Desktop shows only whole rows, so the grid never ends on a short one.
+  const columns = releaseColumns(windowWidth);
+  const visible = isMobile
+    ? entries
+    : entries.slice(0, Math.floor(entries.length / columns) * columns);
+  const tileWidth = tileWidthFor({
+    available: contentWidth,
+    columns,
+    gap: GRID_GAP,
+  });
 
   const renderCard = (entry: SeriesEntry) => (
     <Link
@@ -140,31 +127,29 @@ export function LatestReleases({
         <View style={styles.spinnerWrap}>
           <ActivityIndicator color={COLOR.accent} />
         </View>
-      ) : isMobile ? (
-        <View onLayout={onCarouselLayout}>
-          <CoverCarousel
-            items={visible}
-            keyExtractor={(entry) => String(entry.routeId)}
-            itemWidth={GRID_ITEM_WIDTH}
-            itemHeight={GRID_ITEM_HEIGHT}
-            containerWidth={carouselWidth}
-            renderItem={(entry) => renderCard(entry)}
-          />
-        </View>
       ) : (
-        <View
-          style={
-            {
-              display: "grid",
-              gridTemplateColumns: `repeat(${columns}, 1fr)`,
-              gap: GRID_GAP,
-              alignItems: "flex-start",
-            } as unknown as ViewStyle
-          }
-        >
-          {visible.map((entry) => (
-            <View key={entry.routeId}>{renderCard(entry)}</View>
-          ))}
+        // Measured rather than read from the window, so a classic scrollbar
+        // narrows the tiles instead of wrapping the last one.
+        <View onLayout={onContentLayout}>
+          {isMobile ? (
+            <CoverCarousel
+              items={visible}
+              keyExtractor={(entry) => String(entry.routeId)}
+              itemWidth={GRID_ITEM_WIDTH}
+              itemHeight={GRID_ITEM_HEIGHT}
+              containerWidth={contentWidth}
+              renderItem={(entry) => renderCard(entry)}
+            />
+          ) : (
+            <View style={styles.grid}>
+              {tileWidth > 0 &&
+                visible.map((entry) => (
+                  <View key={entry.routeId} style={{ width: tileWidth }}>
+                    {renderCard(entry)}
+                  </View>
+                ))}
+            </View>
+          )}
         </View>
       )}
       <Footer />
@@ -176,6 +161,12 @@ const styles = StyleSheet.create({
   spinnerWrap: { paddingTop: 24 },
   latestScroll: { paddingBottom: 32, gap: 16 },
   latestHeader: { gap: 2 },
+  grid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: GRID_GAP,
+    alignItems: "flex-start",
+  },
   latestEyebrow: {
     color: COLOR.accent,
     fontSize: 11,

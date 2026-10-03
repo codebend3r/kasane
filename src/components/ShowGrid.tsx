@@ -18,7 +18,7 @@ export function ShowGrid({
   covers: CoverMap;
 }) {
   const { width } = useWindowDimensions();
-  const { tileWidth } = gridLayout(width - GRID_PAGE_PADDING);
+  const { tileWidth } = gridLayout({ available: width - GRID_PAGE_PADDING });
 
   return (
     <View style={styles.grid}>
