@@ -112,5 +112,14 @@
   },
   "Eyeshield 21": {
     "episode-gap": "episodes 88-100 are the anime-original Cream Puff Cup and Kanto lead-in, so they adapt no manga"
+  },
+  "Tsubasa RESERVoir CHRoNiCLE": {
+    "episode-gap": "episodes 16, 26 and 37-39 are anime-original worlds (Storm Country, Tsarastora Country and others), so they adapt no manga"
+  },
+  "Übel Blatt": {
+    "catalog-ahead-of-manga": "chapters use print numbering 4-170 because vol 0 (ch 1-3) is a separate AniList entry, so AniList's 167 is the same span offset by 3"
+  },
+  "A Town Where You Live": {
+    "episode-null-sandwich": "the TV anime opens at chapter 80 and skips the whole Hiroshima arc (ch 1-79), so the unadapted row sits before the first adapted arc"
   }
 }
