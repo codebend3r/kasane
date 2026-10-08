@@ -23,3 +23,8 @@ nd = "nd"
 passione = "passione"
 rin = "rin"
 hime = "hime"
+# Catalog migrations again: cours (the anime industry's broadcast block),
+# Mount Aso (365 Days to the Wedding) and Mian Long (SHY).
+cours = "cours"
+aso = "aso"
+mian = "mian"
