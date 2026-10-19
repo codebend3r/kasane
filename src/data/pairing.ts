@@ -32,10 +32,51 @@ export function partnerIdOf(media: AniListMedia): number | null {
     : findRelatedId(edges, "SOURCE", "MANGA");
 }
 
-/** Which sides a series has, judged from one of its media. */
-export function seriesBadgeOf(media: AniListMedia): SeriesBadge {
-  if (partnerIdOf(media) !== null) return "both";
-  return media.type === "MANGA" ? "manga-only" : "anime-only";
+/**
+ * The partner id to show `media` with: the one a curated mapping names when
+ * there is one, otherwise the partner AniList's own relations point at.
+ */
+export function partnerIdFor({
+  media,
+  curated,
+}: {
+  media: AniListMedia;
+  curated: SeriesMapping | null;
+}): number | null {
+  if (!curated) return partnerIdOf(media);
+  return media.id === curated.anilistAnimeId
+    ? curated.anilistMangaId
+    : curated.anilistAnimeId;
+}
+
+/**
+ * The series `media` belongs to, given its partner's id and, once loaded, the
+ * partner itself. A series is keyed on its manga, so progress marked from
+ * either side lands in one place, and a known partner id is enough to call it
+ * "both" while the partner is still loading.
+ */
+export function toSeriesEntry<M extends AniListMedia>({
+  media,
+  partnerId,
+  partner,
+}: {
+  media: M;
+  partnerId: number | null;
+  partner: M | null;
+}): SeriesEntry<M> {
+  const isManga = media.type === "MANGA";
+  const other =
+    partner !== null && partner.type !== media.type ? partner : null;
+  const manga = isManga ? media : other;
+  const badge: SeriesBadge =
+    partnerId !== null ? "both" : isManga ? "manga-only" : "anime-only";
+  return {
+    routeId: isManga ? media.id : (partnerId ?? media.id),
+    primary: manga ?? media,
+    manga,
+    anime: isManga ? other : media,
+    badge,
+  };
 }
 
 export const BADGE_LABEL: Record<SeriesBadge, string> = {
@@ -65,26 +106,13 @@ export function pairResults(media: AniListMedia[]): SeriesEntry[] {
 
   const entries = media
     .filter((m) => !absorbed.has(m.id))
-    .map((m): SeriesEntry => {
+    .map((m) => {
       const partnerId = partnerIdOf(m);
-      if (m.type === "MANGA") {
-        const anime = partnerId ? (byId.get(partnerId) ?? null) : null;
-        return {
-          routeId: m.id,
-          primary: m,
-          manga: m,
-          anime,
-          badge: seriesBadgeOf(m),
-        };
-      }
-      const manga = partnerId ? (byId.get(partnerId) ?? null) : null;
-      return {
-        routeId: partnerId ?? m.id,
-        primary: manga ?? m,
-        manga,
-        anime: m,
-        badge: seriesBadgeOf(m),
-      };
+      return toSeriesEntry({
+        media: m,
+        partnerId,
+        partner: partnerId === null ? null : (byId.get(partnerId) ?? null),
+      });
     });
 
   // Multiple anime adapting the same source manga (e.g. Mob Psycho 100 S1/II/III)

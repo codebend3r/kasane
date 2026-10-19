@@ -98,7 +98,9 @@ describe("useResolvedMapping", () => {
   it("is the curated entry when the catalog maps the media", async () => {
     serveCatalog({});
     const anime = makeMedia({ id: 16498, type: "ANIME" });
-    const { captures, unmount } = renderHook(() => useResolvedMapping(anime));
+    const { captures, unmount } = renderHook(() =>
+      useResolvedMapping({ id: anime.id, media: anime }),
+    );
     try {
       await settle(() => last(captures) !== null, "the curated mapping");
       expect(last(captures)).toEqual({
@@ -126,7 +128,9 @@ describe("useResolvedMapping", () => {
         }),
       ],
     });
-    const { captures, unmount } = renderHook(() => useResolvedMapping(anime));
+    const { captures, unmount } = renderHook(() =>
+      useResolvedMapping({ id: anime.id, media: anime }),
+    );
     try {
       // Nothing is estimated before the catalog says the series is uncurated.
       expect(captures[0]).toBeNull();
@@ -140,11 +144,43 @@ describe("useResolvedMapping", () => {
     }
   });
 
-  it("is null without media", () => {
+  it("resolves a curated id before its media has loaded", async () => {
     serveCatalog({});
-    const { captures, unmount } = renderHook(() => useResolvedMapping(null));
+    const { captures, unmount } = renderHook(() =>
+      useResolvedMapping({ id: 53390, media: null }),
+    );
+    try {
+      await settle(() => last(captures) !== null, "the curated mapping");
+      expect(last(captures)).toEqual({
+        source: "curated",
+        mapping: seriesMapping,
+      });
+    } finally {
+      unmount();
+    }
+  });
+
+  it("is null without an id", () => {
+    serveCatalog({});
+    const { captures, unmount } = renderHook(() =>
+      useResolvedMapping({ id: null, media: null }),
+    );
     try {
       expect(last(captures)).toBeNull();
+    } finally {
+      unmount();
+    }
+  });
+
+  it("estimates nothing for an uncurated id without media", async () => {
+    serveCatalog({});
+    const { captures, unmount } = renderHook(() => ({
+      resolved: useResolvedMapping({ id: 1, media: null }),
+      loaded: useCatalog().isLoaded,
+    }));
+    try {
+      await settle(() => last(captures).loaded, "the catalog");
+      expect(last(captures).resolved).toBeNull();
     } finally {
       unmount();
     }

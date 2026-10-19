@@ -102,11 +102,17 @@ export type ResolvedMapping = {
 
 export type SeriesBadge = "both" | "manga-only" | "anime-only";
 
-export type SeriesEntry = {
+/**
+ * One series, both sides. `M` lets a screen that loaded the detail query keep
+ * the richer record, synopsis included, on every side.
+ */
+export type SeriesEntry<M extends AniListMedia = AniListMedia> = {
+  /** The manga's id when the series has one, else the anime's. */
   routeId: number;
-  primary: AniListMedia;
-  anime: AniListMedia | null;
-  manga: AniListMedia | null;
+  /** The manga when there is one, else the anime. */
+  primary: M;
+  anime: M | null;
+  manga: M | null;
   badge: SeriesBadge;
 };
 

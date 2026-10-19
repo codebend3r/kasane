@@ -8,9 +8,8 @@ import {
 } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { lastMappedEpisode } from "@/data/mapping";
-import { partnerIdOf, seriesBadgeOf } from "@/data/pairing";
-import { useResolvedMapping } from "@/queries/catalog";
-import { useFranchise, useMangaDex, useMedia } from "@/queries/media";
+import { useFranchise, useMangaDex } from "@/queries/media";
+import { useSeries } from "@/queries/series";
 import { FranchiseSeasons } from "@/components/FranchiseSeasons";
 import { MappingSection } from "@/components/MappingSection";
 import { SeriesHeader } from "@/components/SeriesHeader";
@@ -28,42 +27,14 @@ export default function SeriesDetail() {
   const mobileCoverWidth = Math.min(windowWidth - 32, 420);
   const mobileCoverHeight = Math.round(mobileCoverWidth * (340 / 240));
 
-  const { data: media, isLoading } = useMedia(
+  const { entry, resolved, isLoading } = useSeries(
     Number.isNaN(mediaId) ? null : mediaId,
   );
-
-  const resolved = useResolvedMapping(media ?? null);
-  const curated = resolved?.source === "curated" ? resolved.mapping : null;
-
-  // The curated mapping names the partner outright; otherwise trust AniList.
-  const partnerId = !media
-    ? null
-    : curated
-      ? media.id === curated.anilistAnimeId
-        ? curated.anilistMangaId
-        : curated.anilistAnimeId
-      : partnerIdOf(media);
-
-  const { data: partner } = useMedia(partnerId);
-
-  const manga =
-    media?.type === "MANGA"
-      ? media
-      : partner?.type === "MANGA"
-        ? partner
-        : null;
-  const anime =
-    media?.type === "ANIME"
-      ? media
-      : partner?.type === "ANIME"
-        ? partner
-        : null;
-  const primary = manga ?? anime ?? null;
+  const manga = entry?.manga ?? null;
+  const anime = entry?.anime ?? null;
 
   const { data: mangadex, isFetching: mangadexLoading } = useMangaDex(manga);
   const { data: franchise } = useFranchise(anime);
-
-  const routeId = manga?.id ?? anime?.id ?? mediaId;
 
   if (isLoading) {
     return (
@@ -73,7 +44,7 @@ export default function SeriesDetail() {
     );
   }
 
-  if (!media || !primary) {
+  if (!entry) {
     return (
       <View style={styles.center}>
         <Text style={styles.empty}>Could not load series.</Text>
@@ -81,7 +52,7 @@ export default function SeriesDetail() {
     );
   }
 
-  const badge = seriesBadgeOf(media);
+  const { primary, badge, routeId } = entry;
   const totalVolumes = mangadex?.volumes ?? manga?.volumes ?? null;
   const totalChapters = mangadex?.chapters ?? manga?.chapters ?? null;
   const totalEpisodes =
@@ -119,7 +90,7 @@ export default function SeriesDetail() {
         media={primary}
         badge={badge}
         subParts={subParts}
-        isMapped={!!curated}
+        isMapped={resolved?.source === "curated"}
         isMobile={isMobile}
         mobileCoverWidth={mobileCoverWidth}
         mobileCoverHeight={mobileCoverHeight}

@@ -2,9 +2,11 @@ import { describe, expect, it } from "bun:test";
 import {
   buildSyntheticMapping,
   pairResults,
+  partnerIdFor,
   partnerIdOf,
-  seriesBadgeOf,
+  toSeriesEntry,
 } from "./pairing";
+import type { SeriesMapping } from "@/types";
 import { makeEdge, makeMedia } from "@test/fixtures/media";
 
 describe("pairResults", () => {
@@ -263,22 +265,85 @@ describe("partnerIdOf", () => {
   });
 });
 
-describe("seriesBadgeOf", () => {
-  it("is both when the media has a partner", () => {
+describe("partnerIdFor", () => {
+  const curated: SeriesMapping = {
+    anilistAnimeId: 10,
+    anilistMangaId: 20,
+    title: "Curated",
+    mappings: [{ episodes: [1, 12], chapters: [1, 40] }],
+  };
+
+  it("takes the other side of the curated mapping over AniList's relations", () => {
     const anime = makeMedia({
-      id: 1,
+      id: 10,
       type: "ANIME",
-      relations: [makeEdge({ relationType: "SOURCE", id: 2, type: "MANGA" })],
+      relations: [makeEdge({ relationType: "SOURCE", id: 99, type: "MANGA" })],
     });
-    expect(seriesBadgeOf(anime)).toBe("both");
+    expect(partnerIdFor({ media: anime, curated })).toBe(20);
+  });
+
+  it("names the anime when the manga side is opened", () => {
+    const manga = makeMedia({ id: 20, type: "MANGA" });
+    expect(partnerIdFor({ media: manga, curated })).toBe(10);
+  });
+
+  it("falls back to AniList's relations without a curated mapping", () => {
+    const anime = makeMedia({
+      id: 10,
+      type: "ANIME",
+      relations: [makeEdge({ relationType: "SOURCE", id: 99, type: "MANGA" })],
+    });
+    expect(partnerIdFor({ media: anime, curated: null })).toBe(99);
+  });
+});
+
+describe("toSeriesEntry", () => {
+  const anime = makeMedia({ id: 1, type: "ANIME" });
+  const manga = makeMedia({ id: 2, type: "MANGA" });
+
+  it("keys an anime and its loaded manga on the manga", () => {
+    expect(
+      toSeriesEntry({ media: anime, partnerId: 2, partner: manga }),
+    ).toEqual({ routeId: 2, primary: manga, manga, anime, badge: "both" });
+  });
+
+  it("keys on the partner id and calls it both while the partner loads", () => {
+    expect(
+      toSeriesEntry({ media: anime, partnerId: 2, partner: null }),
+    ).toEqual({
+      routeId: 2,
+      primary: anime,
+      manga: null,
+      anime,
+      badge: "both",
+    });
+  });
+
+  it("keeps a manga's own id when it is the media", () => {
+    expect(
+      toSeriesEntry({ media: manga, partnerId: 1, partner: anime }),
+    ).toEqual({ routeId: 2, primary: manga, manga, anime, badge: "both" });
+  });
+
+  it("ignores a partner of the same type as the media", () => {
+    const otherAnime = makeMedia({ id: 3, type: "ANIME" });
+    expect(
+      toSeriesEntry({ media: anime, partnerId: 3, partner: otherAnime }),
+    ).toEqual({
+      routeId: 3,
+      primary: anime,
+      manga: null,
+      anime,
+      badge: "both",
+    });
   });
 
   it("names the media's own side when it has no partner", () => {
-    expect(seriesBadgeOf(makeMedia({ id: 1, type: "ANIME" }))).toBe(
-      "anime-only",
-    );
-    expect(seriesBadgeOf(makeMedia({ id: 2, type: "MANGA" }))).toBe(
-      "manga-only",
-    );
+    expect(
+      toSeriesEntry({ media: anime, partnerId: null, partner: null }).badge,
+    ).toBe("anime-only");
+    expect(
+      toSeriesEntry({ media: manga, partnerId: null, partner: null }).badge,
+    ).toBe("manga-only");
   });
 });
