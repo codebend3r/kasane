@@ -145,8 +145,6 @@ export type AnimeFranchise = {
 };
 
 export type MangaDexInfo = {
-  id: string;
-  primaryTitle: string;
   titles: MangaDexTitle[];
   volumes: number;
   chapters: number;

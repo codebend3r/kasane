@@ -263,8 +263,6 @@ export async function getMangaDexInfoByAniListId(
   const titles = buildTitles(match);
 
   return {
-    id: match.id,
-    primaryTitle: preferredTitle(titles) ?? searchTitle,
     titles,
     volumes: aggregate.volumeCount,
     chapters: aggregate.chapterCount,
