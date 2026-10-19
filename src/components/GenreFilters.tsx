@@ -6,35 +6,30 @@ import {
   Text,
   View,
 } from "react-native";
+import { useState } from "react";
 import type { GenreFilter } from "@/data/genreFilters";
+import { useGenreFilters } from "@/queries/catalog";
+import { usePreferences } from "@/state/preferences";
+import { useIsNarrow } from "@/components/useIsNarrow";
 import { COLOR, FONT, pressFeedback, SPACE, TEXT } from "@/theme";
 
-type GenreFiltersProps = {
-  filters: readonly GenreFilter[];
-  hiddenGenres: string[];
-  onToggle: (id: string) => void;
-  onSetHidden: (ids: string[]) => void;
-  /** Phone widths get a bottom sheet; wider viewports get an inline chip row. */
-  isMobile: boolean;
-  open: boolean;
-  onOpenChange: (next: boolean) => void;
-};
-
-export function GenreFilters({
-  filters,
-  hiddenGenres,
-  onToggle,
-  onSetHidden,
-  isMobile,
-  open,
-  onOpenChange,
-}: GenreFiltersProps) {
+/**
+ * The genre chips: an inline row on wider viewports, a bottom sheet on a
+ * phone. Reads and writes the hidden set straight from preferences.
+ */
+export function GenreFilters() {
+  const filters = useGenreFilters();
+  const hiddenGenres = usePreferences((s) => s.hiddenGenres);
+  const onToggle = usePreferences((s) => s.toggleHiddenGenre);
+  const onSetHidden = usePreferences((s) => s.setHiddenGenres);
+  const isMobile = useIsNarrow();
+  const [open, setOpen] = useState(false);
   const hiddenCount = hiddenGenres.length;
 
   return (
     <>
       <Pressable
-        onPress={() => onOpenChange(!open)}
+        onPress={() => setOpen(!open)}
         accessibilityRole="button"
         accessibilityLabel="Filter genres"
         accessibilityState={{ expanded: open }}
@@ -88,7 +83,7 @@ export function GenreFilters({
           filters={filters}
           hiddenGenres={hiddenGenres}
           onToggle={onToggle}
-          onClose={() => onOpenChange(false)}
+          onClose={() => setOpen(false)}
         />
       )}
     </>
