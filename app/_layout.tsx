@@ -50,6 +50,10 @@ const persister = createAsyncStoragePersister({
   storage: AsyncStorage,
   key: "kasane-query-cache",
 });
+// Bump whenever a persisted payload changes shape. A cache written under a
+// different value is discarded at launch instead of hydrating data the
+// current code cannot read.
+const PERSISTED_CACHE_VERSION = "2";
 const PERSISTED_QUERIES: readonly string[] = [
   CATALOG_QUERY_KEY[0],
   COVERS_QUERY_KEY[0],
@@ -83,6 +87,7 @@ export default function RootLayout() {
       persistOptions={{
         persister,
         maxAge: WEEK_MS,
+        buster: PERSISTED_CACHE_VERSION,
         dehydrateOptions: {
           shouldDehydrateQuery: (query) =>
             defaultShouldDehydrateQuery(query) &&
