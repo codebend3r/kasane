@@ -41,7 +41,7 @@ export function detailStats({
   volumes: number | null;
 }): string[] {
   const { primary, badge } = entry;
-  const movies = mapping?.movies?.length ?? 0;
+  const movies = mapping?.movies.length ?? 0;
   const status = primary.status?.toLowerCase() ?? null;
   const dated = primary.startDate.year
     ? [formatAniListDate(primary.startDate)]

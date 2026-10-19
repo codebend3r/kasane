@@ -168,5 +168,6 @@ export function buildSyntheticMapping(
         arc: "Full series (auto)",
       },
     ],
+    movies: [],
   };
 }

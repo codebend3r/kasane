@@ -68,7 +68,7 @@ export function MappingSection({
 
   const { mapping, source } = resolved;
   const arcsBehind = mapping.mappings.filter((m) => !isAdapted(m)).length;
-  const movies = mapping.movies ?? [];
+  const { movies } = mapping;
 
   return (
     <View style={styles.mappingBlock}>

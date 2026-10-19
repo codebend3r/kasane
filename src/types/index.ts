@@ -87,7 +87,7 @@ export type SeriesMapping = {
   anilistMangaId: number;
   title: string;
   mappings: MappingEntry[];
-  movies?: MovieEntry[];
+  movies: MovieEntry[];
   sourceNotes?: string;
 };
 

@@ -12,6 +12,7 @@ const series: SeriesMapping = {
   anilistAnimeId: 16498,
   anilistMangaId: 53390,
   title: "Attack on Titan",
+  movies: [],
   mappings: [
     { chapters: [1, 8], episodes: [1, 2], arc: "Fall of Shiganshina" },
     { chapters: [9, 34], episodes: [3, 13], arc: "Battle of Trost" },

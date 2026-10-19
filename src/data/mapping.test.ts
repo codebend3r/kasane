@@ -18,6 +18,7 @@ const mapping: SeriesMapping = {
   anilistAnimeId: 1,
   anilistMangaId: 2,
   title: "Test",
+  movies: [],
   mappings: [
     { episodes: [1, 12], chapters: [1, 40], arc: "First" },
     { episodes: [15, 24], chapters: [41, 80], arc: "Second" },
@@ -29,6 +30,7 @@ const overlapping: SeriesMapping = {
   anilistAnimeId: 1,
   anilistMangaId: 2,
   title: "Overlap",
+  movies: [],
   mappings: [
     { episodes: [1, 12], chapters: [1, 40], arc: "First" },
     { episodes: [10, 20], chapters: [30, 70], arc: "Overlaps first" },
@@ -67,6 +69,7 @@ describe("episodeToChapters", () => {
       anilistAnimeId: 1,
       anilistMangaId: 2,
       title: "Unadapted",
+      movies: [],
       mappings: [{ chapters: [1, 40], arc: "Not yet animated" }],
     };
     expect(episodeToChapters(unadaptedOnly, 1)).toBeNull();
