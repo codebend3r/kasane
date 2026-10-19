@@ -100,23 +100,13 @@ export default function RootLayout() {
         <View style={styles.root}>
           <CatalogWarmup />
           <GlobalHeader />
+          {/* expo-router registers every file under `app/` on its own. */}
           <Stack
             screenOptions={{
               headerShown: false,
               contentStyle: { backgroundColor: COLOR.background },
             }}
-          >
-            <Stack.Screen name="index" />
-            <Stack.Screen name="login" />
-            <Stack.Screen name="mapped" />
-            <Stack.Screen name="my-shows" />
-            <Stack.Screen name="settings" />
-            <Stack.Screen name="anime/[id]/index" />
-            <Stack.Screen name="anime/[id]/arc/[arcIdx]" />
-            <Stack.Screen name="manga/[id]/index" />
-            <Stack.Screen name="manga/[id]/arc/[arcIdx]" />
-            <Stack.Screen name="series/[id]/index" />
-          </Stack>
+          />
           <LoginPrompt />
           <SideMenu />
         </View>
