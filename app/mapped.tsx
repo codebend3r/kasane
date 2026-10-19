@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useCatalog } from "@/queries/catalog";
 import {
   DEFAULT_SORT,
@@ -12,8 +12,7 @@ import {
 import { useCovers } from "@/queries/covers";
 import { ShowGrid } from "@/components/ShowGrid";
 import { ShowRow } from "@/components/ShowRow";
-import { Footer } from "@/components/Footer";
-import { Pressable } from "react-native";
+import { Page } from "@/components/Page";
 import { COLOR, FONT, pressFeedback, SPACE, TEXT } from "@/theme";
 
 type ViewMode = "grid" | "list";
@@ -38,13 +37,11 @@ export default function MappedShowsScreen() {
   const covers = useCovers(coverIds);
 
   return (
-    <ScrollView style={styles.root} contentContainerStyle={styles.content}>
-      <Text style={styles.eyebrow}>Catalog</Text>
-      <Text style={styles.title}>All mapped series</Text>
-      <Text style={styles.blurb}>
-        Every series kasane has an episode ↔ chapter map for.
-      </Text>
-
+    <Page
+      eyebrow="Catalog"
+      title="All mapped series"
+      blurb="Every series kasane has an episode ↔ chapter map for."
+    >
       <View style={styles.sortRow}>
         <Text style={styles.count}>
           {shows.length} {shows.length === 1 ? "series" : "series"}
@@ -96,8 +93,7 @@ export default function MappedShowsScreen() {
           ))}
         </View>
       )}
-      <Footer />
-    </ScrollView>
+    </Page>
   );
 }
 
@@ -164,11 +160,6 @@ function ViewButton({
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1 },
-  content: { gap: SPACE.lg, padding: SPACE.xl, paddingBottom: SPACE.pageEnd },
-  eyebrow: { ...TEXT.eyebrow, color: COLOR.accent },
-  title: { ...TEXT.pageTitle, color: COLOR.textPrimary },
-  blurb: { color: COLOR.textMuted, fontSize: 14, fontFamily: FONT.regular },
   sortRow: {
     flexDirection: "row",
     flexWrap: "wrap",

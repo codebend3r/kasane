@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { useCatalog } from "@/queries/catalog";
 import { toMappedShow } from "@/data/mappedShows";
@@ -7,7 +7,7 @@ import { useAuthEmail, useAuthStatus } from "@/state/auth";
 import { useInProgressEntries } from "@/state/progress";
 import { useCovers } from "@/queries/covers";
 import { ShowGrid } from "@/components/ShowGrid";
-import { Footer } from "@/components/Footer";
+import { Page } from "@/components/Page";
 import { COLOR, FONT, pressFeedback, SPACE, TEXT } from "@/theme";
 
 export default function MyShowsScreen() {
@@ -39,13 +39,11 @@ export default function MyShowsScreen() {
   );
 
   return (
-    <ScrollView style={styles.root} contentContainerStyle={styles.content}>
-      <Text style={styles.eyebrow}>Tracking</Text>
-      <Text style={styles.title}>My shows</Text>
-      <Text style={styles.blurb}>
-        Series you&rsquo;ve marked progress on, newest first.
-      </Text>
-
+    <Page
+      eyebrow="Tracking"
+      title="My shows"
+      blurb="Series you’ve marked progress on, newest first."
+    >
       {status !== "signedIn" && (
         <View style={styles.callout}>
           <Text style={styles.calloutEyebrow}>Not signed in</Text>
@@ -80,17 +78,11 @@ export default function MyShowsScreen() {
       ) : (
         <ShowGrid items={shows} covers={covers} />
       )}
-      <Footer />
-    </ScrollView>
+    </Page>
   );
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1 },
-  content: { gap: SPACE.lg, padding: SPACE.xl, paddingBottom: SPACE.pageEnd },
-  eyebrow: { ...TEXT.eyebrow, color: COLOR.accent },
-  title: { ...TEXT.pageTitle, color: COLOR.textPrimary },
-  blurb: { color: COLOR.textMuted, fontSize: 14, fontFamily: FONT.regular },
   callout: {
     maxWidth: 620,
     gap: SPACE.mdl,
