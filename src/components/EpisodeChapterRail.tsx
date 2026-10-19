@@ -1,8 +1,9 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import type { MovieEntry, ProgressSide } from "@/types";
+import type { MouseLike, MovieEntry, ProgressSide } from "@/types";
 import {
   COLOR,
   FONT,
+  LONG_PRESS_MS,
   MOVIE_COLOR,
   arcColors,
   pressFeedback,
@@ -13,13 +14,17 @@ import {
   describeEpisodes,
   fractionAt,
   segmentLabel,
+  type ArcAxis,
   type ArcLayout,
 } from "@/data/arcLayout";
 import type { SeriesProgress } from "@/state/progress";
-import { HoverLabel, useHoverLabel } from "@/components/HoverLabel";
+import {
+  HoverLabel,
+  useHoverLabel,
+  type HoverContent,
+} from "@/components/HoverLabel";
 
 const BAR_HEIGHT = 44;
-const LONG_PRESS_MS = 320;
 
 const hasAfterEpisode = (
   movie: MovieEntry,
@@ -41,61 +46,19 @@ export function EpisodeChapterRail({
   onOpenArc: (arcIndex: number) => void;
 }) {
   const { containerRef, hover, moveTo, clearHover } = useHoverLabel();
-
   const movieMarkers = movies.filter(hasAfterEpisode);
-  const animePosition = progress?.anime?.position ?? null;
-  const mangaPosition = progress?.manga?.position ?? null;
-  const animeFrac =
-    animePosition !== null && layout.anime.total > 0
-      ? fractionAt(layout.anime, animePosition)
-      : null;
-  const mangaFrac =
-    mangaPosition !== null && layout.manga.total > 0
-      ? fractionAt(layout.manga, mangaPosition)
-      : null;
+  const lane = { onMark, onOpenArc, moveTo, clearHover };
 
   return (
     <View ref={containerRef} style={styles.container}>
-      <Text style={styles.label}>Anime episodes →</Text>
-      <View
-        style={styles.rail}
-        accessibilityRole="summary"
-        accessibilityLabel={describeEpisodes(layout)}
-      >
-        {layout.anime.segments.map((seg) => {
-          const label = segmentLabel(seg);
-          const { fill, text } = arcColors(seg);
-          return (
-            <Pressable
-              key={`ep-${seg.arcIndex}`}
-              accessibilityElementsHidden
-              importantForAccessibility="no-hide-descendants"
-              onPress={() => onMark("anime", seg.to)}
-              onLongPress={() =>
-                seg.arcIndex !== null && onOpenArc(seg.arcIndex)
-              }
-              delayLongPress={LONG_PRESS_MS}
-              onHoverOut={clearHover}
-              onMouseMove={(e) =>
-                moveTo({ label, color: fill, textColor: text }, e)
-              }
-              style={(state) => [
-                styles.bar,
-                {
-                  flex: seg.span,
-                  backgroundColor: fill,
-                },
-                pressFeedback(state),
-              ]}
-            >
-              <Text style={[styles.barText, { color: text }]} numberOfLines={1}>
-                {label}
-              </Text>
-            </Pressable>
-          );
-        })}
-        {animeFrac !== null && <ProgressOverlay frac={animeFrac} />}
-      </View>
+      <ArcLane
+        {...lane}
+        side="anime"
+        label="Anime episodes →"
+        description={describeEpisodes(layout)}
+        axis={layout.anime}
+        position={progress?.anime?.position ?? null}
+      />
       {movieMarkers.length > 0 && layout.anime.total > 0 && (
         <View style={styles.movieLane}>
           {movieMarkers.map((movie, idx) => {
@@ -138,61 +101,14 @@ export function EpisodeChapterRail({
         </View>
       )}
 
-      <Text style={styles.label}>Manga chapters →</Text>
-      <View
-        style={styles.rail}
-        accessibilityRole="summary"
-        accessibilityLabel={describeChapters(layout)}
-      >
-        {layout.manga.segments.map((seg) => {
-          const label = segmentLabel(seg);
-          const { fill, text } = arcColors(seg);
-          const arcIndex = seg.arcIndex;
-          // The unmapped tail is context, not an arc: nothing to mark or open.
-          if (arcIndex === null) {
-            return (
-              <View
-                key="tail"
-                style={[styles.bar, { flex: seg.span, backgroundColor: fill }]}
-              >
-                <Text
-                  style={[styles.barText, { color: text }]}
-                  numberOfLines={1}
-                >
-                  {label}
-                </Text>
-              </View>
-            );
-          }
-          return (
-            <Pressable
-              key={`ch-${arcIndex}`}
-              accessibilityElementsHidden
-              importantForAccessibility="no-hide-descendants"
-              onPress={() => onMark("manga", seg.to)}
-              onLongPress={() => onOpenArc(arcIndex)}
-              delayLongPress={LONG_PRESS_MS}
-              onHoverOut={clearHover}
-              onMouseMove={(e) =>
-                moveTo({ label, color: fill, textColor: text }, e)
-              }
-              style={(state) => [
-                styles.bar,
-                {
-                  flex: seg.span,
-                  backgroundColor: fill,
-                },
-                pressFeedback(state),
-              ]}
-            >
-              <Text style={[styles.barText, { color: text }]} numberOfLines={1}>
-                {label}
-              </Text>
-            </Pressable>
-          );
-        })}
-        {mangaFrac !== null && <ProgressOverlay frac={mangaFrac} />}
-      </View>
+      <ArcLane
+        {...lane}
+        side="manga"
+        label="Manga chapters →"
+        description={describeChapters(layout)}
+        axis={layout.manga}
+        position={progress?.manga?.position ?? null}
+      />
 
       <Text style={styles.hint}>
         Tap to mark · Long-press to open arc
@@ -201,6 +117,90 @@ export function EpisodeChapterRail({
 
       <HoverLabel hover={hover} />
     </View>
+  );
+}
+
+/**
+ * One side's bars, drawn end to end by span, with the reader's progress laid
+ * over them. The manga's unmapped tail is context, not an arc, so it draws as
+ * a plain bar with nothing to mark or open.
+ */
+function ArcLane({
+  side,
+  label,
+  description,
+  axis,
+  position,
+  onMark,
+  onOpenArc,
+  moveTo,
+  clearHover,
+}: {
+  side: ProgressSide;
+  label: string;
+  description: string;
+  axis: ArcAxis;
+  position: number | null;
+  onMark: (side: ProgressSide, position: number) => void;
+  onOpenArc: (arcIndex: number) => void;
+  moveTo: (content: HoverContent, e: MouseLike) => void;
+  clearHover: () => void;
+}) {
+  const frac =
+    position !== null && axis.total > 0 ? fractionAt(axis, position) : null;
+
+  return (
+    <>
+      <Text style={styles.label}>{label}</Text>
+      <View
+        style={styles.rail}
+        accessibilityRole="summary"
+        accessibilityLabel={description}
+      >
+        {axis.segments.map((seg) => {
+          const text = segmentLabel(seg);
+          const colors = arcColors(seg);
+          const fill = { flex: seg.span, backgroundColor: colors.fill };
+          const barText = (
+            <Text
+              style={[styles.barText, { color: colors.text }]}
+              numberOfLines={1}
+            >
+              {text}
+            </Text>
+          );
+          const arcIndex = seg.arcIndex;
+          if (arcIndex === null) {
+            return (
+              <View key={`${side}-tail`} style={[styles.bar, fill]}>
+                {barText}
+              </View>
+            );
+          }
+          return (
+            <Pressable
+              key={`${side}-${arcIndex}`}
+              accessibilityElementsHidden
+              importantForAccessibility="no-hide-descendants"
+              onPress={() => onMark(side, seg.to)}
+              onLongPress={() => onOpenArc(arcIndex)}
+              delayLongPress={LONG_PRESS_MS}
+              onHoverOut={clearHover}
+              onMouseMove={(e) =>
+                moveTo(
+                  { label: text, color: colors.fill, textColor: colors.text },
+                  e,
+                )
+              }
+              style={(state) => [styles.bar, fill, pressFeedback(state)]}
+            >
+              {barText}
+            </Pressable>
+          );
+        })}
+        {frac !== null && <ProgressOverlay frac={frac} />}
+      </View>
+    </>
   );
 }
 

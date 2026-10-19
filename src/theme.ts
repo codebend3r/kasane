@@ -143,6 +143,9 @@ export const MOVIE_COLOR = "#5cdfff";
 /** Windows narrower than this get the phone layout. */
 export const NARROW_WIDTH = 700;
 
+/** How long a press on an arc bar or slice must last to open the arc. */
+export const LONG_PRESS_MS = 320;
+
 /**
  * Spacing scale for grid `gap` and container `padding`. The repo does not use
  * margins, so these properties carry all layout spacing. `mdl` and `lgx` are

@@ -4,7 +4,7 @@ import { FONT, SPACE } from "@/theme";
 import { hasBoundingRect } from "@/data/guards";
 import type { MouseLike } from "@/types";
 
-type HoverContent = { label: string; color: string; textColor: string };
+export type HoverContent = { label: string; color: string; textColor: string };
 type Hover = HoverContent & { x: number; y: number };
 
 export function useHoverLabel() {
