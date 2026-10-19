@@ -4,24 +4,23 @@ import type { SeriesEntry } from "@/types";
 import { BADGE_COLOR, COLOR, FONT, SPACE } from "@/theme";
 import { useMapping } from "@/queries/catalog";
 import { displayTitle } from "@/data/format";
-import { lastMappedEpisode } from "@/data/mapping";
+import { cardStats, episodeTotal } from "@/data/seriesStats";
 import { BADGE_LABEL } from "@/data/pairing";
 import { usePreferences } from "@/state/preferences";
 import { useSeriesProgress } from "@/state/progress";
 
 export function SeriesCard({ entry }: { entry: SeriesEntry }) {
-  const { primary, anime, manga, badge, routeId } = entry;
+  const { primary, manga, badge, routeId } = entry;
   const japanese = usePreferences((s) => s.japanese);
   const progress = useSeriesProgress(routeId);
   const title = displayTitle({ title: primary.title, japanese });
 
   const mapping = useMapping(routeId);
-  const mappedEpisodeCount = mapping ? lastMappedEpisode(mapping) : null;
-  const hasMapping = mapping != null;
+  const hasMapping = mapping !== null;
 
   const hasAnime = badge !== "manga-only";
   const hasManga = badge !== "anime-only";
-  const animeTotal = mappedEpisodeCount ?? anime?.episodes ?? null;
+  const animeTotal = episodeTotal({ entry, mapping });
   const mangaTotal = manga?.chapters ?? null;
   const animeFrac =
     progress?.anime && animeTotal
@@ -34,15 +33,7 @@ export function SeriesCard({ entry }: { entry: SeriesEntry }) {
   const showProgressBar =
     (hasAnime && animeFrac !== null) || (hasManga && mangaFrac !== null);
 
-  const parts: string[] = [];
-  if (anime || badge === "anime-only") {
-    const eps = mappedEpisodeCount ?? anime?.episodes ?? null;
-    parts.push(eps ? `${eps} eps` : "Anime ongoing");
-  }
-  if (manga || badge === "manga-only") {
-    parts.push(manga?.chapters ? `${manga.chapters} ch` : "Manga ongoing");
-  }
-  if (primary.startDate.year) parts.push(String(primary.startDate.year));
+  const parts = cardStats({ entry, mapping });
 
   return (
     <Link href={{ pathname: "/series/[id]", params: { id: routeId } }} asChild>

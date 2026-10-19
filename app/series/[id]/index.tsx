@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import { lastMappedEpisode } from "@/data/mapping";
+import { detailStats } from "@/data/seriesStats";
 import { useFranchise, useMangaDex } from "@/queries/media";
 import { useSeries } from "@/queries/series";
 import { FranchiseSeasons } from "@/components/FranchiseSeasons";
@@ -16,7 +16,6 @@ import { SeriesHeader } from "@/components/SeriesHeader";
 import { TitlesList } from "@/components/TitlesList";
 import { VolumesGrid } from "@/components/VolumesGrid";
 import { Footer } from "@/components/Footer";
-import { formatAniListDate } from "@/data/format";
 import { COLOR, FONT, NARROW_WIDTH, SPACE, TEXT } from "@/theme";
 
 export default function SeriesDetail() {
@@ -53,36 +52,13 @@ export default function SeriesDetail() {
   }
 
   const { primary, badge, routeId } = entry;
-  const totalVolumes = mangadex?.volumes ?? manga?.volumes ?? null;
   const totalChapters = mangadex?.chapters ?? manga?.chapters ?? null;
-  const totalEpisodes =
-    (resolved ? lastMappedEpisode(resolved.mapping) : null) ??
-    anime?.episodes ??
-    null;
-  const status = primary.status?.toLowerCase() ?? null;
-  const showAnimeStats = badge !== "manga-only";
-  const showMangaStats = badge !== "anime-only";
-
-  const subParts: string[] = [];
-  if (showMangaStats) {
-    subParts.push(`${totalChapters ?? "?"} ch`);
-    subParts.push(`${totalVolumes ?? "?"} vol`);
-  }
-  const movies = resolved?.mapping.movies ?? [];
-  if (showAnimeStats) {
-    subParts.push(`${totalEpisodes ?? "?"} eps`);
-    if (movies.length > 0) {
-      subParts.push(
-        `${movies.length} ${movies.length === 1 ? "movie" : "movies"}`,
-      );
-    }
-  }
-  if (primary.format) subParts.push(primary.format);
-  if (primary.startDate.year) {
-    subParts.push(formatAniListDate(primary.startDate));
-  } else if (status) {
-    subParts.push(status);
-  }
+  const subParts = detailStats({
+    entry,
+    mapping: resolved?.mapping ?? null,
+    chapters: totalChapters,
+    volumes: mangadex?.volumes ?? manga?.volumes ?? null,
+  });
 
   return (
     <ScrollView style={styles.root} contentContainerStyle={styles.content}>
