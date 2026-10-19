@@ -202,10 +202,6 @@ async function fetchCoverPage(
   return done ? next : fetchCoverPage(mangaId, newOffset, next);
 }
 
-async function fetchCovers(mangaId: string): Promise<CoverRecord[]> {
-  return fetchCoverPage(mangaId, 0, []);
-}
-
 // An empty aggregate comes back as `[]` rather than `{}`, so anything that is
 // not an object counts as no entries.
 const entriesOf = (value: unknown): [string, unknown][] =>
@@ -241,7 +237,7 @@ export async function getMangaDexInfoByAniListId(
   if (!match) return null;
 
   const [covers, aggregate] = await Promise.all([
-    fetchCovers(match.id),
+    fetchCoverPage(match.id, 0, []),
     fetchAggregate(match.id),
   ]);
 
@@ -252,13 +248,7 @@ export async function getMangaDexInfoByAniListId(
       locale: c.attributes.locale ?? "ja",
       url: coverUrl(match.id, c.attributes.fileName, "512"),
       thumbUrl: coverUrl(match.id, c.attributes.fileName, "256"),
-    }))
-    .sort((a, b) => {
-      const av = Number(a.volume);
-      const bv = Number(b.volume);
-      if (Number.isFinite(av) && Number.isFinite(bv)) return av - bv;
-      return a.volume.localeCompare(b.volume);
-    });
+    }));
 
   const titles = buildTitles(match);
 
