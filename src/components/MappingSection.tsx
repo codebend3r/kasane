@@ -20,6 +20,8 @@ type MappingView = "rail" | "pie";
 
 type MappingSectionProps = {
   resolved: ResolvedMapping | null;
+  /** The id the screen resolved `resolved` from; the arc screen resolves it again. */
+  mediaId: number;
   routeId: number;
   totalChapters: number | null;
   badge: SeriesBadge;
@@ -29,6 +31,7 @@ type MappingSectionProps = {
 
 export function MappingSection({
   resolved,
+  mediaId,
   routeId,
   totalChapters,
   badge,
@@ -54,7 +57,7 @@ export function MappingSection({
   const openArc = (arcIndex: number) => {
     router.push({
       pathname: "/series/[id]/arc/[arcIdx]",
-      params: { id: String(routeId), arcIdx: String(arcIndex) },
+      params: { id: String(mediaId), arcIdx: String(arcIndex) },
     });
   };
 

@@ -102,6 +102,7 @@ export default function SeriesDetail() {
 
       <MappingSection
         resolved={resolved}
+        mediaId={mediaId}
         routeId={routeId}
         totalChapters={totalChapters}
         badge={badge}

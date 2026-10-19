@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { useSeries } from "@/queries/series";
+import { useSeries, useSeriesMapping } from "@/queries/series";
 import { serveCatalog, seriesMapping } from "@test/fixtures/catalog";
 import { makeEdge, makeMedia } from "@test/fixtures/media";
 import { graphqlRequestMock } from "@test/mocks/graphql";
@@ -96,6 +96,53 @@ describe("useSeries", () => {
         isLoading: false,
       });
       expect(graphqlRequestMock).not.toHaveBeenCalled();
+    } finally {
+      unmount();
+    }
+  });
+});
+
+describe("useSeriesMapping", () => {
+  it("resolves a curated id from the catalog without asking AniList", async () => {
+    serveCatalog({});
+    const { captures, unmount } = renderHook(() => useSeriesMapping(53390));
+    try {
+      await settle(() => !last(captures).isLoading, "the catalog");
+      expect(last(captures)).toEqual({
+        resolved: { source: "curated", mapping: seriesMapping },
+        isLoading: false,
+      });
+      expect(graphqlRequestMock).not.toHaveBeenCalled();
+    } finally {
+      unmount();
+    }
+  });
+
+  it("fetches an uncurated id's media and estimates, as the series screen does", async () => {
+    serveCatalog({});
+    const anime = detail(
+      makeMedia({
+        id: 1,
+        type: "ANIME",
+        episodes: 12,
+        relations: [
+          makeEdge({
+            relationType: "SOURCE",
+            id: 2,
+            type: "MANGA",
+            chapters: 40,
+          }),
+        ],
+      }),
+    );
+    serveMedia([anime]);
+    const { captures, unmount } = renderHook(() => useSeriesMapping(1));
+    try {
+      await settle(() => last(captures).resolved !== null, "the estimate");
+      expect(last(captures).resolved?.source ?? null).toBe("estimated");
+      expect(last(captures).resolved?.mapping.mappings ?? null).toEqual([
+        { episodes: [1, 12], chapters: [1, 40], arc: "Full series (auto)" },
+      ]);
     } finally {
       unmount();
     }

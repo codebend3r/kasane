@@ -1,6 +1,6 @@
 import { ActivityIndicator, Text, View, StyleSheet } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import { useCatalog } from "@/queries/catalog";
+import { useSeriesMapping } from "@/queries/series";
 import { ArcDetailView } from "@/components/ArcDetailView";
 import { COLOR, FONT } from "@/theme";
 
@@ -9,10 +9,11 @@ export default function SeriesArcDetail() {
   const mediaId = Number(id);
   const arcIndex = Number(arcIdx);
 
-  const { findMapping, isLoaded } = useCatalog();
-  const mapping = findMapping(mediaId);
+  const { resolved, isLoading } = useSeriesMapping(
+    Number.isNaN(mediaId) ? null : mediaId,
+  );
 
-  if (!isLoaded) {
+  if (isLoading) {
     return (
       <View style={styles.center}>
         <ActivityIndicator color={COLOR.accent} />
@@ -20,7 +21,7 @@ export default function SeriesArcDetail() {
     );
   }
 
-  if (!mapping) {
+  if (!resolved) {
     return (
       <View style={styles.center}>
         <Text style={styles.empty}>Mapping not found.</Text>
@@ -28,7 +29,7 @@ export default function SeriesArcDetail() {
     );
   }
 
-  return <ArcDetailView mapping={mapping} arcIndex={arcIndex} />;
+  return <ArcDetailView mapping={resolved.mapping} arcIndex={arcIndex} />;
 }
 
 const styles = StyleSheet.create({
