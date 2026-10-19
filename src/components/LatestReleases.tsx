@@ -17,17 +17,10 @@ import { usePreferences } from "@/state/preferences";
 import { ContinueSection } from "@/components/ContinueSection";
 import { CoverCarousel } from "@/components/CoverCarousel";
 import { Footer } from "@/components/Footer";
+import { useIsNarrow } from "@/components/useIsNarrow";
 import { useLayoutWidth } from "@/components/useLayoutWidth";
 import { releaseColumns, tileWidthFor } from "@/data/gridLayout";
-import {
-  BADGE_COLOR,
-  COLOR,
-  FONT,
-  NARROW_WIDTH,
-  pressFeedback,
-  SPACE,
-  TEXT,
-} from "@/theme";
+import { BADGE_COLOR, COLOR, FONT, pressFeedback, SPACE, TEXT } from "@/theme";
 
 const GRID_ITEM_WIDTH = 160;
 const GRID_ITEM_HEIGHT = 280;
@@ -41,7 +34,7 @@ export function LatestReleases({
   loading: boolean;
 }) {
   const { width: windowWidth } = useWindowDimensions();
-  const isMobile = windowWidth < NARROW_WIDTH;
+  const isMobile = useIsNarrow();
   const [contentWidth, onContentLayout] = useLayoutWidth();
   const japanese = usePreferences((s) => s.japanese);
 

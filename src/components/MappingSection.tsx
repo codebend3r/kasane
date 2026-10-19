@@ -13,6 +13,7 @@ import { ProgressMarkBanner } from "@/components/ProgressMarkBanner";
 import { QuickLookup } from "@/components/QuickLookup";
 import { SeasonCoverage } from "@/components/SeasonCoverage";
 import { SeriesMovies } from "@/components/SeriesMovies";
+import { useIsNarrow } from "@/components/useIsNarrow";
 import { useMarkProgress } from "@/components/useMarkProgress";
 import { COLOR, FONT, pressFeedback, SPACE, TEXT } from "@/theme";
 
@@ -25,8 +26,6 @@ type MappingSectionProps = {
   routeId: number;
   totalChapters: number | null;
   badge: SeriesBadge;
-  /** Phones default to the pie; the rail needs horizontal room. */
-  isMobile: boolean;
 };
 
 export function MappingSection({
@@ -35,8 +34,9 @@ export function MappingSection({
   routeId,
   totalChapters,
   badge,
-  isMobile,
 }: MappingSectionProps) {
+  // Phones open on the pie; the rail needs horizontal room.
+  const isMobile = useIsNarrow();
   const [mappingView, setMappingView] = useState<MappingView>(
     isMobile ? "pie" : "rail",
   );
