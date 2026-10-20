@@ -69,22 +69,27 @@ export function useGenreFilters(): GenreFilter[] {
 }
 
 /**
- * The mapping to show for `media`: the curated catalog entry when there is
- * one, otherwise a linear estimate. Waits for the catalog before estimating,
- * so a curated series never flashes its estimate first.
+ * The mapping to show for AniList id `id`: the curated catalog entry when
+ * there is one, otherwise a linear estimate from `media`. Waits for the
+ * catalog before estimating, so a curated series never flashes its estimate
+ * first, and needs no `media` at all when the catalog has the id.
  */
-export function useResolvedMapping(
-  media: AniListMedia | null,
-): ResolvedMapping | null {
+export function useResolvedMapping({
+  id,
+  media,
+}: {
+  id: number | null;
+  media: AniListMedia | null;
+}): ResolvedMapping | null {
   const { findMapping, isLoaded } = useCatalog();
   return useMemo(() => {
-    if (!media) return null;
-    const curated = findMapping(media.id);
+    if (id === null) return null;
+    const curated = findMapping(id);
     if (curated) return { source: "curated", mapping: curated };
-    if (!isLoaded) return null;
+    if (!isLoaded || !media) return null;
     const estimated = buildSyntheticMapping(media);
     return estimated ? { source: "estimated", mapping: estimated } : null;
-  }, [media, findMapping, isLoaded]);
+  }, [id, media, findMapping, isLoaded]);
 }
 
 /** Empty until the catalog lands, so a search passes through un-aliased. */

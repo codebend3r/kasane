@@ -1,32 +1,28 @@
 import { useMemo } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { pairResults } from "@/data/pairing";
+import { pairResults, partnerIdOf } from "@/data/pairing";
 import { useMediaByIds } from "@/queries/media";
 import { useInProgressEntries } from "@/state/progress";
 import { SeriesCard } from "@/components/SeriesCard";
 import type { AniListMedia, SeriesEntry } from "@/types";
 import { COLOR, SPACE, TEXT } from "@/theme";
 
-const PARTNER_RELATIONS = new Set(["ADAPTATION", "SOURCE"]);
-
 export function ContinueSection() {
   const entries = useInProgressEntries();
   const ids = useMemo(() => entries.map((e) => e.routeId), [entries]);
   const { data: primary } = useMediaByIds(ids);
 
+  // Each tracked series' partner on the other side, the one `pairResults`
+  // pairs it with, unless that partner is itself already tracked.
   const partnerIds = useMemo(() => {
-    if (!primary) return [];
     const known = new Set(ids);
-    const collected = primary.flatMap((m) =>
-      m.relations.edges
-        .filter(
-          (e) =>
-            PARTNER_RELATIONS.has(e.relationType) &&
-            (e.node.type === "ANIME" || e.node.type === "MANGA"),
-        )
-        .map((e) => e.node.id),
-    );
-    return Array.from(new Set(collected)).filter((id) => !known.has(id));
+    return [
+      ...new Set(
+        (primary ?? [])
+          .map(partnerIdOf)
+          .filter((id): id is number => id !== null && !known.has(id)),
+      ),
+    ];
   }, [primary, ids]);
 
   const { data: partners } = useMediaByIds(partnerIds);
