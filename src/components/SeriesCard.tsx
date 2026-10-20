@@ -3,7 +3,6 @@ import { Link } from "expo-router";
 import type { SeriesEntry } from "@/types";
 import { BADGE_COLOR, COLOR, FONT, SPACE } from "@/theme";
 import { useMapping } from "@/queries/catalog";
-import { useFranchise } from "@/queries/media";
 import { displayTitle } from "@/data/format";
 import { lastMappedEpisode } from "@/data/mapping";
 import { BADGE_LABEL } from "@/data/pairing";
@@ -35,19 +34,10 @@ export function SeriesCard({ entry }: { entry: SeriesEntry }) {
   const showProgressBar =
     (hasAnime && animeFrac !== null) || (hasManga && mangaFrac !== null);
 
-  const { data: franchise } = useFranchise(anime);
-  const franchiseLabel =
-    mappedEpisodeCount == null &&
-    franchise &&
-    franchise.tvSeasonCount > 1 &&
-    franchise.totalTvEpisodes > 0
-      ? `${franchise.totalTvEpisodes} eps · ${franchise.tvSeasonCount} seasons`
-      : null;
-
   const parts: string[] = [];
   if (anime || badge === "anime-only") {
     const eps = mappedEpisodeCount ?? anime?.episodes ?? null;
-    parts.push(franchiseLabel ?? (eps ? `${eps} eps` : "Anime ongoing"));
+    parts.push(eps ? `${eps} eps` : "Anime ongoing");
   }
   if (manga || badge === "manga-only") {
     parts.push(manga?.chapters ? `${manga.chapters} ch` : "Manga ongoing");
