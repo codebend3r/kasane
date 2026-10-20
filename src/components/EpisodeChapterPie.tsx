@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import Svg, { Circle, Line, Path } from "react-native-svg";
 import type { MouseLike, ProgressSide } from "@/types";
-import { COLOR, FONT, arcColors, SPACE } from "@/theme";
+import { COLOR, FONT, LONG_PRESS_MS, arcColors, SPACE } from "@/theme";
 import {
   describeCoverage,
   fractionAt,
@@ -25,8 +25,6 @@ const RING_RATIO = 0.56;
 const HOLE = SIZE * RING_RATIO;
 const R_OUTER = 1;
 const R_INNER = RING_RATIO;
-
-const LONG_PRESS_MS = 320;
 
 const polar = (deg: number, r: number): [number, number] => {
   const a = ((deg - 90) * Math.PI) / 180;
