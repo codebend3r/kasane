@@ -2,6 +2,18 @@
 
 All notable changes to kasane are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project uses [Semantic Versioning](https://semver.org/).
 
+## [1.3.4] - 2026-10-21
+
+### Changed
+
+- `GenreFilters` owns its own state and debounces through one hook (#40)
+- Mapping and MangaDex types are tighter (#42)
+- Small review cleanups (#43)
+
+### Fixed
+
+- Covers are keyed on the sorted id set instead of a count and sum, so different sets can no longer share a cache entry (#41)
+
 ## [1.3.3] - 2026-10-20
 
 ### Added
@@ -201,6 +213,7 @@ First tagged release.
 
 - Production MangaDex covers via `Referrer-Policy: no-referrer`
 
+[1.3.4]: https://github.com/codebend3r/kasane/compare/v1.3.3...v1.3.4
 [1.3.3]: https://github.com/codebend3r/kasane/compare/v1.3.2...v1.3.3
 [1.3.2]: https://github.com/codebend3r/kasane/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/codebend3r/kasane/compare/v1.3.0...v1.3.1
