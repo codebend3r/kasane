@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -16,17 +16,14 @@ import { SeriesCard } from "@/components/SeriesCard";
 import { GenreFilters } from "@/components/GenreFilters";
 import { LatestReleases } from "@/components/LatestReleases";
 import { MappedOnlyToggle } from "@/components/MappedOnlyToggle";
-import { useIsNarrow } from "@/components/useIsNarrow";
+import { useDebouncedValue } from "@/components/useDebouncedValue";
 import { usePreferences } from "@/state/preferences";
 import { COLOR, FONT, SPACE } from "@/theme";
 
 export default function HomeScreen() {
   const [query, setQuery] = useState("");
-  const [debouncedQuery, setDebouncedQuery] = useState("");
-  const [filtersOpen, setFiltersOpen] = useState(false);
+  const debouncedQuery = useDebouncedValue(query, 300);
   const hiddenGenres = usePreferences((s) => s.hiddenGenres);
-  const toggleHiddenGenre = usePreferences((s) => s.toggleHiddenGenre);
-  const setHiddenGenres = usePreferences((s) => s.setHiddenGenres);
   const genreFilters = useGenreFilters();
   const [mappedOnly, setMappedOnly] = useState(true);
   const { findMapping } = useCatalog();
@@ -36,19 +33,8 @@ export default function HomeScreen() {
   // fired its own request, and toggling a row of genres tripped AniList's rate
   // limit — the 429s then stuck around as cached query errors, leaving the grid
   // empty even after the genres were switched back on.
-  const [debouncedHidden, setDebouncedHidden] = useState(hiddenGenres);
-  useEffect(() => {
-    const t = setTimeout(() => setDebouncedHidden(hiddenGenres), 500);
-    return () => clearTimeout(t);
-  }, [hiddenGenres]);
-
+  const debouncedHidden = useDebouncedValue(hiddenGenres, 500);
   const filters = splitHiddenForAniList(debouncedHidden, genreFilters);
-  const isMobile = useIsNarrow();
-
-  useEffect(() => {
-    const t = setTimeout(() => setDebouncedQuery(query), 300);
-    return () => clearTimeout(t);
-  }, [query]);
 
   const isSearching = debouncedQuery.trim().length > 1;
 
@@ -100,15 +86,7 @@ export default function HomeScreen() {
 
       <MappedOnlyToggle value={mappedOnly} onChange={setMappedOnly} />
 
-      <GenreFilters
-        filters={genreFilters}
-        hiddenGenres={hiddenGenres}
-        onToggle={toggleHiddenGenre}
-        onSetHidden={setHiddenGenres}
-        isMobile={isMobile}
-        open={filtersOpen}
-        onOpenChange={setFiltersOpen}
-      />
+      <GenreFilters />
 
       {error && (
         <Text style={styles.error}>Something went wrong. Try again.</Text>
