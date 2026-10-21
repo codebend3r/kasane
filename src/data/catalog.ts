@@ -42,17 +42,14 @@ const toMovie = (m: MovieRow): MovieEntry => ({
 });
 
 /** A `series` row with its embedded arcs and films, as the app models it. */
-export const rowToMapping = (row: SeriesRow): SeriesMapping => {
-  const movies = byPosition(row.movies).map(toMovie);
-  return {
-    anilistAnimeId: row.anilist_anime_id,
-    anilistMangaId: row.anilist_manga_id,
-    title: row.title,
-    sourceNotes: row.source_notes ?? undefined,
-    mappings: byPosition(row.arc_mappings).map(toArc),
-    movies: movies.length > 0 ? movies : undefined,
-  };
-};
+export const rowToMapping = (row: SeriesRow): SeriesMapping => ({
+  anilistAnimeId: row.anilist_anime_id,
+  anilistMangaId: row.anilist_manga_id,
+  title: row.title,
+  sourceNotes: row.source_notes ?? undefined,
+  mappings: byPosition(row.arc_mappings).map(toArc),
+  movies: byPosition(row.movies).map(toMovie),
+});
 
 export const toAliasTable = (
   rows: readonly AliasRow[],

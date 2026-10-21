@@ -87,7 +87,7 @@ export type SeriesMapping = {
   anilistMangaId: number;
   title: string;
   mappings: MappingEntry[];
-  movies?: MovieEntry[];
+  movies: MovieEntry[];
   sourceNotes?: string;
 };
 
@@ -145,8 +145,6 @@ export type AnimeFranchise = {
 };
 
 export type MangaDexInfo = {
-  id: string;
-  primaryTitle: string;
   titles: MangaDexTitle[];
   volumes: number;
   chapters: number;

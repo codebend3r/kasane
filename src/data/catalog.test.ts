@@ -12,6 +12,7 @@ const aot: SeriesMapping = {
   anilistAnimeId: 16498,
   anilistMangaId: 53390,
   title: "Attack on Titan",
+  movies: [],
   mappings: [
     { chapters: [1, 8], episodes: [1, 2], arc: "Fall of Shiganshina" },
   ],
@@ -21,6 +22,7 @@ const onePiece: SeriesMapping = {
   anilistAnimeId: 21,
   anilistMangaId: 30013,
   title: "One Piece",
+  movies: [],
   mappings: [{ chapters: [1, 7], episodes: [1, 3], arc: "Romance Dawn" }],
 };
 
@@ -29,8 +31,8 @@ describe("rowToMapping", () => {
     expect(rowToMapping(seriesRow)).toEqual(seriesMapping);
   });
 
-  it("leaves `movies` undefined for a series with no films", () => {
-    expect(rowToMapping({ ...seriesRow, movies: [] }).movies).toBeUndefined();
+  it("gives a series with no films an empty `movies` list", () => {
+    expect(rowToMapping({ ...seriesRow, movies: [] }).movies).toEqual([]);
   });
 });
 

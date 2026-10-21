@@ -166,6 +166,7 @@ describe("buildSyntheticMapping", () => {
       mappings: [
         { episodes: [1, 24], chapters: [1, 96], arc: "Full series (auto)" },
       ],
+      movies: [],
     });
   });
 
@@ -201,6 +202,7 @@ describe("buildSyntheticMapping", () => {
       mappings: [
         { episodes: [1, 26], chapters: [1, 96], arc: "Full series (auto)" },
       ],
+      movies: [],
     });
   });
 
@@ -270,6 +272,7 @@ describe("partnerIdFor", () => {
     anilistAnimeId: 10,
     anilistMangaId: 20,
     title: "Curated",
+    movies: [],
     mappings: [{ episodes: [1, 12], chapters: [1, 40] }],
   };
 

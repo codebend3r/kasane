@@ -16,6 +16,7 @@ const series = (mappings: SeriesMapping["mappings"]): SeriesMapping => ({
   anilistMangaId: 2,
   title: "Test",
   mappings,
+  movies: [],
 });
 
 const tiled = series([
