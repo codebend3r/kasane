@@ -3,7 +3,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  useWindowDimensions,
   View,
 } from "react-native";
 import { useLocalSearchParams } from "expo-router";
@@ -16,15 +15,11 @@ import { SeriesHeader } from "@/components/SeriesHeader";
 import { TitlesList } from "@/components/TitlesList";
 import { VolumesGrid } from "@/components/VolumesGrid";
 import { Footer } from "@/components/Footer";
-import { COLOR, FONT, NARROW_WIDTH, SPACE, TEXT } from "@/theme";
+import { COLOR, FONT, SPACE, TEXT } from "@/theme";
 
 export default function SeriesDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const mediaId = Number(id);
-  const { width: windowWidth } = useWindowDimensions();
-  const isMobile = windowWidth < NARROW_WIDTH;
-  const mobileCoverWidth = Math.min(windowWidth - 32, 420);
-  const mobileCoverHeight = Math.round(mobileCoverWidth * (340 / 240));
 
   const { entry, resolved, isLoading } = useSeries(
     Number.isNaN(mediaId) ? null : mediaId,
@@ -67,9 +62,6 @@ export default function SeriesDetail() {
         badge={badge}
         subParts={subParts}
         isMapped={resolved?.source === "curated"}
-        isMobile={isMobile}
-        mobileCoverWidth={mobileCoverWidth}
-        mobileCoverHeight={mobileCoverHeight}
       />
 
       {!!anime && !!franchise && franchise.seasons.length > 1 && (
@@ -82,7 +74,6 @@ export default function SeriesDetail() {
         routeId={routeId}
         totalChapters={totalChapters}
         badge={badge}
-        isMobile={isMobile}
       />
 
       {manga && (

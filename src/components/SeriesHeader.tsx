@@ -9,7 +9,12 @@ import {
 import { BADGE_LABEL } from "@/data/pairing";
 import { usePreferences } from "@/state/preferences";
 import { Paragraph } from "@/components/Paragraph";
+import { useIsNarrow } from "@/components/useIsNarrow";
 import { COLOR, FONT, SPACE } from "@/theme";
+
+const COVER_WIDTH = 240;
+const COVER_HEIGHT = 340;
+const MOBILE_COVER_MAX_WIDTH = 420;
 
 type SeriesHeaderProps = {
   media: AniListMediaDetail;
@@ -17,9 +22,6 @@ type SeriesHeaderProps = {
   /** Metadata line already assembled by the route: counts, format, dates. */
   subParts: string[];
   isMapped: boolean;
-  isMobile: boolean;
-  mobileCoverWidth: number;
-  mobileCoverHeight: number;
 };
 
 export function SeriesHeader({
@@ -27,11 +29,9 @@ export function SeriesHeader({
   badge,
   subParts,
   isMapped,
-  isMobile,
-  mobileCoverWidth,
-  mobileCoverHeight,
 }: SeriesHeaderProps) {
   const japanese = usePreferences((s) => s.japanese);
+  const isMobile = useIsNarrow();
 
   const title = displayTitle({ title: media.title, japanese });
 
@@ -42,7 +42,7 @@ export function SeriesHeader({
         accessibilityLabel={`Cover art for ${englishTitle(media.title)}`}
         style={[
           styles.cover,
-          isMobile && { width: mobileCoverWidth, height: mobileCoverHeight },
+          isMobile ? styles.coverMobile : styles.coverWide,
           badge === "anime-only" && styles.coverAnimeOnly,
         ]}
       />
@@ -99,7 +99,14 @@ export function SeriesHeader({
 const styles = StyleSheet.create({
   header: { flexDirection: "row", gap: SPACE.xl },
   headerMobile: { flexDirection: "column", alignItems: "center" },
-  cover: { width: 240, height: 340, backgroundColor: COLOR.coverPlaceholder },
+  cover: { backgroundColor: COLOR.coverPlaceholder },
+  coverWide: { width: COVER_WIDTH, height: COVER_HEIGHT },
+  // Fills the column on a phone, up to a cap, at the desktop cover's shape.
+  coverMobile: {
+    width: "100%",
+    maxWidth: MOBILE_COVER_MAX_WIDTH,
+    aspectRatio: COVER_WIDTH / COVER_HEIGHT,
+  },
   coverAnimeOnly: {
     borderWidth: 2,
     borderColor: COLOR.accent,

@@ -9,7 +9,8 @@ import {
 } from "react-native";
 import { useRouter, usePathname } from "expo-router";
 import { MENU_LINKS, useSideMenu } from "@/state/sideMenu";
-import { COLOR, FONT, NARROW_WIDTH, pressFeedback, SPACE } from "@/theme";
+import { useIsNarrow } from "@/components/useIsNarrow";
+import { COLOR, FONT, pressFeedback, SPACE } from "@/theme";
 
 const PANEL_MAX_WIDTH = 320;
 const SLIDE_MS = 220;
@@ -24,8 +25,7 @@ export function SideMenu() {
   const router = useRouter();
   const pathname = usePathname();
   const { width } = useWindowDimensions();
-
-  const isMobile = width < NARROW_WIDTH;
+  const isMobile = useIsNarrow();
   const panelWidth = isMobile
     ? Math.min(width * 0.82, PANEL_MAX_WIDTH)
     : PANEL_MAX_WIDTH;
