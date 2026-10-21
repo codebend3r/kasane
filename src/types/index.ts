@@ -148,5 +148,6 @@ export type MangaDexInfo = {
   titles: MangaDexTitle[];
   volumes: number;
   chapters: number;
+  /** In MangaDex's order; `groupCovers` sorts them for display. */
   covers: MangaDexVolumeCover[];
 };

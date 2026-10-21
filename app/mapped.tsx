@@ -43,9 +43,7 @@ export default function MappedShowsScreen() {
       blurb="Every series kasane has an episode ↔ chapter map for."
     >
       <View style={styles.sortRow}>
-        <Text style={styles.count}>
-          {shows.length} {shows.length === 1 ? "series" : "series"}
-        </Text>
+        <Text style={styles.count}>{shows.length} series</Text>
         <View style={styles.sortButtons}>
           <SortButton
             label="Title"

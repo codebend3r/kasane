@@ -44,8 +44,6 @@ type PreferencesRow = Database["public"]["Tables"]["user_preferences"]["Row"];
 
 let started = false;
 let synced: Synced | null = null;
-let progressTimer: ReturnType<typeof setTimeout> | null = null;
-let preferencesTimer: ReturnType<typeof setTimeout> | null = null;
 
 const isoFor = (updatedAt: number): string => new Date(updatedAt).toISOString();
 
@@ -203,25 +201,28 @@ const onAuthChange = (): void => {
   void pull(nextUserId);
 };
 
+/** `push`, run once local edits have paused for `PUSH_DEBOUNCE_MS`. */
+const debounced = (push: () => Promise<void>): (() => void) => {
+  let timer: ReturnType<typeof setTimeout> | null = null;
+  return () => {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => void push(), PUSH_DEBOUNCE_MS);
+  };
+};
+
 export const startCloudSync = (): void => {
   if (started) return;
   started = true;
 
   useAuth.subscribe(onAuthChange);
 
+  const schedulePushProgress = debounced(pushProgress);
+  const schedulePushPreferences = debounced(pushPreferences);
   useProgress.subscribe(() => {
-    if (!synced) return;
-    if (progressTimer) clearTimeout(progressTimer);
-    progressTimer = setTimeout(() => void pushProgress(), PUSH_DEBOUNCE_MS);
+    if (synced) schedulePushProgress();
   });
-
   usePreferences.subscribe(() => {
-    if (!synced) return;
-    if (preferencesTimer) clearTimeout(preferencesTimer);
-    preferencesTimer = setTimeout(
-      () => void pushPreferences(),
-      PUSH_DEBOUNCE_MS,
-    );
+    if (synced) schedulePushPreferences();
   });
 
   // Catch a session that resolved before we subscribed.

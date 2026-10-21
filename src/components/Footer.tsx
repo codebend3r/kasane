@@ -2,12 +2,15 @@ import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import { version } from "@pkg";
 import { COLOR, pressFeedback, FOOTER_OFFSET, SPACE, TEXT } from "@/theme";
 
+const AUTHOR_URL = "https://github.com/codebend3r";
+const SOURCE_URL = "https://github.com/codebend3r/kasane";
+
 export function Footer() {
   return (
     <View style={styles.bar}>
       <Text style={styles.copy}>Built by</Text>
       <Pressable
-        onPress={() => Linking.openURL("https://github.com/codebend3r")}
+        onPress={() => Linking.openURL(AUTHOR_URL)}
         hitSlop={6}
         accessibilityRole="link"
         accessibilityLabel="CJ Rivas on GitHub"
@@ -18,7 +21,7 @@ export function Footer() {
       <View style={styles.spacer} />
       <Text style={styles.version}>v{version}</Text>
       <Pressable
-        onPress={() => Linking.openURL("https://github.com/codebend3r")}
+        onPress={() => Linking.openURL(SOURCE_URL)}
         hitSlop={6}
         accessibilityRole="link"
         accessibilityLabel="Open the Kasane source on GitHub"
