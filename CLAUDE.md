@@ -112,6 +112,7 @@ The rules above are the always-on baseline. These skills carry the depth — rea
 | iOS / Android / web / Tauri differences               | `cross-platform-parity` |
 | Logic in `src/data/`, `src/state/`, `src/api/`        | `domain-tests`          |
 | Routing, deep links, Netlify fallback, MangaDex proxy | `e2e`                   |
+| Running the dev server, local vs production database  | `dev-server`            |
 | Schema, columns, policies, RLS                        | `supabase-migration`    |
 | Adding a series that has no catalog entry             | `arc-mapping`           |
 | Changing a series already in the catalog              | `mapping-correction`    |
