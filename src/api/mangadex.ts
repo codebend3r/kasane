@@ -1,21 +1,45 @@
-import type { MangaDexInfo, MangaDexVolumeCover, MangaDexTitle } from "@/types";
+import { isRecord } from "@/data/guards";
+import { MANGADEX_ROUTES, MANGADEX_USER_AGENT } from "@/data/mangadexRoutes";
+import type { MangaDexSnapshot } from "@/data/mangadexSnapshot";
+import type { MangaDexTitle } from "@/types";
 
-// api.mangadex.org only returns Access-Control-Allow-Origin for localhost, so
-// on a deployed web origin we hit the Netlify proxy at /_mdx instead. Native
-// builds and local dev call MangaDex directly.
-function resolveBase(): string {
-  if (typeof window === "undefined" || !window.location) {
-    return "https://api.mangadex.org";
-  }
-  const host = window.location.hostname;
-  if (host === "localhost" || host === "127.0.0.1") {
-    return "https://api.mangadex.org";
-  }
-  return "/_mdx";
-}
+/** Where requests go and what they carry. */
+export type MangaDexClient = {
+  api: string;
+  covers: string;
+  headers: Record<string, string>;
+};
 
-const BASE = resolveBase();
-const UPLOADS = "https://uploads.mangadex.org";
+/**
+ * The web build's client. `api.mangadex.org` and the covers CDN both answer a
+ * browser User-Agent with a bot challenge, and the API only allows
+ * cross-origin reads from localhost, so a browser reaches MangaDex through the
+ * same-origin proxy paths. It cannot set `User-Agent`, so it sends none.
+ */
+export const webMangaDexClient: MangaDexClient = {
+  api: MANGADEX_ROUTES.api.proxy,
+  covers: MANGADEX_ROUTES.covers.proxy,
+  headers: {},
+};
+
+/** Native apps are not challenged and call MangaDex directly. */
+export const nativeMangaDexClient: MangaDexClient = {
+  api: MANGADEX_ROUTES.api.upstream,
+  covers: MANGADEX_ROUTES.covers.upstream,
+  headers: {},
+};
+
+/** A script calls MangaDex directly with the non-browser User-Agent it accepts. */
+export const scriptMangaDexClient: MangaDexClient = {
+  ...nativeMangaDexClient,
+  headers: { "User-Agent": MANGADEX_USER_AGENT },
+};
+
+/** The client the app itself reads MangaDex through. */
+export const appMangaDexClient =
+  typeof window !== "undefined" && !!window.location
+    ? webMangaDexClient
+    : nativeMangaDexClient;
 
 type MangaDexRecord = {
   id: string;
@@ -37,9 +61,6 @@ type CoverRecord = {
 
 // MangaDex responses arrive as `unknown` and are narrowed here, so a changed
 // or partial payload is dropped rather than trusted.
-
-const isRecord = (value: unknown): value is Record<string, unknown> =>
-  typeof value === "object" && value !== null && !Array.isArray(value);
 
 const isStringRecord = (value: unknown): value is Record<string, string> =>
   isRecord(value) && Object.values(value).every((v) => typeof v === "string");
@@ -77,8 +98,14 @@ export function hasVolume(
   return !!cover.attributes.volume;
 }
 
-async function fetchJson(url: string): Promise<unknown> {
-  const res = await fetch(url);
+async function fetchJson({
+  client,
+  url,
+}: {
+  client: MangaDexClient;
+  url: string;
+}): Promise<unknown> {
+  const res = await fetch(url, { headers: client.headers });
   if (!res.ok) throw new Error(`MangaDex ${res.status} for ${url}`);
   const body: unknown = await res.json();
   return body;
@@ -120,20 +147,17 @@ function buildTitles(record: MangaDexRecord): MangaDexTitle[] {
   return [...new Map(all.map((t) => [`${t.locale}::${t.value}`, t])).values()];
 }
 
-function coverUrl(
-  mangaId: string,
-  fileName: string,
-  size: "256" | "512" | "full",
-): string {
-  if (size === "full") return `${UPLOADS}/covers/${mangaId}/${fileName}`;
-  return `${UPLOADS}/covers/${mangaId}/${fileName}.${size}.jpg`;
-}
-
 const SAFE_RATINGS = "contentRating%5B%5D=safe&contentRating%5B%5D=suggestive";
 
-async function searchByTitle(title: string): Promise<MangaDexRecord[]> {
-  const url = `${BASE}/manga?title=${encodeURIComponent(title)}&limit=10&${SAFE_RATINGS}`;
-  return listOf(await fetchJson(url), isMangaRecord, url);
+async function searchByTitle({
+  client,
+  title,
+}: {
+  client: MangaDexClient;
+  title: string;
+}): Promise<MangaDexRecord[]> {
+  const url = `${client.api}/manga?title=${encodeURIComponent(title)}&limit=10&${SAFE_RATINGS}`;
+  return listOf(await fetchJson({ client, url }), isMangaRecord, url);
 }
 
 // Re-prints and color editions on MangaDex often own the AniList link even when
@@ -183,13 +207,19 @@ export function pickBestMatch(
 const COVER_PAGE_SIZE = 100;
 const COVER_MAX_PAGES = 5;
 
-async function fetchCoverPage(
-  mangaId: string,
-  offset: number,
-  acc: CoverRecord[],
-): Promise<CoverRecord[]> {
-  const url = `${BASE}/cover?manga%5B%5D=${mangaId}&limit=${COVER_PAGE_SIZE}&offset=${offset}&order%5Bvolume%5D=asc`;
-  const body = await fetchJson(url);
+async function fetchCovers({
+  client,
+  mangaId,
+  offset = 0,
+  acc = [],
+}: {
+  client: MangaDexClient;
+  mangaId: string;
+  offset?: number;
+  acc?: CoverRecord[];
+}): Promise<CoverRecord[]> {
+  const url = `${client.api}/cover?manga%5B%5D=${mangaId}&limit=${COVER_PAGE_SIZE}&offset=${offset}&order%5Bvolume%5D=asc`;
+  const body = await fetchJson({ client, url });
   const page = listOf(body, isCoverRecord, url);
   const total =
     isRecord(body) && typeof body.total === "number" ? body.total : 0;
@@ -199,7 +229,9 @@ async function fetchCoverPage(
     page.length < COVER_PAGE_SIZE ||
     newOffset >= total ||
     newOffset >= COVER_PAGE_SIZE * COVER_MAX_PAGES;
-  return done ? next : fetchCoverPage(mangaId, newOffset, next);
+  return done
+    ? next
+    : fetchCovers({ client, mangaId, offset: newOffset, acc: next });
 }
 
 // An empty aggregate comes back as `[]` rather than `{}`, so anything that is
@@ -222,40 +254,53 @@ export function countAggregate(body: unknown): {
   };
 }
 
-async function fetchAggregate(
-  mangaId: string,
-): Promise<{ volumeCount: number; chapterCount: number }> {
-  return countAggregate(await fetchJson(`${BASE}/manga/${mangaId}/aggregate`));
+async function fetchAggregate({
+  client,
+  mangaId,
+}: {
+  client: MangaDexClient;
+  mangaId: string;
+}): Promise<{ volumeCount: number; chapterCount: number }> {
+  return countAggregate(
+    await fetchJson({
+      client,
+      url: `${client.api}/manga/${mangaId}/aggregate`,
+    }),
+  );
 }
 
-export async function getMangaDexInfoByAniListId(
-  anilistId: number,
-  searchTitle: string,
-): Promise<MangaDexInfo | null> {
-  const candidates = await searchByTitle(searchTitle);
-  const match = pickBestMatch(candidates, anilistId, searchTitle);
+/**
+ * The MangaDex entry for an AniList manga, found by title and confirmed by
+ * AniList link or exact title: its id, titles, hosted counts and the file name
+ * of every volume cover. Null when nothing on MangaDex matches.
+ */
+export async function getMangaDexSnapshot({
+  client,
+  anilistId,
+  title,
+}: {
+  client: MangaDexClient;
+  anilistId: number;
+  title: string;
+}): Promise<MangaDexSnapshot | null> {
+  const candidates = await searchByTitle({ client, title });
+  const match = pickBestMatch(candidates, anilistId, title);
   if (!match) return null;
 
   const [covers, aggregate] = await Promise.all([
-    fetchCoverPage(match.id, 0, []),
-    fetchAggregate(match.id),
+    fetchCovers({ client, mangaId: match.id }),
+    fetchAggregate({ client, mangaId: match.id }),
   ]);
 
-  const coverList: MangaDexVolumeCover[] = covers
-    .filter(hasVolume)
-    .map((c) => ({
-      volume: c.attributes.volume,
-      locale: c.attributes.locale ?? "ja",
-      url: coverUrl(match.id, c.attributes.fileName, "512"),
-      thumbUrl: coverUrl(match.id, c.attributes.fileName, "256"),
-    }));
-
-  const titles = buildTitles(match);
-
   return {
-    titles,
+    mangadexId: match.id,
+    titles: buildTitles(match),
     volumes: aggregate.volumeCount,
     chapters: aggregate.chapterCount,
-    covers: coverList,
+    covers: covers.filter(hasVolume).map((c) => ({
+      volume: c.attributes.volume,
+      locale: c.attributes.locale ?? "ja",
+      fileName: c.attributes.fileName,
+    })),
   };
 }

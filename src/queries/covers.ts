@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getCoversByIds } from "@/api/anilist";
-import { WEEK_MS } from "@/queries/shared";
+import { WEEK_MS } from "@/data/time";
 
 export type Cover = { url: string; color: string | null };
 export type CoverMap = Record<number, Cover>;

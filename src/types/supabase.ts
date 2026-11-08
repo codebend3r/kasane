@@ -85,6 +85,45 @@ export type Database = {
         };
         Relationships: [];
       };
+      mangadex_series: {
+        Row: {
+          anilist_manga_id: number;
+          chapters: number;
+          covers: Json;
+          created_at: string;
+          fetched_at: string;
+          id: number;
+          mangadex_id: string;
+          titles: Json;
+          updated_at: string;
+          volumes: number;
+        };
+        Insert: {
+          anilist_manga_id: number;
+          chapters?: number;
+          covers?: Json;
+          created_at?: string;
+          fetched_at?: string;
+          id?: never;
+          mangadex_id: string;
+          titles?: Json;
+          updated_at?: string;
+          volumes?: number;
+        };
+        Update: {
+          anilist_manga_id?: number;
+          chapters?: number;
+          covers?: Json;
+          created_at?: string;
+          fetched_at?: string;
+          id?: never;
+          mangadex_id?: string;
+          titles?: Json;
+          updated_at?: string;
+          volumes?: number;
+        };
+        Relationships: [];
+      };
       movies: {
         Row: {
           after_episode: number | null;

@@ -7,9 +7,8 @@ import {
 } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { detailStats } from "@/data/seriesStats";
-import { useFranchise, useMangaDex } from "@/queries/media";
+import { useMangaDex } from "@/queries/media";
 import { useSeries } from "@/queries/series";
-import { FranchiseSeasons } from "@/components/FranchiseSeasons";
 import { MappingSection } from "@/components/MappingSection";
 import { SeriesHeader } from "@/components/SeriesHeader";
 import { TitlesList } from "@/components/TitlesList";
@@ -25,10 +24,8 @@ export default function SeriesDetail() {
     Number.isNaN(mediaId) ? null : mediaId,
   );
   const manga = entry?.manga ?? null;
-  const anime = entry?.anime ?? null;
 
   const { data: mangadex, isFetching: mangadexLoading } = useMangaDex(manga);
-  const { data: franchise } = useFranchise(anime);
 
   if (isLoading) {
     return (
@@ -47,12 +44,14 @@ export default function SeriesDetail() {
   }
 
   const { primary, badge, routeId } = entry;
-  const totalChapters = mangadex?.chapters ?? manga?.chapters ?? null;
+  // AniList's totals first: MangaDex only counts what it hosts, a fraction of
+  // a licensed run. MangaDex fills in while AniList has no total yet.
+  const totalChapters = manga?.chapters ?? mangadex?.chapters ?? null;
   const subParts = detailStats({
     entry,
     mapping: resolved?.mapping ?? null,
     chapters: totalChapters,
-    volumes: mangadex?.volumes ?? manga?.volumes ?? null,
+    volumes: manga?.volumes ?? mangadex?.volumes ?? null,
   });
 
   return (
@@ -63,10 +62,6 @@ export default function SeriesDetail() {
         subParts={subParts}
         isMapped={resolved?.source === "curated"}
       />
-
-      {!!anime && !!franchise && franchise.seasons.length > 1 && (
-        <FranchiseSeasons franchise={franchise} currentId={anime.id} />
-      )}
 
       <MappingSection
         resolved={resolved}

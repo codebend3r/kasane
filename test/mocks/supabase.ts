@@ -76,6 +76,31 @@ export const tableOf = (rows: unknown[]): SelectBuilder => {
   };
 };
 
+type SingleResponse = { data: unknown; error: { message: string } | null };
+
+type SingleBuilder = {
+  select: () => {
+    eq: (
+      column: string,
+      value: unknown,
+    ) => {
+      maybeSingle: () => Promise<SingleResponse>;
+    };
+  };
+};
+
+/** Query-builder stub for a `select().eq().maybeSingle()` read of one row. */
+export const singleRowOf = (
+  row: unknown,
+  error: { message: string } | null = null,
+): SingleBuilder => ({
+  select: () => ({
+    eq: () => ({
+      maybeSingle: () => Promise.resolve({ data: row, error }),
+    }),
+  }),
+});
+
 // Typed loosely on purpose: a test serves whichever table builders the module
 // under test reaches for (`tableOf` for catalog reads, richer fakes for sync).
 export const fromMock = mock<(table: string) => object>(() => {

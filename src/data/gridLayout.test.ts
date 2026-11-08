@@ -49,6 +49,9 @@ describe("releaseColumns", () => {
     expect(releaseColumns(700)).toBe(3);
     expect(releaseColumns(800)).toBe(4);
     expect(releaseColumns(1280)).toBe(6);
-    expect(releaseColumns(2560)).toBe(12);
+    // A 15" MacBook Air's full-width browser window.
+    expect(releaseColumns(1710)).toBe(10);
+    expect(releaseColumns(2000)).toBe(12);
+    expect(releaseColumns(2560)).toBe(15);
   });
 });

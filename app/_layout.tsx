@@ -13,7 +13,7 @@ import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
 import { CATALOG_QUERY_KEY, useCatalogQuery } from "@/queries/catalog";
 import { COVERS_QUERY_KEY } from "@/queries/covers";
-import { MINUTE_MS, WEEK_MS } from "@/queries/shared";
+import { MINUTE_MS, WEEK_MS } from "@/data/time";
 import {
   useFonts,
   SpaceGrotesk_400Regular,

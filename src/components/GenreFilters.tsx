@@ -6,7 +6,6 @@ import {
   Text,
   View,
 } from "react-native";
-import { useState } from "react";
 import type { GenreFilter } from "@/data/genreFilters";
 import { useGenreFilters } from "@/queries/catalog";
 import { usePreferences } from "@/state/preferences";
@@ -14,37 +13,58 @@ import { useIsNarrow } from "@/components/useIsNarrow";
 import { COLOR, FONT, pressFeedback, SPACE, TEXT } from "@/theme";
 
 /**
+ * The "Filter genres" button. The chips it opens live in `GenreFilterPanel`,
+ * so a toolbar can place the button in its row and the panel beneath it.
+ */
+export function GenreFilterButton({
+  open,
+  onToggle,
+}: {
+  open: boolean;
+  onToggle: () => void;
+}) {
+  const hiddenCount = usePreferences((s) => s.hiddenGenres.length);
+  const isMobile = useIsNarrow();
+
+  return (
+    <Pressable
+      onPress={onToggle}
+      accessibilityRole="button"
+      accessibilityLabel="Filter genres"
+      accessibilityState={{ expanded: open }}
+      style={(state) => [styles.filterToggle, pressFeedback(state)]}
+    >
+      <Text style={styles.filterToggleText}>
+        {hiddenCount > 0
+          ? `Filter genres · ${hiddenCount} hidden`
+          : "Filter genres"}
+      </Text>
+      <Text style={styles.filterToggleChevron}>
+        {open && !isMobile ? "▴" : "▾"}
+      </Text>
+    </Pressable>
+  );
+}
+
+/**
  * The genre chips: an inline row on wider viewports, a bottom sheet on a
  * phone. Reads and writes the hidden set straight from preferences.
  */
-export function GenreFilters() {
+export function GenreFilterPanel({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
   const filters = useGenreFilters();
   const hiddenGenres = usePreferences((s) => s.hiddenGenres);
   const onToggle = usePreferences((s) => s.toggleHiddenGenre);
   const onSetHidden = usePreferences((s) => s.setHiddenGenres);
   const isMobile = useIsNarrow();
-  const [open, setOpen] = useState(false);
-  const hiddenCount = hiddenGenres.length;
 
   return (
     <>
-      <Pressable
-        onPress={() => setOpen(!open)}
-        accessibilityRole="button"
-        accessibilityLabel="Filter genres"
-        accessibilityState={{ expanded: open }}
-        style={(state) => [styles.filterToggle, pressFeedback(state)]}
-      >
-        <Text style={styles.filterToggleText}>
-          {hiddenCount > 0
-            ? `Filter genres · ${hiddenCount} hidden`
-            : "Filter genres"}
-        </Text>
-        <Text style={styles.filterToggleChevron}>
-          {open && !isMobile ? "▴" : "▾"}
-        </Text>
-      </Pressable>
-
       {!isMobile && open && (
         <View style={styles.genreFilters}>
           <ToggleAllGenres
@@ -83,7 +103,7 @@ export function GenreFilters() {
           filters={filters}
           hiddenGenres={hiddenGenres}
           onToggle={onToggle}
-          onClose={() => setOpen(false)}
+          onClose={onClose}
         />
       )}
     </>
@@ -204,7 +224,6 @@ const styles = StyleSheet.create({
   filterToggle: {
     flexDirection: "row",
     alignItems: "center",
-    alignSelf: "flex-start",
     gap: SPACE.md,
     paddingHorizontal: SPACE.lgx,
     paddingVertical: SPACE.md,

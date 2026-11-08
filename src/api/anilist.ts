@@ -1,14 +1,6 @@
 import { GraphQLClient, gql } from "graphql-request";
-import { englishTitle } from "@/data/format";
 import type { SplitFilters } from "@/data/genreFilters";
-import type {
-  AniListMedia,
-  AniListMediaDetail,
-  AnimeFranchise,
-  FranchiseSeason,
-  MediaCover,
-  MediaType,
-} from "@/types";
+import type { AniListMedia, AniListMediaDetail, MediaCover } from "@/types";
 
 const client = new GraphQLClient("https://graphql.anilist.co");
 
@@ -70,25 +62,12 @@ function isFranchiseRoot(media: AniListMedia): boolean {
   );
 }
 
-const SEARCH_QUERY = gql`
-  query Search($query: String!, $genreNotIn: [String], $tagNotIn: [String]) {
-    Page(perPage: ${SEARCH_PAGE_SIZE}) {
-      media(
-        search: $query
-        sort: SEARCH_MATCH
-        isAdult: false
-        genre_not_in: $genreNotIn
-        tag_not_in: $tagNotIn
-      ) {
-        ${MEDIA_FIELDS}
-      }
-    }
-  }
-`;
-
 const LATEST_ANIME_QUERY = gql`
-  query LatestAnime($genreNotIn: [String], $tagNotIn: [String]) {
-    Page(perPage: ${PAGE_SIZE}) {
+  query LatestAnime($page: Int!, $genreNotIn: [String], $tagNotIn: [String]) {
+    Page(page: $page, perPage: ${PAGE_SIZE}) {
+      pageInfo {
+        hasNextPage
+      }
       media(
         type: ANIME
         format: TV
@@ -114,6 +93,42 @@ const MEDIA_BY_IDS_QUERY = gql`
   }
 `;
 
+// The search page and the catalog's title matches in one request, so a search
+// costs one call against AniList's per-minute rate limit rather than two. The
+// catalog page is skipped when there are no ids: an empty `id_in` would not
+// filter anything.
+const SEARCH_QUERY = gql`
+  query Search(
+    $query: String!
+    $ids: [Int]!
+    $hasCatalog: Boolean!
+    $genreNotIn: [String]
+    $tagNotIn: [String]
+  ) {
+    search: Page(perPage: ${SEARCH_PAGE_SIZE}) {
+      media(
+        search: $query
+        sort: SEARCH_MATCH
+        isAdult: false
+        genre_not_in: $genreNotIn
+        tag_not_in: $tagNotIn
+      ) {
+        ${MEDIA_FIELDS}
+      }
+    }
+    catalog: Page(perPage: ${PAGE_SIZE}) @include(if: $hasCatalog) {
+      media(
+        id_in: $ids
+        isAdult: false
+        genre_not_in: $genreNotIn
+        tag_not_in: $tagNotIn
+      ) {
+        ${MEDIA_FIELDS}
+      }
+    }
+  }
+`;
+
 const DETAIL_QUERY = gql`
   query Detail($id: Int!) {
     Media(id: $id) {
@@ -123,30 +138,52 @@ const DETAIL_QUERY = gql`
   }
 `;
 
-/** AniList search, with the hidden genres and tags excluded server-side. */
-export async function searchMedia({
+export type SearchWithCatalog = {
+  search: AniListMedia[];
+  catalog: AniListMedia[];
+};
+
+/**
+ * AniList search plus the given catalog media ids, both under the search's
+ * genre and tag exclusions, in a single request.
+ */
+export async function searchWithCatalog({
   query,
+  ids,
   filters,
 }: {
   query: string;
+  ids: readonly number[];
   filters: SplitFilters;
-}): Promise<AniListMedia[]> {
-  if (!query.trim()) return [];
-  const data = await client.request<{ Page: { media: AniListMedia[] } }>(
-    SEARCH_QUERY,
-    { query, ...filters },
-  );
-  return data.Page.media;
+}): Promise<SearchWithCatalog> {
+  const data = await client.request<{
+    search: { media: AniListMedia[] };
+    catalog?: { media: AniListMedia[] };
+  }>(SEARCH_QUERY, { query, ids, hasCatalog: ids.length > 0, ...filters });
+  return { search: data.search.media, catalog: data.catalog?.media ?? [] };
 }
 
-export async function getLatestAnime(
-  filters: SplitFilters,
-): Promise<AniListMedia[]> {
-  const data = await client.request<{ Page: { media: AniListMedia[] } }>(
-    LATEST_ANIME_QUERY,
-    { ...filters },
-  );
-  return data.Page.media.filter(isFranchiseRoot);
+/** One page of the latest-releases feed. */
+export type LatestAnimePage = { media: AniListMedia[]; hasNextPage: boolean };
+
+/**
+ * Page `page` (1-based) of the newest TV anime, one entry per franchise.
+ * Later seasons are dropped, so a page can hold fewer than `PAGE_SIZE`.
+ */
+export async function getLatestAnime({
+  filters,
+  page,
+}: {
+  filters: SplitFilters;
+  page: number;
+}): Promise<LatestAnimePage> {
+  const data = await client.request<{
+    Page: { pageInfo: { hasNextPage: boolean }; media: AniListMedia[] };
+  }>(LATEST_ANIME_QUERY, { page, ...filters });
+  return {
+    media: data.Page.media.filter(isFranchiseRoot),
+    hasNextPage: data.Page.pageInfo.hasNextPage,
+  };
 }
 
 export async function getMedia(id: number): Promise<AniListMediaDetail> {
@@ -157,13 +194,36 @@ export async function getMedia(id: number): Promise<AniListMediaDetail> {
   return data.Media;
 }
 
-export async function getMediaByIds(ids: number[]): Promise<AniListMedia[]> {
-  if (ids.length === 0) return [];
-  const data = await client.request<{ Page: { media: AniListMedia[] } }>(
-    MEDIA_BY_IDS_QUERY,
-    { ids },
-  );
-  return data.Page.media;
+/**
+ * `ids`, de-duplicated and cut into AniList pages, each fetched by `request`
+ * one after another: firing a dozen pages at once trips AniList's burst limit,
+ * and a rate-limited response comes back without CORS headers, so on web it
+ * fails outright rather than retrying.
+ */
+const inPages = <T>(
+  ids: readonly number[],
+  request: (page: number[]) => Promise<T[]>,
+): Promise<T[]> => {
+  const unique = [...new Set(ids)];
+  return Array.from({ length: Math.ceil(unique.length / PAGE_SIZE) }, (_, i) =>
+    unique.slice(i * PAGE_SIZE, (i + 1) * PAGE_SIZE),
+  ).reduce<Promise<T[]>>(async (acc, page) => {
+    const done = await acc;
+    return [...done, ...(await request(page))];
+  }, Promise.resolve([]));
+};
+
+/** Full media records for any number of ids, batched at AniList's page limit. */
+export async function getMediaByIds(
+  ids: readonly number[],
+): Promise<AniListMedia[]> {
+  return inPages(ids, async (page) => {
+    const data = await client.request<{ Page: { media: AniListMedia[] } }>(
+      MEDIA_BY_IDS_QUERY,
+      { ids: page },
+    );
+    return data.Page.media;
+  });
 }
 
 const COVERS_BY_IDS_QUERY = gql`
@@ -181,135 +241,17 @@ const COVERS_BY_IDS_QUERY = gql`
 `;
 
 /**
- * Cover art for an arbitrary number of media ids, batched at AniList's page
- * limit. The batches run one after another: firing all dozen of the catalog's
- * pages at once trips AniList's burst limit, and a rate-limited response comes
- * back without CORS headers, so on web it fails outright rather than retrying.
- * The result is cached for a week, so this runs about once per device.
+ * Cover art for any number of media ids, batched at AniList's page limit. The
+ * result is cached for a week, so this runs about once per device.
  */
 export async function getCoversByIds(
   ids: readonly number[],
 ): Promise<MediaCover[]> {
-  const unique = [...new Set(ids)];
-  return Array.from({ length: Math.ceil(unique.length / PAGE_SIZE) }, (_, i) =>
-    unique.slice(i * PAGE_SIZE, (i + 1) * PAGE_SIZE),
-  ).reduce<Promise<MediaCover[]>>(async (acc, batch) => {
-    const covers = await acc;
-    const page = await client.request<{ Page: { media: MediaCover[] } }>(
+  return inPages(ids, async (page) => {
+    const data = await client.request<{ Page: { media: MediaCover[] } }>(
       COVERS_BY_IDS_QUERY,
-      { ids: batch },
+      { ids: page },
     );
-    return [...covers, ...page.Page.media];
-  }, Promise.resolve([]));
-}
-
-const FRANCHISE_NODE_QUERY = gql`
-  query FranchiseNode($ids: [Int]) {
-    Page(perPage: ${PAGE_SIZE}) {
-      media(id_in: $ids, type: ANIME) {
-        id
-        title {
-          romaji
-          english
-        }
-        format
-        episodes
-        startDate {
-          year
-        }
-        relations {
-          edges {
-            relationType(version: 2)
-            node {
-              id
-              type
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-export type FranchiseRawNode = {
-  id: number;
-  title: { romaji: string; english: string | null };
-  format: string | null;
-  episodes: number | null;
-  startDate: { year: number | null };
-  relations: {
-    edges: { relationType: string; node: { id: number; type: MediaType } }[];
-  };
-};
-
-const FRANCHISE_RELATIONS = new Set([
-  "SEQUEL",
-  "PREQUEL",
-  "PARENT",
-  "SIDE_STORY",
-]);
-
-async function collectFranchiseNodes(
-  frontier: number[],
-  visited: Map<number, FranchiseRawNode>,
-): Promise<FranchiseRawNode[]> {
-  const ids = frontier.filter((id) => !visited.has(id));
-  if (ids.length === 0) return Array.from(visited.values());
-
-  const data = await client.request<{ Page: { media: FranchiseRawNode[] } }>(
-    FRANCHISE_NODE_QUERY,
-    { ids },
-  );
-  const nextVisited = data.Page.media.reduce(
-    (acc, node) => acc.set(node.id, node),
-    new Map(visited),
-  );
-  const next = data.Page.media.flatMap((node) =>
-    node.relations.edges
-      .filter(
-        (edge) =>
-          FRANCHISE_RELATIONS.has(edge.relationType) &&
-          edge.node.type === "ANIME" &&
-          !nextVisited.has(edge.node.id),
-      )
-      .map((edge) => edge.node.id),
-  );
-  return collectFranchiseNodes([...new Set(next)], nextVisited);
-}
-
-export async function getAnimeFranchise(
-  rootId: number,
-): Promise<AnimeFranchise> {
-  const nodes = await collectFranchiseNodes([rootId], new Map());
-
-  const seasons: FranchiseSeason[] = nodes
-    .map((n) => ({
-      id: n.id,
-      title: englishTitle(n.title),
-      romajiTitle: n.title.romaji,
-      format: n.format,
-      episodes: n.episodes,
-      year: n.startDate.year,
-    }))
-    .sort((a, b) => (a.year ?? 9999) - (b.year ?? 9999));
-
-  const tvSeasons = seasons.filter((s) => s.format === "TV");
-  const totalTvEpisodes = tvSeasons.reduce(
-    (sum, s) => sum + (s.episodes ?? 0),
-    0,
-  );
-
-  return {
-    rootId,
-    seasons,
-    totalTvEpisodes,
-    tvSeasonCount: tvSeasons.length,
-  };
-}
-
-export function hasAnimeSequels(media: AniListMedia): boolean {
-  if (media.type !== "ANIME") return false;
-  return media.relations.edges.some(
-    (e) => e.relationType === "SEQUEL" && e.node.type === "ANIME",
-  );
+    return data.Page.media;
+  });
 }

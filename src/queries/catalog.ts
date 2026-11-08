@@ -4,7 +4,7 @@ import { fetchCatalog } from "@/api/catalog";
 import { indexByMediaId, type Catalog } from "@/data/catalog";
 import type { GenreFilter } from "@/data/genreFilters";
 import { buildSyntheticMapping } from "@/data/pairing";
-import { HOUR_MS, WEEK_MS } from "@/queries/shared";
+import { HOUR_MS, WEEK_MS } from "@/data/time";
 import type { AniListMedia, ResolvedMapping, SeriesMapping } from "@/types";
 
 export const CATALOG_QUERY_KEY = ["catalog"] as const;

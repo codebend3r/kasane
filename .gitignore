@@ -59,3 +59,12 @@ src-tauri/Cargo.lock
 .claude/*.lock
 .claude/settings.local.json
 
+
+# Supabase CLI local state (secrets, snapshots)
+supabase/.temp/
+supabase/.branches/
+supabase/.snapshots/
+
+# Netlify CLI state, and the edge bundler's lock of its own bootstrap modules.
+.netlify/
+deno.lock

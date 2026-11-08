@@ -47,9 +47,9 @@ export const gridLayout = ({
 };
 
 const RELEASE_COLUMNS = [
-  { minWidth: 2400, columns: 12 },
-  { minWidth: 2000, columns: 9 },
-  { minWidth: 1700, columns: 8 },
+  { minWidth: 2400, columns: 15 },
+  { minWidth: 2000, columns: 12 },
+  { minWidth: 1700, columns: 10 },
   { minWidth: 1450, columns: 7 },
   { minWidth: 1200, columns: 6 },
   { minWidth: 1000, columns: 5 },

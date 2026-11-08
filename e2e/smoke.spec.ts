@@ -26,6 +26,14 @@ test.describe("catalog", () => {
     await search(page, "One Piece");
     await expect(page.getByText(/one piece/i).first()).toBeVisible();
   });
+
+  // AniList ranks Attack on Titan past its first page for "attack", and
+  // "Mapped only" is on by default, so this once came back empty.
+  test("a partial title finds the mapped series", async ({ page }) => {
+    await page.goto("/");
+    await search(page, "attack");
+    await expect(page.getByText("Attack on Titan").first()).toBeVisible();
+  });
 });
 
 test.describe("series detail", () => {
@@ -55,6 +63,49 @@ test.describe("series detail", () => {
     await page.goto(`/anime/${ANIME_ID}`);
     await expect(page).toHaveURL(new RegExp(`${SERIES_ROUTE}$`));
     await expect(page.getByText(/quick lookup/i)).toBeVisible();
+  });
+});
+
+test.describe("movies", () => {
+  // Naruto: a mapped series with a long film list.
+  const NARUTO = "/series/30011";
+
+  test("stay collapsed until opened, with no seasons list above", async ({
+    page,
+  }) => {
+    await page.goto(NARUTO);
+    const toggle = page.getByRole("button", { name: /^movies,/i });
+    await expect(toggle).toBeVisible();
+    await expect(toggle).toHaveAttribute("aria-expanded", "false");
+    await expect(page.getByText(/after ep 713/i)).toHaveCount(0);
+    // The franchise's seasons were a text list under the header; it is gone.
+    await expect(page.getByText(/seasons & entries/i)).toHaveCount(0);
+    await expect(
+      page.getByRole("link", { name: /^the last: naruto the movie/i }),
+    ).toHaveCount(0);
+
+    await toggle.click();
+    await expect(toggle).toHaveAttribute("aria-expanded", "true");
+    await expect(page.getByText(/after ep 713/i)).toBeVisible();
+  });
+});
+
+test.describe("mangadex proxy", () => {
+  // MangaDex refuses browser User-Agents, so a cover can only arrive through
+  // the same-origin proxy. Fullmetal Alchemist: a stable, fully mapped series.
+  test("volume covers load through /_mdx-covers", async ({ page }) => {
+    await page.goto("/series/5114");
+    await expect(page.getByText("Volumes", { exact: true })).toBeVisible();
+    const cover = page.locator('img[src^="/_mdx-covers/"]').first();
+    await expect(cover).toBeVisible({ timeout: 30_000 });
+    await expect
+      .poll(() =>
+        cover.evaluate((img) =>
+          img instanceof HTMLImageElement ? img.naturalWidth : 0,
+        ),
+      )
+      .toBeGreaterThan(0);
+    await expect(page.getByText(/no volume art/i)).toHaveCount(0);
   });
 });
 

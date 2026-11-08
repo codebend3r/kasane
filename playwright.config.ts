@@ -31,7 +31,21 @@ export default defineConfig({
     trace: "on-first-retry",
     screenshot: "only-on-failure",
   },
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  projects: [
+    {
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
+      testIgnore: "**/popular-search.spec.ts",
+    },
+    // Twenty live AniList searches need the per-minute rate limit to
+    // themselves, so they run once everything else has finished.
+    {
+      name: "popular-searches",
+      use: { ...devices["Desktop Chrome"] },
+      testMatch: "**/popular-search.spec.ts",
+      dependencies: ["chromium"],
+    },
+  ],
   webServer: {
     command: "bun run e2e/serve.ts",
     url: BASE_URL,

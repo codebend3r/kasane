@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
   mappedToggle: {
     flexDirection: "row",
     alignItems: "center",
-    alignSelf: "flex-start",
     gap: SPACE.md,
     paddingVertical: SPACE.xs,
   },

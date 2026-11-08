@@ -5,9 +5,13 @@ import { COLOR, pressFeedback, FOOTER_OFFSET, SPACE, TEXT } from "@/theme";
 const AUTHOR_URL = "https://github.com/codebend3r";
 const SOURCE_URL = "https://github.com/codebend3r/kasane";
 
-export function Footer() {
+/**
+ * The credits bar. At the end of a page it sits well clear of the content;
+ * `pinned` tightens it for a screen that holds it fixed under a scroll area.
+ */
+export function Footer({ pinned = false }: { pinned?: boolean }) {
   return (
-    <View style={styles.bar}>
+    <View style={[styles.bar, pinned && styles.barPinned]}>
       <Text style={styles.copy}>Built by</Text>
       <Pressable
         onPress={() => Linking.openURL(AUTHOR_URL)}
@@ -44,6 +48,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: COLOR.surface,
   },
+  barPinned: { paddingTop: SPACE.lg, paddingBottom: SPACE.xs },
   copy: { ...TEXT.buttonLabel, color: COLOR.textMuted },
   link: { ...TEXT.buttonLabel, color: COLOR.textPrimary },
   spacer: { flex: 1 },
