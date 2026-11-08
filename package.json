@@ -6,10 +6,12 @@
   "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
+    "dev:local": "bash scripts/dev.sh local",
+    "dev:production": "bash scripts/dev.sh production",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build:web": "expo export -p web",
+    "build:web": "expo export -p web --clear",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
