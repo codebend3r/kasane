@@ -2,6 +2,24 @@
 
 All notable changes to kasane are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project uses [Semantic Versioning](https://semver.org/).
 
+## [1.3.5] - 2026-11-08
+
+### Added
+
+- Search matches catalog titles locally, so mapped series past AniList's first page still show (#46)
+- Infinite home grid with immersive mode, a single toolbar and a pinned footer (#46)
+- Supabase `mangadex_series` cache, read first with a live MangaDex fallback (#46)
+- The dev server can run against a local or the production Supabase (#45)
+
+### Changed
+
+- A Netlify edge function proxies MangaDex so it can set the `User-Agent` (#46)
+- Series counts prefer AniList totals, and movies collapse behind a toggle (#46)
+
+### Removed
+
+- The franchise column on the series screen (#46)
+
 ## [1.3.4] - 2026-10-21
 
 ### Changed
