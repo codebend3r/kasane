@@ -1,14 +1,17 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { usePathname, useRouter } from "expo-router";
+import { HeaderWordmark } from "@/components/HeaderWordmark";
 import { useIsNarrow } from "@/components/useIsNarrow";
 import { useAuthEmail } from "@/state/auth";
+import { useHomeChrome } from "@/state/homeChrome";
 import { usePreferences } from "@/state/preferences";
 import { useSideMenu } from "@/state/sideMenu";
 import { COLOR, FONT, pressFeedback, SPACE } from "@/theme";
 
 /**
  * The bar above every screen: menu, back, wordmark, the title-language toggle
- * and the account chip.
+ * and the account chip. While the home grid is being scrolled the bar tightens
+ * and the wordmark goes compact, leaving room for covers.
  */
 export function GlobalHeader() {
   const router = useRouter();
@@ -21,11 +24,17 @@ export function GlobalHeader() {
   const japanese = usePreferences((s) => s.japanese);
   const toggleJapanese = usePreferences((s) => s.toggleJapanese);
   const email = useAuthEmail();
-
+  const compact = useHomeChrome((s) => isHome && s.immersive);
   const openMenu = useSideMenu((s) => s.openMenu);
 
   return (
-    <View style={[styles.bar, isNarrow && styles.barNarrow]}>
+    <View
+      style={[
+        styles.bar,
+        isNarrow && styles.barNarrow,
+        compact && styles.barCompact,
+      ]}
+    >
       <Pressable
         onPress={() => openMenu()}
         hitSlop={10}
@@ -46,30 +55,11 @@ export function GlobalHeader() {
           <Text style={styles.backArrow}>←</Text>
         </Pressable>
       )}
-      <Pressable
+      <HeaderWordmark
+        narrow={isNarrow}
+        compact={compact}
         onPress={() => router.replace("/")}
-        hitSlop={8}
-        accessibilityRole="link"
-        accessibilityLabel="Kasane, go to home"
-        style={(state) => [styles.wordmarkPressable, pressFeedback(state)]}
-      >
-        <Text
-          numberOfLines={1}
-          style={[styles.wordmark, isNarrow && styles.wordmarkNarrow]}
-        >
-          Kasane
-        </Text>
-        {/* The wide-tracked subheading is what pushes the header past a phone
-            viewport once the back arrow is present, so drop it when narrow. */}
-        {!isNarrow && (
-          <>
-            <Text style={styles.subheading}>
-              anime <Text style={styles.subAccent}>+</Text> manga
-            </Text>
-            <View style={styles.rule} />
-          </>
-        )}
-      </Pressable>
+      />
       <View style={styles.spacer} />
       <Pressable
         onPress={toggleJapanese}
@@ -106,6 +96,7 @@ const styles = StyleSheet.create({
     paddingBottom: SPACE.lg,
   },
   barNarrow: { gap: SPACE.md, paddingHorizontal: SPACE.mdl },
+  barCompact: { paddingTop: SPACE.lg },
   back: {
     width: 44,
     height: 44,
@@ -119,38 +110,6 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontFamily: FONT.bold,
     lineHeight: 32,
-  },
-  wordmarkPressable: {
-    gap: SPACE.xs,
-    flexShrink: 1,
-  },
-  // Scaled down rather than allowed to shrink-wrap, which broke "Kasane"
-  // across two lines on a phone.
-  wordmarkNarrow: { fontSize: 34, lineHeight: 38, letterSpacing: -1 },
-  wordmark: {
-    color: COLOR.textPrimary,
-    fontSize: 64,
-    lineHeight: 68,
-    letterSpacing: -2,
-    fontFamily: FONT.display,
-    paddingBottom: SPACE.xxs,
-  },
-  subheading: {
-    color: COLOR.textSecondary,
-    fontSize: 13,
-    letterSpacing: 6,
-    textTransform: "uppercase",
-    fontFamily: FONT.bold,
-    paddingBottom: SPACE.sm,
-  },
-  subAccent: {
-    color: COLOR.accent,
-    fontFamily: FONT.bold,
-  },
-  rule: {
-    height: 4,
-    width: 64,
-    backgroundColor: COLOR.accent,
   },
   spacer: { flex: 1 },
   langToggle: {

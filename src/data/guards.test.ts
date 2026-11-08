@@ -1,5 +1,20 @@
 import { describe, expect, it } from "bun:test";
-import { hasBoundingRect } from "./guards";
+import { hasBoundingRect, isRecord } from "./guards";
+
+describe("isRecord", () => {
+  it("accepts a plain object", () => {
+    expect(isRecord({})).toBe(true);
+    expect(isRecord({ a: 1 })).toBe(true);
+  });
+
+  it("rejects null, arrays and primitives", () => {
+    expect(isRecord(null)).toBe(false);
+    expect(isRecord([])).toBe(false);
+    expect(isRecord("a")).toBe(false);
+    expect(isRecord(1)).toBe(false);
+    expect(isRecord(undefined)).toBe(false);
+  });
+});
 
 describe("hasBoundingRect", () => {
   it("accepts a node that can measure itself", () => {

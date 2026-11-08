@@ -9,10 +9,10 @@ kasane ships its Supabase **publishable** key in the client bundle (`src/api/sup
 
 ## The two data classes
 
-| Class                           | Tables                                                                | Rule                                                                                                                                        |
-| ------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Catalog** (public, read-only) | `series`, `arc_mappings`, `movies`, `search_aliases`, `genre_filters` | `for select using (true)`; `grant select ... to anon, authenticated`. No client writes, ever.                                               |
-| **User data** (owner-scoped)    | `user_progress`, `user_preferences`                                   | `for all using (auth.uid() = user_id) with check (auth.uid() = user_id)`; `grant select, insert, update, delete ... to authenticated` only. |
+| Class                           | Tables                                                                                   | Rule                                                                                                                                                                              |
+| ------------------------------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Catalog** (public, read-only) | `series`, `arc_mappings`, `movies`, `search_aliases`, `genre_filters`, `mangadex_series` | `for select using (true)`; `grant select ... to anon, authenticated`. No client writes, ever. `mangadex_series` is filled by `scripts/refresh-mangadex.ts` with the service role. |
+| **User data** (owner-scoped)    | `user_progress`, `user_preferences`                                                      | `for all using (auth.uid() = user_id) with check (auth.uid() = user_id)`; `grant select, insert, update, delete ... to authenticated` only.                                       |
 
 A new table joins one of these classes. If it fits neither, that is the design question to resolve before writing SQL.
 

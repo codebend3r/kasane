@@ -1,9 +1,14 @@
 import { describe, expect, it } from "bun:test";
+import { MANGADEX_USER_AGENT } from "@/data/mangadexRoutes";
 import {
+  appMangaDexClient,
   countAggregate,
   hasVolume,
   isCoverRecord,
   isMangaRecord,
+  nativeMangaDexClient,
+  scriptMangaDexClient,
+  webMangaDexClient,
   pickBestMatch,
   preferredTitle,
 } from "./mangadex";
@@ -198,5 +203,27 @@ describe("countAggregate", () => {
       chapterCount: 0,
     });
     expect(countAggregate(null)).toEqual({ volumeCount: 0, chapterCount: 0 });
+  });
+});
+
+describe("MangaDex clients", () => {
+  it("send a web build through the same-origin proxies with no User-Agent", () => {
+    expect(webMangaDexClient).toEqual({
+      api: "/_mdx",
+      covers: "/_mdx-covers",
+      headers: {},
+    });
+  });
+
+  it("let a script call MangaDex directly with the non-browser User-Agent", () => {
+    expect(scriptMangaDexClient).toEqual({
+      api: "https://api.mangadex.org",
+      covers: "https://uploads.mangadex.org/covers",
+      headers: { "User-Agent": MANGADEX_USER_AGENT },
+    });
+  });
+
+  it("read directly under bun, where there is no window", () => {
+    expect(appMangaDexClient).toBe(nativeMangaDexClient);
   });
 });

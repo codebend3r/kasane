@@ -18,8 +18,9 @@
     "lint:actions": "github-actionlint -color",
     "spellcheck": "typos",
     "spellcheck:fix": "typos --write-changes",
-    "test": "bun test src --reporter=dots --parallel",
+    "test": "bun test src scripts --reporter=dots --parallel",
     "e2e": "playwright test",
+    "mangadex:refresh": "bun --env-file=scripts/.env.local run scripts/refresh-mangadex.ts",
     "e2e:install": "playwright install chromium",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
@@ -74,7 +75,8 @@
     "typescript": "7.0.2"
   },
   "engines": {
-    "bun": ">=1.4.2"
+    "bun": ">=1.4.2",
+    "node": ">=24"
   },
   "packageManager": "bun@1.4.2",
   "trustedDependencies": [

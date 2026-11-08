@@ -10,7 +10,7 @@ coveragePathIgnorePatterns = ["test/**"]
 #
 # So the bar is set by the weakest file, not the average — today that is
 # `src/api/mangadex.ts` (53% lines / 74% funcs), whose network paths in
-# `getMangaDexInfoByAniListId` are covered only through their parsers. Parked
+# `getMangaDexSnapshot` are covered only through their parsers. Parked
 # just under it so any regression trips the suite, rather than at a round
 # number no existing file could fail. Raise both once that export is covered.
 [test.coverageThreshold]

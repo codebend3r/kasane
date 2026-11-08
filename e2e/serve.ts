@@ -1,10 +1,11 @@
 /**
  * Static server for the Expo web export, used by Playwright.
  *
- * Mirrors the two `netlify.toml` behaviours the app depends on: the SPA fallback
- * to `index.html` (Expo Router web output is a single document with client
- * routing) and the `/_mdx/*` proxy to the MangaDex API. Serving the real `dist/`
- * means the e2e suite exercises the same bundle that ships.
+ * Mirrors the `netlify.toml` behaviours the app depends on: the SPA fallback to
+ * `index.html` (Expo Router web output is a single document with client
+ * routing) and the MangaDex proxies, shared with the Metro dev server through
+ * `scripts/mangadexProxy.ts` and `src/data/mangadexRoutes.ts`. Serving the
+ * real `dist/` means the e2e suite exercises the same bundle that ships.
  *
  * Uses node APIs rather than `Bun.serve` so it typechecks under the repo's
  * tsconfig without pulling in Bun's global types.
@@ -14,10 +15,11 @@
 import * as fs from "fs";
 import * as http from "http";
 import * as path from "path";
+import { MANGADEX_USER_AGENT, upstreamUrl } from "@/data/mangadexRoutes";
+import { proxyMangaDex } from "@scripts/mangadexProxy";
 
 const PORT = Number(process.env.E2E_PORT ?? 4173);
 const DIST = path.resolve(__dirname, "..", "dist");
-const MANGADEX = "https://api.mangadex.org";
 
 const MIME: Record<string, string> = {
   ".html": "text/html; charset=utf-8",
@@ -47,33 +49,23 @@ const resolveFile = (pathname: string): string | null => {
     : null;
 };
 
-const proxyMangaDex = async (
-  url: string,
-  res: http.ServerResponse,
-): Promise<void> => {
-  const upstream = await fetch(`${MANGADEX}${url.slice("/_mdx".length)}`);
-  const body = await upstream.text();
-  res.writeHead(upstream.status, {
-    "Content-Type": upstream.headers.get("content-type") ?? "application/json",
-  });
-  res.end(body);
-};
-
 const server = http.createServer((req, res) => {
   const url = req.url ?? "/";
 
-  if (url.startsWith("/_mdx/")) {
-    proxyMangaDex(url, res).catch(() => {
-      res.writeHead(502).end("mangadex proxy failed");
+  proxyMangaDex({
+    req,
+    res,
+    upstreamUrl,
+    userAgent: MANGADEX_USER_AGENT,
+  }).then((handled) => {
+    if (handled) return;
+    const file =
+      resolveFile(url.split("?")[0]) ?? path.join(DIST, "index.html");
+    res.writeHead(200, {
+      "Content-Type": MIME[path.extname(file)] ?? "application/octet-stream",
     });
-    return;
-  }
-
-  const file = resolveFile(url.split("?")[0]) ?? path.join(DIST, "index.html");
-  res.writeHead(200, {
-    "Content-Type": MIME[path.extname(file)] ?? "application/octet-stream",
+    fs.createReadStream(file).pipe(res);
   });
-  fs.createReadStream(file).pipe(res);
 });
 
 server.listen(PORT, () => {

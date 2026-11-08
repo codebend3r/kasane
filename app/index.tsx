@@ -9,14 +9,14 @@ import {
 } from "react-native";
 import { pairResults } from "@/data/pairing";
 import { useCatalog, useGenreFilters } from "@/queries/catalog";
-import { useLatestAnime, useSearch } from "@/queries/search";
+import { useSearch } from "@/queries/search";
 import { splitHiddenForAniList } from "@/data/genreFilters";
 import { Footer } from "@/components/Footer";
 import { SeriesCard } from "@/components/SeriesCard";
-import { GenreFilters } from "@/components/GenreFilters";
+import { HomeToolbar } from "@/components/HomeToolbar";
 import { LatestReleases } from "@/components/LatestReleases";
-import { MappedOnlyToggle } from "@/components/MappedOnlyToggle";
 import { useDebouncedValue } from "@/components/useDebouncedValue";
+import { useHomeChrome } from "@/state/homeChrome";
 import { usePreferences } from "@/state/preferences";
 import { COLOR, FONT, SPACE } from "@/theme";
 
@@ -26,6 +26,7 @@ export default function HomeScreen() {
   const hiddenGenres = usePreferences((s) => s.hiddenGenres);
   const genreFilters = useGenreFilters();
   const [mappedOnly, setMappedOnly] = useState(true);
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const { findMapping } = useCatalog();
 
   // Chips update `hiddenGenres` immediately so they stay responsive, but the
@@ -44,10 +45,8 @@ export default function HomeScreen() {
     error,
   } = useSearch({ query: debouncedQuery, filters, enabled: isSearching });
 
-  const { data: latestAnime, isFetching: latestFetching } = useLatestAnime({
-    filters,
-    enabled: !isSearching,
-  });
+  // Scrolling the latest grid hands the screen over to the covers.
+  const immersive = useHomeChrome((s) => s.immersive);
 
   const pairedResults = useMemo(
     () => pairResults(searchResults ?? []),
@@ -66,27 +65,36 @@ export default function HomeScreen() {
   );
   const hiddenByMapping = pairedResults.length - visibleResults.length;
 
+  // One toolbar, headed in the latest grid and bare above search results.
+  const toolbar = (
+    <HomeToolbar
+      heading={
+        isSearching
+          ? undefined
+          : { eyebrow: "Now airing", title: "Latest anime" }
+      }
+      mappedOnly={mappedOnly}
+      onMappedOnlyChange={setMappedOnly}
+      filtersOpen={filtersOpen}
+      onFiltersOpenChange={setFiltersOpen}
+    />
+  );
+
   return (
     <View style={styles.root}>
-      <Text style={styles.tagline}>
-        Find which anime episodes cover which manga chapters.
-      </Text>
-
-      <TextInput
-        value={query}
-        onChangeText={setQuery}
-        placeholder="Search anime or manga…"
-        accessibilityRole="search"
-        accessibilityLabel="Search anime or manga"
-        placeholderTextColor={COLOR.textFaint}
-        style={styles.input}
-        autoCorrect={false}
-        returnKeyType="search"
-      />
-
-      <MappedOnlyToggle value={mappedOnly} onChange={setMappedOnly} />
-
-      <GenreFilters />
+      {!immersive && (
+        <TextInput
+          value={query}
+          onChangeText={setQuery}
+          placeholder="Search anime or manga…"
+          accessibilityRole="search"
+          accessibilityLabel="Search anime or manga"
+          placeholderTextColor={COLOR.textFaint}
+          style={styles.input}
+          autoCorrect={false}
+          returnKeyType="search"
+        />
+      )}
 
       {error && (
         <Text style={styles.error}>Something went wrong. Try again.</Text>
@@ -103,6 +111,8 @@ export default function HomeScreen() {
             data={visibleResults}
             keyExtractor={(item) => `series-${item.routeId}`}
             renderItem={({ item }) => <SeriesCard entry={item} />}
+            ListHeaderComponent={toolbar}
+            ListHeaderComponentStyle={styles.listHeader}
             ListEmptyComponent={
               !isFetching && query === debouncedQuery ? (
                 <View style={styles.emptyWrap}>
@@ -120,7 +130,7 @@ export default function HomeScreen() {
           />
         </>
       ) : (
-        <LatestReleases data={latestAnime ?? []} loading={latestFetching} />
+        <LatestReleases filters={filters} header={toolbar} />
       )}
     </View>
   );
@@ -128,12 +138,6 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   root: { flex: 1, padding: SPACE.xl, gap: SPACE.xl },
-  tagline: {
-    color: COLOR.textSecondary,
-    fontSize: 16,
-    letterSpacing: -0.2,
-    fontFamily: FONT.medium,
-  },
   input: {
     backgroundColor: COLOR.surface,
     color: COLOR.textPrimary,
@@ -146,6 +150,7 @@ const styles = StyleSheet.create({
     borderLeftColor: COLOR.accent,
   },
   spinnerWrap: { paddingTop: SPACE.xxxl },
+  listHeader: { paddingBottom: SPACE.xl },
   emptyWrap: { paddingTop: SPACE.page },
   empty: {
     color: COLOR.textMuted,

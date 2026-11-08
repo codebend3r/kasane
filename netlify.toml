@@ -2,8 +2,10 @@
   command = "bun install && bun run build:web"
   publish = "dist"
 
+# `metro.config.js` requires a TypeScript module, which Node strips types from
+# since 22.6 and by default since 24. Keep in step with `engines.node`.
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "24"
 
 # Long-cache the hashed Expo bundle output
 [[headers]]
@@ -29,14 +31,22 @@
     Referrer-Policy = "no-referrer"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
-# MangaDex API proxy — api.mangadex.org only returns Access-Control-Allow-Origin
-# for localhost, so browser fetches from the deployed site are blocked. Proxying
-# server-side makes the call same-origin to the browser.
-[[redirects]]
-  from = "/_mdx/*"
-  to = "https://api.mangadex.org/:splat"
-  status = 200
-  force = true
+# MangaDex proxies. `api.mangadex.org` and the covers CDN both answer a browser
+# User-Agent with a bot challenge, and the API only returns
+# Access-Control-Allow-Origin for localhost, so the deployed site never calls
+# them directly. A rewrite cannot help: Netlify forwards the visitor's
+# User-Agent and ignores a `headers` override of it. The edge function makes
+# the upstream request itself with a non-browser User-Agent and streams the
+# reply back, same-origin to the browser. `metro.config.js` and `e2e/serve.ts`
+# mirror it for local runs through the same `src/data/mangadexRoutes.ts` and
+# `scripts/mangadexProxy.ts`.
+[[edge_functions]]
+  path = "/_mdx/*"
+  function = "mangadex"
+
+[[edge_functions]]
+  path = "/_mdx-covers/*"
+  function = "mangadex"
 
 # SPA fallback — Expo Router web output is a single index.html with client routing.
 # Must be last so it doesn't shadow static assets above.
@@ -44,3 +54,8 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Lets the edge function import `@/data/mangadexRoutes` by the same alias
+# `tsconfig.json` gives Bun, Metro and tsc.
+[functions]
+  deno_import_map = "netlify/import_map.json"
